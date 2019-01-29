@@ -2,21 +2,21 @@
 package com.reactlibrary;
 
 import android.app.Activity;
-import android.widget.Toast;
 
+import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.Callback;
 import com.fidel.sdk.Fidel;
 
 public class FidelModule extends ReactContextBaseJavaModule {
 
-  private final ReactApplicationContext reactContext;
+  private final BaseActivityEventListener mActivityEventListener;
 
   public FidelModule(ReactApplicationContext reactContext) {
     super(reactContext);
-    this.reactContext = reactContext;
+    mActivityEventListener = new FidelActivityEventListener();
+    reactContext.addActivityEventListener(mActivityEventListener);
   }
 
   @Override
