@@ -1,6 +1,6 @@
 
 #import "Fidel.h"
-#import <React/RCTLog.h>
+#import <Fidel/Fidel-Swift.h>
 
 @implementation Fidel
 
@@ -10,9 +10,13 @@
 }
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(showMessage:(NSString *)message)
+RCT_EXPORT_METHOD(present)
 {
-  RCTLogInfo(@"Print message: %@", message);
+    [FLFidel setApiKey:@""];
+    [FLFidel setProgramId:@""];
+    UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
+    [FLFidel present:rootViewController onCardLinkedCallback:nil onCardLinkFailedCallback:nil];
+    
 }
 
 @end
