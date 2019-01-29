@@ -1,3 +1,5 @@
 rootProject.name = 'example'
+include ':react-native-fidel'
+project(':react-native-fidel').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fidel/android')
 
 include ':app'

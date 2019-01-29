@@ -1,0 +1,16 @@
+PODS:
+  - Fidel (1.4.3)
+
+DEPENDENCIES:
+  - Fidel
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Fidel
+
+SPEC CHECKSUMS:
+  Fidel: 9d1ddf2bd16e925bec322f28b0155b9c8b6f10c9
+
+PODFILE CHECKSUM: c1aa1d7f4f6c06fa143edbb7a9c9af2092133fe8
+
+COCOAPODS: 1.5.3

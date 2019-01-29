@@ -1,0 +1,11 @@
+framework module Fidel {
+  umbrella header "Fidel.h"
+
+  export *
+  module * { export * }
+}
+
+module Fidel.Swift {
+    header "Fidel-Swift.h"
+    requires objc
+}

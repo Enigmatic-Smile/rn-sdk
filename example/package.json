@@ -4,11 +4,18 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
+    "test": "jest",
+    "rc-start": "npm start -- --reset-cache",
+    "clean": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf /tmp/metro-bundler-cache-* && rm -rf /tmp/haste-map-react-native-packager-*",
+    "clean-w": "rm -rf $TMPDIR/react-* && npm cache clean",
+    "clean-start": "npm run clean && npm run rc-start",
+    "fresh-install": "rm -rf $TMPDIR/react-* && watchman watch-del-all && rm -rf ios/build/ModuleCache/*",
+    "fresh-start" : "npm run fresh-install && npm run rc-start"
   },
   "dependencies": {
     "react": "16.6.3",
-    "react-native": "0.58.1"
+    "react-native": "0.58.1",
+    "react-native-fidel": "file:../src"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
