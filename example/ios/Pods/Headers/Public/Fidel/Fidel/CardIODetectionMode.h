@@ -1,1 +1,0 @@
-../../../../Fidel/Fidel.framework/Headers/CardIODetectionMode.h
