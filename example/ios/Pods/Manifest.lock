@@ -1,5 +1,5 @@
 PODS:
-  - Fidel (1.4.3)
+  - Fidel (1.4.4)
 
 DEPENDENCIES:
   - Fidel
@@ -9,7 +9,7 @@ SPEC REPOS:
     - Fidel
 
 SPEC CHECKSUMS:
-  Fidel: 9d1ddf2bd16e925bec322f28b0155b9c8b6f10c9
+  Fidel: 3a749fd016961ff813cabc15007533f133da4b28
 
 PODFILE CHECKSUM: c1aa1d7f4f6c06fa143edbb7a9c9af2092133fe8
 

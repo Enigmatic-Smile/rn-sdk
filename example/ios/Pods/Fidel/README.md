@@ -22,19 +22,19 @@ pod 'Fidel'
 or if you're using Swift 4.1:
 
 ```ruby
-pod 'Fidel', '~>1.3.6'
+pod 'Fidel', '~>1.3.7'
 ```
 
 or if you're using Swift 4.0.2:
 
 ```ruby
-pod 'Fidel', '~>1.2.7'
+pod 'Fidel', '~>1.2.8'
 ```
 
-or in case you're on **Swift 3.0**, use the `1.1.7` tag instead:
+or in case you're on **Swift 3.0**, use the `1.1.8` tag instead:
 
 ```ruby
-pod 'Fidel', '~>1.1.7'
+pod 'Fidel', '~>1.1.8'
 ```
 
 ##### Step 2
@@ -149,7 +149,7 @@ Set a default country the SDK should use with
 ```swift
 Fidel.country = .unitedKingdom
 ```
-When you set a default country, the card linking screen will not show the country picker UI. The other options, for now, are: `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.noDefault`.
+When you set a default country, the card linking screen will not show the country picker UI. The other options, for now, are: `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.canada`, `.noDefault`.
 
 
 

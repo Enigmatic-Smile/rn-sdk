@@ -87,10 +87,20 @@ platform :ios, '9.1'
 For a physical device you need to search on Google for *Google Play Services*. There will be a link that takes you to the Play Store and from there you will see a button to update it (*do not* search within the Play Store).
 
 ## Usage
+Import Fidel in your RN project:
 ```javascript
 import Fidel from 'react-native-fidel';
-
-// TODO: What to do with the module?
-Fidel;
 ```
-  
+
+Set the API key and your program ID:
+```javascript
+Fidel.setOptions({
+	apiKey:'your api key',
+	programId: 'your program id'
+})
+```
+
+Open the card linking view by calling:
+```javascript
+Fidel.openForm()
+```
