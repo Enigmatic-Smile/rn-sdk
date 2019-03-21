@@ -25,7 +25,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void present() {
+  public void openForm() {
     Fidel.programId = "your program id";
     Fidel.apiKey = "your api key";
     final Activity activity = getCurrentActivity();

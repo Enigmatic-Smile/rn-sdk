@@ -14,16 +14,17 @@
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
-    "react": "16.6.3",
-    "react-native": "0.58.1",
-    "react-native-fidel": "file:../src"
+    "react": "16.8.3",
+    "react-native": "0.59.1",
+    "react-native-fidel": "file:.."
   },
   "devDependencies": {
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "24.0.0",
-    "jest": "24.0.0",
-    "metro-react-native-babel-preset": "0.51.1",
-    "react-test-renderer": "16.6.3"
+    "@babel/core": "^7.4.0",
+    "@babel/runtime": "^7.4.0",
+    "babel-jest": "^24.5.0",
+    "jest": "^24.5.0",
+    "metro-react-native-babel-preset": "^0.53.1",
+    "react-test-renderer": "16.8.3"
   },
   "jest": {
     "preset": "react-native"
