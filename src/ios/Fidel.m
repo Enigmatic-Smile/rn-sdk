@@ -1,6 +1,7 @@
 
 #import "Fidel.h"
 #import <Fidel/Fidel-Swift.h>
+#import <React/RCTConvert.h>
 
 @implementation Fidel
 
@@ -9,6 +10,13 @@
     return dispatch_get_main_queue();
 }
 RCT_EXPORT_MODULE()
+
+RCT_EXPORT_METHOD(setOptions:(NSDictionary *)options)
+{
+    NSObject *bannerImageOption = [options objectForKey:@"bannerImage"];
+    UIImage *bannerImage = [RCTConvert UIImage:bannerImageOption];
+    [FLFidel setBannerImage:bannerImage];
+}
 
 RCT_EXPORT_METHOD(openForm)
 {

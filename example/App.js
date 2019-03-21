@@ -20,6 +20,12 @@ const instructions = Platform.select({
 type Props = {};
 export default class App extends Component<Props> {
   render() {
+    const myImage = require('./src/images/fdl_test_banner.png');
+    const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
+    const resolvedImage = resolveAssetSource(myImage);
+    Fidel.setOptions ({
+      bannerImage: resolvedImage
+    })
     Fidel.openForm();
     return (
       <View style={styles.container}>
