@@ -10,6 +10,7 @@
 #import "Fidel-Swift.h"
 #import "FLRNCountryAdapter.h"
 #import "FLRNImageAdapter.h"
+#import "RCTConvert+Options.h"
 
 @interface FLRNOptionsAdapter()
 
@@ -30,16 +31,21 @@
     return self;
 }
 
+NSString *const kCountryKey = @"Country";
+NSString *const kOptionKey = @"Option";
 -(NSDictionary *)constantsToExport {
-    return @{@"Country": self.countryAdapter.countryConstantsToExport};
+    return @{
+             kCountryKey: self.countryAdapter.countryConstantsToExport,
+             kOptionKey: FLSDKOptionValues
+             };
 }
 
 - (void)setOptions:(NSDictionary *)options {
-    id rawBannerData = options[@"bannerImage"];
+    id rawBannerData = options[kBannerImageOptionKey];
     UIImage *bannerImage = [self.imageAdapter imageFromRawData:rawBannerData];
     [FLFidel setBannerImage:bannerImage];
     
-    id rawCountry = options[@"country"];
+    id rawCountry = options[kCountryOptionKey];
     FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
 }
 

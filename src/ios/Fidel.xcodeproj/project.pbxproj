@@ -10,6 +10,7 @@
 		A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */; };
 		A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */; };
 		A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */; };
+		A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */; };
 		B3E7B58A1CC2AC0600A0062D /* Fidel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Fidel.m */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,9 @@
 		A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNCountryFromJSAdapter.m; sourceTree = "<group>"; };
 		A1DCB8F52247F13700C45711 /* FLRNImageFromRNAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNImageFromRNAdapter.h; sourceTree = "<group>"; };
 		A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNImageFromRNAdapter.m; sourceTree = "<group>"; };
+		A1DCB8F82247F48D00C45711 /* FLRNSDKOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSDKOptions.h; sourceTree = "<group>"; };
+		A1DCB8F92247F4EA00C45711 /* RCTConvert+Options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Options.h"; sourceTree = "<group>"; };
+		A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+Options.m"; sourceTree = "<group>"; };
 		B3E7B5881CC2AC0600A0062D /* Fidel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fidel.h; sourceTree = "<group>"; };
 		B3E7B5891CC2AC0600A0062D /* Fidel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fidel.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,6 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				A1DCB8EE2247EF9200C45711 /* Abstraction */,
+				A1DCB8F82247F48D00C45711 /* FLRNSDKOptions.h */,
+				A1DCB8F92247F4EA00C45711 /* RCTConvert+Options.h */,
+				A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */,
 				A15765722244AB0D00BD29E3 /* RCTConvert+Country.h */,
 				A1DCB8F22247F0F500C45711 /* FLRNCountryFromJSAdapter.h */,
 				A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */,
@@ -157,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */,
 				A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */,
 				A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */,
 				A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */,
