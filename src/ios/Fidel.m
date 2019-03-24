@@ -1,6 +1,6 @@
 
 #import "Fidel.h"
-#import <Fidel/Fidel-Swift.h>
+#import "Fidel-Swift.h"
 #import "RCTConvert+Country.h"
 
 @implementation Fidel

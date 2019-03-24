@@ -7,7 +7,7 @@
 //
 
 #import "RCTConvert.h"
-#import <Fidel/Fidel-Swift.h>
+#import "Fidel-Swift.h"
 
 #define FLCountryValues @{@"unitedKingdom" : @(FLCountryUnitedKingdom), @"ireland" : @(FLCountryIreland), @"unitedStates" : @(FLCountryUnitedStates), @"sweeden" : @(FLCountrySweden), @"japan" : @(FLCountryJapan), @"canada" : @(FLCountryCanada), @"noDefault" : @(FLCountryNoDefault)}
 

@@ -5,5 +5,6 @@ platform :ios, '9.1'
 workspace 'example'
 
 target 'example' do
-  pod 'Fidel'
+    use_frameworks!
+    pod 'Fidel'
 end
