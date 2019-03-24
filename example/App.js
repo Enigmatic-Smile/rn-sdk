@@ -24,7 +24,8 @@ export default class App extends Component<Props> {
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
     Fidel.setOptions ({
-      bannerImage: resolvedImage
+      bannerImage: resolvedImage,
+      country: Fidel.Country.canada
     })
     Fidel.openForm();
     return (
