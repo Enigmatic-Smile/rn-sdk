@@ -2,23 +2,36 @@
 #import "Fidel.h"
 #import "Fidel-Swift.h"
 #import "RCTConvert+Country.h"
+#import "FLRNOptionsAdapter.h"
+#import "FLRNCountryFromJSAdapter.h"
+#import "FLRNImageFromRNAdapter.h"
+
+@interface Fidel()
+
+@property (nonatomic, strong) FLRNOptionsAdapter *adapter;
+
+@end
 
 @implementation Fidel
 
 RCT_EXPORT_MODULE()
 
-RCT_EXPORT_METHOD(setOptions:(NSDictionary *)options)
-{
-    NSObject *bannerImageOption = options[@"bannerImage"];
-    UIImage *bannerImage = [RCTConvert UIImage:bannerImageOption];
-    [FLFidel setBannerImage:bannerImage];
-    
-    FLCountry country = [RCTConvert FLCountry:options[@"country"]];
-    FLFidel.country = country;
+-(instancetype)init {
+    self = [super init];
+    if (self) {
+        id<FLRNCountryAdapter> countryAdapter = [[FLRNCountryFromJSAdapter alloc] init];
+        id<FLRNImageAdapter> imageAdapter = [[FLRNImageFromRNAdapter alloc] init];
+        _adapter = [[FLRNOptionsAdapter alloc] initWithCountryAdapter:countryAdapter
+                                                         imageAdapter:imageAdapter];
+    }
+    return self;
 }
 
-RCT_EXPORT_METHOD(openForm)
-{
+RCT_EXPORT_METHOD(setOptions:(NSDictionary *)options) {
+    [self.adapter setOptions: options];
+}
+
+RCT_EXPORT_METHOD(openForm) {
     [FLFidel setApiKey:@"your API key"];
     [FLFidel setProgramId:@"your program id"];
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
@@ -26,17 +39,15 @@ RCT_EXPORT_METHOD(openForm)
 }
 
 -(NSDictionary *)constantsToExport {
-    return @{@"Country": FLCountryValues};
+    return self.adapter.constantsToExport;
 }
 
-- (BOOL)requiresMainQueueSetup {
+-(BOOL)requiresMainQueueSetup {
     return YES;
 }
 
-- (dispatch_queue_t)methodQueue
-{
+-(dispatch_queue_t)methodQueue {
     return dispatch_get_main_queue();
 }
 
 @end
-  
