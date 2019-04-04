@@ -41,12 +41,17 @@ NSString *const kOptionKey = @"Option";
 }
 
 - (void)setOptions:(NSDictionary *)options {
-    id rawBannerData = options[kBannerImageOptionKey];
-    UIImage *bannerImage = [self.imageAdapter imageFromRawData:rawBannerData];
-    [FLFidel setBannerImage:bannerImage];
+    NSArray *allOptionKeys = options.allKeys;
+    if ([allOptionKeys containsObject:kBannerImageOptionKey]) {
+        id rawBannerData = options[kBannerImageOptionKey];
+        UIImage *bannerImage = [self.imageAdapter imageFromRawData:rawBannerData];
+        [FLFidel setBannerImage:bannerImage];
+    }
     
-    id rawCountry = options[kCountryOptionKey];
-    FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
+    if ([allOptionKeys containsObject:kCountryOptionKey]) {
+        id rawCountry = options[kCountryOptionKey];
+        FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
+    }
 }
 
 @end
