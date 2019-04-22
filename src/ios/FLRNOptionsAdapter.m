@@ -52,6 +52,7 @@ NSString *const kOptionKey = @"Option";
         id rawCountry = options[kCountryOptionKey];
         FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
     }
+    
 }
 
 @end

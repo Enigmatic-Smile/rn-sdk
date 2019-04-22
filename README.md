@@ -113,7 +113,7 @@ import Fidel from 'react-native-fidel';
 Set the API key and your program ID:
 
 ```javascript
-Fidel.init({
+Fidel.setup({
   apiKey:'your api key',
   programId: 'your program id'
 })
