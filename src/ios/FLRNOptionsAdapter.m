@@ -57,6 +57,12 @@ NSString *const kOptionKey = @"Option";
         FLFidel.autoScan = [options[kAutoScanOptionKey] boolValue];
     }
     
+    if ([allOptionKeys containsObject:kMetaDataOptionKey]) {
+        id rawMetaData = options[kMetaDataOptionKey];
+        if ([rawMetaData isKindOfClass:[NSDictionary class]]) {
+            FLFidel.metaData = rawMetaData;
+        }
+    }
 }
 
 @end

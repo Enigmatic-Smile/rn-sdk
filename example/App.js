@@ -30,7 +30,8 @@ export default class App extends Component<Props> {
     Fidel.setOptions ({
       bannerImage: resolvedImage,
       country: Fidel.Country.canada,
-      autoScan: true
+      autoScan: false,
+      metaData: {'meta-data-1': 'value1'}
     })
     Fidel.openForm();
     return (
