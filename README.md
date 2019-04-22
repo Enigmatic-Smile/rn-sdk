@@ -131,5 +131,45 @@ Fidel.setOptions({
 Open the card linking view by calling:
 
 ```javascript
-Fidel.openForm()
+Fidel.openForm((error, result) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.info(result);
+  }
+});
+```
+
+Both `result` and `error` are objects that look like in the following examples:
+
+### Result
+
+```javascript
+{
+  accountId: "the-account-id"
+  countryCode: "GBR" // the country selected by the user, in the Fidel SDK form
+  created: "2019-04-22T05:26:45.611Z"
+  expDate: "2023-12-31T23:59:59.999Z" // the card expiration date
+  expMonth: 12 // for your convenience, this is the card expiration month
+  expYear: 2023 // for your convenience, this is the card expiration year
+  id: "card-id" // the card ID as registered on the Fidel platform
+  lastNumbers: "4001" //last numbers of the card
+  live: false
+  mapped: false
+  metaData: {meta-data-1: "value1"} //the meta data that you specified for the Fidel SDK
+  programId: "your program ID, as specified for the Fidel SDK"
+  scheme: "visa"
+  type: "visa"
+  updated: "2019-04-22T05:26:45.611Z"
+}
+```
+
+### Error
+
+```javascript
+{
+  code: "item-save" // the code of the error
+  date: "2019-04-22T05:34:04.621Z" // the date of the card link request
+  message: "Item already exists" // the message of the error
+}
 ```

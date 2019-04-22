@@ -6,11 +6,13 @@
 #import "FLRNOptionsAdapter.h"
 #import "FLRNCountryFromJSAdapter.h"
 #import "FLRNImageFromRNAdapter.h"
+#import "FLRNRuntimeObjectToDictionaryAdapter.h"
 
 @interface Fidel()
 
 @property (nonatomic, strong) FLRNOptionsAdapter *adapter;
 @property (nonatomic, strong) FLRNSetupAdapter *setupAdapter;
+@property (nonatomic, strong) id<FLRNObjectToDictionaryAdapter> objectAdapter;
 
 @end
 
@@ -27,6 +29,7 @@ RCT_EXPORT_MODULE()
         _adapter = [[FLRNOptionsAdapter alloc] initWithCountryAdapter:countryAdapter
                                                          imageAdapter:imageAdapter];
         _setupAdapter = [[FLRNSetupAdapter alloc] init];
+        _objectAdapter = [[FLRNRuntimeObjectToDictionaryAdapter alloc] init];
     }
     return self;
 }
@@ -39,9 +42,16 @@ RCT_EXPORT_METHOD(setOptions:(NSDictionary *)options) {
     [self.adapter setOptions: options];
 }
 
-RCT_EXPORT_METHOD(openForm) {
+RCT_EXPORT_METHOD(openForm:(RCTResponseSenderBlock)callback) {
     UIViewController *rootViewController = [UIApplication sharedApplication].delegate.window.rootViewController;
-    [FLFidel present:rootViewController onCardLinkedCallback:nil onCardLinkFailedCallback:nil];
+    __weak typeof(self) weakSelf = self;
+    [FLFidel present:rootViewController onCardLinkedCallback:^(FLLinkResult * _Nonnull result) {
+        NSDictionary *adaptedResult = [weakSelf.objectAdapter dictionaryFrom:result];
+        callback(@[[NSNull null], adaptedResult]);
+    } onCardLinkFailedCallback:^(FLLinkError * _Nonnull error) {
+        NSDictionary *adaptedError = [weakSelf.objectAdapter dictionaryFrom:error];
+        callback(@[adaptedError, [NSNull null]]);
+    }];
 }
 
 -(NSDictionary *)constantsToExport {

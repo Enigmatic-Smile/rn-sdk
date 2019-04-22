@@ -24,19 +24,25 @@ export default class App extends Component<Props> {
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
     Fidel.setup ({
-      apiKey: 'Your API key',
-      programId: 'Your Fidel program ID'
+      apiKey: 'pk_test_4bb15564-01da-4f7b-a108-2de19e96e136',
+      programId: 'bd0e2eac-b648-47cd-814f-1e52c08e2b03'
     })
     Fidel.setOptions ({
       bannerImage: resolvedImage,
-      country: Fidel.Country.canada,
+      // country: Fidel.Country.canada,
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
       companyName: 'My RN Company',
       deleteInstructions: 'My custom delete instructions',
       privacyUrl: 'https://fidel.uk',
-    })
-    Fidel.openForm();
+    });
+    Fidel.openForm((error, result) => {
+      if (error) {
+        console.debug(error);
+      } else {
+        console.info(result);
+      }
+    });
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Welcome to React Native!</Text>

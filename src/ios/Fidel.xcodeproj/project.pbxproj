@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A144120722548E2300145293 /* libFidel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134814201AA4EA6300B7C361 /* libFidel.a */; };
 		A1B445B2226D6EDC00F7AAA6 /* FLRNSetupAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */; };
+		A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */; };
 		A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */; };
 		A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */; };
 		A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */; };
@@ -45,6 +46,9 @@
 		A1B445B0226D6EDC00F7AAA6 /* FLRNSetupAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSetupAdapter.h; sourceTree = "<group>"; };
 		A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNSetupAdapter.m; sourceTree = "<group>"; };
 		A1B445B3226D70A600F7AAA6 /* FLRNSDKSetupOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSDKSetupOptions.h; sourceTree = "<group>"; };
+		A1B445B4226D856800F7AAA6 /* FLRNObjectToDictionaryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNObjectToDictionaryAdapter.h; sourceTree = "<group>"; };
+		A1B445B5226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNRuntimeObjectToDictionaryAdapter.h; sourceTree = "<group>"; };
+		A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNRuntimeObjectToDictionaryAdapter.m; sourceTree = "<group>"; };
 		A1DCB8EA2247ED5E00C45711 /* FLRNOptionsAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRNOptionsAdapter.h; sourceTree = "<group>"; };
 		A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRNOptionsAdapter.m; sourceTree = "<group>"; };
 		A1DCB8EF2247EFAA00C45711 /* FLRNCountryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCountryAdapter.h; sourceTree = "<group>"; };
@@ -115,6 +119,7 @@
 			children = (
 				A1DCB8EF2247EFAA00C45711 /* FLRNCountryAdapter.h */,
 				A1DCB8F02247F05A00C45711 /* FLRNImageAdapter.h */,
+				A1B445B4226D856800F7AAA6 /* FLRNObjectToDictionaryAdapter.h */,
 			);
 			name = Abstraction;
 			sourceTree = "<group>";
@@ -132,6 +137,8 @@
 				A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */,
 				A1DCB8F52247F13700C45711 /* FLRNImageFromRNAdapter.h */,
 				A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */,
+				A1B445B5226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.h */,
+				A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -227,6 +234,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */,
 				A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */,
 				A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */,
 				A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */,
