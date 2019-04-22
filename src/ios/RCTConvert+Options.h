@@ -12,11 +12,13 @@
 #define FLSDKOptionValues\
 @{\
     kBannerImageOptionKey: @(FLSDKOptionBannerImage), \
-    kCountryOptionKey: @(FLSDKOptionCountry)\
+    kCountryOptionKey: @(FLSDKOptionCountry), \
+    kAutoScanOptionKey: @(FLSDKOptionAutoScan)\
 }
 
 FOUNDATION_EXPORT NSString *const kBannerImageOptionKey;
 FOUNDATION_EXPORT NSString *const kCountryOptionKey;
+FOUNDATION_EXPORT NSString *const kAutoScanOptionKey;
 
 @implementation RCTConvert (Options)
 

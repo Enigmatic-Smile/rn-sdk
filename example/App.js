@@ -29,7 +29,8 @@ export default class App extends Component<Props> {
     })
     Fidel.setOptions ({
       bannerImage: resolvedImage,
-      country: Fidel.Country.canada
+      country: Fidel.Country.canada,
+      autoScan: true
     })
     Fidel.openForm();
     return (

@@ -53,6 +53,10 @@ NSString *const kOptionKey = @"Option";
         FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
     }
     
+    if ([allOptionKeys containsObject:kAutoScanOptionKey]) {
+        FLFidel.autoScan = [options[kAutoScanOptionKey] boolValue];
+    }
+    
 }
 
 @end

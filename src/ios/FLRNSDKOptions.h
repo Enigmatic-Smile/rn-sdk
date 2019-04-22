@@ -11,5 +11,6 @@
 typedef NS_ENUM(NSUInteger, FLSDKOption) {
     FLSDKOptionBannerImage = 0,
     FLSDKOptionCountry = 1,
+    FLSDKOptionAutoScan = 2,
     FLSDKOptionUnexistent = NSUIntegerMax
 };
