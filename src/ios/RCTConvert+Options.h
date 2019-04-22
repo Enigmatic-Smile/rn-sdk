@@ -14,13 +14,19 @@
     kBannerImageOptionKey: @(FLSDKOptionBannerImage), \
     kCountryOptionKey: @(FLSDKOptionCountry), \
     kAutoScanOptionKey: @(FLSDKOptionAutoScan),\
-    kMetaDataOptionKey: @(FLSDKOptionMetaData) \
+    kMetaDataOptionKey: @(FLSDKOptionMetaData), \
+    kCompanyNameOptionKey: @(FLSDKOptionCompanyName), \
+    kDeleteInstructionsOptionKey: @(FLSDKOptionCompanyName), \
+    kPrivacyURLOptionKey: @(FLSDKOptionCompanyName) \
 }
 
 FOUNDATION_EXPORT NSString *const kBannerImageOptionKey;
 FOUNDATION_EXPORT NSString *const kCountryOptionKey;
 FOUNDATION_EXPORT NSString *const kAutoScanOptionKey;
 FOUNDATION_EXPORT NSString *const kMetaDataOptionKey;
+FOUNDATION_EXPORT NSString *const kCompanyNameOptionKey;
+FOUNDATION_EXPORT NSString *const kDeleteInstructionsOptionKey;
+FOUNDATION_EXPORT NSString *const kPrivacyURLOptionKey;
 
 @implementation RCTConvert (Options)
 

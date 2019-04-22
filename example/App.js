@@ -31,7 +31,10 @@ export default class App extends Component<Props> {
       bannerImage: resolvedImage,
       country: Fidel.Country.canada,
       autoScan: false,
-      metaData: {'meta-data-1': 'value1'}
+      metaData: {'meta-data-1': 'value1'},
+      companyName: 'My RN Company',
+      deleteInstructions: 'My custom delete instructions',
+      privacyUrl: 'https://fidel.uk',
     })
     Fidel.openForm();
     return (

@@ -63,6 +63,24 @@ NSString *const kOptionKey = @"Option";
             FLFidel.metaData = rawMetaData;
         }
     }
+    
+    FLFidel.companyName = [self getStringValueFor:kCompanyNameOptionKey fromDictionary:options];
+    FLFidel.deleteInstructions = [self getStringValueFor:kDeleteInstructionsOptionKey fromDictionary:options];
+    FLFidel.privacyURL = [self getStringValueFor:kPrivacyURLOptionKey fromDictionary:options];
+}
+
+- (NSString * _Nullable)getStringValueFor:(NSString *)key fromDictionary:(NSDictionary *)dict {
+    NSArray *allKeys = dict.allKeys;
+    if ([allKeys containsObject:key]) {
+        id value = dict[key];
+        if ([value isKindOfClass:[NSString class]]) {
+            return value;
+        }
+        else {
+            return [value stringValue];
+        }
+    }
+    return nil;
 }
 
 @end

@@ -13,5 +13,8 @@ typedef NS_ENUM(NSUInteger, FLSDKOption) {
     FLSDKOptionCountry = 1,
     FLSDKOptionAutoScan = 2,
     FLSDKOptionMetaData = 3,
+    FLSDKOptionCompanyName = 4,
+    FLSDKOptionDeleteInstructions = 5,
+    FLSDKOptionPrivacyURL = 6,
     FLSDKOptionUnexistent = NSUIntegerMax
 };
