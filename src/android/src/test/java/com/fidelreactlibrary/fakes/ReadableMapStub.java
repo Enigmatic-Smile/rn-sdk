@@ -6,21 +6,27 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ReadableMapStub implements ReadableMap {
 
-    public String keyNameCheckedFor;
-    public String keyNameVerifiedNullFor;
-    public String keyNameAskedFor;
+    public List<String> keyNamesCheckedFor = new ArrayList();
+    public List<String> keyNamesVerifiedNullFor = new ArrayList();
+    public List<String> keyNamesAskedFor = new ArrayList();
     private ReadableMap mapToReturn;
-    public String hasKeyString;
-    public String isNullString;
+    public boolean boolToReturn;
+    private String hasKeyString = "";
+    private String isNullString = "";
 
     public ReadableMapStub() {}
+    public ReadableMapStub(boolean boolToReturn) {
+        this.boolToReturn = boolToReturn;
+    }
     public ReadableMapStub(ReadableMap mapToReturn) {
         this.mapToReturn = mapToReturn;
     }
@@ -31,19 +37,20 @@ public class ReadableMapStub implements ReadableMap {
 
     @Override
     public boolean hasKey(@Nonnull String name) {
-        keyNameCheckedFor = name;
+        keyNamesCheckedFor.add(name);
         return hasKeyString.equals(name);
     }
 
     @Override
     public boolean isNull(@Nonnull String name) {
-        keyNameVerifiedNullFor = name;
+        keyNamesVerifiedNullFor.add(name);
         return isNullString.equals(name);
     }
 
     @Override
     public boolean getBoolean(@Nonnull String name) {
-        return false;
+        keyNamesAskedFor.add(name);
+        return boolToReturn;
     }
 
     @Override
@@ -71,7 +78,7 @@ public class ReadableMapStub implements ReadableMap {
     @Nullable
     @Override
     public ReadableMap getMap(@Nonnull String name) {
-        keyNameAskedFor = name;
+        keyNamesAskedFor.add(name);
         return mapToReturn;
     }
 

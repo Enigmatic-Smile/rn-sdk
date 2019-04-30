@@ -10,6 +10,7 @@ import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap> {
 
     public static final String BANNER_IMAGE_KEY = "bannerImage";
+    public static final String AUTOSCAN_KEY = "autoScan";
 
     private DataProcessor<ReadableMap> imageAdapter;
     public FidelOptionsAdapter(DataProcessor<ReadableMap> imageAdapter) {
@@ -20,6 +21,9 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public void process(ReadableMap data) {
         if (data.hasKey(BANNER_IMAGE_KEY) && !data.isNull(BANNER_IMAGE_KEY)) {
             imageAdapter.process(data.getMap(BANNER_IMAGE_KEY));
+        }
+        if (data.hasKey(AUTOSCAN_KEY) && !data.isNull(AUTOSCAN_KEY)) {
+            Fidel.autoScan = data.getBoolean(AUTOSCAN_KEY);
         }
     }
 

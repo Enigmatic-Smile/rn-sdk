@@ -25,12 +25,12 @@ export default class App extends Component<Props> {
     const myImage = require('./images/fdl_test_banner.png');
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
-    Fidel.setup ({
-      apiKey: 'Your API Key',
-      programId: 'Your Program ID'
-    })
+    // Fidel.setup ({
+    //   apiKey: 'Your API Key',
+    //   programId: 'Your Program ID'
+    // })
     Fidel.setOptions ({
-      // bannerImage: resolvedImage,
+      bannerImage: resolvedImage,
       // country: Fidel.Country.canada,
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
