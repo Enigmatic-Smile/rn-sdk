@@ -19,7 +19,7 @@ public class ReadableMapStub implements ReadableMap {
     public List<String> keyNamesVerifiedNullFor = new ArrayList<>();
     public List<String> keyNamesAskedFor = new ArrayList<>();
     public ReadableMap mapToReturn;
-    public String stringToReturn;
+    public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
     public boolean boolToReturn;
     private String hasKeyString = "";
     private String isNullString = "";
@@ -62,7 +62,7 @@ public class ReadableMapStub implements ReadableMap {
     @Override
     public String getString(@Nonnull String name) {
         keyNamesAskedFor.add(name);
-        return stringToReturn;
+        return stringForKeyToReturn.get(name);
     }
 
     @Nullable

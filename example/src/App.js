@@ -35,7 +35,7 @@ export default class App extends Component<Props> {
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
       companyName: 'My RN Company',
-      deleteInstructions: 'My custom delete instructions',
+      deleteInstructions: 'My custom delete instructions!',
       privacyUrl: 'https://fidel.uk',
     });
     return (
