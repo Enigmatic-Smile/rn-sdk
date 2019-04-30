@@ -5,4 +5,3 @@
 @interface Fidel: RCTEventEmitter <RCTBridgeModule>
 
 @end
-  

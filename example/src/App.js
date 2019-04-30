@@ -7,20 +7,22 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 import Fidel from 'react-native-fidel';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
 
 type Props = {};
 export default class App extends Component<Props> {
+  onLinkButtonPress() {
+    Fidel.openForm((error, result) => {
+      if (error) {
+        console.debug(error);
+      } else {
+        console.info(result);
+      }
+    });
+  }
   render() {
-    const myImage = require('./src/images/fdl_test_banner.png');
+    const myImage = require('./images/fdl_test_banner.png');
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
     Fidel.setup ({
@@ -29,25 +31,22 @@ export default class App extends Component<Props> {
     })
     Fidel.setOptions ({
       bannerImage: resolvedImage,
-      // country: Fidel.Country.canada,
+      country: Fidel.Country.canada,
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
       companyName: 'My RN Company',
       deleteInstructions: 'My custom delete instructions',
       privacyUrl: 'https://fidel.uk',
     });
-    Fidel.openForm((error, result) => {
-      if (error) {
-        console.debug(error);
-      } else {
-        console.info(result);
-      }
-    });
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.welcome}>Fidel React Native SDK example</Text>
+        <Text style={styles.instructions}>To show started, tap the button below.</Text>
+        <Button
+          onPress={this.onLinkButtonPress}
+          title="Link a card"
+          color="#3846ce"
+        />
       </View>
     );
   }
