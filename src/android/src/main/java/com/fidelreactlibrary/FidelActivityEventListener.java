@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.fidelreactlibrary;
 
 import android.app.Activity;
 import android.content.Intent;

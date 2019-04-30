@@ -1,4 +1,4 @@
-package com.reactlibrary;
+package com.fidelreactlibrary;
 
 import junit.framework.TestCase;
 
