@@ -18,7 +18,7 @@
 
 @implementation Fidel
 
-RCT_EXPORT_MODULE()
+RCT_EXPORT_MODULE(NativeFidelBridge)
 
 -(instancetype)init {
     self = [super init];
@@ -50,8 +50,12 @@ RCT_EXPORT_METHOD(openForm:(RCTResponseSenderBlock)callback) {
         callback(@[[NSNull null], adaptedResult]);
     } onCardLinkFailedCallback:^(FLLinkError * _Nonnull error) {
         NSDictionary *adaptedError = [weakSelf.objectAdapter dictionaryFrom:error];
-        callback(@[adaptedError, [NSNull null]]);
+        [weakSelf sendEventWithName:@"CardLinkFailed" body:adaptedError];
     }];
+}
+
+-(NSArray<NSString *> *)supportedEvents {
+    return @[@"CardLinkFailed"];
 }
 
 -(NSDictionary *)constantsToExport {

@@ -1,6 +1,21 @@
 
-import { NativeModules } from 'react-native';
+import { NativeEventEmitter, NativeModules } from 'react-native';
 
-const { Fidel } = NativeModules;
+const { NativeFidelBridge } = NativeModules;
 
-export default Fidel;
+class Fidel {
+    static setup(params) { NativeFidelBridge.setup(params) }
+    static setOptions(params) { NativeFidelBridge.setOptions(params) }
+    static openForm(callback) {
+        Fidel.emitter.addListener(
+            "CardLinkFailed",
+            error => callback(error, null)
+        );
+        NativeFidelBridge.openForm(callback);
+    }
+}
+
+Fidel.emitter = new NativeEventEmitter(NativeFidelBridge);
+Fidel.Country = NativeFidelBridge.Country
+
+module.exports = Fidel;
