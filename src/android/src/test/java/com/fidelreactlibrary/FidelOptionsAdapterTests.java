@@ -19,6 +19,8 @@ public class FidelOptionsAdapterTests {
     private DataProcessorSpy imageAdapterSpy;
     private FidelOptionsAdapter sut;
 
+    private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
+
     @Before
     public final void setUp() {
         imageAdapterSpy = new DataProcessorSpy();
@@ -31,32 +33,41 @@ public class FidelOptionsAdapterTests {
         sut = null;
         Fidel.bannerImage = null;
         Fidel.autoScan = false;
+        Fidel.companyName = null;
     }
 
     //Verification values tests
     @Test
-    public void test_ChecksForBannerImage() {
-        assertToCheckForKey(FidelOptionsAdapter.BANNER_IMAGE_KEY);
-    }
-
-    @Test
-    public void test_ChecksForAutoScanValue() {
-        assertToCheckForKey(FidelOptionsAdapter.AUTO_SCAN_KEY);
+    public void test_ChecksAllKeys() {
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.BANNER_IMAGE_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.AUTO_SCAN_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COMPANY_NAME_KEY));
+        for (String key: FidelOptionsAdapter.OPTION_KEYS) {
+            assertToCheckForKey(key);
+        }
     }
 
     @Test
     public void test_IfHasBannerImageKeyButNoImage_DontSendDataToImageAdapter() {
-        ReadableMapStub map = new ReadableMapStub(FidelOptionsAdapter.BANNER_IMAGE_KEY, FidelOptionsAdapter.BANNER_IMAGE_KEY);
+        ReadableMapStub map = mapWithExistingKeyButNoValue(FidelOptionsAdapter.BANNER_IMAGE_KEY);
         sut.process(map);
         assertFalse(imageAdapterSpy.hasAskedToProcessData);
     }
 
     @Test
     public void test_IfHasAutoScanKeyButNoValue_DontSetItToTheSDK() {
-        ReadableMapStub map = new ReadableMapStub(FidelOptionsAdapter.AUTO_SCAN_KEY, FidelOptionsAdapter.AUTO_SCAN_KEY);
+        ReadableMapStub map = mapWithExistingKeyButNoValue(FidelOptionsAdapter.AUTO_SCAN_KEY);
         map.boolToReturn = true;
         sut.process(map);
         assertFalse(Fidel.autoScan);
+    }
+
+    @Test
+    public void test_IfHasCompanyNameKeyButNoValue_DontSetItToTheSDK() {
+        ReadableMapStub map = mapWithExistingKeyButNoValue(FidelOptionsAdapter.COMPANY_NAME_KEY);
+        map.stringToReturn = TEST_COMPANY_NAME;
+        sut.process(map);
+        assertNotEquals(Fidel.companyName, map.stringToReturn);
     }
 
     @Test
@@ -74,6 +85,14 @@ public class FidelOptionsAdapterTests {
         assertFalse(Fidel.autoScan);
     }
 
+    @Test
+    public void test_IfDoesntHaveCompanyNameKey_DontSetItToTheSDK() {
+        ReadableMapStub map = new ReadableMapStub("", "");
+        map.stringToReturn = TEST_COMPANY_NAME;
+        sut.process(map);
+        assertNotEquals(Fidel.companyName, map.stringToReturn);
+    }
+
     //Setting correct values tests
     @Test
     public void test_WhenImageProcessorSendsBitmap_SendItToImageProcessor() {
@@ -84,22 +103,30 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
-    public void test_WhenImageProcessorSendsBitmap_SetItForFidelBannerImage() {
+    public void test_WhenImageProcessorSendsBitmap_SetItForSDKBannerImage() {
         Bitmap newBitmap = Bitmap.createBitmap(100, 200, Bitmap.Config.ALPHA_8);
         sut.output(newBitmap);
         assertEquals(Fidel.bannerImage, newBitmap);
     }
 
     @Test
-    public void test_WhenAutoScanValueIsTrue_SetItTrueForFidelSDK() {
+    public void test_WhenAutoScanValueIsTrue_SetItTrueForTheSDK() {
         processWithBoolean(true);
         assertTrue(Fidel.autoScan);
     }
 
     @Test
-    public void test_WhenAutoScanValueIsFalse_SetItFalseForFidelSDK() {
+    public void test_WhenAutoScanValueIsFalse_SetItFalseForTheSDK() {
         processWithBoolean(false);
         assertFalse(Fidel.autoScan);
+    }
+
+    @Test
+    public void test_WhenCompanyNameValueIsSet_SetItForTheSDK() {
+        ReadableMapStub map = mapWithExistingKey(FidelOptionsAdapter.COMPANY_NAME_KEY);
+        map.stringToReturn = TEST_COMPANY_NAME;
+        sut.process(map);
+        assertEquals(Fidel.companyName, map.stringToReturn);
     }
 
     //Helper functions
@@ -111,6 +138,10 @@ public class FidelOptionsAdapterTests {
 
     private ReadableMapStub mapWithExistingKey(String existingKey) {
         return new ReadableMapStub(existingKey, "");
+    }
+
+    private ReadableMapStub mapWithExistingKeyButNoValue(String existingKey) {
+        return new ReadableMapStub(existingKey, existingKey);
     }
 
     private void assertToCheckForKey(String keyToCheckFor) {
