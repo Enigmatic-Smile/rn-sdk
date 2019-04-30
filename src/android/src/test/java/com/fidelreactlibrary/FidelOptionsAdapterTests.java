@@ -41,7 +41,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_ChecksForAutoScanValue() {
-        assertToCheckForKey(FidelOptionsAdapter.AUTOSCAN_KEY);
+        assertToCheckForKey(FidelOptionsAdapter.AUTO_SCAN_KEY);
     }
 
     @Test
@@ -53,7 +53,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_IfHasAutoScanKeyButNoValue_DontSetItToTheSDK() {
-        ReadableMapStub map = new ReadableMapStub(FidelOptionsAdapter.AUTOSCAN_KEY, FidelOptionsAdapter.AUTOSCAN_KEY);
+        ReadableMapStub map = new ReadableMapStub(FidelOptionsAdapter.AUTO_SCAN_KEY, FidelOptionsAdapter.AUTO_SCAN_KEY);
         map.boolToReturn = true;
         sut.process(map);
         assertFalse(Fidel.autoScan);
@@ -73,7 +73,6 @@ public class FidelOptionsAdapterTests {
         sut.process(map);
         assertFalse(Fidel.autoScan);
     }
-
 
     //Setting correct values tests
     @Test
@@ -105,7 +104,7 @@ public class FidelOptionsAdapterTests {
 
     //Helper functions
     private void processWithBoolean(Boolean bool) {
-        ReadableMapStub map = mapWithExistingKey(FidelOptionsAdapter.AUTOSCAN_KEY);
+        ReadableMapStub map = mapWithExistingKey(FidelOptionsAdapter.AUTO_SCAN_KEY);
         map.boolToReturn = bool;
         sut.process(map);
     }
