@@ -64,7 +64,7 @@ RCT_EXPORT_METHOD(openForm:(RCTResponseSenderBlock)callback) {
     return [constants copy];
 }
 
--(BOOL)requiresMainQueueSetup {
++ (BOOL)requiresMainQueueSetup {
     return YES;
 }
 
