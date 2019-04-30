@@ -15,21 +15,15 @@ import javax.annotation.Nullable;
 
 public class ReadableMapStub implements ReadableMap {
 
-    public List<String> keyNamesCheckedFor = new ArrayList();
-    public List<String> keyNamesVerifiedNullFor = new ArrayList();
-    public List<String> keyNamesAskedFor = new ArrayList();
-    private ReadableMap mapToReturn;
+    public List<String> keyNamesCheckedFor = new ArrayList<>();
+    public List<String> keyNamesVerifiedNullFor = new ArrayList<>();
+    public List<String> keyNamesAskedFor = new ArrayList<>();
+    public ReadableMap mapToReturn;
     public boolean boolToReturn;
     private String hasKeyString = "";
     private String isNullString = "";
 
     public ReadableMapStub() {}
-    public ReadableMapStub(boolean boolToReturn) {
-        this.boolToReturn = boolToReturn;
-    }
-    public ReadableMapStub(ReadableMap mapToReturn) {
-        this.mapToReturn = mapToReturn;
-    }
     public ReadableMapStub(String hasKeyString, String isNullString) {
         this.hasKeyString = hasKeyString;
         this.isNullString = isNullString;

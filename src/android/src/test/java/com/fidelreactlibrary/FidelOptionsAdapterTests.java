@@ -77,6 +77,14 @@ public class FidelOptionsAdapterTests {
 
     //Setting correct values tests
     @Test
+    public void test_WhenImageProcessorSendsBitmap_SendItToImageProcessor() {
+        ReadableMapStub map = mapWithExistingKey(FidelOptionsAdapter.BANNER_IMAGE_KEY);
+        map.mapToReturn = new ReadableMapStub();
+        sut.process(map);
+        assertEquals(map.mapToReturn, imageAdapterSpy.dataToProcess);
+    }
+
+    @Test
     public void test_WhenImageProcessorSendsBitmap_SetItForFidelBannerImage() {
         Bitmap newBitmap = Bitmap.createBitmap(100, 200, Bitmap.Config.ALPHA_8);
         sut.output(newBitmap);
