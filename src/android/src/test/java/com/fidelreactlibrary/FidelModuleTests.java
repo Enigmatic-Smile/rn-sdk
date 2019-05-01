@@ -16,13 +16,10 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import androidx.test.core.app.ApplicationProvider;
 
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
-import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
 
 @RunWith(RobolectricTestRunner.class)
@@ -30,6 +27,7 @@ public class FidelModuleTests {
     
     private FidelModule sut;
     private DataProcessorSpy optionsAdapterSpy;
+    private DataProcessorSpy setupAdapterSpy;
     private List<ConstantsProvider> constantsProviderListStub;
     
     @Before
@@ -37,10 +35,11 @@ public class FidelModuleTests {
         Context context = ApplicationProvider.getApplicationContext();
         ReactContextMock reactContext = new ReactContextMock(context);
         optionsAdapterSpy = new DataProcessorSpy();
+        setupAdapterSpy = new DataProcessorSpy();
         constantsProviderListStub = new ArrayList<>();
         ConstantsProvider constantsProvider = new ConstantsProviderStub();
         constantsProviderListStub.add(constantsProvider);
-        sut = new FidelModule(reactContext, optionsAdapterSpy, constantsProviderListStub);
+        sut = new FidelModule(reactContext, setupAdapterSpy, optionsAdapterSpy, constantsProviderListStub);
     }
     
     @After
@@ -60,5 +59,12 @@ public class FidelModuleTests {
     @Test
     public void test_WhenGettingConstants_ReturnConstantsFromFirstConstantsProvider() {
         assertMapContainsMap(sut.getConstants(), constantsProviderListStub.get(0).getConstants());
+    }
+
+    @Test
+    public void test_WhenAskedToSetup_ForwardSetupDataToSetupAdapter() {
+        ReadableMapStub fakeMap = new ReadableMapStub();
+        sut.setup(fakeMap);
+        assertEquals(setupAdapterSpy.dataToProcess, fakeMap);
     }
 }

@@ -20,13 +20,16 @@ import javax.annotation.Nullable;
 public class FidelModule extends ReactContextBaseJavaModule {
 
   private final BaseActivityEventListener mActivityEventListener;
+  private final DataProcessor<ReadableMap> setupProcessor;
   private final DataProcessor<ReadableMap> optionsProcessor;
   private final List<ConstantsProvider> constantsProviderList;
 
   public FidelModule(ReactApplicationContext reactContext,
+                     DataProcessor<ReadableMap> setupProcessor,
                      DataProcessor<ReadableMap> optionsProcessor,
                      List<ConstantsProvider> constantsProviderList) {
     super(reactContext);
+    this.setupProcessor = setupProcessor;
     this.optionsProcessor = optionsProcessor;
     mActivityEventListener = new FidelActivityEventListener();
     reactContext.addActivityEventListener(mActivityEventListener);
@@ -44,6 +47,11 @@ public class FidelModule extends ReactContextBaseJavaModule {
     Fidel.apiKey = "your api key";
     final Activity activity = getCurrentActivity();
     Fidel.present(activity);
+  }
+
+  @ReactMethod
+  public void setup(ReadableMap map) {
+    setupProcessor.process(map);
   }
 
   @ReactMethod

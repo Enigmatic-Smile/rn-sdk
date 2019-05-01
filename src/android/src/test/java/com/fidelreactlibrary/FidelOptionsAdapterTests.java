@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
-import com.fidelreactlibrary.adapters.CountryAdapter;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;

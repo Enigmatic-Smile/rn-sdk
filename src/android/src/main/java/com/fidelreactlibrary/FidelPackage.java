@@ -14,6 +14,7 @@ import com.facebook.react.bridge.JavaScriptModule;
 import com.fidelreactlibrary.adapters.CountryAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
+import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 
@@ -22,12 +23,14 @@ public class FidelPackage implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         ImageFromReadableMapAdapter imageAdapter = new ImageFromReadableMapAdapter(reactContext);
         CountryAdapter countryAdapter = new FidelCountryAdapter();
+        FidelSetupAdapter setupAdapter = new FidelSetupAdapter();
         FidelOptionsAdapter optionsAdapter = new FidelOptionsAdapter(imageAdapter, countryAdapter);
         imageAdapter.bitmapOutput = optionsAdapter;
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
         constantsProviderList.add(optionsAdapter);
       return Arrays.<NativeModule>asList(
               new FidelModule(reactContext,
+                      setupAdapter,
                       optionsAdapter,
                       constantsProviderList));
     }
