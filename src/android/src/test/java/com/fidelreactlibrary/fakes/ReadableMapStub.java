@@ -22,6 +22,7 @@ public class ReadableMapStub implements ReadableMap {
     public HashMap<String, Object> hashMapToReturn;
     public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
     public boolean boolToReturn;
+    public int intToReturn;
     private String hasKeyString = "";
     private String isNullString = "";
 
@@ -56,7 +57,8 @@ public class ReadableMapStub implements ReadableMap {
 
     @Override
     public int getInt(@Nonnull String name) {
-        return 0;
+        keyNamesAskedFor.add(name);
+        return intToReturn;
     }
 
     @Nullable

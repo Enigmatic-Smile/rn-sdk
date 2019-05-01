@@ -34,11 +34,13 @@ public class FidelOptionsAdapterTests {
     private DataProcessorSpy imageAdapterSpy;
     private FidelOptionsAdapter sut;
     private ReadableMapStub map;
-    private CountryAdapter countryAdapterStub;
+    private CountryAdapterStub countryAdapterStub;
 
     private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
     private static final String TEST_PRIVACY_URL = "testprivacy.url";
+    private static final Fidel.Country TEST_COUNTRY = Fidel.Country.SWEDEN;
+    private static final Integer TEST_COUNTRY_NUMBER = 12;
 
     @Before
     public final void setUp() {
@@ -58,6 +60,7 @@ public class FidelOptionsAdapterTests {
         Fidel.deleteInstructions = null;
         Fidel.privacyURL = null;
         Fidel.metaData = null;
+        Fidel.country = null;
     }
 
     //Verification values tests
@@ -69,6 +72,7 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(CountryAdapter.COUNTRY_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
             assertToCheckForKey(key);
         }
@@ -122,6 +126,14 @@ public class FidelOptionsAdapterTests {
         assertNull(Fidel.metaData);
     }
 
+    @Test
+    public void test_IfHasCountryKeyButNoValue_DontSetItToTheSDK() {
+        String keyToTestFor = CountryAdapter.COUNTRY_KEY;
+        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        processWithCountryInt();
+        assertNull(Fidel.country);
+    }
+
     //Tests when keys are missing
     @Test
     public void test_IfDoesntHaveBannerImageKey_DontSendDataToImageAdapter() {
@@ -168,6 +180,13 @@ public class FidelOptionsAdapterTests {
         map = mapWithNoKey();
         processWithMap(key, TEST_META_DATA());
         assertNull(Fidel.metaData);
+    }
+
+    @Test
+    public void test_IfDoesntHaveCountryKey_DontSetItToTheSDK() {
+        map = mapWithNoKey();
+        processWithCountryInt();
+        assertNull(Fidel.country);
     }
 
     //Setting correct values tests
@@ -231,6 +250,15 @@ public class FidelOptionsAdapterTests {
         assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
     }
 
+    @Test
+    public void test_WhenCountryIsSet_ConvertItWithCountryAdapterForTheSDK() {
+        String keyToTestFor = CountryAdapter.COUNTRY_KEY;
+        map = mapWithExistingKey(keyToTestFor);
+        processWithCountryInt();
+        assertEquals(map.intToReturn, countryAdapterStub.countryIntegerReceived);
+        assertEquals(countryAdapterStub.countryToReturn, Fidel.country);
+    }
+
     //Exposed constants tests
     @Test
     public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
@@ -265,6 +293,11 @@ public class FidelOptionsAdapterTests {
     }
     private void processWithMap(String key, ReadableMap mapToReturn) {
         map.mapsForKeysToReturn.put(key, mapToReturn);
+        sut.process(map);
+    }
+    private void processWithCountryInt() {
+        countryAdapterStub.countryToReturn = TEST_COUNTRY;
+        map.intToReturn = TEST_COUNTRY_NUMBER;
         sut.process(map);
     }
 

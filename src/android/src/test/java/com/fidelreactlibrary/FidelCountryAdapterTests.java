@@ -1,6 +1,5 @@
 package com.fidelreactlibrary;
 
-import com.fidel.sdk.Fidel;
 import com.fidel.sdk.Fidel.Country;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 
@@ -17,7 +16,7 @@ import static org.junit.Assert.assertThat;
 
 public class FidelCountryAdapterTests {
 
-    private static final String COUNTRIES_KEY = FidelCountryAdapter.COUNTRIES_KEY;
+    private static final String COUNTRIES_KEY = FidelCountryAdapter.COUNTRY_KEY;
     
     private FidelCountryAdapter sut;
     

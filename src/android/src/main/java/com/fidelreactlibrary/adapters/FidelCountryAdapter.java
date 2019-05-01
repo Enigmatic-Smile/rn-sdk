@@ -9,8 +9,6 @@ import java.util.Map;
 
 public final class FidelCountryAdapter implements CountryAdapter {
 
-    public static final String COUNTRIES_KEY = "Country";
-
     private static final String UNITED_KINGDOM_COUNTRY_KEY = "unitedKingdom";
     private static final String UNITED_STATES_COUNTRY_KEY = "unitedStates";
     private static final String JAPAN_COUNTRY_KEY = "japan";
@@ -39,7 +37,12 @@ public final class FidelCountryAdapter implements CountryAdapter {
             String countryKey = keyFor(country);
             countriesMap.put(countryKey, country.ordinal());
         }
-        constants.put(COUNTRIES_KEY, countriesMap);
+        constants.put(COUNTRY_KEY, countriesMap);
         return constants;
+    }
+
+    @Override
+    public Fidel.Country countryWithInteger(int integer) {
+        return null;
     }
 }

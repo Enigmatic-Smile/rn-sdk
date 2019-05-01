@@ -12,7 +12,6 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +30,8 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                     COMPANY_NAME_KEY,
                     DELETE_INSTRUCTIONS_KEY,
                     PRIVACY_URL_KEY,
-                    META_DATA_KEY
+                    META_DATA_KEY,
+                    CountryAdapter.COUNTRY_KEY
             ));
 
     private final DataProcessor<ReadableMap> imageAdapter;
@@ -66,6 +66,10 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                 JSONObject metaDataJSON = new JSONObject(metaDataMap.toHashMap());
                 Fidel.metaData = metaDataJSON;
             }
+        }
+        if (valueIsValidFor(data, CountryAdapter.COUNTRY_KEY)) {
+            int countryInt = data.getInt(CountryAdapter.COUNTRY_KEY);
+            Fidel.country = countryAdapter.countryWithInteger(countryInt);
         }
     }
 
