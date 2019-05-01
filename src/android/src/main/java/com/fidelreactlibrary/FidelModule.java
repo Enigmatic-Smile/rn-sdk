@@ -2,7 +2,6 @@
 package com.fidelreactlibrary;
 
 import android.app.Activity;
-import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -11,6 +10,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.events.CallbackInput;
 
 import java.util.List;
 import java.util.Map;
@@ -19,7 +19,7 @@ import javax.annotation.Nullable;
 
 public class FidelModule extends ReactContextBaseJavaModule {
 
-  private final BaseActivityEventListener mActivityEventListener;
+  private final CallbackInput callbackInput;
   private final DataProcessor<ReadableMap> setupProcessor;
   private final DataProcessor<ReadableMap> optionsProcessor;
   private final List<ConstantsProvider> constantsProviderList;
@@ -27,12 +27,12 @@ public class FidelModule extends ReactContextBaseJavaModule {
   public FidelModule(ReactApplicationContext reactContext,
                      DataProcessor<ReadableMap> setupProcessor,
                      DataProcessor<ReadableMap> optionsProcessor,
-                     List<ConstantsProvider> constantsProviderList) {
+                     List<ConstantsProvider> constantsProviderList,
+                     CallbackInput callbackInput) {
     super(reactContext);
     this.setupProcessor = setupProcessor;
     this.optionsProcessor = optionsProcessor;
-    mActivityEventListener = new FidelActivityEventListener();
-    reactContext.addActivityEventListener(mActivityEventListener);
+    this.callbackInput = callbackInput;
     this.constantsProviderList = constantsProviderList;
   }
 
@@ -42,11 +42,12 @@ public class FidelModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void openForm(Callback errorCallback) {
-    Fidel.programId = "your program id";
-    Fidel.apiKey = "your api key";
+  public void openForm(Callback callback) {
     final Activity activity = getCurrentActivity();
-    Fidel.present(activity);
+    if (activity != null) {
+        Fidel.present(activity);
+    }
+    callbackInput.callbackIsReady(callback);
   }
 
   @ReactMethod

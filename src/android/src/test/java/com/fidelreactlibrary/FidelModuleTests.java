@@ -3,6 +3,8 @@ package com.fidelreactlibrary;
 import android.content.Context;
 
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
+import com.fidelreactlibrary.fakes.CallbackInputSpy;
+import com.fidelreactlibrary.fakes.CallbackSpy;
 import com.fidelreactlibrary.fakes.ConstantsProviderStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReactContextMock;
@@ -29,6 +31,7 @@ public class FidelModuleTests {
     private DataProcessorSpy optionsAdapterSpy;
     private DataProcessorSpy setupAdapterSpy;
     private List<ConstantsProvider> constantsProviderListStub;
+    private CallbackInputSpy callbackInputSpy;
     
     @Before
     public final void setUp() {
@@ -39,7 +42,12 @@ public class FidelModuleTests {
         constantsProviderListStub = new ArrayList<>();
         ConstantsProvider constantsProvider = new ConstantsProviderStub();
         constantsProviderListStub.add(constantsProvider);
-        sut = new FidelModule(reactContext, setupAdapterSpy, optionsAdapterSpy, constantsProviderListStub);
+        callbackInputSpy = new CallbackInputSpy();
+        sut = new FidelModule(reactContext,
+                setupAdapterSpy,
+                optionsAdapterSpy,
+                constantsProviderListStub,
+                callbackInputSpy);
     }
     
     @After
@@ -66,5 +74,12 @@ public class FidelModuleTests {
         ReadableMapStub fakeMap = new ReadableMapStub();
         sut.setup(fakeMap);
         assertEquals(setupAdapterSpy.dataToProcess, fakeMap);
+    }
+
+    @Test
+    public void test_WhenAskedToOpenForm_SendCallbackToInput() {
+        CallbackSpy callback = new CallbackSpy();
+        sut.openForm(callback);
+        assertEquals(callbackInputSpy.receivedCallback, callback);
     }
 }

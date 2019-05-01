@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.facebook.react.ReactPackage;
+import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
@@ -17,6 +18,7 @@ import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
+import com.fidelreactlibrary.events.CallbackActivityEventListener;
 
 public class FidelPackage implements ReactPackage {
     @Override
@@ -28,11 +30,14 @@ public class FidelPackage implements ReactPackage {
         imageAdapter.bitmapOutput = optionsAdapter;
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
         constantsProviderList.add(optionsAdapter);
+        CallbackActivityEventListener activityEventListener = new CallbackActivityEventListener();
+        reactContext.addActivityEventListener(activityEventListener);
       return Arrays.<NativeModule>asList(
               new FidelModule(reactContext,
                       setupAdapter,
                       optionsAdapter,
-                      constantsProviderList));
+                      constantsProviderList,
+                      activityEventListener));
     }
 
     // Deprecated from RN 0.47
