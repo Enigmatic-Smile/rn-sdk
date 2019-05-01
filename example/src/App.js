@@ -31,7 +31,7 @@ export default class App extends Component<Props> {
     // })
     Fidel.setOptions ({
       bannerImage: resolvedImage,
-      // country: Fidel.Country.canada,
+      country: Fidel.Country.sweden,
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
       companyName: 'My RN Company',

@@ -23,6 +23,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
     public static final String PRIVACY_URL_KEY = "privacyUrl";
     public static final String META_DATA_KEY = "metaData";
+    public static final String COUNTRY_KEY = "country";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
                     BANNER_IMAGE_KEY,
@@ -31,7 +32,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                     DELETE_INSTRUCTIONS_KEY,
                     PRIVACY_URL_KEY,
                     META_DATA_KEY,
-                    CountryAdapter.COUNTRY_KEY
+                    COUNTRY_KEY
             ));
 
     private final DataProcessor<ReadableMap> imageAdapter;
@@ -67,9 +68,10 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                 Fidel.metaData = metaDataJSON;
             }
         }
-        if (valueIsValidFor(data, CountryAdapter.COUNTRY_KEY)) {
-            int countryInt = data.getInt(CountryAdapter.COUNTRY_KEY);
-            Fidel.country = countryAdapter.countryWithInteger(countryInt);
+        if (valueIsValidFor(data, COUNTRY_KEY)) {
+            int countryInt = data.getInt(COUNTRY_KEY);
+            Fidel.Country adaptedCountry = countryAdapter.countryWithInteger(countryInt);
+            Fidel.country = adaptedCountry;
         }
     }
 

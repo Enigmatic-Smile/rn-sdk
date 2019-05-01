@@ -12,11 +12,12 @@ import java.util.Map;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class FidelCountryAdapterTests {
 
-    private static final String COUNTRIES_KEY = FidelCountryAdapter.COUNTRY_KEY;
+    private static final String COUNTRIES_KEY = FidelCountryAdapter.EXPORTED_COUNTRY_KEY;
     
     private FidelCountryAdapter sut;
     
@@ -46,6 +47,19 @@ public class FidelCountryAdapterTests {
     public void test_WhenAskedForKeyForCountry_ItProvidesIt() {
         for (Country country : Country.values()) {
             assertNotNull(sut.keyFor(country));
+        }
+    }
+
+    @Test
+    public void test_WhenCountryOrdinalNumberIsTooHigh_ReturnNullCountry() {
+        assertNull(sut.countryWithInteger(1239));
+    }
+
+    @Test
+    public void test_WhenCountryOrdinalNumberIsValid_ReturnCountryFromThatOrdinalNumber() {
+        Country[] countries = Country.values();
+        for (int countryIndex = 0; countryIndex < countries.length; countryIndex++) {
+            assertEquals(sut.countryWithInteger(countryIndex), countries[countryIndex]);
         }
     }
 

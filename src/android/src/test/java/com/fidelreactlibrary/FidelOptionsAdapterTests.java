@@ -72,7 +72,7 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(CountryAdapter.COUNTRY_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COUNTRY_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
             assertToCheckForKey(key);
         }
@@ -128,7 +128,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_IfHasCountryKeyButNoValue_DontSetItToTheSDK() {
-        String keyToTestFor = CountryAdapter.COUNTRY_KEY;
+        String keyToTestFor = FidelOptionsAdapter.COUNTRY_KEY;
         map = mapWithExistingKeyButNoValue(keyToTestFor);
         processWithCountryInt();
         assertNull(Fidel.country);
@@ -252,7 +252,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_WhenCountryIsSet_ConvertItWithCountryAdapterForTheSDK() {
-        String keyToTestFor = CountryAdapter.COUNTRY_KEY;
+        String keyToTestFor = FidelOptionsAdapter.COUNTRY_KEY;
         map = mapWithExistingKey(keyToTestFor);
         processWithCountryInt();
         assertEquals(map.intToReturn, countryAdapterStub.countryIntegerReceived);
