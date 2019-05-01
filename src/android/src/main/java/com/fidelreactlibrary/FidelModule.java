@@ -9,19 +9,28 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
+import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nullable;
 
 public class FidelModule extends ReactContextBaseJavaModule {
 
   private final BaseActivityEventListener mActivityEventListener;
   private final DataProcessor<ReadableMap> optionsProcessor;
+  private final List<ConstantsProvider> constantsProviderList;
 
   public FidelModule(ReactApplicationContext reactContext,
-                     DataProcessor<ReadableMap> optionsProcessor) {
+                     DataProcessor<ReadableMap> optionsProcessor,
+                     List<ConstantsProvider> constantsProviderList) {
     super(reactContext);
     this.optionsProcessor = optionsProcessor;
     mActivityEventListener = new FidelActivityEventListener();
     reactContext.addActivityEventListener(mActivityEventListener);
+    this.constantsProviderList = constantsProviderList;
   }
 
   @Override
@@ -40,5 +49,11 @@ public class FidelModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void setOptions(ReadableMap map) {
     optionsProcessor.process(map);
+  }
+
+  @Nullable
+  @Override
+  public Map<String, Object> getConstants() {
+    return constantsProviderList.get(0).getConstants();
   }
 }

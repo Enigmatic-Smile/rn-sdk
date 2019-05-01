@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
+import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
@@ -11,9 +12,11 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap> {
+public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
 
     public static final String BANNER_IMAGE_KEY = "bannerImage";
     public static final String AUTO_SCAN_KEY = "autoScan";
@@ -31,9 +34,13 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                     META_DATA_KEY
             ));
 
-    private DataProcessor<ReadableMap> imageAdapter;
-    public FidelOptionsAdapter(DataProcessor<ReadableMap> imageAdapter) {
+    private final DataProcessor<ReadableMap> imageAdapter;
+    private final CountryAdapter countryAdapter;
+
+    public FidelOptionsAdapter(DataProcessor<ReadableMap> imageAdapter,
+                               CountryAdapter countryAdapter) {
         this.imageAdapter = imageAdapter;
+        this.countryAdapter = countryAdapter;
     }
 
     @Override
@@ -69,5 +76,10 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     @Override
     public void output(Bitmap data) {
         Fidel.bannerImage = data;
+    }
+
+    @Override
+    public Map<String, Object> getConstants() {
+        return countryAdapter.getConstants();
     }
 }

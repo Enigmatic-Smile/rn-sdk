@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
+import com.fidelreactlibrary.adapters.CountryAdapter;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
+import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
@@ -18,7 +20,9 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
+import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
 
@@ -30,6 +34,7 @@ public class FidelOptionsAdapterTests {
     private DataProcessorSpy imageAdapterSpy;
     private FidelOptionsAdapter sut;
     private ReadableMapStub map;
+    private CountryAdapter countryAdapterStub;
 
     private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
@@ -38,7 +43,8 @@ public class FidelOptionsAdapterTests {
     @Before
     public final void setUp() {
         imageAdapterSpy = new DataProcessorSpy();
-        sut = new FidelOptionsAdapter(imageAdapterSpy);
+        countryAdapterStub = new CountryAdapterStub();
+        sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub);
     }
 
     @After
@@ -223,6 +229,14 @@ public class FidelOptionsAdapterTests {
         map = mapWithExistingKey(keyToTestFor);
         processWithMap(keyToTestFor, TEST_META_DATA());
         assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
+    }
+
+    //Exposed constants tests
+    @Test
+    public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
+        Map<String, Object> actualConstants = sut.getConstants();
+        Map<String, Object> expectedConstants = countryAdapterStub.getConstants();
+        assertMapContainsMap(actualConstants, expectedConstants);
     }
 
     //Helper functions
