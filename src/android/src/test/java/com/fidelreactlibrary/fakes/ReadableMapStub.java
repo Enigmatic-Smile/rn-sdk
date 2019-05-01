@@ -18,7 +18,8 @@ public class ReadableMapStub implements ReadableMap {
     public List<String> keyNamesCheckedFor = new ArrayList<>();
     public List<String> keyNamesVerifiedNullFor = new ArrayList<>();
     public List<String> keyNamesAskedFor = new ArrayList<>();
-    public ReadableMap mapToReturn;
+    public HashMap<String, ReadableMap> mapsForKeysToReturn = new HashMap<>();
+    public HashMap<String, Object> hashMapToReturn;
     public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
     public boolean boolToReturn;
     private String hasKeyString = "";
@@ -75,7 +76,7 @@ public class ReadableMapStub implements ReadableMap {
     @Override
     public ReadableMap getMap(@Nonnull String name) {
         keyNamesAskedFor.add(name);
-        return mapToReturn;
+        return mapsForKeysToReturn.get(name);
     }
 
     @Nonnull
@@ -99,6 +100,6 @@ public class ReadableMapStub implements ReadableMap {
     @Nonnull
     @Override
     public HashMap<String, Object> toHashMap() {
-        return null;
+        return hashMapToReturn;
     }
 }

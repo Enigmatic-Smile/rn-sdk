@@ -7,6 +7,8 @@ import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -18,13 +20,15 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String COMPANY_NAME_KEY = "companyName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
     public static final String PRIVACY_URL_KEY = "privacyUrl";
+    public static final String META_DATA_KEY = "metaData";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
                     BANNER_IMAGE_KEY,
                     AUTO_SCAN_KEY,
                     COMPANY_NAME_KEY,
                     DELETE_INSTRUCTIONS_KEY,
-                    PRIVACY_URL_KEY
+                    PRIVACY_URL_KEY,
+                    META_DATA_KEY
             ));
 
     private DataProcessor<ReadableMap> imageAdapter;
@@ -48,6 +52,13 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         }
         if (valueIsValidFor(data, PRIVACY_URL_KEY)) {
             Fidel.privacyURL = data.getString(PRIVACY_URL_KEY);
+        }
+        if (valueIsValidFor(data, META_DATA_KEY)) {
+            ReadableMap metaDataMap = data.getMap(META_DATA_KEY);
+            if (metaDataMap != null) {
+                JSONObject metaDataJSON = new JSONObject(metaDataMap.toHashMap());
+                Fidel.metaData = metaDataJSON;
+            }
         }
     }
 

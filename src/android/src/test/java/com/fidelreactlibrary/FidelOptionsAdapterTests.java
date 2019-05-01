@@ -2,18 +2,29 @@ package com.fidelreactlibrary;
 
 import android.graphics.Bitmap;
 
+import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+
+import java.util.HashMap;
+import java.util.Iterator;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
 
+
+//Custom test runner is necessary for being able to use JSONObject
+@RunWith(RobolectricTestRunner.class)
 public class FidelOptionsAdapterTests {
 
     private DataProcessorSpy imageAdapterSpy;
@@ -40,6 +51,7 @@ public class FidelOptionsAdapterTests {
         Fidel.companyName = null;
         Fidel.deleteInstructions = null;
         Fidel.privacyURL = null;
+        Fidel.metaData = null;
     }
 
     //Verification values tests
@@ -50,11 +62,13 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COMPANY_NAME_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_URL_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
             assertToCheckForKey(key);
         }
     }
 
+    //Tests when keys are present, but no data is found for that key
     @Test
     public void test_IfHasBannerImageKeyButNoImage_DontSendDataToImageAdapter() {
         map = mapWithExistingKeyButNoValue(FidelOptionsAdapter.BANNER_IMAGE_KEY);
@@ -95,6 +109,15 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
+    public void test_IfHasMetaDataKeyButNoValue_DontSetItToTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.META_DATA_KEY;
+        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        processWithMap(keyToTestFor, TEST_META_DATA());
+        assertNull(Fidel.metaData);
+    }
+
+    //Tests when keys are missing
+    @Test
     public void test_IfDoesntHaveBannerImageKey_DontSendDataToImageAdapter() {
         map = mapWithNoKey();
         sut.process(map);
@@ -133,13 +156,22 @@ public class FidelOptionsAdapterTests {
         assertNotEqualsString(key, Fidel.privacyURL);
     }
 
+    @Test
+    public void test_IfDoesntHaveMetaDataKey_DontSetItToTheSDK() {
+        String key = FidelOptionsAdapter.META_DATA_KEY;
+        map = mapWithNoKey();
+        processWithMap(key, TEST_META_DATA());
+        assertNull(Fidel.metaData);
+    }
+
     //Setting correct values tests
     @Test
     public void test_WhenImageProcessorSendsBitmap_SendItToImageProcessor() {
-        ReadableMapStub map = mapWithExistingKey(FidelOptionsAdapter.BANNER_IMAGE_KEY);
-        map.mapToReturn = new ReadableMapStub();
-        sut.process(map);
-        assertEquals(map.mapToReturn, imageAdapterSpy.dataToProcess);
+        String keyToTestFor = FidelOptionsAdapter.BANNER_IMAGE_KEY;
+        map = mapWithExistingKey(keyToTestFor);
+        processWithMap(keyToTestFor, new ReadableMapStub());
+        assertEquals(map.mapsForKeysToReturn.get(keyToTestFor),
+                imageAdapterSpy.dataToProcess);
     }
 
     @Test
@@ -185,7 +217,29 @@ public class FidelOptionsAdapterTests {
         assertEqualsString(keyToTestFor, Fidel.privacyURL);
     }
 
+    @Test
+    public void test_WhenMetaDataValueIsSet_ConvertItToJSONForTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.META_DATA_KEY;
+        map = mapWithExistingKey(keyToTestFor);
+        processWithMap(keyToTestFor, TEST_META_DATA());
+        assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
+    }
+
     //Helper functions
+    private static HashMap<String, Object> TEST_HASH_MAP() {
+        HashMap<String, Object> hashmapToReturn = new HashMap<>();
+        hashmapToReturn.put("stringKey", "StringVal");
+        hashmapToReturn.put("intKey", 3);
+        hashmapToReturn.put("doubleKey", 4.5);
+        return hashmapToReturn;
+    }
+
+    private static ReadableMapStub TEST_META_DATA() {
+        ReadableMapStub map = new ReadableMapStub();
+        map.hashMapToReturn = TEST_HASH_MAP();
+        return map;
+    }
+
     private void processWithBoolean(Boolean bool) {
         map = mapWithExistingKey(FidelOptionsAdapter.AUTO_SCAN_KEY);
         map.boolToReturn = bool;
@@ -193,6 +247,10 @@ public class FidelOptionsAdapterTests {
     }
     private void processWithString(String string, String key) {
         map.stringForKeyToReturn.put(key, string);
+        sut.process(map);
+    }
+    private void processWithMap(String key, ReadableMap mapToReturn) {
+        map.mapsForKeysToReturn.put(key, mapToReturn);
         sut.process(map);
     }
 
@@ -224,5 +282,22 @@ public class FidelOptionsAdapterTests {
         assertThat(map.keyNamesCheckedFor, hasItem(keyToCheckFor));
         assertThat(map.keyNamesVerifiedNullFor, hasItem(keyToCheckFor));
         assertThat(map.keyNamesAskedFor, hasItem(keyToCheckFor));
+    }
+
+    private void assertMapEqualsWithJSONObject(HashMap<String, Object> map, JSONObject json) {
+        assertEquals(map.keySet().size(), json.length());
+        if (json.length() > 0) {
+            Iterator<String> jsonKeyIterator = json.keys();
+            while (jsonKeyIterator.hasNext()) {
+                String key = jsonKeyIterator.next();
+                assertThat(map.keySet(), hasItem(key));
+                try {
+                    assertEquals(map.get(key), json.get(key));
+                }
+                catch (JSONException e) {
+                    fail(e.toString());
+                }
+            }
+        }
     }
 }
