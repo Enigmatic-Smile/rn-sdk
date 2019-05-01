@@ -32,6 +32,18 @@ public class ReadableMapStub implements ReadableMap {
         this.isNullString = isNullString;
     }
 
+    public static ReadableMapStub mapWithNoKey() {
+        return new ReadableMapStub("", "");
+    }
+
+    public static ReadableMapStub mapWithExistingKey(String existingKey) {
+        return new ReadableMapStub(existingKey, "");
+    }
+
+    public static ReadableMapStub mapWithExistingKeyButNoValue(String existingKey) {
+        return new ReadableMapStub(existingKey, existingKey);
+    }
+
     @Override
     public boolean hasKey(@Nonnull String name) {
         keyNamesCheckedFor.add(name);

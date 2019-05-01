@@ -80,14 +80,14 @@ public class FidelOptionsAdapterTests {
     //Tests when keys are present, but no data is found for that key
     @Test
     public void test_IfHasBannerImageKeyButNoImage_DontSendDataToImageAdapter() {
-        map = mapWithExistingKeyButNoValue(FidelOptionsAdapter.BANNER_IMAGE_KEY);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(FidelOptionsAdapter.BANNER_IMAGE_KEY);
         sut.process(map);
         assertFalse(imageAdapterSpy.hasAskedToProcessData);
     }
 
     @Test
     public void test_IfHasAutoScanKeyButNoValue_DontSetItToTheSDK() {
-        map = mapWithExistingKeyButNoValue(FidelOptionsAdapter.AUTO_SCAN_KEY);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(FidelOptionsAdapter.AUTO_SCAN_KEY);
         map.boolToReturn = true;
         sut.process(map);
         assertFalse(Fidel.autoScan);
@@ -96,7 +96,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_IfHasCompanyNameKeyButNoValue_DontSetItToTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.COMPANY_NAME_KEY;
-        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithString(TEST_COMPANY_NAME, keyToTestFor);
         assertNotEqualsString(keyToTestFor, Fidel.companyName);
     }
@@ -104,7 +104,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_IfHasDeleteInstructionsKeyButNoValue_DontSetThemToTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
-        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithString(TEST_DELETE_INSTRUCTIONS, keyToTestFor);
         assertNotEqualsString(keyToTestFor, Fidel.deleteInstructions);
     }
@@ -112,7 +112,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_IfHasPrivacyURLKeyButNoValue_DontSetItToTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.PRIVACY_URL_KEY;
-        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithString(TEST_PRIVACY_URL, keyToTestFor);
         assertNotEqualsString(keyToTestFor, Fidel.privacyURL);
     }
@@ -120,7 +120,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_IfHasMetaDataKeyButNoValue_DontSetItToTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.META_DATA_KEY;
-        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithMap(keyToTestFor, TEST_META_DATA());
         assertNull(Fidel.metaData);
     }
@@ -128,7 +128,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_IfHasCountryKeyButNoValue_DontSetItToTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.COUNTRY_KEY;
-        map = mapWithExistingKeyButNoValue(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithCountryInt();
         assertNull(Fidel.country);
     }
@@ -136,14 +136,14 @@ public class FidelOptionsAdapterTests {
     //Tests when keys are missing
     @Test
     public void test_IfDoesntHaveBannerImageKey_DontSendDataToImageAdapter() {
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         sut.process(map);
         assertFalse(imageAdapterSpy.hasAskedToProcessData);
     }
 
     @Test
     public void test_IfDoesntHaveAutoScanKey_DontSetItToTheSDK() {
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         map.boolToReturn = true;
         sut.process(map);
         assertFalse(Fidel.autoScan);
@@ -151,7 +151,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_IfDoesntHaveCompanyNameKey_DontSetItToTheSDK() {
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         String key = FidelOptionsAdapter.COMPANY_NAME_KEY;
         processWithString(TEST_COMPANY_NAME, key);
         assertNotEqualsString(key, Fidel.companyName);
@@ -159,7 +159,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_IfDoesntHaveDeleteInstructionsKey_DontSetThemToTheSDK() {
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         String key = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
         processWithString(TEST_DELETE_INSTRUCTIONS, key);
         assertNotEqualsString(key, Fidel.deleteInstructions);
@@ -167,7 +167,7 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_IfDoesntHavePrivacyURLKey_DontSetItToTheSDK() {
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         String key = FidelOptionsAdapter.PRIVACY_URL_KEY;
         processWithString(TEST_PRIVACY_URL, key);
         assertNotEqualsString(key, Fidel.privacyURL);
@@ -176,14 +176,14 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_IfDoesntHaveMetaDataKey_DontSetItToTheSDK() {
         String key = FidelOptionsAdapter.META_DATA_KEY;
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         processWithMap(key, TEST_META_DATA());
         assertNull(Fidel.metaData);
     }
 
     @Test
     public void test_IfDoesntHaveCountryKey_DontSetItToTheSDK() {
-        map = mapWithNoKey();
+        map = ReadableMapStub.mapWithNoKey();
         processWithCountryInt();
         assertNull(Fidel.country);
     }
@@ -192,7 +192,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_WhenImageProcessorSendsBitmap_SendItToImageProcessor() {
         String keyToTestFor = FidelOptionsAdapter.BANNER_IMAGE_KEY;
-        map = mapWithExistingKey(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithMap(keyToTestFor, new ReadableMapStub());
         assertEquals(map.mapsForKeysToReturn.get(keyToTestFor),
                 imageAdapterSpy.dataToProcess);
@@ -220,7 +220,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_WhenCompanyNameValueIsSet_SetItForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.COMPANY_NAME_KEY;
-        map = mapWithExistingKey(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithString(TEST_COMPANY_NAME, keyToTestFor);
         assertEqualsString(keyToTestFor, Fidel.companyName);
     }
@@ -228,7 +228,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_WhenDeleteInstructionsValueIsSet_SetItForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
-        map = mapWithExistingKey(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithString(TEST_DELETE_INSTRUCTIONS, keyToTestFor);
         assertEqualsString(keyToTestFor, Fidel.deleteInstructions);
     }
@@ -236,7 +236,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_WhenPrivacyURLValueIsSet_SetItForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.PRIVACY_URL_KEY;
-        map = mapWithExistingKey(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithString(TEST_PRIVACY_URL, keyToTestFor);
         assertEqualsString(keyToTestFor, Fidel.privacyURL);
     }
@@ -244,7 +244,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_WhenMetaDataValueIsSet_ConvertItToJSONForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.META_DATA_KEY;
-        map = mapWithExistingKey(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithMap(keyToTestFor, TEST_META_DATA());
         assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
     }
@@ -252,7 +252,7 @@ public class FidelOptionsAdapterTests {
     @Test
     public void test_WhenCountryIsSet_ConvertItWithCountryAdapterForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.COUNTRY_KEY;
-        map = mapWithExistingKey(keyToTestFor);
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithCountryInt();
         assertEquals(map.intToReturn, countryAdapterStub.countryIntegerReceived);
         assertEquals(countryAdapterStub.countryToReturn, Fidel.country);
@@ -282,7 +282,7 @@ public class FidelOptionsAdapterTests {
     }
 
     private void processWithBoolean(Boolean bool) {
-        map = mapWithExistingKey(FidelOptionsAdapter.AUTO_SCAN_KEY);
+        map = ReadableMapStub.mapWithExistingKey(FidelOptionsAdapter.AUTO_SCAN_KEY);
         map.boolToReturn = bool;
         sut.process(map);
     }
@@ -300,18 +300,6 @@ public class FidelOptionsAdapterTests {
         sut.process(map);
     }
 
-    private ReadableMapStub mapWithNoKey() {
-        return new ReadableMapStub("", "");
-    }
-
-    private ReadableMapStub mapWithExistingKey(String existingKey) {
-        return new ReadableMapStub(existingKey, "");
-    }
-
-    private ReadableMapStub mapWithExistingKeyButNoValue(String existingKey) {
-        return new ReadableMapStub(existingKey, existingKey);
-    }
-
     private void assertEqualsString(String key, String valueToCheckWith) {
         sut.process(map);
         assertEquals(map.stringForKeyToReturn.get(key), valueToCheckWith);
@@ -323,7 +311,7 @@ public class FidelOptionsAdapterTests {
     }
 
     private void assertToCheckForKey(String keyToCheckFor) {
-        ReadableMapStub map = mapWithExistingKey(keyToCheckFor);
+        ReadableMapStub map = ReadableMapStub.mapWithExistingKey(keyToCheckFor);
         sut.process(map);
         assertThat(map.keyNamesCheckedFor, hasItem(keyToCheckFor));
         assertThat(map.keyNamesVerifiedNullFor, hasItem(keyToCheckFor));
