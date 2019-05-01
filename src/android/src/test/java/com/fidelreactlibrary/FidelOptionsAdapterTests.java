@@ -39,6 +39,7 @@ public class FidelOptionsAdapterTests {
         Fidel.autoScan = false;
         Fidel.companyName = null;
         Fidel.deleteInstructions = null;
+        Fidel.privacyURL = null;
     }
 
     //Verification values tests
