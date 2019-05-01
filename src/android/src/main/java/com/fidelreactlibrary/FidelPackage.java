@@ -9,15 +9,18 @@ import java.util.List;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
+import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
-import com.fidelreactlibrary.adapters.CountryAdapter;
+import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
-import com.fidelreactlibrary.adapters.LinkResultDataConverter;
+import com.fidelreactlibrary.adapters.WritableMapDataConverter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
+import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
 
 public class FidelPackage implements ReactPackage {
@@ -35,8 +38,13 @@ public class FidelPackage implements ReactPackage {
         List<ConstantsProvider> constantsProviderList =
                 new ArrayList<>();
         constantsProviderList.add(optionsAdapter);
-        LinkResultDataConverter linkResultConverter =
-                new LinkResultDataConverter();
+        WritableMapDataConverter linkResultConverter =
+                new WritableMapDataConverter(new ObjectFactory<WritableMap>() {
+                    @Override
+                    public WritableMap create() {
+                        return new WritableNativeMap();
+                    }
+                });
         CallbackActivityEventListener activityEventListener =
                 new CallbackActivityEventListener(linkResultConverter);
         reactContext.addActivityEventListener(activityEventListener);

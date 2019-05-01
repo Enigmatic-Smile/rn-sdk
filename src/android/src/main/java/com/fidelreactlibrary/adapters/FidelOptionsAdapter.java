@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
+import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 

@@ -2,15 +2,14 @@ package com.fidelreactlibrary;
 
 import android.app.Activity;
 
-import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.JavaOnlyMap;
+import com.facebook.react.bridge.WritableMap;
 import com.fidel.sdk.Fidel;
 import com.fidel.sdk.LinkResult;
-import com.fidel.sdk.LinkResultErrorCode;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
 import com.fidelreactlibrary.fakes.CallbackSpy;
 import com.fidelreactlibrary.fakes.DataConverterStub;
 import com.fidelreactlibrary.fakes.IntentMock;
-import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
 import org.junit.Before;
@@ -26,11 +25,11 @@ public class CallbackActivityEventListenerTests {
 
     private CallbackActivityEventListener sut;
     private CallbackSpy callbackSpy;
-    private DataConverterStub<LinkResult, ReadableMap> linkResultConverterStub;
+    private DataConverterStub<Object, WritableMap> linkResultConverterStub;
 
     @Before
     public final void setUp() {
-        linkResultConverterStub = new DataConverterStub();
+        linkResultConverterStub = new DataConverterStub<>();
         sut = new CallbackActivityEventListener(linkResultConverterStub);
         callbackSpy = new CallbackSpy();
         sut.callbackIsReady(callbackSpy);
@@ -48,8 +47,7 @@ public class CallbackActivityEventListenerTests {
         IntentMock<LinkResult> intent = new IntentMock<>(activity, Activity.class);
         LinkResult testLinkResult = new LinkResult("TEST CARD ID");
         intent.putExtra(Fidel.FIDEL_LINK_CARD_RESULT_CARD, testLinkResult);
-        linkResultConverterStub.convertedDataToReturn = new ReadableMapStub();
-
+        linkResultConverterStub.convertedDataToReturn = new JavaOnlyMap();
         sut.onActivityResult(activity,0, 0, intent);
 
         assertEquals(Fidel.FIDEL_LINK_CARD_RESULT_CARD, intent.parcelableExtraNameAskedFor);

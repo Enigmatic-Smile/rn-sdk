@@ -9,8 +9,6 @@ import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,10 +16,10 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
+import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
 
@@ -316,22 +314,5 @@ public class FidelOptionsAdapterTests {
         assertThat(map.keyNamesCheckedFor, hasItem(keyToCheckFor));
         assertThat(map.keyNamesVerifiedNullFor, hasItem(keyToCheckFor));
         assertThat(map.keyNamesAskedFor, hasItem(keyToCheckFor));
-    }
-
-    private void assertMapEqualsWithJSONObject(HashMap<String, Object> map, JSONObject json) {
-        assertEquals(map.keySet().size(), json.length());
-        if (json.length() > 0) {
-            Iterator<String> jsonKeyIterator = json.keys();
-            while (jsonKeyIterator.hasNext()) {
-                String key = jsonKeyIterator.next();
-                assertThat(map.keySet(), hasItem(key));
-                try {
-                    assertEquals(map.get(key), json.get(key));
-                }
-                catch (JSONException e) {
-                    fail(e.toString());
-                }
-            }
-        }
     }
 }

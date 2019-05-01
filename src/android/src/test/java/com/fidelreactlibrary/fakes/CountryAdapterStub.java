@@ -1,7 +1,7 @@
 package com.fidelreactlibrary.fakes;
 
 import com.fidel.sdk.Fidel.Country;
-import com.fidelreactlibrary.adapters.CountryAdapter;
+import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
 import java.util.Map;
 

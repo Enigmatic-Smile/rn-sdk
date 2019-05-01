@@ -1,6 +1,7 @@
 package com.fidelreactlibrary.adapters;
 
 import com.fidel.sdk.Fidel;
+import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
 import org.jetbrains.annotations.NotNull;
 
