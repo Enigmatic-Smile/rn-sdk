@@ -1,15 +1,14 @@
 package com.fidelreactlibrary.fakes;
 
-import com.facebook.react.bridge.ReadableMap;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
-public final class DataProcessorSpy implements DataProcessor<ReadableMap> {
+public final class DataProcessorSpy<T> implements DataProcessor<T> {
 
-    public ReadableMap dataToProcess;
+    public T dataToProcess;
     public Boolean hasAskedToProcessData = false;
 
     @Override
-    public void process(ReadableMap data) {
+    public void process(T data) {
         hasAskedToProcessData = true;
         dataToProcess = data;
     }

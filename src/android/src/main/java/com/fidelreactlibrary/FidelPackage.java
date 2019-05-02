@@ -22,6 +22,7 @@ import com.fidelreactlibrary.adapters.WritableMapDataConverter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
+import com.fidelreactlibrary.events.ErrorEventEmitter;
 
 public class FidelPackage implements ReactPackage {
     @Override
@@ -45,8 +46,10 @@ public class FidelPackage implements ReactPackage {
                         return new WritableNativeMap();
                     }
                 });
+        ErrorEventEmitter errorEventEmitter =
+                new ErrorEventEmitter();
         CallbackActivityEventListener activityEventListener =
-                new CallbackActivityEventListener(linkResultConverter);
+                new CallbackActivityEventListener(linkResultConverter, errorEventEmitter);
         reactContext.addActivityEventListener(activityEventListener);
       return Arrays.<NativeModule>asList(
               new FidelModule(reactContext,

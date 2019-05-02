@@ -5,21 +5,25 @@ import android.content.Intent;
 
 import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.fidel.sdk.Fidel;
 import com.fidel.sdk.LinkResult;
+import com.fidel.sdk.LinkResultError;
 import com.fidelreactlibrary.adapters.abstraction.DataConverter;
+import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
 public final class CallbackActivityEventListener
         extends BaseActivityEventListener
         implements CallbackInput {
 
     private final DataConverter<Object, WritableMap> linkResultConverter;
+    private final DataProcessor<WritableMap> errorHandler;
     private Callback callback;
 
-    public CallbackActivityEventListener(DataConverter<Object, WritableMap> linkResultConverter) {
+    public CallbackActivityEventListener(DataConverter<Object, WritableMap> linkResultConverter,
+                                         DataProcessor<WritableMap> errorHandler) {
         this.linkResultConverter = linkResultConverter;
+        this.errorHandler = errorHandler;
     }
 
     @Override
@@ -28,9 +32,18 @@ public final class CallbackActivityEventListener
                                  int resultCode,
                                  Intent data) {
         super.onActivityResult(activity, requestCode, resultCode, data);
-        LinkResult linkResult = data.getParcelableExtra(Fidel.FIDEL_LINK_CARD_RESULT_CARD);
-        ReadableMap convertedLinkResult = linkResultConverter.getConvertedDataFor(linkResult);
-        callback.invoke(null, convertedLinkResult);
+        if (requestCode == Fidel.FIDEL_LINK_CARD_REQUEST_CODE) {
+            LinkResult result = data.getParcelableExtra(Fidel.FIDEL_LINK_CARD_RESULT_CARD);
+            LinkResultError error = result.getError();
+            if (error == null) {
+                WritableMap convertedLinkResult = linkResultConverter.getConvertedDataFor(result);
+                callback.invoke(null, convertedLinkResult);
+            }
+            else {
+                WritableMap convertedError = linkResultConverter.getConvertedDataFor(error);
+                errorHandler.process(convertedError);
+            }
+        }
     }
 
     @Override
