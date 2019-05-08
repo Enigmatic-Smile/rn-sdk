@@ -17,6 +17,6 @@ public final class ErrorEventEmitter implements DataProcessor<WritableMap> {
     public void process(WritableMap data) {
         reactContext
                 .getJSModule(RCTDeviceEventEmitter.class)
-                .emit("ErrorName", data);
+                .emit("CardLinkFailed", data);
     }
 }
