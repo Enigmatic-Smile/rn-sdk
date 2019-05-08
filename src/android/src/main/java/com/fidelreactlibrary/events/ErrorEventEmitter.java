@@ -7,14 +7,16 @@ import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
 public final class ErrorEventEmitter implements DataProcessor<WritableMap> {
 
-    private RCTDeviceEventEmitter deviceEventEmitter;
+    private ReactApplicationContext reactContext;
 
     public ErrorEventEmitter(ReactApplicationContext reactContext) {
-        deviceEventEmitter = reactContext.getJSModule(RCTDeviceEventEmitter.class);
+        this.reactContext = reactContext;
     }
 
     @Override
     public void process(WritableMap data) {
-        deviceEventEmitter.emit("ErrorName", data);
+        reactContext
+                .getJSModule(RCTDeviceEventEmitter.class)
+                .emit("ErrorName", data);
     }
 }

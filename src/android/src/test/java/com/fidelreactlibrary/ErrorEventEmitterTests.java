@@ -37,7 +37,10 @@ public class ErrorEventEmitterTests {
     }
 
     @Test
-    public void test_WhenInitializing_AskForJSModule() {
+    public void test_WhenReceivingWritableData_AskForJSModule() {
+        WritableMap map = new JavaOnlyMap();
+        map.putString("testKey", "testValue");
+        sut.process(map);
         assertEquals(reactContext.classAskedFor, DeviceEventManagerModule.RCTDeviceEventEmitter.class);
     }
 
