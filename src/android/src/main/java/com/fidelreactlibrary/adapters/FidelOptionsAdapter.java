@@ -65,8 +65,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         if (valueIsValidFor(data, META_DATA_KEY)) {
             ReadableMap metaDataMap = data.getMap(META_DATA_KEY);
             if (metaDataMap != null) {
-                JSONObject metaDataJSON = new JSONObject(metaDataMap.toHashMap());
-                Fidel.metaData = metaDataJSON;
+                Fidel.metaData = getJSONWithMap(metaDataMap);
             }
         }
         if (valueIsValidFor(data, COUNTRY_KEY)) {
@@ -74,6 +73,10 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
             Fidel.Country adaptedCountry = countryAdapter.countryWithInteger(countryInt);
             Fidel.country = adaptedCountry;
         }
+    }
+
+    private JSONObject getJSONWithMap(ReadableMap metaDataMap) {
+        return new JSONObject(metaDataMap.toHashMap());
     }
 
     private boolean valueIsValidFor(ReadableMap map, String key) {
