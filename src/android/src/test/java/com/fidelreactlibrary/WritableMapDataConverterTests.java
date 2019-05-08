@@ -1,9 +1,13 @@
 package com.fidelreactlibrary;
 
+import android.os.Parcelable;
+
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.fidel.sdk.LinkResult;
+import com.fidel.sdk.LinkResultError;
+import com.fidel.sdk.LinkResultErrorCode;
 import com.fidelreactlibrary.adapters.WritableMapDataConverter;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 
@@ -25,6 +29,7 @@ import static org.junit.Assert.*;
 public class WritableMapDataConverterTests {
 
     private static final String TEST_CARD_ID = "Test Card ID";
+    private static final String TEST_ERROR_MESSAGE = "Test Error Message";
 
     private WritableMapDataConverter sut;
 
@@ -60,7 +65,7 @@ public class WritableMapDataConverterTests {
                 String receivedString = receivedMap.getString(field.getName());
                 assertEquals(receivedString, field.get(linkResult));
             }
-            else if (field.getType() == boolean.class) {
+            else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
                 boolean receivedVal = receivedMap.getBoolean(field.getName());
                 assertEquals(receivedVal, field.get(linkResult));
             }
@@ -72,6 +77,39 @@ public class WritableMapDataConverterTests {
                 ReadableMap mapField = receivedMap.getMap(field.getName());
                 JSONObject jsonField = (JSONObject)field.get(linkResult);
                 assertMapEqualsWithJSONObject(mapField.toHashMap(), jsonField);
+            }
+            else if (field.getType() == LinkResultError.class) {
+                ReadableMap mapField = receivedMap.getMap(field.getName());
+                assertNull(mapField);
+            }
+            else if (field.getType() != Parcelable.Creator.class) {
+                fail("Some of the link result properties are not converted");
+            }
+        }
+    }
+
+    @Test
+    public void test_WhenConvertingLinkResultWithError_IncludeAllErrorFields() throws IllegalAccessException {
+        LinkResultErrorCode errorCode = LinkResultErrorCode.USER_CANCELED;
+        String errorMessage = TEST_ERROR_MESSAGE;
+        LinkResult linkResult = new LinkResult(errorCode, errorMessage);
+        Object objectToConvert = linkResult.getError();
+
+        WritableMap receivedMap = sut.getConvertedDataFor(objectToConvert);
+
+        for (Field field: objectToConvert.getClass().getDeclaredFields()) {
+            if (field.getType() == String.class) {
+                String receivedString = receivedMap.getString(field.getName());
+                assertEquals(receivedString, field.get(linkResult));
+            }
+            else if (field.getType() == LinkResultErrorCode.class) {
+                String receivedErrorCodeString = receivedMap.getString(field.getName());
+                LinkResultErrorCode expectedErrorCode = (LinkResultErrorCode) field.get(linkResult);
+                String expectedErrorCodeString = expectedErrorCode.toString().toLowerCase();
+                assertEquals(receivedErrorCodeString, expectedErrorCodeString);
+            }
+            else {
+                fail("Some of the link result error properties are not converted");
             }
         }
     }
