@@ -4,10 +4,14 @@ import { NativeEventEmitter, NativeModules } from 'react-native';
 const { NativeFidelBridge } = NativeModules;
 
 class Fidel {
+    
     static setup(params) { NativeFidelBridge.setup(params) }
     static setOptions(params) { NativeFidelBridge.setOptions(params) }
     static openForm(callback) {
-        Fidel.emitter.addListener(
+        if (this.eventSubscription != null) {
+            this.eventSubscription.remove();
+        }
+        this.eventSubscription = Fidel.emitter.addListener(
             "CardLinkFailed",
             error => callback(error, null)
         );
