@@ -47,7 +47,7 @@ public class FidelPackage implements ReactPackage {
                     }
                 });
         ErrorEventEmitter errorEventEmitter =
-                new ErrorEventEmitter();
+                new ErrorEventEmitter(reactContext);
         CallbackActivityEventListener activityEventListener =
                 new CallbackActivityEventListener(linkResultConverter, errorEventEmitter);
         reactContext.addActivityEventListener(activityEventListener);
