@@ -100,11 +100,11 @@ public class WritableMapDataConverterTests {
         for (Field field: objectToConvert.getClass().getDeclaredFields()) {
             if (field.getType() == String.class) {
                 String receivedString = receivedMap.getString(field.getName());
-                assertEquals(receivedString, field.get(linkResult));
+                assertEquals(receivedString, field.get(objectToConvert));
             }
             else if (field.getType() == LinkResultErrorCode.class) {
                 String receivedErrorCodeString = receivedMap.getString(field.getName());
-                LinkResultErrorCode expectedErrorCode = (LinkResultErrorCode) field.get(linkResult);
+                LinkResultErrorCode expectedErrorCode = (LinkResultErrorCode) field.get(objectToConvert);
                 String expectedErrorCodeString = expectedErrorCode.toString().toLowerCase();
                 assertEquals(receivedErrorCodeString, expectedErrorCodeString);
             }
