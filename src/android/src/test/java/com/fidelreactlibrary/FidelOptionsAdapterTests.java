@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
+import com.fidelreactlibrary.fakes.CardSchemeAdapterStub;
 import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
@@ -17,6 +18,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
@@ -32,6 +34,8 @@ public class FidelOptionsAdapterTests {
     private FidelOptionsAdapter sut;
     private ReadableMapStub map;
     private CountryAdapterStub countryAdapterStub;
+    private CardSchemeAdapterStub cardSchemesAdapterStub;
+
 
     private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
@@ -43,7 +47,8 @@ public class FidelOptionsAdapterTests {
     public final void setUp() {
         imageAdapterSpy = new DataProcessorSpy();
         countryAdapterStub = new CountryAdapterStub();
-        sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub);
+        cardSchemesAdapterStub = new CardSchemeAdapterStub();
+        sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
     }
 
     @After
@@ -70,6 +75,7 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COUNTRY_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
             assertToCheckForKey(key);
         }
@@ -129,6 +135,15 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithCountryInt();
         assertNull(Fidel.country);
+    }
+
+    @Test
+    public void test_IfHasCardSchemesKeyButNoValue_DontSetItToTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
+        Set<Fidel.CardScheme> defaultValues = Fidel.supportedCardSchemes;
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
+        processWithCountryInt();
+        assertEquals(Fidel.supportedCardSchemes, defaultValues);
     }
 
     //Tests when keys are missing
@@ -261,6 +276,13 @@ public class FidelOptionsAdapterTests {
     public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
         Map<String, Object> actualConstants = sut.getConstants();
         Map<String, Object> expectedConstants = countryAdapterStub.getConstants();
+        assertMapContainsMap(actualConstants, expectedConstants);
+    }
+
+    @Test
+    public void test_WhenAskedForConstants_IncludeConstantsFromCardSchemesAdapter() {
+        Map<String, Object> actualConstants = sut.getConstants();
+        Map<String, Object> expectedConstants = cardSchemesAdapterStub.getConstants();
         assertMapContainsMap(actualConstants, expectedConstants);
     }
 

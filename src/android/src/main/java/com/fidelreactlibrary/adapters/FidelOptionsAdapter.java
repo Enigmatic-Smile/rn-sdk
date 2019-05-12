@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
+import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
@@ -25,6 +26,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String PRIVACY_URL_KEY = "privacyUrl";
     public static final String META_DATA_KEY = "metaData";
     public static final String COUNTRY_KEY = "country";
+    public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
                     BANNER_IMAGE_KEY,
@@ -33,16 +35,20 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                     DELETE_INSTRUCTIONS_KEY,
                     PRIVACY_URL_KEY,
                     META_DATA_KEY,
-                    COUNTRY_KEY
+                    COUNTRY_KEY,
+                    CARD_SCHEMES_KEY
             ));
 
     private final DataProcessor<ReadableMap> imageAdapter;
     private final CountryAdapter countryAdapter;
+    private final CardSchemesAdapter cardSchemesAdapter;
 
     public FidelOptionsAdapter(DataProcessor<ReadableMap> imageAdapter,
-                               CountryAdapter countryAdapter) {
+                               CountryAdapter countryAdapter,
+                               CardSchemesAdapter cardSchemesAdapter) {
         this.imageAdapter = imageAdapter;
         this.countryAdapter = countryAdapter;
+        this.cardSchemesAdapter = cardSchemesAdapter;
     }
 
     @Override
@@ -73,6 +79,9 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
             Fidel.Country adaptedCountry = countryAdapter.countryWithInteger(countryInt);
             Fidel.country = adaptedCountry;
         }
+        data.hasKey(CARD_SCHEMES_KEY);
+        data.isNull(CARD_SCHEMES_KEY);
+        data.getArray(CARD_SCHEMES_KEY);
     }
 
     private JSONObject getJSONWithMap(ReadableMap metaDataMap) {
@@ -90,6 +99,8 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
 
     @Override
     public Map<String, Object> getConstants() {
-        return countryAdapter.getConstants();
+        Map<String, Object> constants = countryAdapter.getConstants();
+        constants.putAll(cardSchemesAdapter.getConstants());
+        return constants;
     }
 }

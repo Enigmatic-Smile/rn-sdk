@@ -17,7 +17,7 @@ import static org.junit.Assert.assertThat;
 
 public class FidelCountryAdapterTests {
 
-    private static final String COUNTRIES_KEY = FidelCountryAdapter.EXPORTED_COUNTRY_KEY;
+    private static final String COUNTRIES_KEY = "Country";
     
     private FidelCountryAdapter sut;
     

@@ -10,7 +10,7 @@ import java.util.Map;
 
 public final class FidelCountryAdapter implements CountryAdapter {
 
-    public static final String EXPORTED_COUNTRY_KEY = "Country";
+    private static final String EXPORTED_COUNTRY_KEY = "Country";
 
     private static final String UNITED_KINGDOM_COUNTRY_KEY = "unitedKingdom";
     private static final String UNITED_STATES_COUNTRY_KEY = "unitedStates";
@@ -32,7 +32,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
     }
 
     @Override
-    public Map<String, Object> getConstants() {
+    public @NotNull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         final Map<String, Integer> countriesMap = new HashMap<>();
         for (Fidel.Country country :

@@ -1,6 +1,7 @@
 package com.fidelreactlibrary.fakes;
 
 import com.facebook.react.bridge.Dynamic;
+import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
@@ -21,6 +22,7 @@ public class ReadableMapStub implements ReadableMap {
     public HashMap<String, ReadableMap> mapsForKeysToReturn = new HashMap<>();
     public HashMap<String, Object> hashMapToReturn;
     public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
+//    public ReadableArray readableArrayToReturn = new JavaOnlyArray();
     public boolean boolToReturn;
     public int intToReturn;
     private String hasKeyString = "";
@@ -83,6 +85,7 @@ public class ReadableMapStub implements ReadableMap {
     @Nullable
     @Override
     public ReadableArray getArray(@Nonnull String name) {
+        keyNamesAskedFor.add(name);
         return null;
     }
 

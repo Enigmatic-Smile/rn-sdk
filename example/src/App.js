@@ -25,6 +25,7 @@ export default class App extends Component<Props> {
     const myImage = require('./images/fdl_test_banner.png');
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
+    const supportedCardShemes = new Set([Fidel.CardScheme.visa]);
     Fidel.setup ({
       apiKey: 'Your API Key',
       programId: 'Your Program ID'
@@ -32,6 +33,7 @@ export default class App extends Component<Props> {
     Fidel.setOptions ({
       bannerImage: resolvedImage,
       country: Fidel.Country.sweden,
+      supportedCardShemes: Array.from(supportedCardShemes),
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
       companyName: 'My RN Company',

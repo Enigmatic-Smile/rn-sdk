@@ -21,5 +21,6 @@ class Fidel {
 
 Fidel.emitter = new NativeEventEmitter(NativeFidelBridge);
 Fidel.Country = NativeFidelBridge.Country
+Fidel.CardScheme = NativeFidelBridge.CardScheme
 
 module.exports = Fidel;

@@ -40,7 +40,7 @@ public class FidelModuleTests {
         optionsAdapterSpy = new DataProcessorSpy();
         setupAdapterSpy = new DataProcessorSpy();
         constantsProviderListStub = new ArrayList<>();
-        ConstantsProvider constantsProvider = new ConstantsProviderStub();
+        ConstantsProvider constantsProvider = new ConstantsProviderStub("testModuleConstantKey", 345);
         constantsProviderListStub.add(constantsProvider);
         callbackInputSpy = new CallbackInputSpy();
         sut = new FidelModule(reactContext,

@@ -12,7 +12,7 @@ public final class CountryAdapterStub implements CountryAdapter {
 
     @Override
     public Map<String, Object> getConstants() {
-        ConstantsProviderStub constantsProviderStub = new ConstantsProviderStub();
+        ConstantsProviderStub constantsProviderStub = new ConstantsProviderStub("testKey", 2);
         return constantsProviderStub.getConstants();
     }
 

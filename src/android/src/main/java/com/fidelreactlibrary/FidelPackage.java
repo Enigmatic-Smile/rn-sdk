@@ -13,6 +13,7 @@ import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
+import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
@@ -33,8 +34,10 @@ public class FidelPackage implements ReactPackage {
                 new FidelCountryAdapter();
         FidelSetupAdapter setupAdapter =
                 new FidelSetupAdapter();
+        FidelCardSchemesAdapter cardSchemesAdapter =
+                new FidelCardSchemesAdapter();
         FidelOptionsAdapter optionsAdapter =
-                new FidelOptionsAdapter(imageAdapter, countryAdapter);
+                new FidelOptionsAdapter(imageAdapter, countryAdapter, cardSchemesAdapter);
         imageAdapter.bitmapOutput = optionsAdapter;
         List<ConstantsProvider> constantsProviderList =
                 new ArrayList<>();
