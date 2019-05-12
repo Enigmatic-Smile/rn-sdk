@@ -16,5 +16,6 @@ typedef NS_ENUM(NSUInteger, FLSDKOption) {
     FLSDKOptionCompanyName = 4,
     FLSDKOptionDeleteInstructions = 5,
     FLSDKOptionPrivacyURL = 6,
+    FLSDKOptionCardSchemes = 7,
     FLSDKOptionUnexistent = NSUIntegerMax
 };

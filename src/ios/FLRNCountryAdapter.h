@@ -7,11 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FLRNConstantsProvider.h"
 #import "Fidel-Swift.h"
 
-@protocol FLRNCountryAdapter <NSObject>
-
-@property (nonatomic, readonly) NSDictionary *countryConstantsToExport;
+@protocol FLRNCountryAdapter <FLRNConstantsProvider>
 
 -(FLCountry)adaptedCountry:(id)rawCountry;
 

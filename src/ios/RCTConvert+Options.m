@@ -15,3 +15,4 @@ NSString *const kMetaDataOptionKey = @"metaData";
 NSString *const kCompanyNameOptionKey = @"companyName";
 NSString *const kDeleteInstructionsOptionKey = @"deleteInstructions";
 NSString *const kPrivacyURLOptionKey = @"privacyUrl";
+NSString *const kCardSchemesDataOptionKey = @"supportedCardSchemes";

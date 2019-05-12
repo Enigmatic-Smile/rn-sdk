@@ -6,6 +6,7 @@
 #import "FLRNOptionsAdapter.h"
 #import "FLRNCountryFromJSAdapter.h"
 #import "FLRNImageFromRNAdapter.h"
+#import "FLRNCardSchemesFromJSAdapter.h"
 #import "FLRNRuntimeObjectToDictionaryAdapter.h"
 
 @interface Fidel()
@@ -26,8 +27,10 @@ RCT_EXPORT_MODULE(NativeFidelBridge)
         id<FLRNCountryAdapter> countryAdapter;
         countryAdapter = [[FLRNCountryFromJSAdapter alloc] init];
         id<FLRNImageAdapter> imageAdapter = [[FLRNImageFromRNAdapter alloc] init];
+        id<FLRNCardSchemesAdapter> cardSchemesAdapter = [[FLRNCardSchemesFromJSAdapter alloc] init];
         _adapter = [[FLRNOptionsAdapter alloc] initWithCountryAdapter:countryAdapter
-                                                         imageAdapter:imageAdapter];
+                                                         imageAdapter:imageAdapter
+                                                   cardSchemesAdapter:cardSchemesAdapter];
         _setupAdapter = [[FLRNSetupAdapter alloc] init];
         _objectAdapter = [[FLRNRuntimeObjectToDictionaryAdapter alloc] init];
     }

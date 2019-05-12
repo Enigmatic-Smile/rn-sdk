@@ -10,32 +10,38 @@
 #import "Fidel-Swift.h"
 #import "FLRNCountryAdapter.h"
 #import "FLRNImageAdapter.h"
+#import "FLRNCardSchemesAdapter.h"
 #import "RCTConvert+Options.h"
 
 @interface FLRNOptionsAdapter()
 
 @property (nonatomic, strong) id<FLRNCountryAdapter> countryAdapter;
 @property (nonatomic, strong) id<FLRNImageAdapter> imageAdapter;
+@property (nonatomic, strong) id<FLRNCardSchemesAdapter> cardSchemesAdapter;
 
 @end
 
 @implementation FLRNOptionsAdapter
 
 - (instancetype)initWithCountryAdapter:(id<FLRNCountryAdapter>)countryAdapter
-                          imageAdapter:(id<FLRNImageAdapter>)imageAdapter {
+                          imageAdapter:(id<FLRNImageAdapter>)imageAdapter
+                    cardSchemesAdapter:(id<FLRNCardSchemesAdapter>)cardSchemesAdapter {
     self = [super init];
     if (self) {
         _countryAdapter = countryAdapter;
         _imageAdapter = imageAdapter;
+        _cardSchemesAdapter = cardSchemesAdapter;
     }
     return self;
 }
 
 NSString *const kCountryKey = @"Country";
+NSString *const kCardSchemeKey = @"CardScheme";
 NSString *const kOptionKey = @"Option";
 -(NSDictionary *)constantsToExport {
     return @{
-             kCountryKey: self.countryAdapter.countryConstantsToExport,
+             kCountryKey: self.countryAdapter.constantsToExport,
+             kCardSchemeKey: self.cardSchemesAdapter.constantsToExport,
              kOptionKey: FLSDKOptionValues
              };
 }
@@ -62,6 +68,11 @@ NSString *const kOptionKey = @"Option";
         if ([rawMetaData isKindOfClass:[NSDictionary class]]) {
             FLFidel.metaData = rawMetaData;
         }
+    }
+    if([allOptionKeys containsObject:kCardSchemesDataOptionKey]) {
+        id rawData = options[kCardSchemesDataOptionKey];
+        NSSet<NSNumber *> *supportedCardSchemes = [self.cardSchemesAdapter cardSchemesWithRawObject:rawData];
+        FLFidel.objc_supportedCardSchemes = supportedCardSchemes;
     }
     
     FLFidel.companyName = [self getStringValueFor:kCompanyNameOptionKey fromDictionary:options];

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A126CD2922882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */; };
 		A144120722548E2300145293 /* libFidel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134814201AA4EA6300B7C361 /* libFidel.a */; };
 		A1B445B2226D6EDC00F7AAA6 /* FLRNSetupAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */; };
 		A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */; };
@@ -41,6 +42,11 @@
 
 /* Begin PBXFileReference section */
 		134814201AA4EA6300B7C361 /* libFidel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFidel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A126CD24228827A80046C95B /* FLRNCardSchemesAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCardSchemesAdapter.h; sourceTree = "<group>"; };
+		A126CD252288280B0046C95B /* FLRNConstantsProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNConstantsProvider.h; sourceTree = "<group>"; };
+		A126CD2622882A610046C95B /* RCTConvert+CardScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+CardScheme.h"; sourceTree = "<group>"; };
+		A126CD2722882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCardSchemesFromJSAdapter.h; sourceTree = "<group>"; };
+		A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNCardSchemesFromJSAdapter.m; sourceTree = "<group>"; };
 		A15765722244AB0D00BD29E3 /* RCTConvert+Country.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Country.h"; sourceTree = "<group>"; };
 		A1B445AF226D6B6000F7AAA6 /* FidelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FidelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B445B0226D6EDC00F7AAA6 /* FLRNSetupAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSetupAdapter.h; sourceTree = "<group>"; };
@@ -117,6 +123,8 @@
 		A1DCB8EE2247EF9200C45711 /* Abstraction */ = {
 			isa = PBXGroup;
 			children = (
+				A126CD24228827A80046C95B /* FLRNCardSchemesAdapter.h */,
+				A126CD252288280B0046C95B /* FLRNConstantsProvider.h */,
 				A1DCB8EF2247EFAA00C45711 /* FLRNCountryAdapter.h */,
 				A1DCB8F02247F05A00C45711 /* FLRNImageAdapter.h */,
 				A1B445B4226D856800F7AAA6 /* FLRNObjectToDictionaryAdapter.h */,
@@ -133,6 +141,9 @@
 				A1DCB8F92247F4EA00C45711 /* RCTConvert+Options.h */,
 				A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */,
 				A15765722244AB0D00BD29E3 /* RCTConvert+Country.h */,
+				A126CD2622882A610046C95B /* RCTConvert+CardScheme.h */,
+				A126CD2722882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.h */,
+				A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */,
 				A1DCB8F22247F0F500C45711 /* FLRNCountryFromJSAdapter.h */,
 				A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */,
 				A1DCB8F52247F13700C45711 /* FLRNImageFromRNAdapter.h */,
@@ -237,6 +248,7 @@
 				A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */,
 				A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */,
 				A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */,
+				A126CD2922882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m in Sources */,
 				A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */,
 				A1B445B2226D6EDC00F7AAA6 /* FLRNSetupAdapter.m in Sources */,
 				A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */,

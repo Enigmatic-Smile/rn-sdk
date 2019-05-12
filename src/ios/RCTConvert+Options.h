@@ -17,7 +17,8 @@
     kMetaDataOptionKey: @(FLSDKOptionMetaData), \
     kCompanyNameOptionKey: @(FLSDKOptionCompanyName), \
     kDeleteInstructionsOptionKey: @(FLSDKOptionCompanyName), \
-    kPrivacyURLOptionKey: @(FLSDKOptionCompanyName) \
+    kPrivacyURLOptionKey: @(FLSDKOptionCompanyName), \
+    kCardSchemesDataOptionKey: @(FLSDKOptionCardSchemes) \
 }
 
 FOUNDATION_EXPORT NSString *const kBannerImageOptionKey;
@@ -27,6 +28,7 @@ FOUNDATION_EXPORT NSString *const kMetaDataOptionKey;
 FOUNDATION_EXPORT NSString *const kCompanyNameOptionKey;
 FOUNDATION_EXPORT NSString *const kDeleteInstructionsOptionKey;
 FOUNDATION_EXPORT NSString *const kPrivacyURLOptionKey;
+FOUNDATION_EXPORT NSString *const kCardSchemesDataOptionKey;
 
 @implementation RCTConvert (Options)
 
