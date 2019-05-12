@@ -288,3 +288,22 @@ Fidel.setOptions ({
   privacyUrl: 'https://fidel.uk',
 });
 ```
+
+### Documentation
+
+In the test environment please use our VISA, Mastercard or American Express test card numbers. You must use a test API Key for them to work.
+
+VISA: _4444000000004***_ (the last 3 numbers can be anything)
+
+Mastercard: _5555000000005***_ (the last 3 numbers can be anything)
+
+American Express: _3400000000003**_ or _3700000000003**_ (the last 2 numbers can be anything)
+
+## Feedback
+
+The FIDEL SDK is in active development, we welcome your feedback!
+
+Get in touch:
+
+GitHub Issues - For SDK issues and feedback
+FIDEL Developers Slack Channel - [https://fidel-developers-slack-invites.herokuapp.com](https://fidel-developers-slack-invites.herokuapp.com) - for personal support at any phase of integration
