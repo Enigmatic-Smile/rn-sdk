@@ -22,14 +22,14 @@ public class ReadableMapStub implements ReadableMap {
     public HashMap<String, ReadableMap> mapsForKeysToReturn = new HashMap<>();
     public HashMap<String, Object> hashMapToReturn;
     public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
-//    public ReadableArray readableArrayToReturn = new JavaOnlyArray();
+    public ReadableArray readableArrayToReturn = new JavaOnlyArray();
     public boolean boolToReturn;
     public int intToReturn;
     private String hasKeyString = "";
     private String isNullString = "";
 
     public ReadableMapStub() {}
-    public ReadableMapStub(String hasKeyString, String isNullString) {
+    private ReadableMapStub(String hasKeyString, String isNullString) {
         this.hasKeyString = hasKeyString;
         this.isNullString = isNullString;
     }
@@ -86,7 +86,7 @@ public class ReadableMapStub implements ReadableMap {
     @Override
     public ReadableArray getArray(@Nonnull String name) {
         keyNamesAskedFor.add(name);
-        return null;
+        return readableArrayToReturn;
     }
 
     @Nullable

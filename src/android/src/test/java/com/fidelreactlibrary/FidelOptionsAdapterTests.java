@@ -2,6 +2,7 @@ package com.fidelreactlibrary;
 
 import android.graphics.Bitmap;
 
+import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
@@ -11,11 +12,12 @@ import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -30,12 +32,11 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 public class FidelOptionsAdapterTests {
 
-    private DataProcessorSpy imageAdapterSpy;
-    private FidelOptionsAdapter sut;
+    private DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
     private ReadableMapStub map;
-    private CountryAdapterStub countryAdapterStub;
-    private CardSchemeAdapterStub cardSchemesAdapterStub;
-
+    private CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
+    private CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
+    private FidelOptionsAdapter sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
 
     private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
@@ -43,19 +44,9 @@ public class FidelOptionsAdapterTests {
     private static final Fidel.Country TEST_COUNTRY = Fidel.Country.SWEDEN;
     private static final Integer TEST_COUNTRY_NUMBER = 12;
 
-    @Before
-    public final void setUp() {
-        imageAdapterSpy = new DataProcessorSpy();
-        countryAdapterStub = new CountryAdapterStub();
-        cardSchemesAdapterStub = new CardSchemeAdapterStub();
-        sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
-    }
-
     @After
     public final void tearDown() {
-        imageAdapterSpy = null;
         sut = null;
-        map = null;
         Fidel.bannerImage = null;
         Fidel.autoScan = false;
         Fidel.companyName = null;
@@ -63,6 +54,7 @@ public class FidelOptionsAdapterTests {
         Fidel.privacyURL = null;
         Fidel.metaData = null;
         Fidel.country = null;
+        Fidel.supportedCardSchemes = EnumSet.allOf(Fidel.CardScheme.class);
     }
 
     //Verification values tests
@@ -77,8 +69,17 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COUNTRY_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
-            assertToCheckForKey(key);
+            //for the card schemes value we only check if it exists
+            if (!key.equals(FidelOptionsAdapter.CARD_SCHEMES_KEY)) {
+                assertToCheckForKey(key);
+            }
         }
+    }
+
+    public void test_ChecksForSupportedCardSchemes() {
+        ReadableMapStub map = ReadableMapStub.mapWithExistingKey(FidelOptionsAdapter.CARD_SCHEMES_KEY);
+        sut.process(map);
+        assertThat(map.keyNamesCheckedFor, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
     }
 
     //Tests when keys are present, but no data is found for that key
@@ -137,15 +138,6 @@ public class FidelOptionsAdapterTests {
         assertNull(Fidel.country);
     }
 
-    @Test
-    public void test_IfHasCardSchemesKeyButNoValue_DontSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
-        Set<Fidel.CardScheme> defaultValues = Fidel.supportedCardSchemes;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithCountryInt();
-        assertEquals(Fidel.supportedCardSchemes, defaultValues);
-    }
-
     //Tests when keys are missing
     @Test
     public void test_IfDoesntHaveBannerImageKey_DontSendDataToImageAdapter() {
@@ -199,6 +191,12 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithNoKey();
         processWithCountryInt();
         assertNull(Fidel.country);
+    }
+    @Test
+    public void test_IfDoesntHaveCardSchemeKey_DontSetItToTheSDK() {
+        map = ReadableMapStub.mapWithNoKey();
+        processWithCardSchemes(Fidel.CardScheme.VISA);
+        assertEquals(EnumSet.allOf(Fidel.CardScheme.class), Fidel.supportedCardSchemes);
     }
 
     //Setting correct values tests
@@ -271,6 +269,24 @@ public class FidelOptionsAdapterTests {
         assertEquals(countryAdapterStub.countryToReturn, Fidel.country);
     }
 
+    @Test
+    public void test_WhenCardSchemesAreSet_ConvertThemWithCountryAdapterForTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
+        processWithCardSchemes(Fidel.CardScheme.VISA, Fidel.CardScheme.MASTERCARD);
+        assertEquals(map.readableArrayToReturn, cardSchemesAdapterStub.cardSchemesReceived);
+    }
+
+    @Test
+    public void test_WhenCardSchemesAreSet_SetThemForTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
+        Fidel.CardScheme[] expectedSchemes = {Fidel.CardScheme.VISA, Fidel.CardScheme.MASTERCARD};
+        Set<Fidel.CardScheme> expectedSchemesSet = EnumSet.copyOf(Arrays.asList(expectedSchemes));
+        processWithCardSchemes(expectedSchemes);
+        assertEquals(expectedSchemesSet, Fidel.supportedCardSchemes);
+    }
+
     //Exposed constants tests
     @Test
     public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
@@ -317,6 +333,11 @@ public class FidelOptionsAdapterTests {
     private void processWithCountryInt() {
         countryAdapterStub.countryToReturn = TEST_COUNTRY;
         map.intToReturn = TEST_COUNTRY_NUMBER;
+        sut.process(map);
+    }
+    private void processWithCardSchemes(Fidel.CardScheme... cardSchemes) {
+        cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.copyOf(Arrays.asList(cardSchemes));
+        map.readableArrayToReturn = JavaOnlyArray.of(cardSchemes);
         sut.process(map);
     }
 

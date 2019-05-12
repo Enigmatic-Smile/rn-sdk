@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
 
@@ -35,7 +36,7 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     }
 
     @Override
-    public Fidel.CardScheme cardSchemesWithReadableArray(ReadableArray cardSchemes) {
+    public Set<Fidel.CardScheme> cardSchemesWithReadableArray(ReadableArray cardSchemes) {
         return null;
     }
 }

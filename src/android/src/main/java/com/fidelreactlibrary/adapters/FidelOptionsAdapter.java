@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
 
@@ -79,9 +80,10 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
             Fidel.Country adaptedCountry = countryAdapter.countryWithInteger(countryInt);
             Fidel.country = adaptedCountry;
         }
-        data.hasKey(CARD_SCHEMES_KEY);
-        data.isNull(CARD_SCHEMES_KEY);
-        data.getArray(CARD_SCHEMES_KEY);
+        if (data.hasKey(CARD_SCHEMES_KEY)) {
+            Set<Fidel.CardScheme> adaptedSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(data.getArray(CARD_SCHEMES_KEY));
+            Fidel.supportedCardSchemes = adaptedSchemes;
+        }
     }
 
     private JSONObject getJSONWithMap(ReadableMap metaDataMap) {
