@@ -1,4 +1,4 @@
-# Use iOS 9 and above
+# Use iOS 9.1 and above
 platform :ios, '9.1'
 
 # Specify Workspace

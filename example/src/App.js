@@ -25,7 +25,15 @@ export default class App extends Component<Props> {
     const myImage = require('./images/fdl_test_banner.png');
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
-    const cardSchemes = new Set([Fidel.CardScheme.visa, Fidel.CardScheme.mastercard, Fidel.CardScheme.americanExpress]);
+
+    //this is the default value for supported card schemes,
+    //but you can remove the support for some of the card schemes if you want to
+    const cardSchemes = new Set([
+      Fidel.CardScheme.visa, 
+      Fidel.CardScheme.mastercard, 
+      Fidel.CardScheme.americanExpress
+    ]);
+
     Fidel.setup ({
       apiKey: 'Your API Key',
       programId: 'Your Program ID'
