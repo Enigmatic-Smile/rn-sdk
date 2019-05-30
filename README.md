@@ -38,7 +38,7 @@ If you use an older Swift version, please check our [iOS SDK README](https://git
 6. In your `Podfile`, make sure to set the iOS platform 9.1 or above:
 
 ```ruby
-# Use iOS 9 and above
+# Use iOS 9.1 and above
 platform :ios, '9.1'
 ```
 
@@ -77,7 +77,7 @@ allprojects {
 buildscript {
   ext {
     ...
-    minSdkVersion = 16
+    minSdkVersion = 19
     ...
   }
 }
