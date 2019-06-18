@@ -25,7 +25,15 @@
     "react-native",
     "fidel",
     "android",
-    "ios"
+    "ios",
+    "card",
+    "cards",
+    "linking",
+    "visa",
+    "mastercard",
+    "amex",
+    "american express",
+    "loyalty"
   ],
   "author": {
     "name": "Fidel",
