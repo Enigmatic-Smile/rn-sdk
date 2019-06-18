@@ -24,11 +24,10 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 You can use Cocoapods or install the library as a dynamic library.
 
-##### Method 1: Using Cocoapods
-
 5. Add a `Podfile` in your `ios/` folder of your React Native project. It should include the following dependency:
 
 ```ruby
+use_frameworks!
 pod 'Fidel'
 ```
 
@@ -51,7 +50,7 @@ platform :ios, '9.1'
 
 ```java
 include ':react-native-fidel'
-project(':react-native-fidel').projectDir = new File(rootProject.projectDir, 	'../node_modules/react-native-fidel/android')
+project(':react-native-fidel').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fidel/android')
 ```
 
 2. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
@@ -60,30 +59,7 @@ project(':react-native-fidel').projectDir = new File(rootProject.projectDir, 	'.
 implementation project(':react-native-fidel')
 ```
 
-3. Append Jitpack to `android/build.gradle`:
-
-```java
-allprojects {
-  repositories {
-    ...
-    maven { url "https://jitpack.io" }
-  }
-}
-```
-
-4. Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
-
-```java
-buildscript {
-  ext {
-    ...
-    minSdkVersion = 19
-    ...
-  }
-}
-```
-
-5. Open up `android/app/src/main/java/[...]/MainActivity.java`
+3. Open up `android/app/src/main/java/[...]/MainApplication.java`
 
 - Add `import com.reactlibrary.FidelPackage;` to the imports at the top of the file
 - Add `new FidelPackage()` to the list returned by the `getPackages()` method:
@@ -95,6 +71,29 @@ protected List <ReactPackage> getPackages() {
           new FidelPackage(),
           //you might have other Packages here as well.
       );
+}
+```
+
+4. Append Jitpack to `android/build.gradle`:
+
+```java
+allprojects {
+  repositories {
+    ...
+    maven { url "https://jitpack.io" }
+  }
+}
+```
+
+5. Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
+
+```java
+buildscript {
+  ext {
+    ...
+    minSdkVersion = 19
+    ...
+  }
 }
 ```
 
