@@ -1,7 +1,7 @@
 
-# FIDEL React Native SDK
+# FIDEL React Native bridge SDK
 
-This SDK helps you to add card linking technology to your React Native apps in minutes. It captures credit/debit card numbers securely and links them to your programs.
+This SDK is a bridge between React Native and Fidel's native iOS and Android SDKs. It helps you to add card linking technology to your React Native apps in minutes. It captures credit/debit card numbers securely and links them to your programs.
 
 ![Demo GIF](https://cl.ly/a47b1852f029/Screen%252520Recording%2525202018-09-18%252520at%25252004.34%252520PM.gif)
 
