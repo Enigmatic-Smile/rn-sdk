@@ -1,5 +1,5 @@
 {
-  "name": "react-native-fidel",
+  "name": "fidel-react-native",
   "version": "1.0.0",
   "description": "Fidel's React Native bridge library for iOS and Android.",
   "main": "index.js",

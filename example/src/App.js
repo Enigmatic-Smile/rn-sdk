@@ -8,7 +8,7 @@
 
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import Fidel from 'react-native-fidel';
+import Fidel from 'fidel-react-native';
 
 type Props = {};
 export default class App extends Component<Props> {

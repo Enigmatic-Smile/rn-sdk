@@ -7,7 +7,7 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 ## Getting started
 
-`$ npm install react-native-fidel --save`
+`$ npm install fidel-react-native --save`
 
 ## Manual installation
 
@@ -16,7 +16,7 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 #### Step 1: Add the Fidel React Native iOS project as a dependency
 
 1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `react-native-fidel` and add `Fidel.xcodeproj`
+2. Go to `node_modules` ➜ `fidel-react-native` and add `Fidel.xcodeproj`
 3. In XCode, in the project navigator, select your project. Add `libFidel.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 4. Under your target's `Build Settings`, make sure to set `YES` for `Always Embed Swift Standard Libraries`. That's because, by default, your project might not need it. It needs to be `YES` because otherwise the project will not find the Swift libraries to be able to run our native iOS SDK.
 
@@ -49,14 +49,14 @@ platform :ios, '9.1'
 1. Append the following lines to `android/settings.gradle`:
 
 ```java
-include ':react-native-fidel'
-project(':react-native-fidel').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-fidel/android')
+include ':fidel-react-native'
+project(':fidel-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/fidel-react-native/android')
 ```
 
 2. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
 
 ```java
-implementation project(':react-native-fidel')
+implementation project(':fidel-react-native')
 ```
 
 3. Open up `android/app/src/main/java/[...]/MainApplication.java`
@@ -106,7 +106,7 @@ For a physical device you need to search on Google for *Google Play Services*. T
 Import Fidel in your RN project:
 
 ```javascript
-import Fidel from 'react-native-fidel';
+import Fidel from 'fidel-react-native';
 ```
 
 Set up Fidel with your API key and your program ID. Without them you can't open the Fidel card linking UI:
