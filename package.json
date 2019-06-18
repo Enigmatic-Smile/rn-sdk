@@ -2,19 +2,18 @@
   "name": "react-native-fidel",
   "version": "1.0.0",
   "description": "Fidel's React Native bridge library for iOS and Android.",
-  "main": "src/index.js",
+  "main": "index.js",
   "nativePackage": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "directories": {
-    "lib": "./src",
     "example": "./example"
   },
   "files": [
-    "src/android",
-    "src/ios",
-    "src/index.js"
+    "android",
+    "ios",
+    "index.js"
   ],
   "repository": {
     "type": "git",
