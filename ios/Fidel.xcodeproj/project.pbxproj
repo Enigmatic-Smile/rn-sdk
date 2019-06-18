@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A126CD2922882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */; };
-		A144120722548E2300145293 /* libFidel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 134814201AA4EA6300B7C361 /* libFidel.a */; };
 		A1B445B2226D6EDC00F7AAA6 /* FLRNSetupAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */; };
 		A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */; };
 		A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */; };
@@ -17,16 +16,6 @@
 		A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */; };
 		B3E7B58A1CC2AC0600A0062D /* Fidel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Fidel.m */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		A144120822548E2300145293 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 58B511D31A9E6C8500147676 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 58B511DA1A9E6C8500147676;
-			remoteInfo = Fidel;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		58B511D91A9E6C8500147676 /* CopyFiles */ = {
@@ -48,7 +37,6 @@
 		A126CD2722882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCardSchemesFromJSAdapter.h; sourceTree = "<group>"; };
 		A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNCardSchemesFromJSAdapter.m; sourceTree = "<group>"; };
 		A15765722244AB0D00BD29E3 /* RCTConvert+Country.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Country.h"; sourceTree = "<group>"; };
-		A1B445AF226D6B6000F7AAA6 /* FidelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FidelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1B445B0226D6EDC00F7AAA6 /* FLRNSetupAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSetupAdapter.h; sourceTree = "<group>"; };
 		A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNSetupAdapter.m; sourceTree = "<group>"; };
 		A1B445B3226D70A600F7AAA6 /* FLRNSDKSetupOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSDKSetupOptions.h; sourceTree = "<group>"; };
@@ -78,14 +66,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A14411FF22548E2300145293 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A144120722548E2300145293 /* libFidel.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -104,7 +84,6 @@
 				B3E7B5881CC2AC0600A0062D /* Fidel.h */,
 				B3E7B5891CC2AC0600A0062D /* Fidel.m */,
 				134814211AA4EA7D00B7C361 /* Products */,
-				A1B445AF226D6B6000F7AAA6 /* FidelTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -174,24 +153,6 @@
 			productReference = 134814201AA4EA6300B7C361 /* libFidel.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		A144120122548E2300145293 /* FidelTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A144120C22548E2300145293 /* Build configuration list for PBXNativeTarget "FidelTests" */;
-			buildPhases = (
-				A14411FE22548E2300145293 /* Sources */,
-				A14411FF22548E2300145293 /* Frameworks */,
-				A144120022548E2300145293 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A144120922548E2300145293 /* PBXTargetDependency */,
-			);
-			name = FidelTests;
-			productName = FidelTests;
-			productReference = A1B445AF226D6B6000F7AAA6 /* FidelTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -204,10 +165,6 @@
 					58B511DA1A9E6C8500147676 = {
 						CreatedOnToolsVersion = 6.1.1;
 						LastSwiftMigration = 1020;
-					};
-					A144120122548E2300145293 = {
-						CreatedOnToolsVersion = 10.1;
-						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -225,20 +182,9 @@
 			projectRoot = "";
 			targets = (
 				58B511DA1A9E6C8500147676 /* Fidel */,
-				A144120122548E2300145293 /* FidelTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		A144120022548E2300145293 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		58B511D71A9E6C8500147676 /* Sources */ = {
@@ -256,22 +202,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A14411FE22548E2300145293 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A144120922548E2300145293 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 58B511DA1A9E6C8500147676 /* Fidel */;
-			targetProxy = A144120822548E2300145293 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		58B511ED1A9E6C8500147676 /* Debug */ = {
@@ -400,70 +331,6 @@
 			};
 			name = Release;
 		};
-		A144120A22548E2300145293 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = FidelTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.Fidel.FidelTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		A144120B22548E2300145293 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = FidelTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = uk.Fidel.FidelTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -481,15 +348,6 @@
 			buildConfigurations = (
 				58B511F01A9E6C8500147676 /* Debug */,
 				58B511F11A9E6C8500147676 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A144120C22548E2300145293 /* Build configuration list for PBXNativeTarget "FidelTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A144120A22548E2300145293 /* Debug */,
-				A144120B22548E2300145293 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
