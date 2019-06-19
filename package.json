@@ -1,11 +1,20 @@
 {
-  "name": "react-native-fidel",
+  "name": "fidel-react-native",
   "version": "1.0.0",
   "description": "Fidel's React Native bridge library for iOS and Android.",
-  "main": "src/index.js",
+  "main": "index.js",
+  "nativePackage": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "directories": {
+    "example": "./example"
+  },
+  "files": [
+    "android",
+    "ios",
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/FidelLimited/rn-sdk.git"
@@ -15,9 +24,20 @@
     "react-native",
     "fidel",
     "android",
-    "ios"
+    "ios",
+    "card",
+    "cards",
+    "linking",
+    "visa",
+    "mastercard",
+    "amex",
+    "american express",
+    "loyalty"
   ],
-  "author": "Fidel",
+  "author": {
+    "name": "Fidel",
+    "email": "developer@fidel.uk"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/FidelLimited/rn-sdk/issues"
