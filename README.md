@@ -1,5 +1,5 @@
 
-# FIDEL React Native bridge SDK
+# Fidel React Native bridge SDK
 
 This SDK is a bridge between React Native and Fidel's native iOS and Android SDKs. It helps you to add card linking technology to your React Native apps in minutes. It captures credit/debit card numbers securely and links them to your programs.
 
@@ -15,53 +15,62 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 #### Step 1: Add the Fidel React Native iOS project as a dependency
 
-1. In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-2. Go to `node_modules` ➜ `fidel-react-native` and add `Fidel.xcodeproj`
-3. In XCode, in the project navigator, select your project. Add `libFidel.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-4. Under your target's `Build Settings`, make sure to set `YES` for `Always Embed Swift Standard Libraries`. That's because, by default, your project might not need it. It needs to be `YES` because otherwise the project will not find the Swift libraries to be able to run our native iOS SDK.
+**1. **In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+
+**2. **Go to `node_modules` ➜ `fidel-react-native` and add `Fidel.xcodeproj`
+
+**3. **In XCode, in the project navigator, select your project. Add `libFidel.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+
+**4. **Under your target's `Build Settings`, make sure to set `YES` for `Always Embed Swift Standard Libraries`. That's because, by default, your project might not need it. It needs to be `YES` because otherwise the project will not find the Swift libraries to be able to run our native iOS SDK.
 
 #### Step 2: Add the Native iOS SDK as a dependency
 
 You can use Cocoapods or install the library as a dynamic library.
 
-5. Add a `Podfile` in your `ios/` folder of your React Native project. It should include the following dependency:
+**5. **Add a `Podfile` in your `ios/` folder of your React Native project. It should include the following dependency:
 
 ```ruby
 use_frameworks!
 pod 'Fidel'
 ```
 
-Check our [example Podfile](https://github.com/FidelLimited/rn-sdk/blob/master/example/ios/Podfile) to see the simplest `Podfile` you need to link with our native iOS SDK.
-If you use an older Swift version, please check our [iOS SDK README](https://github.com/FidelLimited/fidel-ios#readme). You'll find a suitable version you should set for your Cocoapods dependency.
-
-6. In your `Podfile`, make sure to set the iOS platform 9.1 or above:
+Here is the simplest `Podfile` you need to link with our native iOS SDK:
 
 ```ruby
-# Use iOS 9.1 and above
 platform :ios, '9.1'
+
+workspace 'example'
+
+target 'example' do
+    use_frameworks!
+    pod 'Fidel'
+end
 ```
 
-7. Run `pod install` in your terminal.
-8. Make sure to use the new `.xcworkspace` created by Cocoapods when you run your iOS app. React Native should use it by default.
+If you use an older Swift version, please check our [iOS SDK README](https://github.com/FidelLimited/fidel-ios#readme). You'll find a suitable version you should set for your Cocoapods dependency.
+
+**6. **Run `pod install` in your terminal.
+
+**7. **Make sure to use the new `.xcworkspace` created by Cocoapods when you run your iOS app. React Native should use it by default.
 
 ### Android
 
-1. Append the following lines to `android/settings.gradle`:
+**1. **Append the following lines to `android/settings.gradle`:
 
 ```java
 include ':fidel-react-native'
 project(':fidel-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/fidel-react-native/android')
 ```
 
-2. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+**2. **Insert the following lines inside the dependencies block in `android/app/build.gradle`:
 
 ```java
 implementation project(':fidel-react-native')
 ```
 
-3. Open up `android/app/src/main/java/[...]/MainApplication.java`
+**3. **Open up `android/app/src/main/java/[...]/MainApplication.java`
 
-- Add `import com.reactlibrary.FidelPackage;` to the imports at the top of the file
+- Add `import com.fidelreactlibrary.FidelPackage;` to the imports at the top of the file
 - Add `new FidelPackage()` to the list returned by the `getPackages()` method:
 
 ```java
@@ -74,7 +83,7 @@ protected List <ReactPackage> getPackages() {
 }
 ```
 
-4. Append Jitpack to `android/build.gradle`:
+**4. **Append Jitpack to `android/build.gradle`:
 
 ```java
 allprojects {
@@ -85,7 +94,7 @@ allprojects {
 }
 ```
 
-5. Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
+**5. **Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
 
 ```java
 buildscript {
@@ -97,7 +106,7 @@ buildscript {
 }
 ```
 
-6. Ensure that you have *Google Play Services* installed.
+**6. **Ensure that you have *Google Play Services* installed.
 
 For a physical device you need to search on Google for *Google Play Services*. There will be a link that takes you to the Play Store and from there you will see a button to update it (*do not* search within the Play Store).
 
@@ -300,9 +309,9 @@ American Express: _3400000000003**_ or _3700000000003**_ (the last 2 numbers can
 
 ## Feedback
 
-The FIDEL SDK is in active development, we welcome your feedback!
+The Fidel SDK is in active development, we welcome your feedback!
 
 Get in touch:
 
 GitHub Issues - For SDK issues and feedback
-FIDEL Developers Slack Channel - [https://fidel-developers-slack-invites.herokuapp.com](https://fidel-developers-slack-invites.herokuapp.com) - for personal support at any phase of integration
+Fidel Developers Slack Channel - [https://fidel-developers-slack-invites.herokuapp.com](https://fidel-developers-slack-invites.herokuapp.com) - for personal support at any phase of integration
