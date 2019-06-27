@@ -53,6 +53,8 @@ If you use an older Swift version, please check our [iOS SDK README](https://git
 
 **7. **Make sure to use the new `.xcworkspace` created by Cocoapods when you run your iOS app. React Native should use it by default.
 
+**8. **In order to allow scanning cards with the camera, make sure to add the key `NSCameraUsageDescription` to your iOS app `Info.plist` and set the value to a string describing why your app needs to use the camera (e.g. "To scan credit cards."). This string will be displayed when the app initially requests permission to access the camera.
+
 ### Android
 
 **1. **Append the following lines to `android/settings.gradle`:
@@ -142,14 +144,14 @@ const cardSchemes = new Set([
   Fidel.CardScheme.americanExpress
 ]);
 
-Fidel.setOptions ({
+Fidel.setOptions({
   bannerImage: resolvedImage,
   country: Fidel.Country.sweden,
   supportedCardSchemes: Array.from(cardSchemes),
   autoScan: false,
-  metaData: {'meta-data-1': 'value1'}, //additional data to pass with the card
-  companyName: 'My RN Company', //the company name displayed in our 
-  deleteInstructions: 'My custom delete instructions!',
+  metaData: {'meta-data-1': 'value1'}, // additional data to pass with the card
+  companyName: 'My RN Company', // the company name displayed in the checkbox text
+  deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
 });
 ```
@@ -203,13 +205,14 @@ Both `result` and `error` are objects that look like in the following examples:
 ## Options documentation
 
 ### bannerImage
+
 Use this option to customize the topmost banner image with the Fidel UI. Your custom asset needs to be resolved in order to be passed to our native module:
 
 ```javascript
 const myImage = require('./images/fdl_test_banner.png');
 const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
 const resolvedImage = resolveAssetSource(myImage);
-Fidel.setOptions ({
+Fidel.setOptions({
   bannerImage: resolvedImage
 }
 ```
@@ -219,7 +222,7 @@ Fidel.setOptions ({
 Set a default country the SDK should use with:
 
 ```javascript
-Fidel.setOptions ({
+Fidel.setOptions({
   country: Fidel.Country.unitedKingdom
 });
 ```
@@ -242,7 +245,7 @@ const cardSchemes = new Set([
   Fidel.CardScheme.mastercard,
   Fidel.CardScheme.americanExpress
 ]);
-Fidel.setOptions ({
+Fidel.setOptions({
   supportedCardSchemes: Array.from(cardSchemes)
 });
 ```
@@ -252,7 +255,7 @@ Fidel.setOptions ({
 Set this property to `true`, if you want to open the card scanning UI immediately after executing `Fidel.openForm`. The default value is `false`.
 
 ```javascript
-Fidel.setOptions ({
+Fidel.setOptions({
   autoScan: true
 });
 ```
@@ -262,7 +265,7 @@ Fidel.setOptions ({
 Use this option to pass any other data with the card data:
 
 ```javascript
-Fidel.setOptions ({
+Fidel.setOptions({
   metaData: {'meta-data-key-1': 'value1'}
 });
 ```
@@ -272,7 +275,7 @@ Fidel.setOptions ({
 Set your company name as it will appear in our consent checkbox text. Please set it to a maximum of 60 characters.
 
 ```javascript
-Fidel.setOptions ({
+Fidel.setOptions({
   companyName: 'Your Company Name'
 });
 ```
@@ -282,7 +285,7 @@ Fidel.setOptions ({
 Write your custom opt-out instructions for your users. They will be displayed in the consent checkbox text as well.
 
 ```javascript
-Fidel.setOptions ({
+Fidel.setOptions({
   deleteInstructions: 'Your custom card delete instructions!'
 });
 ```
@@ -292,7 +295,7 @@ Fidel.setOptions ({
 This is the privacy policy URL that you can set for the consent checkbox text.
 
 ```javascript
-Fidel.setOptions ({
+Fidel.setOptions({
   privacyUrl: 'https://fidel.uk',
 });
 ```
@@ -314,4 +317,4 @@ The Fidel SDK is in active development, we welcome your feedback!
 Get in touch:
 
 GitHub Issues - For SDK issues and feedback
-Fidel Developers Slack Channel - [https://fidel-developers-slack-invites.herokuapp.com](https://fidel-developers-slack-invites.herokuapp.com) - for personal support at any phase of integration
+Fidel Developers Slack Channel - [https://fidel.uk/join-us-on-slack](https://fidel.uk/join-us-on-slack) - for personal support at any phase of integration
