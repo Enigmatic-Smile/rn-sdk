@@ -14,9 +14,9 @@
     "build:ios": "react-native bundle --entry-file='index.js' --bundle-output='./ios/main.jsbundle' --dev=false --platform='ios'"
   },
   "dependencies": {
+    "fidel-react-native": "^1.0.4",
     "react": "16.8.3",
-    "react-native": "0.59.1",
-    "fidel-react-native": "file:../fidel-react-native-1.0.0.tgz"
+    "react-native": "^0.59.9"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
