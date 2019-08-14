@@ -15,19 +15,19 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 #### Step 1: Add the Fidel React Native iOS project as a dependency
 
-**1. **In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
+**1.** In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
 
-**2. **Go to `node_modules` ➜ `fidel-react-native` and add `Fidel.xcodeproj`
+**2.** Go to `node_modules` ➜ `fidel-react-native` and add `Fidel.xcodeproj`
 
-**3. **In XCode, in the project navigator, select your project. Add `libFidel.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
+**3.** In XCode, in the project navigator, select your project. Add `libFidel.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
 
-**4. **Under your target's `Build Settings`, make sure to set `YES` for `Always Embed Swift Standard Libraries`. That's because, by default, your project might not need it. It needs to be `YES` because otherwise the project will not find the Swift libraries to be able to run our native iOS SDK.
+**4.** Under your target's `Build Settings`, make sure to set `YES` for `Always Embed Swift Standard Libraries`. That's because, by default, your project might not need it. It needs to be `YES` because otherwise the project will not find the Swift libraries to be able to run our native iOS SDK.
 
 #### Step 2: Add the Native iOS SDK as a dependency
 
 You can use Cocoapods or install the library as a dynamic library.
 
-**5. **Add a `Podfile` in your `ios/` folder of your React Native project. It should include the following dependency:
+**5.** Add a `Podfile` in your `ios/` folder of your React Native project. It should include the following dependency:
 
 ```ruby
 use_frameworks!
@@ -47,30 +47,30 @@ target 'example' do
 end
 ```
 
-If you use an older Swift version, please check our [iOS SDK README](https://github.com/FidelLimited/fidel-ios#readme). You'll find a suitable version you should set for your Cocoapods dependency.
+**6.** If you use an older Swift version, you should install a different `Fidel` pod version. If your project uses Swift `4.2.1`, for example, your Podfile should include `pod Fidel, '~>1.4'`, *not* `pod 'Fidel'` (which installs the latest version of the latest Swift supported version). Please check our [iOS SDK README (step 1)](https://github.com/FidelLimited/fidel-ios#step-1). You'll find a suitable version you should set for our Fidel iOS SDK.
 
-**6. **Run `pod install` in your terminal.
+**7.** Run `pod install` in your terminal.
 
-**7. **Make sure to use the new `.xcworkspace` created by Cocoapods when you run your iOS app. React Native should use it by default.
+**8.** Make sure to use the new `.xcworkspace` created by Cocoapods when you run your iOS app. React Native should use it by default.
 
-**8. **In order to allow scanning cards with the camera, make sure to add the key `NSCameraUsageDescription` to your iOS app `Info.plist` and set the value to a string describing why your app needs to use the camera (e.g. "To scan credit cards."). This string will be displayed when the app initially requests permission to access the camera.
+**9.** In order to allow scanning cards with the camera, make sure to add the key `NSCameraUsageDescription` to your iOS app `Info.plist` and set the value to a string describing why your app needs to use the camera (e.g. "To scan credit cards."). This string will be displayed when the app initially requests permission to access the camera.
 
 ### Android
 
-**1. **Append the following lines to `android/settings.gradle`:
+**1.** Append the following lines to `android/settings.gradle`:
 
 ```java
 include ':fidel-react-native'
 project(':fidel-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/fidel-react-native/android')
 ```
 
-**2. **Insert the following lines inside the dependencies block in `android/app/build.gradle`:
+**2.** Insert the following lines inside the dependencies block in `android/app/build.gradle`:
 
 ```java
 implementation project(':fidel-react-native')
 ```
 
-**3. **Open up `android/app/src/main/java/[...]/MainApplication.java`
+**3.** Open up `android/app/src/main/java/[...]/MainApplication.java`
 
 - Add `import com.fidelreactlibrary.FidelPackage;` to the imports at the top of the file
 - Add `new FidelPackage()` to the list returned by the `getPackages()` method:
@@ -85,7 +85,7 @@ protected List <ReactPackage> getPackages() {
 }
 ```
 
-**4. **Append Jitpack to `android/build.gradle`:
+**4.** Append Jitpack to `android/build.gradle`:
 
 ```java
 allprojects {
@@ -96,7 +96,7 @@ allprojects {
 }
 ```
 
-**5. **Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
+**5.** Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
 
 ```java
 buildscript {
@@ -108,7 +108,7 @@ buildscript {
 }
 ```
 
-**6. **Ensure that you have *Google Play Services* installed.
+**6.** Ensure that you have *Google Play Services* installed.
 
 For a physical device you need to search on Google for *Google Play Services*. There will be a link that takes you to the Play Store and from there you will see a button to update it (*do not* search within the Play Store).
 
