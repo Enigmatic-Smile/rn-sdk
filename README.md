@@ -47,7 +47,7 @@ target 'example' do
 end
 ```
 
-**6.** If you use an older Swift version, you should install a different `Fidel` pod version. If your project uses Swift `4.2.1`, for example, your Podfile should include `pod Fidel, '~>1.4`, *not* `pod 'Fidel'` (which installs the latest version of the latest Swift supported version). Please check our [iOS SDK README (step 1)](https://github.com/FidelLimited/fidel-ios#step-1). You'll find a suitable version you should set for our Fidel iOS SDK.
+**6.** If you use an older Swift version, you should install a different `Fidel` pod version. If your project uses Swift `4.2.1`, for example, your Podfile should include `pod Fidel, '~>1.4'`, *not* `pod 'Fidel'` (which installs the latest version of the latest Swift supported version). Please check our [iOS SDK README (step 1)](https://github.com/FidelLimited/fidel-ios#step-1). You'll find a suitable version you should set for our Fidel iOS SDK.
 
 **7.** Run `pod install` in your terminal.
 
