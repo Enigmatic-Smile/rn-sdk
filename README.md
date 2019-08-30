@@ -13,6 +13,8 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 ### iOS
 
+**Note:** `fidel-react-native` does not support `react-native 0.60`, so please make sure you bootstrap your projects using `react-native init --version="react-native@0.59.0" yourProject`.
+
 #### Step 1: Add the Fidel React Native iOS project as a dependency
 
 **1.** In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
