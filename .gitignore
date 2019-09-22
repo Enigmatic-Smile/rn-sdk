@@ -12,6 +12,8 @@ example/yarn-error.log
 # Xcode
 #
 project.xcworkspace
+ios/Fidel.xcodeproj/xcuserdata/*
+ios/Fidel.xcodeproj/project.xcworkspace/xcuserdata/*
 
 # Android/IntelliJ
 #

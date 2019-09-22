@@ -13,6 +13,7 @@
   "files": [
     "android",
     "ios",
+    "fidel-react-native.podspec",
     "index.js"
   ],
   "repository": {
