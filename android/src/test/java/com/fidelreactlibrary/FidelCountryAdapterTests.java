@@ -11,6 +11,7 @@ import java.util.Map;
 
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
@@ -43,6 +44,7 @@ public class FidelCountryAdapterTests {
         }
     }
 
+
     @Test
     public void test_WhenAskedForKeyForCountry_ItProvidesIt() {
         for (Country country : Country.values()) {
@@ -66,6 +68,7 @@ public class FidelCountryAdapterTests {
     private void assertCorrectCountryValueFor(String key,
                                               Country countryValue,
                                               Map<String, Integer> map) {
+        assertNotEquals(key, "notFound");
         assertThat(map.keySet(), hasItem(key));
         assertEquals(map.get(key).intValue(), countryValue.ordinal());
     }
