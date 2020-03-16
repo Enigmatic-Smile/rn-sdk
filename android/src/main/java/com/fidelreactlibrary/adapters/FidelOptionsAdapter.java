@@ -16,7 +16,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
 
@@ -77,12 +78,10 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         }
         if (valueIsValidFor(data, COUNTRY_KEY)) {
             int countryInt = data.getInt(COUNTRY_KEY);
-            Fidel.Country adaptedCountry = countryAdapter.countryWithInteger(countryInt);
-            Fidel.country = adaptedCountry;
+            Fidel.country = countryAdapter.countryWithInteger(countryInt);
         }
         if (data.hasKey(CARD_SCHEMES_KEY)) {
-            Set<Fidel.CardScheme> adaptedSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(data.getArray(CARD_SCHEMES_KEY));
-            Fidel.supportedCardSchemes = adaptedSchemes;
+            Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(data.getArray(CARD_SCHEMES_KEY));
         }
     }
 
@@ -99,6 +98,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         Fidel.bannerImage = data;
     }
 
+    @Nonnull
     @Override
     public Map<String, Object> getConstants() {
         Map<String, Object> constants = countryAdapter.getConstants();

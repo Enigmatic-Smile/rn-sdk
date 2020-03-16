@@ -56,7 +56,13 @@ public final class AssertHelpers {
                         }
                     }
                     if (!didFindInternalObjects) {
-                        assertEquals(mapValue, jsonValue);
+                        if ((mapValue.getClass() == Double.class || mapValue.getClass() == double.class) &&
+                                (jsonValue.getClass() == Integer.class || jsonValue.getClass() == int.class)) {
+                            Integer intValue = ((Double)mapValue).intValue();
+                            assertEquals(intValue, jsonValue);
+                        } else {
+                            assertEquals(mapValue, jsonValue);
+                        }
                     }
                 }
                 catch (JSONException e) {

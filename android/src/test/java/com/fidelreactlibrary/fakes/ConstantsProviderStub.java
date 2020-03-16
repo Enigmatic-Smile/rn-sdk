@@ -5,6 +5,8 @@ import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 public final class ConstantsProviderStub implements ConstantsProvider {
 
     private String key;
@@ -15,9 +17,10 @@ public final class ConstantsProviderStub implements ConstantsProvider {
         this.value = value;
     }
 
+    @Nonnull
     @Override
     public Map<String, Object> getConstants() {
-        final HashMap<String, Object> hashMap = new HashMap();
+        final HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put(key, value);
         return hashMap;
     }
