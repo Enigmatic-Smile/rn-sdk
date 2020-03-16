@@ -5,13 +5,14 @@ import com.facebook.react.bridge.ReadableArray;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.Test;
 
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 import edu.emory.mathcs.backport.java.util.Arrays;
 
@@ -130,7 +131,7 @@ public final class FidelCardSchemesAdapterTests {
     }
 
     //Helpers
-    private @NotNull Map<String, Integer> getConstantKeyValues() {
+    private @Nonnull Map<String, Integer> getConstantKeyValues() {
         Map<String, Object> exposedConstants = sut.getConstants();
         Map<String, Integer> constantKeyValues = (Map<String, Integer>)exposedConstants.get(CARD_SCHEMES_KEY);
         if (constantKeyValues == null) return new HashMap<>();

@@ -3,10 +3,10 @@ package com.fidelreactlibrary.adapters;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.annotation.Nonnull;
 
 public final class FidelCountryAdapter implements CountryAdapter {
 
@@ -21,7 +21,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
 
     private static final String NOT_FOUND_COUNTRY_KEY = "notFound";
 
-    public @NotNull String keyFor(@NotNull Fidel.Country country) {
+    public @Nonnull String keyFor(@Nonnull Fidel.Country country) {
         switch (country) {
             case UNITED_KINGDOM: return UNITED_KINGDOM_COUNTRY_KEY;
             case UNITED_STATES: return UNITED_STATES_COUNTRY_KEY;
@@ -34,7 +34,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
     }
 
     @Override
-    public @NotNull Map<String, Object> getConstants() {
+    public @Nonnull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         final Map<String, Integer> countriesMap = new HashMap<>();
         for (Fidel.Country country :

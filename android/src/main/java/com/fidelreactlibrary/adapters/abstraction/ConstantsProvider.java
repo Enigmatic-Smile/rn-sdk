@@ -1,9 +1,9 @@
 package com.fidelreactlibrary.adapters.abstraction;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.Map;
 
+import javax.annotation.Nonnull;
+
 public interface ConstantsProvider {
-    @NotNull Map<String, Object> getConstants();
+    @Nonnull Map<String, Object> getConstants();
 }

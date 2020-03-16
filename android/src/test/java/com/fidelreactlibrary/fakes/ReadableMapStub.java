@@ -1,5 +1,7 @@
 package com.fidelreactlibrary.fakes;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableArray;
@@ -9,7 +11,9 @@ import com.facebook.react.bridge.ReadableType;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -111,6 +115,12 @@ public class ReadableMapStub implements ReadableMap {
     @Nonnull
     @Override
     public ReadableMapKeySetIterator keySetIterator() {
+        return null;
+    }
+
+    @NonNull
+    @Override
+    public Iterator<Map.Entry<String, Object>> getEntryIterator() {
         return null;
     }
 

@@ -337,7 +337,7 @@ public class FidelOptionsAdapterTests {
     }
     private void processWithCardSchemes(Fidel.CardScheme... cardSchemes) {
         cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.copyOf(Arrays.asList(cardSchemes));
-        map.readableArrayToReturn = JavaOnlyArray.of(cardSchemes);
+        map.readableArrayToReturn = JavaOnlyArray.of((Object[]) cardSchemes);
         sut.process(map);
     }
 

@@ -4,15 +4,13 @@ import com.facebook.react.bridge.ReadableArray;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
-import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Nonnull;
 
 public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
 
@@ -23,7 +21,7 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     private static final String AMERICAN_EXPRESS_CARD_SCHEME_VALUE = "americanExpress";
 
     @Override
-    public @NotNull Map<String, Object> getConstants() {
+    public @Nonnull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         Map<String, Object> cardSchemesConstants = new HashMap<>();
         for (Fidel.CardScheme cardScheme : Fidel.CardScheme.values()) {
