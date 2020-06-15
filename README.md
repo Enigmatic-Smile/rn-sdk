@@ -356,4 +356,4 @@ The Fidel SDK is in active development, we welcome your feedback!
 Get in touch:
 
 GitHub Issues - For SDK issues and feedback
-Fidel Developers Slack Channel - [https://fidel.uk/join-us-on-slack](https://fidel.uk/join-us-on-slack) - for personal support at any phase of integration
+Fidel Developers Forum - [https://community.fidel.uk](https://community.fidel.uk) - for personal support at any phase of integration
