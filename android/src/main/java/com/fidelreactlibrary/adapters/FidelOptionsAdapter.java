@@ -1,7 +1,6 @@
 package com.fidelreactlibrary.adapters;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
