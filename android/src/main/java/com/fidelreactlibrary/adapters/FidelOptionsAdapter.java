@@ -28,7 +28,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String PROGRAM_NAME_KEY = "programName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
     public static final String PRIVACY_URL_KEY = "privacyUrl";
-    public static final String TERMS_CONDITIONS_URL_KEY = "termsConditionsURL";
+    public static final String TERMS_CONDITIONS_URL_KEY = "termsConditionsUrl";
     public static final String META_DATA_KEY = "metaData";
     public static final String COUNTRY_KEY = "country";
     public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
