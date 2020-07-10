@@ -1,6 +1,7 @@
 package com.fidelreactlibrary.adapters;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidel.sdk.Fidel;
@@ -26,6 +27,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String COMPANY_NAME_KEY = "companyName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
     public static final String PRIVACY_URL_KEY = "privacyUrl";
+    public static final String TERMS_CONDITIONS_URL_KEY = "termsConditionsURL";
     public static final String META_DATA_KEY = "metaData";
     public static final String COUNTRY_KEY = "country";
     public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
@@ -36,6 +38,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                     COMPANY_NAME_KEY,
                     DELETE_INSTRUCTIONS_KEY,
                     PRIVACY_URL_KEY,
+                    TERMS_CONDITIONS_URL_KEY,
                     META_DATA_KEY,
                     COUNTRY_KEY,
                     CARD_SCHEMES_KEY
@@ -69,6 +72,9 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         }
         if (valueIsValidFor(data, PRIVACY_URL_KEY)) {
             Fidel.privacyURL = data.getString(PRIVACY_URL_KEY);
+        }
+        if (valueIsValidFor(data, TERMS_CONDITIONS_URL_KEY)) {
+            Fidel.termsConditionsURL = data.getString(TERMS_CONDITIONS_URL_KEY);
         }
         if (valueIsValidFor(data, META_DATA_KEY)) {
             ReadableMap metaDataMap = data.getMap(META_DATA_KEY);
