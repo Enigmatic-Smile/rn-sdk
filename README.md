@@ -192,6 +192,8 @@ Fidel.setOptions({
   companyName: 'My RN Company', // the company name displayed in the checkbox text
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
+  termsConditionsURL: 'https://fidel.uk/privacy', //mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
+  programName: 'My program name',//optional, is used when you set the default country to USA/Canada or when the user can select USA/Canada
 });
 ```
 
@@ -319,6 +321,16 @@ Fidel.setOptions({
 });
 ```
 
+### programName
+
+Set your program name as it will appear in the consent text. Note that this parameter is used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
+
+```javascript
+Fidel.setOptions({
+  programName: 'Your Program Name'
+});
+```
+
 ### deleteInstructions
 
 Write your custom opt-out instructions for your users. They will be displayed in the consent checkbox text as well.
@@ -338,6 +350,28 @@ Fidel.setOptions({
   privacyUrl: 'https://fidel.uk',
 });
 ```
+
+### termsConditionsUrl
+
+This is the terms & conditions URL that you can set for the consent text. Note that this parameter mandatory when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country).
+
+```javascript
+Fidel.setOptions({
+  termsConditionsUrl: 'https://fidel.uk',
+});
+```
+
+### Consent text for United States and Canada
+
+When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a different consent text will be applied. You can set the following parameters in this consent text:
+
+```javascript
+Fidel.setOptions({
+  termsConditionsUrl: 'https://fidel.uk',
+  programName: 'Your Program Name',
+});
+```
+The default value for programName is `our`. The `termsConditionsURL` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
 
 ### Documentation
 

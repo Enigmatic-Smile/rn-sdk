@@ -46,11 +46,13 @@ export default class App extends Component<Props> {
       companyName: 'My RN Company',
       deleteInstructions: 'My custom delete instructions!',
       privacyUrl: 'https://fidel.uk',
+      termsConditionsUrl: 'https://fidel.uk',
+      programName: 'My program name',
     });
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Fidel React Native SDK example</Text>
-        <Text style={styles.instructions}>To show started, tap the button below.</Text>
+        <Text style={styles.instructions}>To get started, tap the button below.</Text>
         <Button
           onPress={this.onLinkButtonPress}
           title="Link a card"
