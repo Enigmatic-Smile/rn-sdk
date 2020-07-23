@@ -192,8 +192,8 @@ Fidel.setOptions({
   companyName: 'My RN Company', // the company name displayed in the checkbox text
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
-  termsConditionsURL: 'https://fidel.uk/privacy', //mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
-  programName: 'My program name',//optional, is used when you set the default country to USA/Canada or when the user can select USA/Canada
+  termsConditionsURL: 'https://fidel.uk/privacy', // mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
+  programName: 'My program name', // optional, is used when you set the default country to USA/Canada or when the user can select USA/Canada
 });
 ```
 
@@ -371,9 +371,24 @@ Fidel.setOptions({
   programName: 'Your Program Name',
 });
 ```
-The default value for programName is `our`. The `termsConditionsURL` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
 
-### Documentation
+The default placeholder value for programName is `our` (in English). The `termsConditionsURL` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
+
+For USA & Canada, the following would be an example Terms & Conditions text, for Cashback Inc (an example company):
+
+*By submitting your card information and checking this box, you authorize Visa to monitor and share transaction data with Fidel (our service provider) to participate in  program. You also acknowledge and agree that Fidel may share certain details of your qualifying transactions with Cashback Inc to enable your participation in  program and for other purposes in accordance with the Cashback Inc Terms and Conditions, Cashback Inc privacy policy and Fidel’s Privacy Policy. You may opt-out of transaction monitoring on the linked card at any time by contacting support.*
+
+For the rest of the world:
+
+*I authorise Visa to monitor my payment card to identify transactions that qualify for a reward and for Visa to share such information with Cashback Inc, to enable my card linked offers and target offers that may be of interest to me. For information about Cashback Inc privacy practices, please see the privacy policy. You may opt-out of transaction monitoring on the payment card you entered at any time by contacting support.*
+
+## Localisation
+
+The SDK's default language is English, but it's also localised for French and Swedish languages. When the device has either `Français (Canada)` or `Svenska (Sverige)` as its language, the appropriate texts will be displayed. Please note that developer error messages are in English only and they will not be displayed to the user.
+
+Please make sure that your project also supports localisation for the languages that you want to support.
+
+## Documentation
 
 In the test environment please use our VISA, Mastercard or American Express test card numbers. You must use a test API Key for them to work.
 
