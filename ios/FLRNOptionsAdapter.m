@@ -82,8 +82,10 @@ NSString *const kOptionKey = @"Option";
     }
     
     FLFidel.companyName = [self getStringValueFor:kCompanyNameOptionKey fromDictionary:options];
+    FLFidel.programName = [self getStringValueFor:kProgramNameOptionKey fromDictionary:options];
     FLFidel.deleteInstructions = [self getStringValueFor:kDeleteInstructionsOptionKey fromDictionary:options];
     FLFidel.privacyURL = [self getStringValueFor:kPrivacyURLOptionKey fromDictionary:options];
+    FLFidel.termsConditionsURL = [self getStringValueFor:kTermsConditionsURLOptionKey fromDictionary:options];
 }
 
 - (NSString * _Nullable)getStringValueFor:(NSString *)key fromDictionary:(NSDictionary *)dict {

@@ -24,8 +24,10 @@
     kAutoScanOptionKey: @(FLSDKOptionAutoScan),\
     kMetaDataOptionKey: @(FLSDKOptionMetaData), \
     kCompanyNameOptionKey: @(FLSDKOptionCompanyName), \
+    kProgramNameOptionKey: @(FLSDKOptionProgramName), \
     kDeleteInstructionsOptionKey: @(FLSDKOptionCompanyName), \
     kPrivacyURLOptionKey: @(FLSDKOptionCompanyName), \
+    kTermsConditionsURLOptionKey: @(FLSDKOptionTermsConditionsURL), \
     kCardSchemesDataOptionKey: @(FLSDKOptionCardSchemes) \
 }
 
@@ -34,8 +36,10 @@ FOUNDATION_EXPORT NSString *const kCountryOptionKey;
 FOUNDATION_EXPORT NSString *const kAutoScanOptionKey;
 FOUNDATION_EXPORT NSString *const kMetaDataOptionKey;
 FOUNDATION_EXPORT NSString *const kCompanyNameOptionKey;
+FOUNDATION_EXPORT NSString *const kProgramNameOptionKey;
 FOUNDATION_EXPORT NSString *const kDeleteInstructionsOptionKey;
 FOUNDATION_EXPORT NSString *const kPrivacyURLOptionKey;
+FOUNDATION_EXPORT NSString *const kTermsConditionsURLOptionKey;
 FOUNDATION_EXPORT NSString *const kCardSchemesDataOptionKey;
 
 @implementation RCTConvert (Options)
