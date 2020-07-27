@@ -39,7 +39,8 @@ export default class App extends Component<Props> {
       programId: 'Your Program ID'
     })
     Fidel.setOptions ({
-      country: Fidel.Country.canada,
+      bannerImage: resolvedImage,
+      // country: Fidel.Country.canada,
       supportedCardSchemes: Array.from(cardSchemes),
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
