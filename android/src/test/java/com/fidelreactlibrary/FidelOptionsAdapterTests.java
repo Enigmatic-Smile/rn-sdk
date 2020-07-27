@@ -39,8 +39,10 @@ public class FidelOptionsAdapterTests {
     private FidelOptionsAdapter sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
 
     private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
+    private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
     private static final String TEST_PRIVACY_URL = "testprivacy.url";
+    private static final String TEST_TERMS_CONDITIONS_URL = "termsconditions.url";
     private static final Fidel.Country TEST_COUNTRY = Fidel.Country.SWEDEN;
     private static final Integer TEST_COUNTRY_NUMBER = 12;
 
@@ -50,8 +52,10 @@ public class FidelOptionsAdapterTests {
         Fidel.bannerImage = null;
         Fidel.autoScan = false;
         Fidel.companyName = null;
+        Fidel.programName = null;
         Fidel.deleteInstructions = null;
         Fidel.privacyURL = null;
+        Fidel.termsConditionsURL = null;
         Fidel.metaData = null;
         Fidel.country = null;
         Fidel.supportedCardSchemes = EnumSet.allOf(Fidel.CardScheme.class);
@@ -63,8 +67,10 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.BANNER_IMAGE_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.AUTO_SCAN_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COMPANY_NAME_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PROGRAM_NAME_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_URL_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COUNTRY_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
@@ -107,6 +113,14 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
+    public void test_IfHasProgramNameKeyButNoValue_DontSetItToTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.PROGRAM_NAME_KEY;
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
+        processWithString(TEST_PROGRAM_NAME, keyToTestFor);
+        assertNotEqualsString(keyToTestFor, Fidel.programName);
+    }
+
+    @Test
     public void test_IfHasDeleteInstructionsKeyButNoValue_DontSetThemToTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
         map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
@@ -120,6 +134,14 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithString(TEST_PRIVACY_URL, keyToTestFor);
         assertNotEqualsString(keyToTestFor, Fidel.privacyURL);
+    }
+
+    @Test
+    public void test_IfHasTermsConditionsURLKeyButNoValue_DontSetItToTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY;
+        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
+        processWithString(TEST_TERMS_CONDITIONS_URL, keyToTestFor);
+        assertNotEqualsString(keyToTestFor, Fidel.termsConditionsURL);
     }
 
     @Test
@@ -163,6 +185,14 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
+    public void test_IfDoesntHaveProgramNameKey_DontSetItToTheSDK() {
+        map = ReadableMapStub.mapWithNoKey();
+        String key = FidelOptionsAdapter.PROGRAM_NAME_KEY;
+        processWithString(TEST_PROGRAM_NAME, key);
+        assertNotEqualsString(key, Fidel.programName);
+    }
+
+    @Test
     public void test_IfDoesntHaveDeleteInstructionsKey_DontSetThemToTheSDK() {
         map = ReadableMapStub.mapWithNoKey();
         String key = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
@@ -176,6 +206,14 @@ public class FidelOptionsAdapterTests {
         String key = FidelOptionsAdapter.PRIVACY_URL_KEY;
         processWithString(TEST_PRIVACY_URL, key);
         assertNotEqualsString(key, Fidel.privacyURL);
+    }
+
+    @Test
+    public void test_IfDoesntHaveTermsConditionsURLKey_DontSetItToTheSDK() {
+        map = ReadableMapStub.mapWithNoKey();
+        String key = FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY;
+        processWithString(TEST_TERMS_CONDITIONS_URL, key);
+        assertNotEqualsString(key, Fidel.termsConditionsURL);
     }
 
     @Test
@@ -237,6 +275,14 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
+    public void test_WhenProgramNameValueIsSet_SetItForTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.PROGRAM_NAME_KEY;
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
+        processWithString(TEST_PROGRAM_NAME, keyToTestFor);
+        assertEqualsString(keyToTestFor, Fidel.programName);
+    }
+
+    @Test
     public void test_WhenDeleteInstructionsValueIsSet_SetItForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
@@ -250,6 +296,14 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithString(TEST_PRIVACY_URL, keyToTestFor);
         assertEqualsString(keyToTestFor, Fidel.privacyURL);
+    }
+
+    @Test
+    public void test_WhenTermsConditionsURLValueIsSet_SetItForTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY;
+        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
+        processWithString(TEST_TERMS_CONDITIONS_URL, keyToTestFor);
+        assertEqualsString(keyToTestFor, Fidel.termsConditionsURL);
     }
 
     @Test

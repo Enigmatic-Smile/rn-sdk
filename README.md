@@ -192,6 +192,8 @@ Fidel.setOptions({
   companyName: 'My RN Company', // the company name displayed in the checkbox text
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
+  termsConditionsURL: 'https://fidel.uk/privacy', // mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
+  programName: 'My program name', // optional, is used when you set the default country to USA/Canada or when the user can select USA/Canada
 });
 ```
 
@@ -319,6 +321,16 @@ Fidel.setOptions({
 });
 ```
 
+### programName
+
+Set your program name as it will appear in the consent text. Note that this parameter is used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
+
+```javascript
+Fidel.setOptions({
+  programName: 'Your Program Name'
+});
+```
+
 ### deleteInstructions
 
 Write your custom opt-out instructions for your users. They will be displayed in the consent checkbox text as well.
@@ -339,7 +351,44 @@ Fidel.setOptions({
 });
 ```
 
-### Documentation
+### termsConditionsUrl
+
+This is the terms & conditions URL that you can set for the consent text. Note that this parameter mandatory when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country).
+
+```javascript
+Fidel.setOptions({
+  termsConditionsUrl: 'https://fidel.uk',
+});
+```
+
+### Consent text for United States and Canada
+
+When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a different consent text will be applied. You can set the following parameters in this consent text:
+
+```javascript
+Fidel.setOptions({
+  termsConditionsUrl: 'https://fidel.uk',
+  programName: 'Your Program Name',
+});
+```
+
+The default placeholder value for programName is `our` (in English). The `termsConditionsURL` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
+
+For USA & Canada, the following would be an example Terms & Conditions text, for Cashback Inc (an example company):
+
+*By submitting your card information and checking this box, you authorize Visa to monitor and share transaction data with Fidel (our service provider) to participate in  program. You also acknowledge and agree that Fidel may share certain details of your qualifying transactions with Cashback Inc to enable your participation in  program and for other purposes in accordance with the Cashback Inc Terms and Conditions, Cashback Inc privacy policy and Fidel’s Privacy Policy. You may opt-out of transaction monitoring on the linked card at any time by contacting support.*
+
+For the rest of the world:
+
+*I authorise Visa to monitor my payment card to identify transactions that qualify for a reward and for Visa to share such information with Cashback Inc, to enable my card linked offers and target offers that may be of interest to me. For information about Cashback Inc privacy practices, please see the privacy policy. You may opt-out of transaction monitoring on the payment card you entered at any time by contacting support.*
+
+## Localisation
+
+The SDK's default language is English, but it's also localised for French and Swedish languages. When the device has either `Français (Canada)` or `Svenska (Sverige)` as its language, the appropriate texts will be displayed. Please note that developer error messages are in English only and they will not be displayed to the user.
+
+Please make sure that your project also supports localisation for the languages that you want to support.
+
+## Documentation
 
 In the test environment please use our VISA, Mastercard or American Express test card numbers. You must use a test API Key for them to work.
 

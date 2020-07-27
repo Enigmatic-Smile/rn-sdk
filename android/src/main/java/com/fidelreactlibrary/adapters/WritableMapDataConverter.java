@@ -35,10 +35,6 @@ public final class WritableMapDataConverter implements DataConverter<Object, Wri
                 else if (field.getType() == int.class) {
                     map.putInt(field.getName(), (int)field.get(data));
                 }
-                else if (field.getType() == LinkResultError.class) {
-                    WritableMap errorMapToPut = this.getConvertedDataFor(field.get(data));
-                    map.putMap(field.getName(), errorMapToPut);
-                }
                 else if (field.getType() == LinkResultErrorCode.class) {
                     LinkResultErrorCode errorCode = (LinkResultErrorCode)field.get(data);
                     map.putString(field.getName(), errorCode.toString().toLowerCase());
