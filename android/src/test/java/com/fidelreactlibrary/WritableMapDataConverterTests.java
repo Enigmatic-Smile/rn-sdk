@@ -78,10 +78,6 @@ public class WritableMapDataConverterTests {
                 JSONObject jsonField = (JSONObject)field.get(linkResult);
                 assertMapEqualsWithJSONObject(mapField.toHashMap(), jsonField);
             }
-            else if (field.getType() == LinkResultError.class) {
-                ReadableMap mapField = receivedMap.getMap(field.getName());
-                assertNull(mapField);
-            }
             else if (field.getType() != Parcelable.Creator.class) {
                 fail("Some of the link result properties are not converted");
             }
