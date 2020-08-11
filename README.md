@@ -192,7 +192,7 @@ Fidel.setOptions({
   companyName: 'My RN Company', // the company name displayed in the checkbox text
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
-  termsConditionsURL: 'https://fidel.uk/privacy', // mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
+  termsConditionsUrl: 'https://fidel.uk/privacy', // mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
   programName: 'My program name', // optional, is used when you set the default country to USA/Canada or when the user can select USA/Canada
 });
 ```
@@ -372,7 +372,7 @@ Fidel.setOptions({
 });
 ```
 
-The default placeholder value for programName is `our` (in English). The `termsConditionsURL` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
+The default placeholder value for programName is `our` (in English). The `termsConditionsUrl` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
 
 For USA & Canada, the following would be an example Terms & Conditions text, for Cashback Inc (an example company):
 
