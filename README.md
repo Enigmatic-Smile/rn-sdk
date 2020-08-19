@@ -365,11 +365,32 @@ Fidel.setOptions({
 
 In order to properly set the consent text, please follow these steps:
 
-1. Set the company name (please explain how it affects all consent texts, that it's optional and what's the default value)
-2. Set the privacy policy URL (please explain how it affects all consent texts, that it's optional and what's the default value)
-3. Set the delete instructions (please explain how it affects all consent texts, that it's optional and what's the default value)
+1. **Set the company name**
 
-Note that the consent text has a different form depending on the country you set or the country the user can select.
+This parameter is optional, but we recommended setting it. If you don't set a company name, we'll show the default value in the consent text: ```Your Company Name```
+
+2. **Set the privacy policy URL**
+
+This is an optional parameter. It is added as a hyperlink to the ```privacy policy``` text. Please see the full behaviour below.
+
+3. **Set the delete instructions**
+
+Optional parameter whose default value is ```going to your account settings```. This default value is applied for both consent texts - for the USA & Canada as well as for the rest of the world.
+
+4. **Set the card scheme name**
+
+By default, we allow the user to input card numbers from either Visa, Mastercard or American Express, but you can control which card networks you accept. The consent text changes based on what you define or based on what the user inputs. Please see the full behaviour below.
+
+5. **Set the program name (applied to the consent text only for USA and Canada)**
+
+This parameter is taken into account only for USA and Canada. The default value for program name is ```our```. 
+
+6. **Set the terms and conditions URL (applied to the consent text only for USA and Canada)**
+
+This parameter is mandatory for USA and Canada. Once set, it will be applied as a hyperlink on the ```Terms and Conditions``` text.
+
+
+Note that the consent text has a different form depending on the country you set or the country the user can select. Below you can find the specifics for each case.
 
 ### Consent text for United States and Canada
 
@@ -408,10 +429,6 @@ If you don't set a card scheme (meaning the user can input either Visa, Masterca
 If you set one card scheme name, it will be displayed in the consent text (e.g. for Mastercard it would be _you authorize ```Mastercard``` to monitor and share transaction data with Fidel (our service provider)_) This value - ```Mastercard``` - will not change when the user starts typing in a card number.
 
 #### Consent text behaviour for privacy policy
-
-Notice the following excerpt from the consent text above: _in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
-
-If you do not set a ```privacyUrl```, the text will become _in accordance with the ```Cashback Inc``` Terms and Conditions and Fidel’s Privacy Policy._
 
 
 ### Consent text for the rest of the world
