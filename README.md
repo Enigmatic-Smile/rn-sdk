@@ -341,7 +341,7 @@ Fidel.setOptions({
 });
 ```
 
-### programName (USA&Canada only)
+### programName (applied to the consent text only for USA and Canada.)
 
 Set your program name as it will appear in the consent text. Note that **this parameter is optional** and used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
 
@@ -351,7 +351,7 @@ Fidel.setOptions({
 });
 ```
 
-### termsConditionsUrl (USA&Canada only)
+### termsConditionsUrl (applied to the consent text only for USA and Canada)
 
 This is the terms & conditions URL that you can set for the consent text. Note that **this parameter is mandatory** when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country).
 
@@ -408,6 +408,8 @@ If you don't set a card scheme (meaning the user can input either Visa, Masterca
 If you set one card scheme name, it will be displayed in the consent text (e.g. for Mastercard it would be _you authorize ```Mastercard``` to monitor and share transaction data with Fidel (our service provider)_) This value - ```Mastercard``` - will not change when the user starts typing in a card number.
 
 #### Consent text behaviour for privacy policy
+
+If you do not set a privacy policy URL, the privacy policy related phrase will be removed from the text.
 
 Notice the following excerpt from the consent text above: _in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
 
