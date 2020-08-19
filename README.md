@@ -430,6 +430,8 @@ If you set one card scheme name, it will be displayed in the consent text (e.g. 
 
 #### Consent text behaviour for privacy policy
 
+Notice the following excerpt from the consent text above: _in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy_. If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on _privacy policy_.
+If you do not set a ```privacyUrl```, the text will become _in accordance with the ```Cashback Inc``` Terms and Conditions and Fidel’s Privacy Policy._
 
 ### Consent text for the rest of the world
 
@@ -459,7 +461,7 @@ The SDK's default language is English, but it's also localised for French and Sw
 
 Please make sure that your project also supports localisation for the languages that you want to support.
 
-## Documentation
+## Test card numbers
 
 In the test environment please use our VISA, Mastercard or American Express test card numbers. You must use a test API Key for them to work.
 
