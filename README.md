@@ -363,11 +363,17 @@ Fidel.setOptions({
 
 ## Customizing the consent text
 
-The consent text has a different form depending on the country you set or the country the user can select.
+In order to properly set the consent text, please follow these steps:
+
+1. Set the company name (please explain how it affects all consent texts, that it's optional and what's the default value)
+2. Set the privacy policy URL (please explain how it affects all consent texts, that it's optional and what's the default value)
+3. Set the delete instructions (please explain how it affects all consent texts, that it's optional and what's the default value)
+
+Note that the consent text has a different form depending on the country you set or the country the user can select.
 
 ### Consent text for United States and Canada
 
-When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a different consent text will be applied.
+When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a specific consent text will be applied.
 
 For USA & Canada, the following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company) that uses ```Awesome Bonus``` as their program name:
 
@@ -395,7 +401,13 @@ Fidel.setOptions({
 });
 ```
 
-#### Text behaviour for privacy policy
+#### Consent text behaviour for card scheme name
+
+If you don't set a card scheme (meaning the user can input either Visa, Mastercard or American Express cards) *OR* set 2 or 3 card scheme names, the default value used will be ```your payment card network``` (e.g. _you authorize ```your payment card network``` to monitor and share transaction data with Fidel (our service provider)_). When the user starts typing in a card number, ```your payment card network``` will be replaced with the scheme name of the card that they typed in (e.g. Visa).
+
+If you set one card scheme name, it will be displayed in the consent text (e.g. for Mastercard it would be _you authorize ```Mastercard``` to monitor and share transaction data with Fidel (our service provider)_) This value - ```Mastercard``` - will not change when the user starts typing in a card number.
+
+#### Consent text behaviour for privacy policy
 
 Notice the following excerpt from the consent text above: _in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
 
@@ -404,13 +416,19 @@ If you do not set a ```privacyUrl```, the text will become _in accordance with t
 
 ### Consent text for the rest of the world
 
-When you set United Kingdom, Ireland, Japan or Sweden as the default country or the user selects one of these countries from the lost, a specific consent text will be applied.
+When you set United Kingdom, Ireland, Japan or Sweden as the default country or the user selects one of these countries from the list, a consent text specific for these countries will be applied.
 
 The following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company):
 
 *I authorise ```card_scheme_name``` to monitor my payment card to identify transactions that qualify for a reward and for ```card_scheme_name``` to share such information with ```Cashback Inc```, to enable my card linked offers and target offers that may be of interest to me. For information about ```Cashback Inc``` privacy practices, please see the privacy policy. You may opt-out of transaction monitoring on the payment card you entered at any time by ```deleteInstructions```.*
 
-#### Text behaviour for privacy policy
+#### Consent text behaviour for card scheme name
+
+If you don't set a card scheme (meaning the user can input either Visa, Mastercard or American Express cards) *OR* set 2 or 3 card scheme names, the default value used will be ```my card network``` (e.g. _I authorise ```my card network``` to monitor my payment card_). When the user starts typing in a card number, ```my card network``` will be replaced with the scheme name of the card that they typed in (e.g. Visa).
+
+If you set one card scheme name, it will be displayed in the consent text (e.g. for Mastercard it would be _I authorise ```Mastercard``` to monitor my payment card_) This value - ```Mastercard``` - will not change when the user starts typing in a card number.
+
+#### Consent text behaviour for privacy policy
 
 Notice the following excerpt from the consent text above: _...may be of interest to me. For information about ```Cashback Inc``` privacy practices, please see the privacy policy. You may opt-out of..._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
 
