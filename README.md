@@ -341,7 +341,7 @@ Fidel.setOptions({
 });
 ```
 
-### programName (applied to the consent text only for USA and Canada.)
+### programName (applied to the consent text only for USA and Canada)
 
 Set your program name as it will appear in the consent text. Note that **this parameter is optional** and used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
 
