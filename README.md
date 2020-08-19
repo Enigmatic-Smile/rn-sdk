@@ -409,8 +409,6 @@ If you set one card scheme name, it will be displayed in the consent text (e.g. 
 
 #### Consent text behaviour for privacy policy
 
-If you do not set a privacy policy URL, the privacy policy related phrase will be removed from the text.
-
 Notice the following excerpt from the consent text above: _in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
 
 If you do not set a ```privacyUrl```, the text will become _in accordance with the ```Cashback Inc``` Terms and Conditions and Fidel’s Privacy Policy._
@@ -431,6 +429,8 @@ If you don't set a card scheme (meaning the user can input either Visa, Masterca
 If you set one card scheme name, it will be displayed in the consent text (e.g. for Mastercard it would be _I authorise ```Mastercard``` to monitor my payment card_) This value - ```Mastercard``` - will not change when the user starts typing in a card number.
 
 #### Consent text behaviour for privacy policy
+
+If you do not set a privacy policy URL, the privacy policy related phrase will be removed from the text.
 
 Notice the following excerpt from the consent text above: _...may be of interest to me. For information about ```Cashback Inc``` privacy practices, please see the privacy policy. You may opt-out of..._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
 
