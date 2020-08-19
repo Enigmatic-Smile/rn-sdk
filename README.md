@@ -321,16 +321,6 @@ Fidel.setOptions({
 });
 ```
 
-### programName
-
-Set your program name as it will appear in the consent text. Note that this parameter is used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
-
-```javascript
-Fidel.setOptions({
-  programName: 'Your Program Name'
-});
-```
-
 ### deleteInstructions
 
 Write your custom opt-out instructions for your users. They will be displayed in the consent checkbox text as well.
@@ -351,9 +341,19 @@ Fidel.setOptions({
 });
 ```
 
-### termsConditionsUrl
+### programName (USA&Canada only)
 
-This is the terms & conditions URL that you can set for the consent text. Note that this parameter mandatory when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country).
+Set your program name as it will appear in the consent text. Note that **this parameter is optional** and used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
+
+```javascript
+Fidel.setOptions({
+  programName: 'Your Program Name'
+});
+```
+
+### termsConditionsUrl (USA&Canada only)
+
+This is the terms & conditions URL that you can set for the consent text. Note that **this parameter is mandatory** when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country).
 
 ```javascript
 Fidel.setOptions({
@@ -361,26 +361,60 @@ Fidel.setOptions({
 });
 ```
 
+## Customizing the consent text
+
+The consent text has a different form depending on the country you set or the country the user can select.
+
 ### Consent text for United States and Canada
 
-When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a different consent text will be applied. You can set the following parameters in this consent text:
+When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a different consent text will be applied.
+
+For USA & Canada, the following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company) that uses ```Awesome Bonus``` as their program name:
+
+*By submitting your card information and checking this box, you authorize ```card_scheme_name``` to monitor and share transaction data with Fidel (our service provider) to participate in ```Awesome Bonus``` program. You also acknowledge and agree that Fidel may share certain details of your qualifying transactions with ```Cashback Inc``` to enable your participation in ```Awesome Bonus``` program and for other purposes in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy. You may opt-out of transaction monitoring on the linked card at any time by ```deleteInstructions```.*
+
+There are two specific parameters that you can set for this consent text:
+
+#### 1. termsConditionsUrl
+This parameter is mandatory when you set United States or Canada as the default country or don't set a default country. When you set this parameter, the ```Terms and Conditions``` from the consent text will get a hyperlink with the URL you set.
 
 ```javascript
 Fidel.setOptions({
   termsConditionsUrl: 'https://fidel.uk',
+});
+```
+
+If you don't set this parameter, you'll get an error when trying to open the card linking interface: ```You have set a North American default country or you allow the user to select a North American country. For North American countries it is mandatory for you to provide the Terms and Conditions URL.```
+
+#### 2. programName
+This parameter is optional when you set United States or Canada as the default country or don't set a default country. If you don't set a program name, we'll use ```our``` as the default value (for example, in the text above, you would see *...to monitor and share transaction data with Fidel (our service provider) to participate in ```our``` program...*)
+
+```javascript
+Fidel.setOptions({
   programName: 'Your Program Name',
 });
 ```
 
-The default placeholder value for programName is `our` (in English). The `termsConditionsUrl` is mandatory in this case. If you don't set a privacy policy URL (which is different than the terms & conditions URL), the corresponding wording will not be displayed.
+#### Text behaviour for privacy policy
 
-For USA & Canada, the following would be an example Terms & Conditions text, for Cashback Inc (an example company):
+Notice the following excerpt from the consent text above: _in accordance with the ```Cashback Inc``` Terms and Conditions, ```Cashback Inc``` privacy policy and Fidel’s Privacy Policy._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
 
-*By submitting your card information and checking this box, you authorize Visa to monitor and share transaction data with Fidel (our service provider) to participate in  program. You also acknowledge and agree that Fidel may share certain details of your qualifying transactions with Cashback Inc to enable your participation in  program and for other purposes in accordance with the Cashback Inc Terms and Conditions, Cashback Inc privacy policy and Fidel’s Privacy Policy. You may opt-out of transaction monitoring on the linked card at any time by contacting support.*
+If you do not set a ```privacyUrl```, the text will become _in accordance with the ```Cashback Inc``` Terms and Conditions and Fidel’s Privacy Policy._
 
-For the rest of the world:
 
-*I authorise Visa to monitor my payment card to identify transactions that qualify for a reward and for Visa to share such information with Cashback Inc, to enable my card linked offers and target offers that may be of interest to me. For information about Cashback Inc privacy practices, please see the privacy policy. You may opt-out of transaction monitoring on the payment card you entered at any time by contacting support.*
+### Consent text for the rest of the world
+
+When you set United Kingdom, Ireland, Japan or Sweden as the default country or the user selects one of these countries from the lost, a specific consent text will be applied.
+
+The following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company):
+
+*I authorise ```card_scheme_name``` to monitor my payment card to identify transactions that qualify for a reward and for ```card_scheme_name``` to share such information with ```Cashback Inc```, to enable my card linked offers and target offers that may be of interest to me. For information about ```Cashback Inc``` privacy practices, please see the privacy policy. You may opt-out of transaction monitoring on the payment card you entered at any time by ```deleteInstructions```.*
+
+#### Text behaviour for privacy policy
+
+Notice the following excerpt from the consent text above: _...may be of interest to me. For information about ```Cashback Inc``` privacy practices, please see the privacy policy. You may opt-out of..._ If you set a ```privacyUrl```, this is the text that will be displayed, along with a hyperlink set on *privacy policy*.
+
+If you do not set a ```privacyUrl```, the text will become _...may be of interest to me. You may opt-out of..._
 
 ## Localisation
 
