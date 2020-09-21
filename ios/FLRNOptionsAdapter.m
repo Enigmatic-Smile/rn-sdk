@@ -81,11 +81,25 @@ NSString *const kOptionKey = @"Option";
         FLFidel.objc_supportedCardSchemes = supportedCardSchemes;
     }
     
-    FLFidel.companyName = [self getStringValueFor:kCompanyNameOptionKey fromDictionary:options];
-    FLFidel.programName = [self getStringValueFor:kProgramNameOptionKey fromDictionary:options];
-    FLFidel.deleteInstructions = [self getStringValueFor:kDeleteInstructionsOptionKey fromDictionary:options];
-    FLFidel.privacyURL = [self getStringValueFor:kPrivacyURLOptionKey fromDictionary:options];
-    FLFidel.termsConditionsURL = [self getStringValueFor:kTermsConditionsURLOptionKey fromDictionary:options];
+    if([self valueIsValidFor:kCompanyNameOptionKey fromDictionary:options]) {
+        FLFidel.companyName = [self getStringValueFor:kCompanyNameOptionKey fromDictionary:options];
+    }
+    
+    if([self valueIsValidFor:kProgramNameOptionKey fromDictionary:options]) {
+        FLFidel.programName = [self getStringValueFor:kProgramNameOptionKey fromDictionary:options];
+    }
+    
+    if([self valueIsValidFor:kDeleteInstructionsOptionKey fromDictionary:options]) {
+        FLFidel.deleteInstructions = [self getStringValueFor:kDeleteInstructionsOptionKey fromDictionary:options];
+    }
+    
+    if([self valueIsValidFor:kPrivacyURLOptionKey fromDictionary:options]) {
+        FLFidel.privacyURL = [self getStringValueFor:kPrivacyURLOptionKey fromDictionary:options];
+    }
+    
+    if([self valueIsValidFor:kTermsConditionsURLOptionKey fromDictionary:options]) {
+        FLFidel.termsConditionsURL = [self getStringValueFor:kTermsConditionsURLOptionKey fromDictionary:options];
+    }
 }
 
 - (NSString * _Nullable)getStringValueFor:(NSString *)key fromDictionary:(NSDictionary *)dict {
@@ -100,6 +114,15 @@ NSString *const kOptionKey = @"Option";
         }
     }
     return nil;
+}
+
+- (BOOL)valueIsValidFor:(NSString *)key fromDictionary:(NSDictionary *)dict {
+    NSArray *allKeys = dict.allKeys;
+    id value = dict[key];
+    if ([value isKindOfClass:[NSString class]]) {
+        return [allKeys containsObject:key] && (value != nil) && ![value isKindOfClass:[NSNull class]] && [value length] > 0;
+    }
+    return [allKeys containsObject:key] && (value != nil) && ![value isKindOfClass:[NSNull class]];
 }
 
 @end
