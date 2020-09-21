@@ -53,29 +53,28 @@ NSString *const kOptionKey = @"Option";
 }
 
 - (void)setOptions:(NSDictionary *)options {
-    NSArray *allOptionKeys = options.allKeys;
-    if ([allOptionKeys containsObject:kBannerImageOptionKey]) {
+    if ([self valueIsValidFor:kBannerImageOptionKey fromDictionary:options]) {
         id rawBannerData = options[kBannerImageOptionKey];
         UIImage *bannerImage = [self.imageAdapter imageFromRawData:rawBannerData];
         [FLFidel setBannerImage:bannerImage];
     }
     
-    if ([allOptionKeys containsObject:kCountryOptionKey]) {
+    if ([self valueIsValidFor:kCountryOptionKey fromDictionary:options]) {
         id rawCountry = options[kCountryOptionKey];
         FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
     }
     
-    if ([allOptionKeys containsObject:kAutoScanOptionKey]) {
+    if ([self valueIsValidFor:kAutoScanOptionKey fromDictionary:options]) {
         FLFidel.autoScan = [options[kAutoScanOptionKey] boolValue];
     }
     
-    if ([allOptionKeys containsObject:kMetaDataOptionKey]) {
+    if ([self valueIsValidFor:kMetaDataOptionKey fromDictionary:options]) {
         id rawMetaData = options[kMetaDataOptionKey];
         if ([rawMetaData isKindOfClass:[NSDictionary class]]) {
             FLFidel.metaData = rawMetaData;
         }
     }
-    if([allOptionKeys containsObject:kCardSchemesDataOptionKey]) {
+    if([self valueIsValidFor:kCardSchemesDataOptionKey fromDictionary:options]) {
         id rawData = options[kCardSchemesDataOptionKey];
         NSSet<NSNumber *> *supportedCardSchemes = [self.cardSchemesAdapter cardSchemesWithRawObject:rawData];
         FLFidel.objc_supportedCardSchemes = supportedCardSchemes;
@@ -119,10 +118,13 @@ NSString *const kOptionKey = @"Option";
 - (BOOL)valueIsValidFor:(NSString *)key fromDictionary:(NSDictionary *)dict {
     NSArray *allKeys = dict.allKeys;
     id value = dict[key];
-    if ([value isKindOfClass:[NSString class]]) {
-        return [allKeys containsObject:key] && (value != nil) && ![value isKindOfClass:[NSNull class]] && [value length] > 0;
+    if ([allKeys containsObject:key]) {
+        if ([value isKindOfClass:[NSString class]]) {
+            return [allKeys containsObject:key] && (value != nil) && ![value isKindOfClass:[NSNull class]] && [value length] > 0;
+        }
+        return [allKeys containsObject:key] && (value != nil) && ![value isKindOfClass:[NSNull class]];
     }
-    return [allKeys containsObject:key] && (value != nil) && ![value isKindOfClass:[NSNull class]];
+    return false;
 }
 
 @end
