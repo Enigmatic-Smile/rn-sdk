@@ -37,9 +37,8 @@ public final class ImageFromReadableMapAdapter implements DataProcessor<Readable
     public void process(ReadableMap data) {
         String imageURIString = data.getString("uri");
         Uri imageURI = Uri.parse(imageURIString);
-
-        if (imageURI.getScheme().equals("http") ||
-                imageURI.getScheme().equals("https")) {
+        if (imageURI.getScheme() != null && (imageURI.getScheme().equals("http") ||
+                imageURI.getScheme().equals("https"))) {
             ImageDecodeOptions decodeOptions = ImageDecodeOptions.newBuilder().build();
             ImageRequest imageRequest = ImageRequestBuilder
                     .newBuilderWithSource(imageURI)
@@ -84,7 +83,8 @@ public final class ImageFromReadableMapAdapter implements DataProcessor<Readable
             dataSource.subscribe(dataSubscriber, CallerThreadExecutor.getInstance());
         } else {
             try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), imageURI);
+                Uri relativeImageURI = Uri.parse("android.resource://" + context.getPackageName() + "/drawable/" + imageURIString);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), relativeImageURI);
                 bitmapOutput.output(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
