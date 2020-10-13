@@ -1,5 +1,10 @@
 # Fidel React Native bridge library change log
 
+## 1.3.1
+
+- Fixes an Android issue in the latest React Native versions, when specifying the banner image in release environment.
+- Checking for `null` values, in mandatory SDK fields, to prevent unclear bugs.
+
 ## 1.3.0
 
 - Localised the SDK for French and Swedish users.
