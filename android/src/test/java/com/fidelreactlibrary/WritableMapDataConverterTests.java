@@ -54,7 +54,7 @@ public class WritableMapDataConverterTests {
     }
 
     @Test
-    public void test_WhenConvertingLinkResult_IncludeAllObjectFields() throws IllegalAccessException {
+    public void test_WhenConvertingValidLinkResult_IncludeAllObjectFields() throws IllegalAccessException {
         LinkResult linkResult = new LinkResult(TEST_CARD_ID);
         setFieldsFor(linkResult);
 
@@ -78,7 +78,7 @@ public class WritableMapDataConverterTests {
                 JSONObject jsonField = (JSONObject)field.get(linkResult);
                 assertMapEqualsWithJSONObject(mapField.toHashMap(), jsonField);
             }
-            else if (field.getType() != Parcelable.Creator.class) {
+            else if (field.getType() != Parcelable.Creator.class && field.getType() != LinkResultError.class) {
                 fail("Some of the link result properties are not converted");
             }
         }
