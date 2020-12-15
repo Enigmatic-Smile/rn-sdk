@@ -1,5 +1,7 @@
 package com.fidelreactlibrary.fakes;
 
+import com.facebook.react.bridge.ReadableArray;
+import com.fidel.sdk.Fidel;
 import com.fidel.sdk.Fidel.Country;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
@@ -10,6 +12,7 @@ import javax.annotation.Nonnull;
 public final class CountryAdapterStub implements CountryAdapter {
 
     public Country countryToReturn;
+    public Country[] countriesToReturn;
     public int countryIntegerReceived;
 
     @Nonnull
@@ -23,5 +26,10 @@ public final class CountryAdapterStub implements CountryAdapter {
     public Country countryWithInteger(int integer) {
         countryIntegerReceived = integer;
         return countryToReturn;
+    }
+
+    @Override
+    public Country[] parseAllowedCountries(ReadableArray inputArray) {
+        return new Fidel.Country[]{Fidel.Country.UNITED_KINGDOM, Fidel.Country.JAPAN, Fidel.Country.CANADA};
     }
 }
