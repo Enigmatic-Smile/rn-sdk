@@ -11,9 +11,7 @@ import javax.annotation.Nonnull;
 
 public final class CountryAdapterStub implements CountryAdapter {
 
-    public Country countryToReturn;
     public Country[] countriesToReturn;
-    public int countryIntegerReceived;
 
     @Nonnull
     @Override
@@ -24,8 +22,7 @@ public final class CountryAdapterStub implements CountryAdapter {
 
     @Override
     public Country countryWithInteger(int integer) {
-        countryIntegerReceived = integer;
-        return countryToReturn;
+        return null;
     }
 
     @Override

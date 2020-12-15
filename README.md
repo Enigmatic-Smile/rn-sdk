@@ -194,8 +194,8 @@ Fidel.setOptions({
   companyName: 'My RN Company', // the company name displayed in the checkbox text
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
-  termsConditionsUrl: 'https://fidel.uk/privacy', // mandatory when you set the allowed countries to USA/Canada or when the user can select USA/Canada
-  programName: 'My program name', // mandatory when you set the allowed countries to USA/Canada or when the user can select USA/Canada
+  termsConditionsUrl: 'https://fidel.uk/privacy', // mandatory when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
+  programName: 'My program name', // mandatory when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
 });
 ```
 
@@ -271,7 +271,7 @@ Fidel.setOptions({
 });
 ```
 
-The possible options are: `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.canada`. You can set one or multiple of these countries. If you don't set any allowed countries, the user will be able to choose any of the countries above. If you set only one country, the card linking screen will not show the country picker UI. Note that, when you set multiple countries, they will be displayed in the country picker UI in the order that you set them.
+The possible options are: `.unitedKingdom`, `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.canada`. You can set one or multiple of these countries. If you don't set any allowed countries, the user will be able to choose any of the countries above. If you set only one country, the card linking screen will not show the country picker UI. Note that, when you set multiple countries, they will be displayed in the country picker UI in the order that you set them.
 
 ### supportedCardSchemes
 
