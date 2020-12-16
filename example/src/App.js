@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import {StyleSheet, Text, View, Button} from 'react-native';
 import Fidel from 'fidel-react-native';
 
 type Props = {};
@@ -29,10 +29,19 @@ export default class App extends Component<Props> {
     //this is the default value for supported card schemes,
     //but you can remove the support for some of the card schemes if you want to
     const cardSchemes = new Set([
-      Fidel.CardScheme.visa, 
-      Fidel.CardScheme.mastercard, 
-      Fidel.CardScheme.americanExpress
+      Fidel.CardScheme.visa,
+      Fidel.CardScheme.mastercard,
+      Fidel.CardScheme.americanExpress,
     ]);
+
+    const countries = [
+      Fidel.Country.unitedKingdom,
+      Fidel.Country.unitedStates,
+      Fidel.Country.japan,
+      Fidel.Country.sweden,
+      Fidel.Country.ireland,
+      Fidel.Country.canada,
+    ];
 
     Fidel.setup ({
       apiKey: 'Your API Key',
@@ -40,7 +49,7 @@ export default class App extends Component<Props> {
     })
     Fidel.setOptions ({
       bannerImage: resolvedImage,
-      // country: Fidel.Country.canada,
+      allowedCountries: countries,
       supportedCardSchemes: Array.from(cardSchemes),
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},

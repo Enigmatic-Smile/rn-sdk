@@ -1,5 +1,6 @@
 package com.fidelreactlibrary.adapters;
 
+import com.facebook.react.bridge.ReadableArray;
 import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
@@ -52,5 +53,14 @@ public final class FidelCountryAdapter implements CountryAdapter {
             return Fidel.Country.values()[integer];
         }
         return null;
+    }
+
+    @Override
+    public Fidel.Country[] parseAllowedCountries(ReadableArray inputArray) {
+        Fidel.Country[] countries = new Fidel.Country[inputArray.size()];
+        for (int i = 0; i < inputArray.size(); i++) {
+            countries[i] = countryWithInteger(inputArray.getInt(i));
+        }
+        return countries;
     }
 }
