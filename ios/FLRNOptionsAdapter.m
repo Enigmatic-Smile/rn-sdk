@@ -57,8 +57,8 @@ NSString *const kOptionKey = @"Option";
         [FLFidel setBannerImage:bannerImage];
     }
     
-    if ([self valueIsValidFor:kCountryOptionKey fromDictionary:options]) {
-        id rawData = options[kCountryOptionKey];
+    if ([self valueIsValidFor:kAllowedCountriesOptionKey fromDictionary:options]) {
+        id rawData = options[kAllowedCountriesOptionKey];
         FLFidel.objc_allowedCountries = (NSArray<NSNumber *> *) rawData;
     }
     
