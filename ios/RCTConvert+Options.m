@@ -9,7 +9,7 @@
 #import "RCTConvert+Options.h"
 
 NSString *const kBannerImageOptionKey = @"bannerImage";
-NSString *const kCountryOptionKey = @"country";
+NSString *const kCountryOptionKey = @"allowedCountries";
 NSString *const kAutoScanOptionKey = @"autoScan";
 NSString *const kMetaDataOptionKey = @"metaData";
 NSString *const kCompanyNameOptionKey = @"companyName";

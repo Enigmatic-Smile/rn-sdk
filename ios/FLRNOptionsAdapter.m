@@ -14,14 +14,14 @@
 #else
 #import "Fidel/Fidel-Swift.h" // Required when used as a Pod in a Swift project
 #endif
-#import "FLRNCountryAdapter.h"
 #import "FLRNImageAdapter.h"
 #import "FLRNCardSchemesAdapter.h"
 #import "RCTConvert+Options.h"
 
+#define FLCountryValues @{@"unitedKingdom" : @(FLCountryUnitedKingdom), @"ireland" : @(FLCountryIreland), @"unitedStates" : @(FLCountryUnitedStates), @"sweden" : @(FLCountrySweden), @"japan" : @(FLCountryJapan), @"canada" : @(FLCountryCanada)}
+
 @interface FLRNOptionsAdapter()
 
-@property (nonatomic, strong) id<FLRNCountryAdapter> countryAdapter;
 @property (nonatomic, strong) id<FLRNImageAdapter> imageAdapter;
 @property (nonatomic, strong) id<FLRNCardSchemesAdapter> cardSchemesAdapter;
 
@@ -29,12 +29,10 @@
 
 @implementation FLRNOptionsAdapter
 
-- (instancetype)initWithCountryAdapter:(id<FLRNCountryAdapter>)countryAdapter
-                          imageAdapter:(id<FLRNImageAdapter>)imageAdapter
+- (instancetype)initWithImageAdapter:(id<FLRNImageAdapter>)imageAdapter
                     cardSchemesAdapter:(id<FLRNCardSchemesAdapter>)cardSchemesAdapter {
     self = [super init];
     if (self) {
-        _countryAdapter = countryAdapter;
         _imageAdapter = imageAdapter;
         _cardSchemesAdapter = cardSchemesAdapter;
     }
@@ -46,7 +44,7 @@ NSString *const kCardSchemeKey = @"CardScheme";
 NSString *const kOptionKey = @"Option";
 -(NSDictionary *)constantsToExport {
     return @{
-             kCountryKey: self.countryAdapter.constantsToExport,
+             kCountryKey: FLCountryValues,
              kCardSchemeKey: self.cardSchemesAdapter.constantsToExport,
              kOptionKey: FLSDKOptionValues
              };
@@ -60,8 +58,8 @@ NSString *const kOptionKey = @"Option";
     }
     
     if ([self valueIsValidFor:kCountryOptionKey fromDictionary:options]) {
-        id rawCountry = options[kCountryOptionKey];
-        FLFidel.country = [self.countryAdapter adaptedCountry:rawCountry];
+        id rawData = options[kCountryOptionKey];
+        FLFidel.objc_allowedCountries = (NSArray<NSNumber *> *) rawData;
     }
     
     if ([self valueIsValidFor:kAutoScanOptionKey fromDictionary:options]) {
