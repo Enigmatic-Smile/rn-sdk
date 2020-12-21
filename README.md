@@ -195,7 +195,7 @@ Fidel.setOptions({
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
   termsConditionsUrl: 'https://fidel.uk/privacy', // mandatory when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
-  programName: 'My program name', // mandatory when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
+  programName: 'My program name', // optional, is used when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
 });
 ```
 
