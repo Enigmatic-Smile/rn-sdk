@@ -37,7 +37,8 @@ public final class WritableMapDataConverter implements DataConverter<Object, Wri
                 }
                 else if (field.getType() == LinkResultErrorCode.class) {
                     LinkResultErrorCode errorCode = (LinkResultErrorCode)field.get(data);
-                    map.putString(field.getName(), errorCode.toString().toLowerCase());
+                    String displayFieldName = field.getName() == "errorCode" ? "code" : field.getName();
+                    map.putString(displayFieldName, errorCode.toString().toLowerCase());
                 }
                 else if (field.getType() == JSONObject.class) {
                     WritableMap mapToPut = this.getMapFor((JSONObject)field.get(data));
