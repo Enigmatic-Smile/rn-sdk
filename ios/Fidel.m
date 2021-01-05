@@ -7,10 +7,8 @@
 #else
 #import "Fidel/Fidel-Swift.h" // Required when used as a Pod in a Swift project
 #endif
-#import "RCTConvert+Country.h"
 #import "FLRNSetupAdapter.h"
 #import "FLRNOptionsAdapter.h"
-#import "FLRNCountryFromJSAdapter.h"
 #import "FLRNImageFromRNAdapter.h"
 #import "FLRNCardSchemesFromJSAdapter.h"
 #import "FLRNRuntimeObjectToDictionaryAdapter.h"
@@ -30,12 +28,9 @@ RCT_EXPORT_MODULE(NativeFidelBridge)
 -(instancetype)init {
     self = [super init];
     if (self) {
-        id<FLRNCountryAdapter> countryAdapter;
-        countryAdapter = [[FLRNCountryFromJSAdapter alloc] init];
         id<FLRNImageAdapter> imageAdapter = [[FLRNImageFromRNAdapter alloc] init];
         id<FLRNCardSchemesAdapter> cardSchemesAdapter = [[FLRNCardSchemesFromJSAdapter alloc] init];
-        _adapter = [[FLRNOptionsAdapter alloc] initWithCountryAdapter:countryAdapter
-                                                         imageAdapter:imageAdapter
+        _adapter = [[FLRNOptionsAdapter alloc] initWithImageAdapter:imageAdapter
                                                    cardSchemesAdapter:cardSchemesAdapter];
         _setupAdapter = [[FLRNSetupAdapter alloc] init];
         _objectAdapter = [[FLRNRuntimeObjectToDictionaryAdapter alloc] init];

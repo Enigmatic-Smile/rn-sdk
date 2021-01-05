@@ -43,7 +43,7 @@ public class FidelOptionsAdapterTests {
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
     private static final String TEST_PRIVACY_URL = "testprivacy.url";
     private static final String TEST_TERMS_CONDITIONS_URL = "termsconditions.url";
-    private static final Fidel.Country TEST_COUNTRY = Fidel.Country.SWEDEN;
+    private static final Fidel.Country[] TEST_COUNTRIES = new Fidel.Country[]{Fidel.Country.UNITED_KINGDOM, Fidel.Country.JAPAN, Fidel.Country.CANADA};
     private static final Integer TEST_COUNTRY_NUMBER = 12;
 
     @After
@@ -57,7 +57,7 @@ public class FidelOptionsAdapterTests {
         Fidel.privacyURL = null;
         Fidel.termsConditionsURL = null;
         Fidel.metaData = null;
-        Fidel.country = null;
+        Fidel.allowedCountries = null;
         Fidel.supportedCardSchemes = EnumSet.allOf(Fidel.CardScheme.class);
     }
 
@@ -72,7 +72,7 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COUNTRY_KEY));
+        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.ALLOWED_COUNTRIES_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
             //for the card schemes value we only check if it exists
@@ -154,10 +154,10 @@ public class FidelOptionsAdapterTests {
 
     @Test
     public void test_IfHasCountryKeyButNoValue_DontSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.COUNTRY_KEY;
+        String keyToTestFor = FidelOptionsAdapter.ALLOWED_COUNTRIES_KEY;
         map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithCountryInt();
-        assertNull(Fidel.country);
+        assertNull(Fidel.allowedCountries);
     }
 
     //Tests when keys are missing
@@ -228,7 +228,7 @@ public class FidelOptionsAdapterTests {
     public void test_IfDoesntHaveCountryKey_DontSetItToTheSDK() {
         map = ReadableMapStub.mapWithNoKey();
         processWithCountryInt();
-        assertNull(Fidel.country);
+        assertNull(Fidel.allowedCountries);
     }
     @Test
     public void test_IfDoesntHaveCardSchemeKey_DontSetItToTheSDK() {
@@ -315,12 +315,11 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
-    public void test_WhenCountryIsSet_ConvertItWithCountryAdapterForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.COUNTRY_KEY;
+    public void test_WhenAllowedCountriesAreSet_ConvertThemWithCountryAdapterForTheSDK() {
+        String keyToTestFor = FidelOptionsAdapter.ALLOWED_COUNTRIES_KEY;
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithCountryInt();
-        assertEquals(map.intToReturn, countryAdapterStub.countryIntegerReceived);
-        assertEquals(countryAdapterStub.countryToReturn, Fidel.country);
+        assertEquals(countryAdapterStub.countriesToReturn, Fidel.allowedCountries);
     }
 
     @Test
@@ -385,7 +384,7 @@ public class FidelOptionsAdapterTests {
         sut.process(map);
     }
     private void processWithCountryInt() {
-        countryAdapterStub.countryToReturn = TEST_COUNTRY;
+        countryAdapterStub.countriesToReturn = TEST_COUNTRIES;
         map.intToReturn = TEST_COUNTRY_NUMBER;
         sut.process(map);
     }

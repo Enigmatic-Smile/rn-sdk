@@ -183,17 +183,19 @@ const cardSchemes = new Set([
   Fidel.CardScheme.americanExpress
 ]);
 
+const countries = [Fidel.Country.ireland, Fidel.Country.unitedStates];
+
 Fidel.setOptions({
   bannerImage: resolvedImage,
-  country: Fidel.Country.sweden,
+  allowedCountries: countries,
   supportedCardSchemes: Array.from(cardSchemes),
   autoScan: false,
   metaData: {'meta-data-1': 'value1'}, // additional data to pass with the card
   companyName: 'My RN Company', // the company name displayed in the checkbox text
   deleteInstructions: 'Your custom delete instructions!',
   privacyUrl: 'https://fidel.uk',
-  termsConditionsUrl: 'https://fidel.uk/privacy', // mandatory when you set the default country to USA/Canada or when the user can select USA/Canada
-  programName: 'My program name', // optional, is used when you set the default country to USA/Canada or when the user can select USA/Canada
+  termsConditionsUrl: 'https://fidel.uk/privacy', // mandatory when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
+  programName: 'My program name', // optional, is used when you include USA/Canada in the list of allowed countries or when the user can select USA/Canada from the country selection UI
 });
 ```
 
@@ -222,6 +224,7 @@ Both `result` and `error` are objects that look like in the following examples:
   expMonth: 12 // for your convenience, this is the card expiration month
   expYear: 2023 // for your convenience, this is the card expiration year
   id: "card-id" // the card ID as registered on the Fidel platform
+  firstNumbers: "444400" //first numbers of the card
   lastNumbers: "4001" //last numbers of the card
   live: false
   mapped: false
@@ -258,17 +261,18 @@ Fidel.setOptions({
 }
 ```
 
-### country
+### allowedCountries
 
-Set a default country the SDK should use with:
+To set the countries that the users can select, use
 
 ```javascript
+const countries = [Fidel.Country.ireland, Fidel.Country.unitedStates];
 Fidel.setOptions({
-  country: Fidel.Country.unitedKingdom
+  allowedCountries: countries
 });
 ```
 
-When you set a default country, the card linking screen will not show the country picker UI. The other options, for now, are: `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.canada`.
+The possible options are: `.unitedKingdom`, `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.canada`. You can set one or multiple of these countries. If you don't set any allowed countries, the user will be able to choose any of the countries above. If you set only one country, the card linking screen will not show the country picker UI. Note that, when you set multiple countries, they will be displayed in the country picker UI in the order that you set them.
 
 ### supportedCardSchemes
 
@@ -343,7 +347,7 @@ Fidel.setOptions({
 
 ### programName (applied to the consent text only for USA and Canada)
 
-Set your program name as it will appear in the consent text. Note that **this parameter is optional** and used when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
+Set your program name as it will appear in the consent text. Note that **this parameter is optional** and used when you set United States or Canada as allowed countries or don't set any allowed countries (meaning that the user is free to select United States or Canada as their country). Please set it to a maximum of 60 characters.
 
 ```javascript
 Fidel.setOptions({
@@ -353,7 +357,7 @@ Fidel.setOptions({
 
 ### termsConditionsUrl (applied to the consent text only for USA and Canada)
 
-This is the terms & conditions URL that you can set for the consent text. Note that **this parameter is mandatory** when you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country).
+This is the terms & conditions URL that you can set for the consent text. Note that **this parameter is mandatory** when you set United States or Canada as allowed countries or don't set any allowed countries (meaning that the user is free to select United States or Canada as their country).
 
 ```javascript
 Fidel.setOptions({
@@ -390,11 +394,11 @@ This parameter is taken into account only for USA and Canada. The default value 
 This parameter is mandatory for USA and Canada. Once set, it will be applied as a hyperlink on the ```Terms and Conditions``` text.
 
 
-Note that the consent text has a different form depending on the country you set or the country the user can select. Below you can find the specifics for each case.
+Note that the consent text has a different form depending on the allowed countries you set or the country the user can select. Below you can find the specifics for each case.
 
 ### Consent text for United States and Canada
 
-When you set United States or Canada as the default country or don't set a default country (meaning that the user is free to select United States or Canada as their country), a specific consent text will be applied.
+When you set United States and/or Canada as allowed countries or don't set any countries (meaning that the user is free to select United States or Canada as their country), a different consent text will be applied.
 
 For USA & Canada, the following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company) that uses ```Awesome Bonus``` as their program name:
 
@@ -403,7 +407,7 @@ For USA & Canada, the following would be an example Terms & Conditions text for 
 There are two specific parameters that you can set for this consent text:
 
 #### 1. termsConditionsUrl
-This parameter is mandatory when you set United States or Canada as the default country or don't set a default country. When you set this parameter, the ```Terms and Conditions``` from the consent text will get a hyperlink with the URL you set.
+This parameter is mandatory when you set United States and/or Canada as allowed countries or don't set any countries (meaning that the user is free to select United States or Canada as their country). When you set this parameter, the ```Terms and Conditions``` from the consent text will get a hyperlink with the URL you set.
 
 ```javascript
 Fidel.setOptions({
@@ -411,10 +415,10 @@ Fidel.setOptions({
 });
 ```
 
-If you don't set this parameter, you'll get an error when trying to open the card linking interface: ```You have set a North American default country or you allow the user to select a North American country. For North American countries it is mandatory for you to provide the Terms and Conditions URL.```
+If you don't set this parameter, you'll get an error when trying to open the card linking interface: ```You have included a North American country in the list of allowed countries or you allow the user to select a North American country. For North American countries it is mandatory for you to provide the Terms and Conditions URL.```
 
 #### 2. programName
-This parameter is optional when you set United States or Canada as the default country or don't set a default country. If you don't set a program name, we'll use ```our``` as the default value (for example, in the text above, you would see *...to monitor and share transaction data with Fidel (our service provider) to participate in ```our``` program...*)
+This parameter is optional when you set United States or Canada as allowed countries or don't set any allowed countries. If you don't set a program name, we'll use ```our``` as the default value (for example, in the text above, you would see *...to monitor and share transaction data with Fidel (our service provider) to participate in ```our``` program...*)
 
 ```javascript
 Fidel.setOptions({
@@ -435,7 +439,7 @@ If you do not set a ```privacyUrl```, the text will become _in accordance with t
 
 ### Consent text for the rest of the world
 
-When you set United Kingdom, Ireland, Japan or Sweden as the default country or the user selects one of these countries from the list, a consent text specific for these countries will be applied.
+When you set United Kingdom, Ireland, Japan or Sweden as allowed countries or the user selects one of these countries from the list, a consent text specific for these countries will be applied.
 
 The following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company):
 

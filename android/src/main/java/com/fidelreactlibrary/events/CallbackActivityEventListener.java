@@ -11,19 +11,24 @@ import com.fidel.sdk.LinkResult;
 import com.fidel.sdk.LinkResultError;
 import com.fidelreactlibrary.adapters.abstraction.DataConverter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidel.sdk.data.abstraction.FidelCardLinkingObserver;
 
 public final class CallbackActivityEventListener
         extends BaseActivityEventListener
-        implements CallbackInput {
+        implements CallbackInput, FidelCardLinkingObserver {
 
-    private final DataConverter<Object, WritableMap> linkResultConverter;
-    private final DataProcessor<WritableMap> errorHandler;
+    private DataConverter<Object, WritableMap> linkResultConverter;
+    private DataProcessor<WritableMap> errorHandler;
     private Callback callback;
 
     public CallbackActivityEventListener(DataConverter<Object, WritableMap> linkResultConverter,
                                          DataProcessor<WritableMap> errorHandler) {
         this.linkResultConverter = linkResultConverter;
         this.errorHandler = errorHandler;
+    }
+
+    public CallbackActivityEventListener() {
+
     }
 
     @Override
@@ -49,5 +54,15 @@ public final class CallbackActivityEventListener
     @Override
     public void callbackIsReady(Callback callback) {
         this.callback = callback;
+    }
+
+    @Override
+    public void onCardLinkingFailed(LinkResultError linkResultError) {
+        WritableMap convertedError = linkResultConverter.getConvertedDataFor(linkResultError);
+        errorHandler.process(convertedError);
+    }
+
+    @Override
+    public void onCardLinkingSucceeded(LinkResult linkResult) {
     }
 }
