@@ -12,12 +12,12 @@ buildscript {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion "28.0.3"
 
     defaultConfig {
-        minSdkVersion 19
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
     }
@@ -38,11 +38,10 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.github.FidelLimited:android-sdk:1.5.1'
+    implementation 'com.github.FidelLimited:android-sdk:1.5.3'
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'androidx.test.ext:junit:1.1.2'
     testImplementation 'org.assertj:assertj-core:1.7.0'
-    testImplementation 'org.robolectric:robolectric:4.3.1'
+    testImplementation 'org.robolectric:robolectric:4.5.1'
 }
-  

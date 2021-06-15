@@ -98,8 +98,7 @@ public class CallbackActivityEventListenerTests {
 
     private void onActivityResultWithError() {
         LinkResultErrorCode errorCode = LinkResultErrorCode.USER_CANCELED;
-        intent.parcelableExtraToReturn = new LinkResult(errorCode, "Test error message");;
-
+        intent.parcelableExtraToReturn = new LinkResult(errorCode, "Test error message", "2021-05-19T12:37:55.278Z");
         sut.onActivityResult(activity, REQUEST_CODE, 0, intent);
     }
 }

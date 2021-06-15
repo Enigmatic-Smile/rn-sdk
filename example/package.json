@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "fidel-react-native": "1.4.0",
+    "fidel-react-native": "^1.4.0",
     "react": "17.0.1",
     "react-native": "0.64.2"
   },
