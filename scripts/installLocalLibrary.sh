@@ -14,3 +14,9 @@ cd example
 
 # Install the local library code in the example project, from the TGZ package
 yarn add file:../$localLibraryPackage
+
+# Switch to the iOS project folder
+cd ios
+
+# Install the pods, to be sure that the latest code is integrated
+pod install
