@@ -42,6 +42,6 @@ dependencies {
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test.ext:junit:1.1.2'
-    testImplementation 'org.assertj:assertj-core:1.7.0'
+    testImplementation 'org.assertj:assertj-core:3.13.2'
     testImplementation 'org.robolectric:robolectric:4.5.1'
 }
