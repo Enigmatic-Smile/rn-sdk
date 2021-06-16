@@ -12,6 +12,9 @@ localLibraryPackage=fidel-react-native-$version.tgz
 # Switch to the example project, in order to install the library in the example project
 cd example
 
+# Remove the currently installed fidel react native library
+yarn remove fidel-react-native
+
 # Install the local library code in the example project, from the TGZ package
 yarn add file:../$localLibraryPackage
 
