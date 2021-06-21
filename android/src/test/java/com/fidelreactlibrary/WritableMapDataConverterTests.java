@@ -78,8 +78,8 @@ public class WritableMapDataConverterTests {
                 JSONObject jsonField = (JSONObject)field.get(linkResult);
                 assertMapEqualsWithJSONObject(mapField.toHashMap(), jsonField);
             }
-            else if (field.getType() != Parcelable.Creator.class && field.getType() != LinkResultError.class) {
-                fail("Some of the link result properties are not converted");
+            else if (field.getType() != Parcelable.Creator.class && field.getType() != LinkResultError.class && !field.getName().equals("$jacocoData")) {
+                fail("Some of the link result properties are not converted" + field + " field name: " + field.getName());
             }
         }
     }
@@ -104,8 +104,8 @@ public class WritableMapDataConverterTests {
                 String expectedErrorCodeString = expectedErrorCode.toString().toLowerCase();
                 assertEquals(expectedErrorCodeString, receivedErrorCodeString);
             }
-            else {
-                fail("Some of the link result error properties are not converted");
+            else if (!field.getName().equals("$jacocoData")) {
+                fail("Some of the link result properties are not converted" + field + " field name: " + field.getName());
             }
         }
     }
