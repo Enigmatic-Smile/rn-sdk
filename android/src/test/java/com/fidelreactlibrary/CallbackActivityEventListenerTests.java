@@ -6,6 +6,7 @@ import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.WritableMap;
 import com.fidel.sdk.Fidel;
 import com.fidel.sdk.LinkResult;
+import com.fidel.sdk.LinkResultError;
 import com.fidel.sdk.LinkResultErrorCode;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
 import com.fidelreactlibrary.fakes.CallbackSpy;
@@ -34,6 +35,9 @@ public class CallbackActivityEventListenerTests {
 
     private static final String RESULT_EXTRA_KEY = Fidel.FIDEL_LINK_CARD_RESULT_CARD;
     private static final int REQUEST_CODE = Fidel.FIDEL_LINK_CARD_REQUEST_CODE;
+    private static final LinkResultError testLinkResultError
+            = new LinkResultError(LinkResultErrorCode.INVALID_URL, "Test message", "some date");
+    private static final LinkResult testLinkResult = new LinkResult("TEST CARD ID");
 
     @Before
     public final void setUp() {
@@ -45,7 +49,7 @@ public class CallbackActivityEventListenerTests {
 
         activity = Robolectric.buildActivity(Activity.class).setup().get();
         intent = new IntentMock<>(activity, Activity.class);
-        intent.parcelableExtraToReturn = new LinkResult("TEST CARD ID");
+        intent.parcelableExtraToReturn = testLinkResult;
         linkResultConverterStub.convertedDataToReturn = new JavaOnlyMap();
     }
 
@@ -94,6 +98,31 @@ public class CallbackActivityEventListenerTests {
     public void test_WhenRequestCodeIsNotFidelRequestCode_DontAskForFidelExtras() {
         sut.onActivityResult(activity,0, 0, intent);
         assertNull(intent.parcelableExtraNameAskedFor);
+    }
+
+    @Test
+    public void test_WhenCardLinkingFails_SendConvertedLinkResultToErrorHandler() {
+        sut.onCardLinkingFailed(testLinkResultError);
+        assertEquals(linkResultConverterStub.convertedDataToReturn, errorHandlerSpy.dataToProcess);
+    }
+
+    @Test
+    public void test_WhenCardLinkingFails_ConvertTheErrorToWritableMap() {
+        sut.onCardLinkingFailed(testLinkResultError);
+        assertEquals(linkResultConverterStub.dataReceived, testLinkResultError);
+    }
+
+    @Test
+    public void test_WhenCardLinkingSucceeds_DoNotCallErrorHandler() {
+        sut.onCardLinkingSucceeded(testLinkResult);
+        assertNull(errorHandlerSpy.dataToProcess);
+    }
+
+    @Test
+    public void test_WhenCardLinkingSucceeds_DoNotCallCallback() {
+        sut.onCardLinkingSucceeded(testLinkResult);
+        assertNull(callbackSpy.receivedErrorMap);
+        assertNull(callbackSpy.receivedResultMap);
     }
 
     private void onActivityResultWithError() {
