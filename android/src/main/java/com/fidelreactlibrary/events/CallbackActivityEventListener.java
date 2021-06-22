@@ -17,18 +17,14 @@ public final class CallbackActivityEventListener
         extends BaseActivityEventListener
         implements CallbackInput, FidelCardLinkingObserver {
 
-    private DataConverter<Object, WritableMap> linkResultConverter;
-    private DataProcessor<WritableMap> errorHandler;
+    private final DataConverter<Object, WritableMap> linkResultConverter;
+    private final DataProcessor<WritableMap> errorHandler;
     private Callback callback;
 
     public CallbackActivityEventListener(DataConverter<Object, WritableMap> linkResultConverter,
                                          DataProcessor<WritableMap> errorHandler) {
         this.linkResultConverter = linkResultConverter;
         this.errorHandler = errorHandler;
-    }
-
-    public CallbackActivityEventListener() {
-
     }
 
     @Override
