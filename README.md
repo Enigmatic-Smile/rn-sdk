@@ -246,6 +246,22 @@ Both `result` and `error` are objects that look like in the following examples:
 }
 ```
 
+## How to run the example application
+
+1. Follow the React Native [environment setup instructions](https://reactnative.dev/docs/environment-setup). The example app is not an Expo app, so please follow the "React Native CLI Quickstart" guide.
+2. Open the terminal in the "example" folder.
+3. Install React Native dependencies (which include the Fidel react native library) by running `yarn` in the terminal
+4. To run the iOS example app:
+   1. Switch to the "example/ios" folder in your terminal.
+   2. Run `pod install` to install the Cocoapods project dependencies
+   3. Open the `example.xcworkspace` in Xcode
+   4. Run the project (eventually, it should open another terminal windown that runs Metro)
+5. To run the Android example app:
+   1. Open the "example/android" project in Android Studio.
+   2. Open a terminal window in the "example" folder.
+   3. Run the following command to start Metro: `npx react-native start`
+   4. Run the project on your preferred emulator/device.
+
 ## Options documentation
 
 ### bannerImage

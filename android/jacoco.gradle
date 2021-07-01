@@ -1,0 +1,50 @@
+apply plugin: 'jacoco'
+
+jacoco {
+    toolVersion = "0.8.6"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
+    jacoco.excludes = ['jdk.internal.*']
+}
+
+project.afterEvaluate {
+    def buildTypes = android.buildTypes.collect { type -> type.name }
+    def productFlavors = android.productFlavors.collect { flavor -> flavor.name }
+
+    if (!productFlavors) productFlavors.add('')
+
+    productFlavors.each { productFlavorName ->
+        buildTypes.each { buildTypeName ->
+            def testTaskName = "test${buildTypeName.capitalize()}UnitTest"
+
+            task "${testTaskName}JacocoCoverage" (type:JacocoReport, dependsOn: "$testTaskName") {
+                group = "Reporting"
+                description = "Generate Jacoco coverage reports on the ${buildTypeName.capitalize()} build."
+
+                def excludes = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*' ]
+
+                def coverageSourceDirs = [
+                        "src/main/java",
+                        "src/$productFlavorName/java",
+                        "src/$buildTypeName/java"
+                ]
+
+                // java compiled classes
+                def javaTree = fileTree(dir: "$buildDir/intermediates/javac/$buildTypeName/classes", excludes: excludes)
+                // kotlin compiled classes (to be used in the future)
+                def kotlinTree = fileTree(dir: "$buildDir/tmp/kotlin-classes/$buildTypeName", excludes: excludes)
+                classDirectories.from = files([javaTree, kotlinTree])
+                additionalSourceDirs.from = files(coverageSourceDirs)
+                sourceDirectories.from = files(coverageSourceDirs)
+                executionData.from = files("${buildDir}/jacoco/${testTaskName}.exec")
+
+                reports {
+                    xml.enabled = true
+                    html.enabled = true
+                }
+            }
+        }
+    }
+}

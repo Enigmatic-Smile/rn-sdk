@@ -7,6 +7,7 @@ import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,10 +15,10 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import edu.emory.mathcs.backport.java.util.Arrays;
-
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public final class FidelCardSchemesAdapterTests {
     private static final String CARD_SCHEMES_KEY = "CardScheme";
@@ -25,7 +26,7 @@ public final class FidelCardSchemesAdapterTests {
     private static final String MASTERCARD_SCHEME_KEY = "mastercard";
     private static final String AMEX_SCHEME_KEY = "americanExpress";
 
-    private FidelCardSchemesAdapter sut = new FidelCardSchemesAdapter();
+    private final FidelCardSchemesAdapter sut = new FidelCardSchemesAdapter();
 
     //Test to expose correct card scheme keys
     @Test

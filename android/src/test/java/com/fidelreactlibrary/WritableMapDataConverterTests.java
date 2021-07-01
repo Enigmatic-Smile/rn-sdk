@@ -78,8 +78,8 @@ public class WritableMapDataConverterTests {
                 JSONObject jsonField = (JSONObject)field.get(linkResult);
                 assertMapEqualsWithJSONObject(mapField.toHashMap(), jsonField);
             }
-            else if (field.getType() != Parcelable.Creator.class && field.getType() != LinkResultError.class) {
-                fail("Some of the link result properties are not converted");
+            else if (field.getType() != Parcelable.Creator.class && field.getType() != LinkResultError.class && !field.getName().equals("$jacocoData")) {
+                fail("Some of the link result properties are not converted" + field + " field name: " + field.getName());
             }
         }
     }
@@ -87,8 +87,7 @@ public class WritableMapDataConverterTests {
     @Test
     public void test_WhenConvertingLinkResultWithError_IncludeAllErrorFields() throws IllegalAccessException {
         LinkResultErrorCode errorCode = LinkResultErrorCode.USER_CANCELED;
-        String errorMessage = TEST_ERROR_MESSAGE;
-        LinkResult linkResult = new LinkResult(errorCode, errorMessage);
+        LinkResult linkResult = new LinkResult(errorCode, TEST_ERROR_MESSAGE, "2021-05-19T12:37:55.278Z");
         Object objectToConvert = linkResult.getError();
 
         WritableMap receivedMap = sut.getConvertedDataFor(objectToConvert);
@@ -99,13 +98,14 @@ public class WritableMapDataConverterTests {
                 assertEquals(receivedString, field.get(objectToConvert));
             }
             else if (field.getType() == LinkResultErrorCode.class) {
-                String receivedErrorCodeString = receivedMap.getString(field.getName());
+                String displayFieldName = field.getName() == "errorCode" ? "code" : field.getName();
+                String receivedErrorCodeString = receivedMap.getString(displayFieldName);
                 LinkResultErrorCode expectedErrorCode = (LinkResultErrorCode) field.get(objectToConvert);
                 String expectedErrorCodeString = expectedErrorCode.toString().toLowerCase();
-                assertEquals(receivedErrorCodeString, expectedErrorCodeString);
+                assertEquals(expectedErrorCodeString, receivedErrorCodeString);
             }
-            else {
-                fail("Some of the link result error properties are not converted");
+            else if (!field.getName().equals("$jacocoData")) {
+                fail("Some of the link result properties are not converted" + field + " field name: " + field.getName());
             }
         }
     }

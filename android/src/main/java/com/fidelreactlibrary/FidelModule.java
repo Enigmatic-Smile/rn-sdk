@@ -3,7 +3,7 @@ package com.fidelreactlibrary;
 
 import android.app.Activity;
 import com.facebook.react.bridge.Callback;
-import com.facebook.react.bridge.ReactApplicationContext;;
+import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
@@ -30,7 +30,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final DataProcessor<ReadableMap> setupProcessor;
   private final DataProcessor<ReadableMap> optionsProcessor;
   private final List<ConstantsProvider> constantsProviderList;
-  private ReactApplicationContext reactContext;
+  private final ReactApplicationContext reactContext;
 
   public FidelModule(ReactApplicationContext reactContext,
                      DataProcessor<ReadableMap> setupProcessor,

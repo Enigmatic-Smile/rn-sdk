@@ -1,5 +1,11 @@
 # Fidel React Native bridge library change log
 
+## 1.4.1
+- Update Fidel & Android SDK versions.
+- Prepare for the newest React Native versions.
+- Fix some unit tests.
+- Made it easier to automate testing this React Native bridge library.
+
 ## 1.4.0
 
 - Now the SDK allows you to select multiple allowed countries from which the user can pick. Please check the docs for information about the new `allowedCountries` option.
