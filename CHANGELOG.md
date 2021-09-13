@@ -1,5 +1,8 @@
 # Fidel React Native bridge library change log
 
+## 1.4.2
+- Update Fidel Android SDK version to allow French & Swedish translations be available in more countries.
+
 ## 1.4.1
 - Update Fidel & Android SDK versions.
 - Prepare for the newest React Native versions.
