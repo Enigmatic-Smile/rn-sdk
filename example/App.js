@@ -3,26 +3,23 @@
  * https://github.com/facebook/react-native
  *
  * @format
- * @flow
+ * @flow strict-local
  */
 
-import React, {Component} from 'react';
-import {StyleSheet, Text, View, Button} from 'react-native';
+import React from 'react';
+import type {Node} from 'react';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import Fidel from 'fidel-react-native';
 
-type Props = {};
-export default class App extends Component<Props> {
-  onLinkButtonPress() {
-    Fidel.openForm((error, result) => {
-      if (error) {
-        console.debug(error);
-      } else {
-        console.info(result);
-      }
-    });
-  }
-  render() {
-    const myImage = require('./images/fdl_test_banner.png');
+const App: () => Node = () => {
+
+  const onButtonPress = () => {
+    const myImage = require('./demo_images/fdl_test_banner.png');
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
 
@@ -46,7 +43,8 @@ export default class App extends Component<Props> {
     Fidel.setup ({
       apiKey: 'Your API Key',
       programId: 'Your Program ID'
-    })
+    });
+
     Fidel.setOptions ({
       bannerImage: resolvedImage,
       allowedCountries: countries,
@@ -59,19 +57,28 @@ export default class App extends Component<Props> {
       termsConditionsUrl: 'https://fidel.uk',
       programName: 'My program name',
     });
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>Fidel React Native SDK example</Text>
-        <Text style={styles.instructions}>To get started, tap the button below.</Text>
-        <Button
-          onPress={this.onLinkButtonPress}
-          title="Link a card"
-          color="#3846ce"
-        />
-      </View>
-    );
+
+    Fidel.openForm((error, result) => {
+      if (error) {
+        console.debug(error);
+      } else {
+        console.info(result);
+      }
+    });
   }
-}
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.welcome}>Fidel React Native SDK example</Text>
+      <Text style={styles.instructions}>To get started, tap the button below.</Text>
+      <Button
+        onPress={onButtonPress}
+        title="Link a card"
+        color="#3846ce"
+      />
+    </View>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -91,3 +98,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+
+export default App;
