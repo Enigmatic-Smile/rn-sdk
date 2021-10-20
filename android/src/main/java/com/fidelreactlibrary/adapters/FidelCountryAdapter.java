@@ -15,6 +15,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
 
     private static final String UNITED_KINGDOM_COUNTRY_KEY = "unitedKingdom";
     private static final String UNITED_STATES_COUNTRY_KEY = "unitedStates";
+    private static final String UNITED_ARAB_EMIRATES_KEY = "unitedArabEmirates";
     private static final String JAPAN_COUNTRY_KEY = "japan";
     private static final String SWEDEN_COUNTRY_KEY = "sweden";
     private static final String IRELAND_COUNTRY_KEY = "ireland";
@@ -26,6 +27,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
         switch (country) {
             case UNITED_KINGDOM: return UNITED_KINGDOM_COUNTRY_KEY;
             case UNITED_STATES: return UNITED_STATES_COUNTRY_KEY;
+            case UNITED_ARAB_EMIRATES: return UNITED_ARAB_EMIRATES_KEY;
             case JAPAN: return JAPAN_COUNTRY_KEY;
             case SWEDEN: return SWEDEN_COUNTRY_KEY;
             case IRELAND: return IRELAND_COUNTRY_KEY;
