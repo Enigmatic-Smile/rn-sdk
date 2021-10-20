@@ -32,6 +32,7 @@ const App: () => Node = () => {
     ]);
 
     const countries = [
+      Fidel.Country.unitedArabEmirates,
       Fidel.Country.unitedKingdom,
       Fidel.Country.unitedStates,
       Fidel.Country.japan,
