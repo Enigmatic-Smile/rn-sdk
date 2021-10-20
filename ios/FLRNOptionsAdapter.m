@@ -18,7 +18,7 @@
 #import "FLRNCardSchemesAdapter.h"
 #import "RCTConvert+Options.h"
 
-#define FLCountryValues @{@"unitedKingdom" : @(FLCountryUnitedKingdom), @"ireland" : @(FLCountryIreland), @"unitedStates" : @(FLCountryUnitedStates), @"sweden" : @(FLCountrySweden), @"japan" : @(FLCountryJapan), @"canada" : @(FLCountryCanada)}
+#define FLCountryValues @{@"unitedArabEmirates" : @(FLCountryUnitedArabEmirates), @"unitedKingdom" : @(FLCountryUnitedKingdom), @"ireland" : @(FLCountryIreland), @"unitedStates" : @(FLCountryUnitedStates), @"sweden" : @(FLCountrySweden), @"japan" : @(FLCountryJapan), @"canada" : @(FLCountryCanada)}
 
 @interface FLRNOptionsAdapter()
 
