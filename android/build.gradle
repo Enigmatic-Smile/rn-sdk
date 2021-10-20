@@ -39,7 +39,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.github.FidelLimited:android-sdk:1.5.5'
+    implementation 'com.github.FidelLimited:android-sdk:feature~EM-366-Add-UAE-to-country-of-issuance-SNAPSHOT'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test.ext:junit:1.1.2'
