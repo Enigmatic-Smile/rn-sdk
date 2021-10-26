@@ -1,5 +1,8 @@
 # Fidel React Native bridge library change log
 
+## 1.4.3
+- Add United Arab Emirates as a country of issuance option.
+
 ## 1.4.2
 - Update Fidel Android SDK version to allow French & Swedish translations be available in more countries.
 
