@@ -7,21 +7,17 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 ## Getting started
 
-`$ npm install fidel-react-native --save`
+`$ npm install fidel-react-native`
 
-## (Almost) Automatic linking (for RN >= 0.60)
+or
 
-`$ react-native link fidel-react-native`
+`$ yarn add fidel-react-native`
 
 ### iOS
 
-**1.** Go to the `ios` folder. Please check that in your `Podfile` you have the following line:
+**1.** Please make sure that the minimum platform is set to 9.1 in your Podfile: `platform :ios, '9.1'`.
 
-`pod 'fidel-react-native', :path => '../node_modules/fidel-react-native'`
-
-**2.** Please make sure that the minimum platform is set to 9.1 in your Podfile: `platform :ios, '9.1'`.
-
-**3.** Run `pod install`.
+**2.** Run `pod install`.
 
 ### Android
 
@@ -47,109 +43,6 @@ buildscript {
   }
 }
 ```
-
-## Manual linking
-
-### iOS manual linking
-
-#### Step 1: Add the Fidel React Native iOS project as a dependency
-
-**1.** In XCode, in the project navigator, right click `Libraries` ➜ `Add Files to [your project's name]`
-
-**2.** Go to `node_modules` ➜ `fidel-react-native` and add `Fidel.xcodeproj`
-
-**3.** In XCode, in the project navigator, select your project. Add `libFidel.a` to your project's `Build Phases` ➜ `Link Binary With Libraries`
-
-**4.** Under your target's `Build Settings`, make sure to set `YES` for `Always Embed Swift Standard Libraries`. That's because, by default, your project might not need it. It needs to be `YES` because otherwise the project will not find the Swift libraries to be able to run our native iOS SDK.
-
-#### Step 2: Add the Native iOS SDK as a dependency
-
-You can use Cocoapods or install the library as a dynamic library.
-
-**5.** Add a `Podfile` in your `ios/` folder of your React Native project. It should include the following dependency:
-
-```ruby
-use_frameworks!
-pod 'Fidel'
-```
-
-Here is the simplest `Podfile` you need to link with our native iOS SDK:
-
-```ruby
-platform :ios, '9.1'
-
-workspace 'example'
-
-target 'example' do
-    use_frameworks!
-    pod 'Fidel'
-end
-```
-
-**6.** If you use an older Swift version, you should install a different `Fidel` pod version. If your project uses Swift `4.2.1`, for example, your Podfile should include `pod Fidel, '~>1.4'`, *not* `pod 'Fidel'` (which installs the latest version of the latest Swift supported version). Please check our [iOS SDK README (step 1)](https://github.com/FidelLimited/fidel-ios#step-1). You'll find a suitable version you should set for our Fidel iOS SDK.
-
-**7.** Run `pod install` in your terminal.
-
-**8.** Make sure to use the new `.xcworkspace` created by Cocoapods when you run your iOS app. React Native should use it by default.
-
-**9.** In order to allow scanning cards with the camera, make sure to add the key `NSCameraUsageDescription` to your iOS app `Info.plist` and set the value to a string describing why your app needs to use the camera (e.g. "To scan credit cards."). This string will be displayed when the app initially requests permission to access the camera.
-
-### Android manual linking
-
-**1.** Append the following lines to `android/settings.gradle`:
-
-```java
-include ':fidel-react-native'
-project(':fidel-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/fidel-react-native/android')
-```
-
-**2.** Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-
-```java
-implementation project(':fidel-react-native')
-```
-
-**3.** Append Jitpack to `android/build.gradle`:
-
-```java
-allprojects {
-  repositories {
-    ...
-    maven { url "https://jitpack.io" }
-  }
-}
-```
-
-**4.** Make sure that the `minSdkVersion` is the same or higher than the `minSdkVersion` of our native Android SDK:
-
-```java
-buildscript {
-  ext {
-    ...
-    minSdkVersion = 19
-    ...
-  }
-}
-```
-
-**5.** Only for projects initialized with **RN <= 0.59**: Open up `android/app/src/main/java/[...]/MainApplication.java`
-
-- Add `import com.fidelreactlibrary.FidelPackage;` to the imports at the top of the file
-- Add `new FidelPackage()` to the list returned by the `getPackages()` method:
-
-```java
-protected List <ReactPackage> getPackages() {
-  return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-          new FidelPackage(),
-          //you might have other Packages here as well.
-      );
-}
-```
-
-**6.** Ensure that you have *Google Play Services* installed.
-
-For a physical device you need to search on Google for *Google Play Services*. There will be a link that takes you to the Play Store and from there you will see a button to update it (*do not* search within the Play Store).
 
 ## How to use Fidel's React Native SDK
 
@@ -288,7 +181,7 @@ Fidel.setOptions({
 });
 ```
 
-The possible options are: `.unitedKingdom`, `.unitedStates`, `.ireland`, `.sweden`, `.japan`, `.canada`. You can set one or multiple of these countries. If you don't set any allowed countries, the user will be able to choose any of the countries above. If you set only one country, the card linking screen will not show the country picker UI. Note that, when you set multiple countries, they will be displayed in the country picker UI in the order that you set them.
+The possible options are: `.canada`, `.ireland`, `.japan`, `.sweden`, `.unitedArabEmirates`, `.unitedKingdom`, `.unitedStates`. You can set one or multiple of these countries. If you don't set any allowed countries, the user will be able to choose any of the countries above. If you set only one country, the card linking screen will not show the country picker UI. Note that, when you set multiple countries, they will be displayed in the country picker UI in the order that you set them.
 
 ### supportedCardSchemes
 
@@ -455,7 +348,7 @@ If you do not set a ```privacyUrl```, the text will become _in accordance with t
 
 ### Consent text for the rest of the world
 
-When you set United Kingdom, Ireland, Japan or Sweden as allowed countries or the user selects one of these countries from the list, a consent text specific for these countries will be applied.
+When you set Ireland, Japan , Sweden, United Arab Emirates or United Kingdom as allowed countries or the user selects one of these countries from the list, a consent text specific for these countries will be applied.
 
 The following would be an example Terms & Conditions text for ```Cashback Inc``` (an example company):
 

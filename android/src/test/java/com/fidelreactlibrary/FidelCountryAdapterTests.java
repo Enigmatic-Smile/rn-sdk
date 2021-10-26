@@ -44,7 +44,6 @@ public class FidelCountryAdapterTests {
         }
     }
 
-
     @Test
     public void test_WhenAskedForKeyForCountry_ItProvidesIt() {
         for (Country country : Country.values()) {
