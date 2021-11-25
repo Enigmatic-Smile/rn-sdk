@@ -1,6 +1,6 @@
 package com.fidelreactlibrary;
 
-import com.fidel.sdk.Fidel.Country;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 
 import org.junit.After;

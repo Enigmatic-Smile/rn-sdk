@@ -1,7 +1,7 @@
 package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.entities.CardScheme;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     public @Nonnull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         Map<String, Object> cardSchemesConstants = new HashMap<>();
-        for (Fidel.CardScheme cardScheme : Fidel.CardScheme.values()) {
+        for (CardScheme cardScheme : CardScheme.values()) {
             String cardSchemeKey = null;
             switch (cardScheme) {
                 case VISA: cardSchemeKey = VISA_CARD_SCHEME_VALUE; break;
@@ -38,7 +38,7 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     }
 
     @Override
-    public Set<Fidel.CardScheme> cardSchemesWithReadableArray(ReadableArray arrayToAdapt) {
+    public Set<CardScheme> cardSchemesWithReadableArray(ReadableArray arrayToAdapt) {
         if (arrayToAdapt == null) {
             return null;
         }
@@ -54,8 +54,8 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
             }
         }
         Set<Integer> receivedObjectsSet = new HashSet<>(integerArrayToAdapt);
-        Set<Fidel.CardScheme> cardSchemeSet = new HashSet<>();
-        for (Fidel.CardScheme scheme : Fidel.CardScheme.values()) {
+        Set<CardScheme> cardSchemeSet = new HashSet<>();
+        for (CardScheme scheme : CardScheme.values()) {
             if (receivedObjectsSet.contains(scheme.ordinal())) {
                 cardSchemeSet.add(scheme);
             }

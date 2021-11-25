@@ -1,8 +1,6 @@
 package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.WritableMap;
-import com.fidel.sdk.LinkResultError;
-import com.fidel.sdk.LinkResultErrorCode;
 import com.fidelreactlibrary.adapters.abstraction.DataConverter;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 
@@ -14,10 +12,11 @@ import java.util.Iterator;
 
 public final class WritableMapDataConverter implements DataConverter<Object, WritableMap> {
 
-    private ObjectFactory<WritableMap> writableMapFactory;
+    private final ObjectFactory<WritableMap> writableMapFactory;
     public WritableMapDataConverter(ObjectFactory<WritableMap> writableMapFactory) {
         this.writableMapFactory = writableMapFactory;
     }
+
     @Override
     public WritableMap getConvertedDataFor(Object data) {
         if (data == null) {
@@ -34,11 +33,6 @@ public final class WritableMapDataConverter implements DataConverter<Object, Wri
                 }
                 else if (field.getType() == int.class) {
                     map.putInt(field.getName(), (int)field.get(data));
-                }
-                else if (field.getType() == LinkResultErrorCode.class) {
-                    LinkResultErrorCode errorCode = (LinkResultErrorCode)field.get(data);
-                    String displayFieldName = field.getName() == "errorCode" ? "code" : field.getName();
-                    map.putString(displayFieldName, errorCode.toString().toLowerCase());
                 }
                 else if (field.getType() == JSONObject.class) {
                     WritableMap mapToPut = this.getMapFor((JSONObject)field.get(data));

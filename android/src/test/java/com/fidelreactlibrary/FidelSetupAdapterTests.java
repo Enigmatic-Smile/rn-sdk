@@ -1,6 +1,6 @@
 package com.fidelreactlibrary;
 
-import com.fidel.sdk.Fidel;
+import com.fidelapi.Fidel;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
@@ -25,7 +25,7 @@ public class FidelSetupAdapterTests {
     @After
     public final void tearDown() {
         sut = null;
-        Fidel.apiKey = null;
+        Fidel.sdkKey = null;
         Fidel.programId = null;
     }
 
@@ -33,7 +33,7 @@ public class FidelSetupAdapterTests {
     public void test_WhenDataHasNoApiKey_DontSetItToSDK() {
         ReadableMapStub mapStub = ReadableMapStub.mapWithNoKey();
         sut.process(mapStub);
-        assertNull(Fidel.apiKey);
+        assertNull(Fidel.sdkKey);
     }
 
     @Test
@@ -46,8 +46,8 @@ public class FidelSetupAdapterTests {
     @Test
     public void test_WhenApiKeyIsSet_SetItToSDK() {
         String expectedValue = TEST_API_KEY;
-        processWithString(FidelSetupAdapter.API_KEY, expectedValue);
-        assertEquals(expectedValue, Fidel.apiKey);
+        processWithString(FidelSetupAdapter.SDK_KEY, expectedValue);
+        assertEquals(expectedValue, Fidel.sdkKey);
     }
 
     @Test

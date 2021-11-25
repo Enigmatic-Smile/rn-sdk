@@ -77,9 +77,9 @@ public class FidelModuleTests {
     }
 
     @Test
-    public void test_WhenAskedToOpenForm_SendCallbackToInput() {
+    public void test_WhenAddedOnResultListener_SendCallbackToInput() {
         CallbackSpy callback = new CallbackSpy();
-        sut.openForm(callback);
+        sut.onResult(callback);
         assertEquals(callbackInputSpy.receivedCallback, callback);
     }
 }

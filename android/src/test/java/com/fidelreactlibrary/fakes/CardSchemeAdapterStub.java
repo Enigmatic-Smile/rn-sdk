@@ -1,7 +1,7 @@
 package com.fidelreactlibrary.fakes;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.entities.CardScheme;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
 import java.util.Map;
@@ -12,10 +12,10 @@ import javax.annotation.Nonnull;
 public final class CardSchemeAdapterStub implements CardSchemesAdapter {
 
     public ReadableArray cardSchemesReceived;
-    public Set<Fidel.CardScheme> fakeAdaptedCardSchemesToReturn;
+    public Set<CardScheme> fakeAdaptedCardSchemesToReturn;
 
     @Override
-    public Set<Fidel.CardScheme> cardSchemesWithReadableArray(ReadableArray cardSchemes) {
+    public Set<CardScheme> cardSchemesWithReadableArray(ReadableArray cardSchemes) {
         cardSchemesReceived = cardSchemes;
         return fakeAdaptedCardSchemesToReturn;
     }

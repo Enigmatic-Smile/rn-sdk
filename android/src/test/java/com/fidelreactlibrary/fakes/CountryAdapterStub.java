@@ -1,17 +1,18 @@
 package com.fidelreactlibrary.fakes;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
-import com.fidel.sdk.Fidel.Country;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
+import java.util.EnumSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
 public final class CountryAdapterStub implements CountryAdapter {
 
-    public Country[] countriesToReturn;
+    public Set<Country> countriesToReturn;
 
     @Nonnull
     @Override
@@ -26,7 +27,7 @@ public final class CountryAdapterStub implements CountryAdapter {
     }
 
     @Override
-    public Country[] parseAllowedCountries(ReadableArray inputArray) {
-        return new Fidel.Country[]{Fidel.Country.UNITED_KINGDOM, Fidel.Country.JAPAN, Fidel.Country.CANADA};
+    public Set<Country> parseAllowedCountries(ReadableArray inputArray) {
+        return countriesToReturn;
     }
 }

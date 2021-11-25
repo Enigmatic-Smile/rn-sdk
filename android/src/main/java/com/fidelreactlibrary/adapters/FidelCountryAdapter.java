@@ -1,11 +1,13 @@
 package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -23,7 +25,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
 
     private static final String NOT_FOUND_COUNTRY_KEY = "notFound";
 
-    public @Nonnull String keyFor(@Nonnull Fidel.Country country) {
+    public @Nonnull String keyFor(@Nonnull Country country) {
         switch (country) {
             case UNITED_KINGDOM: return UNITED_KINGDOM_COUNTRY_KEY;
             case UNITED_STATES: return UNITED_STATES_COUNTRY_KEY;
@@ -40,8 +42,8 @@ public final class FidelCountryAdapter implements CountryAdapter {
     public @Nonnull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         final Map<String, Integer> countriesMap = new HashMap<>();
-        for (Fidel.Country country :
-                Fidel.Country.values()) {
+        for (Country country :
+                Country.values()) {
             String countryKey = keyFor(country);
             countriesMap.put(countryKey, country.ordinal());
         }
@@ -50,18 +52,18 @@ public final class FidelCountryAdapter implements CountryAdapter {
     }
 
     @Override
-    public Fidel.Country countryWithInteger(int integer) {
-        if (integer < Fidel.Country.values().length) {
-            return Fidel.Country.values()[integer];
+    public Country countryWithInteger(int integer) {
+        if (integer < Country.values().length) {
+            return Country.values()[integer];
         }
         return null;
     }
 
     @Override
-    public Fidel.Country[] parseAllowedCountries(ReadableArray inputArray) {
-        Fidel.Country[] countries = new Fidel.Country[inputArray.size()];
+    public Set<Country> parseAllowedCountries(ReadableArray inputArray) {
+        Set<Country> countries = new HashSet<>();
         for (int i = 0; i < inputArray.size(); i++) {
-            countries[i] = countryWithInteger(inputArray.getInt(i));
+            countries.add(countryWithInteger(inputArray.getInt(i)));
         }
         return countries;
     }

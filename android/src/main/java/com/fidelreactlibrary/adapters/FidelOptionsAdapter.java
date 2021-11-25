@@ -1,9 +1,11 @@
 package com.fidelreactlibrary.adapters;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
+import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
@@ -22,23 +24,23 @@ import javax.annotation.Nonnull;
 public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
 
     public static final String BANNER_IMAGE_KEY = "bannerImage";
-    public static final String AUTO_SCAN_KEY = "autoScan";
+    public static final String SHOULD_AUTO_SCAN_KEY = "shouldAutoScanCard";
     public static final String COMPANY_NAME_KEY = "companyName";
     public static final String PROGRAM_NAME_KEY = "programName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
-    public static final String PRIVACY_URL_KEY = "privacyUrl";
-    public static final String TERMS_CONDITIONS_URL_KEY = "termsConditionsUrl";
+    public static final String PRIVACY_POLICY_URL_KEY = "privacyPolicyUrl";
+    public static final String TERMS_CONDITIONS_URL_KEY = "termsAndConditionsUrl";
     public static final String META_DATA_KEY = "metaData";
     public static final String ALLOWED_COUNTRIES_KEY = "allowedCountries";
     public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
                     BANNER_IMAGE_KEY,
-                    AUTO_SCAN_KEY,
+                    SHOULD_AUTO_SCAN_KEY,
                     COMPANY_NAME_KEY,
                     PROGRAM_NAME_KEY,
                     DELETE_INSTRUCTIONS_KEY,
-                    PRIVACY_URL_KEY,
+                    PRIVACY_POLICY_URL_KEY,
                     TERMS_CONDITIONS_URL_KEY,
                     META_DATA_KEY,
                     ALLOWED_COUNTRIES_KEY,
@@ -62,8 +64,8 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         if (valueIsValidFor(data, BANNER_IMAGE_KEY)) {
             imageAdapter.process(data.getMap(BANNER_IMAGE_KEY));
         }
-        if (valueIsValidFor(data, AUTO_SCAN_KEY)) {
-            Fidel.autoScan = data.getBoolean(AUTO_SCAN_KEY);
+        if (valueIsValidFor(data, SHOULD_AUTO_SCAN_KEY)) {
+            Fidel.shouldAutoScanCard = data.getBoolean(SHOULD_AUTO_SCAN_KEY);
         }
         if (valueIsValidFor(data, COMPANY_NAME_KEY)) {
             Fidel.companyName = data.getString(COMPANY_NAME_KEY);
@@ -74,11 +76,11 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         if (valueIsValidFor(data, DELETE_INSTRUCTIONS_KEY)) {
             Fidel.deleteInstructions = data.getString(DELETE_INSTRUCTIONS_KEY);
         }
-        if (valueIsValidFor(data, PRIVACY_URL_KEY)) {
-            Fidel.privacyURL = data.getString(PRIVACY_URL_KEY);
+        if (valueIsValidFor(data, PRIVACY_POLICY_URL_KEY)) {
+            Fidel.privacyPolicyUrl = data.getString(PRIVACY_POLICY_URL_KEY);
         }
         if (valueIsValidFor(data, TERMS_CONDITIONS_URL_KEY)) {
-            Fidel.termsConditionsURL = data.getString(TERMS_CONDITIONS_URL_KEY);
+            Fidel.termsAndConditionsUrl = data.getString(TERMS_CONDITIONS_URL_KEY);
         }
         if (valueIsValidFor(data, META_DATA_KEY)) {
             ReadableMap metaDataMap = data.getMap(META_DATA_KEY);

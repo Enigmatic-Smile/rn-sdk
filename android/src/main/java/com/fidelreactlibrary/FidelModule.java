@@ -2,6 +2,8 @@
 package com.fidelreactlibrary;
 
 import android.app.Activity;
+import android.util.Log;
+
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -9,14 +11,14 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.Fidel;
+import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.WritableMapDataConverter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
 import com.fidelreactlibrary.events.CallbackInput;
-import com.fidel.sdk.data.abstraction.FidelCardLinkingObserver;
 import com.fidelreactlibrary.events.ErrorEventEmitter;
 
 import java.util.List;
@@ -61,14 +63,17 @@ public class FidelModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
-  public void openForm(Callback callback) {
-    final Activity activity = getCurrentActivity();
-    final FidelCardLinkingObserver cardLinkingObserver = getCardLinkingObserver();
-    if (activity != null) {
-        Fidel.setCardLinkingObserver(cardLinkingObserver);
-        Fidel.present(activity);
-    }
+  public void onResult(Callback callback) {
+    Fidel.onResult = getCardLinkingObserver();
     callbackInput.callbackIsReady(callback);
+  }
+
+  @ReactMethod
+  public void start() {
+    final Activity activity = getCurrentActivity();
+    if (activity != null) {
+        Fidel.start(activity);
+    }
   }
 
   @ReactMethod
@@ -87,7 +92,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
     return constantsProviderList.get(0).getConstants();
   }
 
-  private CallbackActivityEventListener getCardLinkingObserver() {
+  private OnResultObserver getCardLinkingObserver() {
     WritableMapDataConverter linkResultConverter =
             new WritableMapDataConverter(new ObjectFactory<WritableMap>() {
               @Override

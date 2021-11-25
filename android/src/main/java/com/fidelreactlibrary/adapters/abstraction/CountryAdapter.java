@@ -1,9 +1,11 @@
 package com.fidelreactlibrary.adapters.abstraction;
 
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.entities.Country;
+
+import java.util.Set;
 
 public interface CountryAdapter extends ConstantsProvider {
-    Fidel.Country countryWithInteger(int integer);
-    Fidel.Country[] parseAllowedCountries(ReadableArray inputArray);
+    Country countryWithInteger(int integer);
+    Set<Country> parseAllowedCountries(ReadableArray inputArray);
 }
