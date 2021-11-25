@@ -7,7 +7,6 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
 import {
   Button,
   StyleSheet,
@@ -16,7 +15,7 @@ import {
 } from 'react-native';
 import Fidel from 'fidel-react-native';
 
-const App: () => Node = () => {
+const App = () => {
 
   const onButtonPress = () => {
     const myImage = require('./demo_images/fdl_test_banner.png');
@@ -25,11 +24,11 @@ const App: () => Node = () => {
 
     //this is the default value for supported card schemes,
     //but you can remove the support for some of the card schemes if you want to
-    const cardSchemes = new Set([
+    const cardSchemes = [
       Fidel.CardScheme.visa,
       Fidel.CardScheme.mastercard,
       Fidel.CardScheme.americanExpress,
-    ]);
+    ];
 
     const countries = [
       Fidel.Country.unitedArabEmirates,
@@ -42,30 +41,24 @@ const App: () => Node = () => {
     ];
 
     Fidel.setup ({
-      apiKey: 'Your API Key',
+      sdkKey: 'Your API Key',
       programId: 'Your Program ID'
     });
 
     Fidel.setOptions ({
       bannerImage: resolvedImage,
       allowedCountries: countries,
-      supportedCardSchemes: Array.from(cardSchemes),
-      autoScan: false,
+      supportedCardSchemes: cardSchemes,
+      shouldAutoScanCard: false,
       metaData: {'meta-data-1': 'value1'},
       companyName: 'My RN Company',
       deleteInstructions: 'My custom delete instructions!',
-      privacyUrl: 'https://fidel.uk',
-      termsConditionsUrl: 'https://fidel.uk',
+      privacyPolicyUrl: 'https://fidel.uk',
+      termsAndConditionsUrl: 'https://fidel.uk',
       programName: 'My program name',
     });
 
-    Fidel.openForm((error, result) => {
-      if (error) {
-        console.debug(error);
-      } else {
-        console.info(result);
-      }
-    });
+    Fidel.start();
   }
 
   return (
