@@ -2,7 +2,6 @@
 package com.fidelreactlibrary;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;

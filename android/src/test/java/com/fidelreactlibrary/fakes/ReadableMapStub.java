@@ -8,8 +8,10 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.fidelreactlibrary.adapters.FidelSetupKeys;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,17 +31,17 @@ public class ReadableMapStub implements ReadableMap {
     public ReadableArray readableArrayToReturn = new JavaOnlyArray();
     public boolean boolToReturn;
     public int intToReturn;
-    private String hasKeyString = "";
-    private String isNullString = "";
+    private final List<String> hasKeyStrings = new ArrayList<>();
+    private final List<String> isNullStrings = new ArrayList<>();
 
     public ReadableMapStub() {}
     private ReadableMapStub(String hasKeyString, String isNullString) {
-        this.hasKeyString = hasKeyString;
-        this.isNullString = isNullString;
+        this.hasKeyStrings.add(hasKeyString);
+        this.isNullStrings.add(isNullString);
     }
 
     public static ReadableMapStub mapWithNoKey() {
-        return new ReadableMapStub("", "");
+        return new ReadableMapStub();
     }
 
     public static ReadableMapStub mapWithExistingKey(String existingKey) {
@@ -50,16 +52,50 @@ public class ReadableMapStub implements ReadableMap {
         return new ReadableMapStub(existingKey, existingKey);
     }
 
+    public static ReadableMapStub mapWithAllValidSetupKeys() {
+        ReadableMapStub mapStub = new ReadableMapStub();
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.values()).map(FidelSetupKeys::jsName).toArray(String[]::new);
+        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.SDK_KEY.jsName(), "pk_test_some_sdk_key");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_ID.name(), "some test program ID");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.COMPANY_NAME.name(), "some test company name");
+        return mapStub;
+    }
+
+    public static ReadableMapStub withEmptyValueForKey(FidelSetupKeys key) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        mapStub.stringForKeyToReturn.put(key.jsName(), "");
+        return mapStub;
+    }
+
+    public static ReadableMapStub withoutKey(FidelSetupKeys key) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        mapStub.hasKeyStrings.remove(key.jsName());
+        mapStub.stringForKeyToReturn.remove(key.jsName());
+        return mapStub;
+    }
+
+    public static ReadableMapStub withNullValueForKey(FidelSetupKeys key) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        mapStub.isNullStrings.remove(key.jsName());
+        mapStub.stringForKeyToReturn.remove(key.jsName());
+        return mapStub;
+    }
+
+    public void putString(String key, String value) {
+        stringForKeyToReturn.put(key, value);
+    }
+
     @Override
     public boolean hasKey(@Nonnull String name) {
         keyNamesCheckedFor.add(name);
-        return hasKeyString.equals(name);
+        return hasKeyStrings.contains(name);
     }
 
     @Override
     public boolean isNull(@Nonnull String name) {
         keyNamesVerifiedNullFor.add(name);
-        return isNullString.equals(name);
+        return isNullStrings.contains(name);
     }
 
     @Override

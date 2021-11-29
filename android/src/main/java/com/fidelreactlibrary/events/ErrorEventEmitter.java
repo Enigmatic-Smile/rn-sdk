@@ -7,7 +7,7 @@ import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
 public final class ErrorEventEmitter implements DataProcessor<WritableMap> {
 
-    private ReactApplicationContext reactContext;
+    private final ReactApplicationContext reactContext;
 
     public ErrorEventEmitter(ReactApplicationContext reactContext) {
         this.reactContext = reactContext;
@@ -17,6 +17,6 @@ public final class ErrorEventEmitter implements DataProcessor<WritableMap> {
     public void process(WritableMap data) {
         reactContext
                 .getJSModule(RCTDeviceEventEmitter.class)
-                .emit("CardLinkFailed", data);
+                .emit("ReceivedResult", data);
     }
 }

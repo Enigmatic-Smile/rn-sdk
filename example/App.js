@@ -42,7 +42,8 @@ const App = () => {
 
     Fidel.setup ({
       sdkKey: 'Your API Key',
-      programId: 'Your Program ID'
+      programId: 'Your Program ID',
+      companyName: 'Your Company Name',
     });
 
     Fidel.setOptions ({
@@ -51,12 +52,63 @@ const App = () => {
       supportedCardSchemes: cardSchemes,
       shouldAutoScanCard: false,
       metaData: {'meta-data-1': 'value1'},
-      companyName: 'My RN Company',
       deleteInstructions: 'My custom delete instructions!',
       privacyPolicyUrl: 'https://fidel.uk',
       termsAndConditionsUrl: 'https://fidel.uk',
       programName: 'My program name',
     });
+
+
+    // Fidel.setup ({
+    //   sdkKey: 'Your API Key',
+    //   programId: 'Your Program ID',
+    //   programType: ProgramType.transactionStream,
+    //   companyName: 'My RN Company',
+    //   terms: {
+    //     termsAndConditionsUrl: 'https://fidel.uk',
+    //     deleteInstructions: 'My custom delete instructions!',
+    //     privacyPolicyUrl: 'https://fidel.uk',
+    //     programName: 'My program name',
+    //   },
+    //   options: {
+    //     bannerImage: resolvedImage,
+    //     allowedCountries: countries,
+    //     supportedCardSchemes: cardSchemes,
+    //     shouldAutoScanCard: false,
+    //     metaData: {'meta-data-1': 'value1'},
+    //   },
+    //   callback: (result) => {
+    //     switch (result.type) {
+    //       case FidelResult.Enrollment:
+    //         console.log("card was enrolled: " + result.enrollmentResult.cardId);
+    //         break;
+    //       case FidelResult.Error:
+    //         console.log("encountered error: " + result.error.message);
+    //         if (result.enrollmentError != null) {
+    //           console.log("");
+    //         }
+    //         switch (.error.type) {
+    //           case FidelErrorType.UserCanceled:
+    //             console.log("user canceled the process");
+    //             break;
+    //           case FidelErrorType.SdkConfigurationError:
+    //             console.log("Please configure the Fidel SDK correctly");
+    //             break;
+    //           case FidelErrorType.EnrollmentError:
+    //             console.log("An enrollment error ocurred");
+    //             switch (result.enrollmentError.type) {
+    //               case 
+    //             }
+    //           case FidelErrorType.VerificationError:
+    //             break;
+    //         }
+    //         break;
+    //       case FidelResult.VerificationSuccessful:
+    //         console.log("card verification was successful 🎉");
+    //         break;
+    //     }
+    //   }
+    // });
 
     Fidel.start();
   }

@@ -49,7 +49,7 @@ public class ErrorEventEmitterTests {
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
-        assertEquals(reactContext.receivedErrorName, "CardLinkFailed");
+        assertEquals(reactContext.receivedErrorName, "ReceivedResult");
         assertEquals(reactContext.receivedErrorData, map);
         assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
     }

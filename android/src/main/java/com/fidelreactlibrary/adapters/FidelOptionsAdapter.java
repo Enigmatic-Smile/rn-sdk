@@ -25,7 +25,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
 
     public static final String BANNER_IMAGE_KEY = "bannerImage";
     public static final String SHOULD_AUTO_SCAN_KEY = "shouldAutoScanCard";
-    public static final String COMPANY_NAME_KEY = "companyName";
     public static final String PROGRAM_NAME_KEY = "programName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
     public static final String PRIVACY_POLICY_URL_KEY = "privacyPolicyUrl";
@@ -37,7 +36,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
             Arrays.asList(
                     BANNER_IMAGE_KEY,
                     SHOULD_AUTO_SCAN_KEY,
-                    COMPANY_NAME_KEY,
                     PROGRAM_NAME_KEY,
                     DELETE_INSTRUCTIONS_KEY,
                     PRIVACY_POLICY_URL_KEY,
@@ -66,9 +64,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         }
         if (valueIsValidFor(data, SHOULD_AUTO_SCAN_KEY)) {
             Fidel.shouldAutoScanCard = data.getBoolean(SHOULD_AUTO_SCAN_KEY);
-        }
-        if (valueIsValidFor(data, COMPANY_NAME_KEY)) {
-            Fidel.companyName = data.getString(COMPANY_NAME_KEY);
         }
         if (valueIsValidFor(data, PROGRAM_NAME_KEY)) {
             Fidel.programName = data.getString(PROGRAM_NAME_KEY);

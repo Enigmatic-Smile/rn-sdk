@@ -53,7 +53,6 @@ public class FidelPackage implements ReactPackage {
                 new ErrorEventEmitter(reactContext);
         CallbackActivityEventListener activityEventListener =
                 new CallbackActivityEventListener(linkResultConverter, errorEventEmitter);
-        reactContext.addActivityEventListener(activityEventListener);
       return Arrays.<NativeModule>asList(
               new FidelModule(reactContext,
                       setupAdapter,

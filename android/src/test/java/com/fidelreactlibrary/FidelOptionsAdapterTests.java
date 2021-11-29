@@ -41,7 +41,6 @@ public class FidelOptionsAdapterTests {
     private CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
     private FidelOptionsAdapter sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
 
-    private static final String TEST_COMPANY_NAME = "Test Company Name Inc.";
     private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
     private static final String TEST_PRIVACY_URL = "testprivacy.url";
@@ -69,7 +68,6 @@ public class FidelOptionsAdapterTests {
     public void test_ChecksAllKeys() {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.BANNER_IMAGE_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.SHOULD_AUTO_SCAN_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.COMPANY_NAME_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PROGRAM_NAME_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_POLICY_URL_KEY));
@@ -105,14 +103,6 @@ public class FidelOptionsAdapterTests {
         map.boolToReturn = true;
         sut.process(map);
         assertFalse(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_IfHasCompanyNameKeyButNoValue_DoNotSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.COMPANY_NAME_KEY;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithString(TEST_COMPANY_NAME, keyToTestFor);
-        assertNotEqualsString(keyToTestFor, Fidel.companyName);
     }
 
     @Test
@@ -177,14 +167,6 @@ public class FidelOptionsAdapterTests {
         map.boolToReturn = true;
         sut.process(map);
         assertFalse(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveCompanyNameKey_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithNoKey();
-        String key = FidelOptionsAdapter.COMPANY_NAME_KEY;
-        processWithString(TEST_COMPANY_NAME, key);
-        assertNotEqualsString(key, Fidel.companyName);
     }
 
     @Test
@@ -268,14 +250,6 @@ public class FidelOptionsAdapterTests {
     public void test_WhenAutoScanValueIsFalse_SetItFalseForTheSDK() {
         processWithBoolean(false);
         assertFalse(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_WhenCompanyNameValueIsSet_SetItForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.COMPANY_NAME_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithString(TEST_COMPANY_NAME, keyToTestFor);
-        assertEqualsString(keyToTestFor, Fidel.companyName);
     }
 
     @Test
