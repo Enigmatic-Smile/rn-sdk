@@ -44,10 +44,12 @@ const App = () => {
       sdkKey: 'Your API Key',
       programId: 'Your Program ID',
       companyName: 'Your Company Name',
+      options: {
+        bannerImage: resolvedImage,
+      },
     });
 
     Fidel.setOptions ({
-      bannerImage: resolvedImage,
       allowedCountries: countries,
       supportedCardSchemes: cardSchemes,
       shouldAutoScanCard: false,
@@ -76,42 +78,64 @@ const App = () => {
     //     supportedCardSchemes: cardSchemes,
     //     shouldAutoScanCard: false,
     //     metaData: {'meta-data-1': 'value1'},
-    //   },
-    //   callback: (result) => {
-    //     switch (result.type) {
-    //       case FidelResult.Enrollment:
-    //         console.log("card was enrolled: " + result.enrollmentResult.cardId);
-    //         break;
-    //       case FidelResult.Error:
-    //         console.log("encountered error: " + result.error.message);
-    //         if (result.enrollmentError != null) {
-    //           console.log("");
-    //         }
-    //         switch (.error.type) {
-    //           case FidelErrorType.UserCanceled:
-    //             console.log("user canceled the process");
-    //             break;
-    //           case FidelErrorType.SdkConfigurationError:
-    //             console.log("Please configure the Fidel SDK correctly");
-    //             break;
-    //           case FidelErrorType.EnrollmentError:
-    //             console.log("An enrollment error ocurred");
-    //             switch (result.enrollmentError.type) {
-    //               case 
-    //             }
-    //           case FidelErrorType.VerificationError:
-    //             break;
-    //         }
-    //         break;
-    //       case FidelResult.VerificationSuccessful:
-    //         console.log("card verification was successful 🎉");
-    //         break;
-    //     }
+    //   }
+    // }, callback: (result) => {
+      // const exampleResult = {
+      //   enrollmentResult: {
+      //     cardId: "asd"
+      //   },
+      //   error: {
+      //     type: 
+      //   },
+      //   verificationResult: {
+      //     sucessful: false
+      //   }
+      // }
+
+      // if (exampleObject[FidelResult.Enrollment]) {
+
+      // }
+
+      // {
+      //   type: "error" | "enrollmentResult" | "verificationResult"
+      //   enrollmentResult: EnrollmentResult,
+      //   error: FidelError,
+      //   verificationResult: VerificationResult
+      // }
+
+    //   switch (result.type) {
+    //     case ENROLLMENT_RESULT:
+    //       console.log("card was enrolled: " + result.enrollmentResult.cardId);
+    //       break;
+    //     case FidelResult.Error:
+    //       console.log("encountered error: " + result.error.message);
+    //       break;
+    //     case FidelResult.VerificationSuccessful:
+    //       console.log("card verification was successful 🎉");
+    //       break;
     //   }
     // });
 
     Fidel.start();
   }
+
+  // handleError = (error) => {
+  //   if (result.enrollmentError != null) {
+  //     console.log("");
+  //   }
+  //   switch (error.type) {
+  //     case FidelErrorType.UserCanceled:
+  //       console.log("user canceled the process");
+  //       break;
+  //     case FidelErrorType.SdkConfigurationError:
+  //       console.log("Please configure the Fidel SDK correctly");
+  //       break;
+  //     case FidelErrorType.EnrollmentError:
+  //       console.log("An enrollment error ocurred");
+  //     case FidelErrorType.VerificationError:
+  //       break;
+  //   }
+  // }
 
   return (
     <View style={styles.container}>

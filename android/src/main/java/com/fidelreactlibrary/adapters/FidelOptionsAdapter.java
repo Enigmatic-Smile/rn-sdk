@@ -1,15 +1,10 @@
 package com.fidelreactlibrary.adapters;
 
-import android.graphics.Bitmap;
-import android.util.Log;
-
-import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
-import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
 import org.json.JSONObject;
@@ -21,9 +16,8 @@ import java.util.Map;
 
 import javax.annotation.Nonnull;
 
-public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
+public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, ConstantsProvider {
 
-    public static final String BANNER_IMAGE_KEY = "bannerImage";
     public static final String SHOULD_AUTO_SCAN_KEY = "shouldAutoScanCard";
     public static final String PROGRAM_NAME_KEY = "programName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
@@ -34,7 +28,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
-                    BANNER_IMAGE_KEY,
                     SHOULD_AUTO_SCAN_KEY,
                     PROGRAM_NAME_KEY,
                     DELETE_INSTRUCTIONS_KEY,
@@ -45,23 +38,17 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
                     CARD_SCHEMES_KEY
             ));
 
-    private final DataProcessor<ReadableMap> imageAdapter;
     private final CountryAdapter countryAdapter;
     private final CardSchemesAdapter cardSchemesAdapter;
 
-    public FidelOptionsAdapter(DataProcessor<ReadableMap> imageAdapter,
-                               CountryAdapter countryAdapter,
+    public FidelOptionsAdapter(CountryAdapter countryAdapter,
                                CardSchemesAdapter cardSchemesAdapter) {
-        this.imageAdapter = imageAdapter;
         this.countryAdapter = countryAdapter;
         this.cardSchemesAdapter = cardSchemesAdapter;
     }
 
     @Override
     public void process(ReadableMap data) {
-        if (valueIsValidFor(data, BANNER_IMAGE_KEY)) {
-            imageAdapter.process(data.getMap(BANNER_IMAGE_KEY));
-        }
         if (valueIsValidFor(data, SHOULD_AUTO_SCAN_KEY)) {
             Fidel.shouldAutoScanCard = data.getBoolean(SHOULD_AUTO_SCAN_KEY);
         }
@@ -97,11 +84,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
 
     private boolean valueIsValidFor(ReadableMap map, String key) {
         return (map.hasKey(key) && !map.isNull(key));
-    }
-
-    @Override
-    public void output(Bitmap data) {
-        Fidel.bannerImage = data;
     }
 
     @Nonnull

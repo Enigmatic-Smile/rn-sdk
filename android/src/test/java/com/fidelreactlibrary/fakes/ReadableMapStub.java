@@ -57,8 +57,19 @@ public class ReadableMapStub implements ReadableMap {
         String[] keyJsNames = Arrays.stream(FidelSetupKeys.values()).map(FidelSetupKeys::jsName).toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.SDK_KEY.jsName(), "pk_test_some_sdk_key");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_ID.name(), "some test program ID");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.COMPANY_NAME.name(), "some test company name");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_ID.jsName(), "some test program ID");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.COMPANY_NAME.jsName(), "some test company name");
+        ReadableMapStub optionsReadableMap = ReadableMapStub.optionsMapWithAllValidSetupKeys();
+        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.OPTIONS.jsName(), optionsReadableMap);
+        return mapStub;
+    }
+
+    private static ReadableMapStub optionsMapWithAllValidSetupKeys() {
+        ReadableMapStub mapStub = new ReadableMapStub();
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.Options.values()).map(FidelSetupKeys.Options::jsName).toArray(String[]::new);
+        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
+        ReadableMapStub bannerImageReadableMap = new ReadableMapStub();
+        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), bannerImageReadableMap);
         return mapStub;
     }
 
@@ -72,6 +83,22 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
         mapStub.hasKeyStrings.remove(key.jsName());
         mapStub.stringForKeyToReturn.remove(key.jsName());
+        mapStub.mapsForKeysToReturn.remove(key.jsName());
+        return mapStub;
+    }
+
+    public static ReadableMapStub withoutOptionsKey(FidelSetupKeys.Options optionsKey) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
+        assert optionsMapStub != null;
+        optionsMapStub.hasKeyStrings.remove(optionsKey.jsName());
+        switch (optionsKey) {
+            case BANNER_IMAGE:
+                optionsMapStub.mapsForKeysToReturn.remove(optionsKey.jsName());
+                break;
+            default:
+                break;
+        }
         return mapStub;
     }
 
@@ -79,6 +106,15 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
         mapStub.isNullStrings.remove(key.jsName());
         mapStub.stringForKeyToReturn.remove(key.jsName());
+        return mapStub;
+    }
+
+    public static ReadableMapStub withNullValueForOptionKey(FidelSetupKeys.Options optionKey) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
+        assert optionsMapStub != null;
+        optionsMapStub.isNullStrings.add(optionKey.jsName());
+        optionsMapStub.mapsForKeysToReturn.remove(optionKey.jsName());
         return mapStub;
     }
 

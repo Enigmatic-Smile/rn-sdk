@@ -35,6 +35,10 @@ public final class ImageFromReadableMapAdapter implements DataProcessor<Readable
 
     @Override
     public void process(ReadableMap data) {
+        if (data == null || !data.hasKey("uri")) {
+            bitmapOutput.output(null);
+            return;
+        }
         String imageURIString = data.getString("uri");
         Uri imageURI = Uri.parse(imageURIString);
         if (imageURI.getScheme() != null && (imageURI.getScheme().equals("http") ||

@@ -1,6 +1,8 @@
 
 package com.fidelreactlibrary;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,19 +28,24 @@ import com.fidelreactlibrary.events.CallbackActivityEventListener;
 import com.fidelreactlibrary.events.ErrorEventEmitter;
 
 public class FidelPackage implements ReactPackage {
+
     @Override
-    public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
+    public @NonNull List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         ImageFromReadableMapAdapter imageAdapter =
                 new ImageFromReadableMapAdapter(reactContext);
         CountryAdapter countryAdapter =
                 new FidelCountryAdapter();
-        FidelSetupAdapter setupAdapter =
-                new FidelSetupAdapter();
+
         FidelCardSchemesAdapter cardSchemesAdapter =
                 new FidelCardSchemesAdapter();
+
+        FidelSetupAdapter setupAdapter =
+                new FidelSetupAdapter(imageAdapter);
+
+        imageAdapter.bitmapOutput = setupAdapter;
+
         FidelOptionsAdapter optionsAdapter =
-                new FidelOptionsAdapter(imageAdapter, countryAdapter, cardSchemesAdapter);
-        imageAdapter.bitmapOutput = optionsAdapter;
+                new FidelOptionsAdapter(countryAdapter, cardSchemesAdapter);
         List<ConstantsProvider> constantsProviderList =
                 new ArrayList<>();
         constantsProviderList.add(optionsAdapter);

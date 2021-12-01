@@ -1,7 +1,5 @@
 package com.fidelreactlibrary;
 
-import android.graphics.Bitmap;
-
 import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
@@ -10,7 +8,6 @@ import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.fakes.CardSchemeAdapterStub;
 import com.fidelreactlibrary.fakes.CountryAdapterStub;
-import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
@@ -21,7 +18,6 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -35,11 +31,10 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 public class FidelOptionsAdapterTests {
 
-    private DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
     private ReadableMapStub map;
     private CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
     private CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
-    private FidelOptionsAdapter sut = new FidelOptionsAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
+    private FidelOptionsAdapter sut = new FidelOptionsAdapter(countryAdapterStub, cardSchemesAdapterStub);
 
     private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
@@ -51,7 +46,6 @@ public class FidelOptionsAdapterTests {
     @After
     public final void tearDown() {
         sut = null;
-        Fidel.bannerImage = null;
         Fidel.shouldAutoScanCard = false;
         Fidel.companyName = null;
         Fidel.programName = null;
@@ -66,7 +60,6 @@ public class FidelOptionsAdapterTests {
     //Verification values tests
     @Test
     public void test_ChecksAllKeys() {
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.BANNER_IMAGE_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.SHOULD_AUTO_SCAN_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PROGRAM_NAME_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
@@ -90,13 +83,6 @@ public class FidelOptionsAdapterTests {
     }
 
     //Tests when keys are present, but no data is found for that key
-    @Test
-    public void test_IfHasBannerImageKeyButNoImage_DoNotSendDataToImageAdapter() {
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(FidelOptionsAdapter.BANNER_IMAGE_KEY);
-        sut.process(map);
-        assertFalse(imageAdapterSpy.hasAskedToProcessData);
-    }
-
     @Test
     public void test_IfHasAutoScanKeyButNoValue_DoNotSetItToTheSDK() {
         map = ReadableMapStub.mapWithExistingKeyButNoValue(FidelOptionsAdapter.SHOULD_AUTO_SCAN_KEY);
@@ -154,12 +140,6 @@ public class FidelOptionsAdapterTests {
     }
 
     //Tests when keys are missing
-    @Test
-    public void test_IfDoesNotHaveBannerImageKey_DoNotSendDataToImageAdapter() {
-        map = ReadableMapStub.mapWithNoKey();
-        sut.process(map);
-        assertFalse(imageAdapterSpy.hasAskedToProcessData);
-    }
 
     @Test
     public void test_IfDoesNotHaveAutoScanKey_DoNotSetItToTheSDK() {
@@ -224,21 +204,6 @@ public class FidelOptionsAdapterTests {
     }
 
     //Setting correct values tests
-    @Test
-    public void test_WhenImageProcessorSendsBitmap_SendItToImageProcessor() {
-        String keyToTestFor = FidelOptionsAdapter.BANNER_IMAGE_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithMap(keyToTestFor, new ReadableMapStub());
-        assertEquals(map.mapsForKeysToReturn.get(keyToTestFor),
-                imageAdapterSpy.dataToProcess);
-    }
-
-    @Test
-    public void test_WhenImageProcessorSendsBitmap_SetItForSDKBannerImage() {
-        Bitmap newBitmap = Bitmap.createBitmap(100, 200, Bitmap.Config.ALPHA_8);
-        sut.output(newBitmap);
-        assertEquals(Fidel.bannerImage, newBitmap);
-    }
 
     @Test
     public void test_WhenAutoScanValueIsTrue_SetItTrueForTheSDK() {

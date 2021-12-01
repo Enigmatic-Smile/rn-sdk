@@ -1,28 +1,32 @@
 package com.fidelreactlibrary;
 
+import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
+import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
+import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
+import android.graphics.Bitmap;
+
+// Custom test runner is necessary for being able to use JSONObject and Bitmap
+@RunWith(RobolectricTestRunner.class)
 public class FidelSetupAdapterTests {
 
     private static final String TEST_SDK_KEY = "pk_123123123";
     private static final String TEST_PROGRAM_ID = "234234";
     private static final String TEST_COMPANY_NAME = "some company name";
-    
-    private FidelSetupAdapter sut;
-    
-    @Before
-    public final void setUp() {
-        sut = new FidelSetupAdapter();
-    }
+
+
+    private final DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
+    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy);
     
     @After
     public final void tearDown() {
@@ -30,6 +34,7 @@ public class FidelSetupAdapterTests {
         Fidel.sdkKey = null;
         Fidel.programId = null;
         Fidel.companyName = null;
+        Fidel.bannerImage = null;
     }
 
     @Test
@@ -38,6 +43,7 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.sdkKey);
         assertNull(Fidel.programId);
         assertNull(Fidel.companyName);
+        assertNull(Fidel.bannerImage);
     }
 
     @Test
@@ -119,5 +125,64 @@ public class FidelSetupAdapterTests {
         readableMap.putString(FidelSetupKeys.COMPANY_NAME.jsName(), TEST_COMPANY_NAME);
         sut.process(readableMap);
         assertEquals(TEST_COMPANY_NAME, Fidel.companyName);
+    }
+
+
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotSetBannerImageForFidel() {
+        sut.process(ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS));
+        assertNull(Fidel.bannerImage);
+    }
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessBannerImageInformationWithTheImageAdapter() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        sut.process(map);
+        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertFalse(imageAdapterSpy.hasAskedToProcessData);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveBannerImageKey_DoNotSetBannerImageForFidel() {
+        sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.BANNER_IMAGE));
+        assertNull(Fidel.bannerImage);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveBannerImageKey_ShouldSendDataToImageAdapterAnyways() {
+        sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.BANNER_IMAGE));
+        assertTrue(imageAdapterSpy.hasAskedToProcessData);
+    }
+
+
+    @Test
+    public void test_WhenReceivingBannerImageReadableMap_SendItToImageProcessor() {
+        ReadableMapStub readableMap = ReadableMapStub.mapWithAllValidSetupKeys();
+        sut.process(readableMap);
+        ReadableMapStub optionsMap = (ReadableMapStub)readableMap.getMap(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        assertEquals(optionsMap.mapsForKeysToReturn.get(FidelSetupKeys.Options.BANNER_IMAGE.jsName()), imageAdapterSpy.dataToProcess);
+    }
+
+    @Test
+    public void test_IfHasBannerImageKeyButNoImage_ShouldSendDataToImageAdapterAnyways() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.BANNER_IMAGE);
+        sut.process(map);
+        assertTrue(imageAdapterSpy.hasAskedToProcessData);
+    }
+
+    @Test
+    public void test_WhenImageProcessorSendsBitmap_SetItForSDKBannerImage() {
+        Bitmap newBitmap = Bitmap.createBitmap(100, 200, Bitmap.Config.ALPHA_8);
+        sut.output(newBitmap);
+        assertEquals(Fidel.bannerImage, newBitmap);
+    }
+
+    @Test
+    public void test_WhenImageProcessorSendsNull_SetNullSDKBannerImage() {
+        Fidel.bannerImage = Bitmap.createBitmap(100, 200, Bitmap.Config.ALPHA_8);
+        sut.output(null);
+        assertNull(Fidel.bannerImage);
     }
 }
