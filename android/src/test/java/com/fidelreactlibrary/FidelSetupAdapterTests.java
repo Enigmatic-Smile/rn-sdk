@@ -1,9 +1,13 @@
 package com.fidelreactlibrary;
 
+import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
+
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
+import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
@@ -11,10 +15,16 @@ import org.junit.After;
 import org.junit.Test;
 
 import static junit.framework.TestCase.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
 import android.graphics.Bitmap;
+
+import java.util.EnumSet;
+import java.util.Map;
+import java.util.Set;
 
 // Custom test runner is necessary for being able to use JSONObject and Bitmap
 @RunWith(RobolectricTestRunner.class)
@@ -24,9 +34,12 @@ public class FidelSetupAdapterTests {
     private static final String TEST_PROGRAM_ID = "234234";
     private static final String TEST_COMPANY_NAME = "some company name";
 
+    private static final Set<Country> TEST_COUNTRIES = EnumSet.of(Country.UNITED_KINGDOM, Country.JAPAN, Country.CANADA);
+
 
     private final DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
-    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy);
+    private final CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
+    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy, countryAdapterStub);
     
     @After
     public final void tearDown() {
@@ -35,6 +48,7 @@ public class FidelSetupAdapterTests {
         Fidel.programId = null;
         Fidel.companyName = null;
         Fidel.bannerImage = null;
+        Fidel.allowedCountries = EnumSet.allOf(Country.class);
     }
 
     @Test
@@ -155,6 +169,12 @@ public class FidelSetupAdapterTests {
         assertTrue(imageAdapterSpy.hasAskedToProcessData);
     }
 
+    @Test
+    public void test_IfHasBannerImageKeyButNoImage_ShouldSendDataToImageAdapterAnyways() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.BANNER_IMAGE);
+        sut.process(map);
+        assertTrue(imageAdapterSpy.hasAskedToProcessData);
+    }
 
     @Test
     public void test_WhenReceivingBannerImageReadableMap_SendItToImageProcessor() {
@@ -163,13 +183,6 @@ public class FidelSetupAdapterTests {
         ReadableMapStub optionsMap = (ReadableMapStub)readableMap.getMap(FidelSetupKeys.OPTIONS.jsName());
         assertNotNull(optionsMap);
         assertEquals(optionsMap.mapsForKeysToReturn.get(FidelSetupKeys.Options.BANNER_IMAGE.jsName()), imageAdapterSpy.dataToProcess);
-    }
-
-    @Test
-    public void test_IfHasBannerImageKeyButNoImage_ShouldSendDataToImageAdapterAnyways() {
-        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.BANNER_IMAGE);
-        sut.process(map);
-        assertTrue(imageAdapterSpy.hasAskedToProcessData);
     }
 
     @Test
@@ -184,5 +197,81 @@ public class FidelSetupAdapterTests {
         Fidel.bannerImage = Bitmap.createBitmap(100, 200, Bitmap.Config.ALPHA_8);
         sut.output(null);
         assertNull(Fidel.bannerImage);
+    }
+
+
+
+
+
+
+
+
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotSetAllowedCountriesForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        Fidel.allowedCountries = TEST_COUNTRIES;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
+    }
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessCountriesWithTheCountryAdapter() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        sut.process(map);
+        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertFalse(countryAdapterStub.askedToParseAllowedCountries);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveAllowedCountriesKey_DoNotSetAllowedCountriesForFidel() {
+        Fidel.allowedCountries = TEST_COUNTRIES;
+        countryAdapterStub.countriesToReturn = EnumSet.allOf(Country.class);
+        sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.ALLOWED_COUNTRIES));
+        assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
+    }
+
+    @Test
+    public void test_IfDoesHaveAllowedCountriesKey_ButNullValue_ShouldSetAdaptedCountriesForFidel() {
+        Fidel.allowedCountries = TEST_COUNTRIES;
+        countryAdapterStub.countriesToReturn = EnumSet.allOf(Country.class);
+        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.ALLOWED_COUNTRIES);
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        sut.process(map);
+
+        assertTrue(optionsMap.keyNamesAskedFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
+        assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
+    }
+
+    @Test
+    public void test_WhenAllowedCountriesAreSet_ConvertThemWithCountryAdapterForTheSDK() {
+        countryAdapterStub.countriesToReturn = TEST_COUNTRIES;
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        sut.process(map);
+
+        assertTrue(optionsMap.keyNamesAskedFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
+        assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
+    }
+
+    //Exposed constants tests
+
+//    @Test
+//    public void test_WhenAskedForConstants_IncludeConstantsFromCardSchemesAdapter() {
+//        Map<String, Object> actualConstants = sut.getConstants();
+//        Map<String, Object> expectedConstants = cardSchemesAdapterStub.getConstants();
+//        assertMapContainsMap(actualConstants, expectedConstants);
+//    }
+
+    @Test
+    public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
+        Map<String, Object> actualConstants = sut.getConstants();
+        Map<String, Object> expectedConstants = countryAdapterStub.getConstants();
+        assertMapContainsMap(actualConstants, expectedConstants);
     }
 }

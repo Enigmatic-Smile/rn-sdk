@@ -1,15 +1,16 @@
 package com.fidelreactlibrary.adapters;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.ReadableArray;
 import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
+import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import javax.annotation.Nonnull;
 
 public final class FidelCountryAdapter implements CountryAdapter {
 
@@ -25,7 +26,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
 
     private static final String NOT_FOUND_COUNTRY_KEY = "notFound";
 
-    public @Nonnull String keyFor(@Nonnull Country country) {
+    public @NonNull String keyFor(@NonNull Country country) {
         switch (country) {
             case UNITED_KINGDOM: return UNITED_KINGDOM_COUNTRY_KEY;
             case UNITED_STATES: return UNITED_STATES_COUNTRY_KEY;
@@ -39,7 +40,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
     }
 
     @Override
-    public @Nonnull Map<String, Object> getConstants() {
+    public @NonNull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
         final Map<String, Integer> countriesMap = new HashMap<>();
         for (Country country :
@@ -51,8 +52,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
         return constants;
     }
 
-    @Override
-    public Country countryWithInteger(int integer) {
+    private @Nullable Country countryWithInteger(int integer) {
         if (integer < Country.values().length) {
             return Country.values()[integer];
         }
@@ -60,10 +60,16 @@ public final class FidelCountryAdapter implements CountryAdapter {
     }
 
     @Override
-    public Set<Country> parseAllowedCountries(ReadableArray inputArray) {
-        Set<Country> countries = new HashSet<>();
+    public @NonNull Set<Country> parseAllowedCountries(@Nullable ReadableArray inputArray) {
+        Set<Country> countries = EnumSet.noneOf(Country.class);
+        if (inputArray == null) {
+            return countries;
+        }
         for (int i = 0; i < inputArray.size(); i++) {
-            countries.add(countryWithInteger(inputArray.getInt(i)));
+            Country country = countryWithInteger(inputArray.getInt(i));
+            if (country != null) {
+                countries.add(country);
+            }
         }
         return countries;
     }

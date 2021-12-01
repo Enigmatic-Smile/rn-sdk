@@ -40,15 +40,15 @@ public class FidelPackage implements ReactPackage {
                 new FidelCardSchemesAdapter();
 
         FidelSetupAdapter setupAdapter =
-                new FidelSetupAdapter(imageAdapter);
+                new FidelSetupAdapter(imageAdapter, countryAdapter);
 
         imageAdapter.bitmapOutput = setupAdapter;
 
         FidelOptionsAdapter optionsAdapter =
-                new FidelOptionsAdapter(countryAdapter, cardSchemesAdapter);
+                new FidelOptionsAdapter(cardSchemesAdapter);
         List<ConstantsProvider> constantsProviderList =
                 new ArrayList<>();
-        constantsProviderList.add(optionsAdapter);
+        constantsProviderList.add(setupAdapter);
         WritableMapDataConverter linkResultConverter =
                 new WritableMapDataConverter(new ObjectFactory<WritableMap>() {
                     @Override

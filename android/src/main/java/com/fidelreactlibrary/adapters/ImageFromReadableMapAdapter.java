@@ -27,7 +27,7 @@ import java.io.IOException;
 public final class ImageFromReadableMapAdapter implements DataProcessor<ReadableMap> {
 
     public DataOutput<Bitmap> bitmapOutput;
-    private Context context;
+    private final Context context;
 
     public ImageFromReadableMapAdapter(Context context) {
         this.context = context;

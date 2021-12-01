@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
 
 import java.util.ArrayList;
@@ -28,9 +29,8 @@ public class ReadableMapStub implements ReadableMap {
     public HashMap<String, ReadableMap> mapsForKeysToReturn = new HashMap<>();
     public HashMap<String, Object> hashMapToReturn;
     public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
-    public ReadableArray readableArrayToReturn = new JavaOnlyArray();
+    public HashMap<String, ReadableArray> readableArraysToReturn = new HashMap<>();
     public boolean boolToReturn;
-    public int intToReturn;
     private final List<String> hasKeyStrings = new ArrayList<>();
     private final List<String> isNullStrings = new ArrayList<>();
 
@@ -70,6 +70,7 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
         ReadableMapStub bannerImageReadableMap = new ReadableMapStub();
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), bannerImageReadableMap);
+        mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName(), new JavaOnlyArray());
         return mapStub;
     }
 
@@ -147,8 +148,7 @@ public class ReadableMapStub implements ReadableMap {
 
     @Override
     public int getInt(@Nonnull String name) {
-        keyNamesAskedFor.add(name);
-        return intToReturn;
+        return -1;
     }
 
     @Nullable
@@ -162,7 +162,7 @@ public class ReadableMapStub implements ReadableMap {
     @Override
     public ReadableArray getArray(@Nonnull String name) {
         keyNamesAskedFor.add(name);
-        return readableArrayToReturn;
+        return readableArraysToReturn.get(name);
     }
 
     @Nullable

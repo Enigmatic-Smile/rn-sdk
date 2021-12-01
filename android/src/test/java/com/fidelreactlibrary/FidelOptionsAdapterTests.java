@@ -7,7 +7,6 @@ import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.fakes.CardSchemeAdapterStub;
-import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
@@ -18,10 +17,8 @@ import org.robolectric.RobolectricTestRunner;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Set;
 
-import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
@@ -32,16 +29,13 @@ import static org.junit.Assert.*;
 public class FidelOptionsAdapterTests {
 
     private ReadableMapStub map;
-    private CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
     private CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
-    private FidelOptionsAdapter sut = new FidelOptionsAdapter(countryAdapterStub, cardSchemesAdapterStub);
+    private FidelOptionsAdapter sut = new FidelOptionsAdapter(cardSchemesAdapterStub);
 
     private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
     private static final String TEST_PRIVACY_URL = "testprivacy.url";
     private static final String TEST_TERMS_CONDITIONS_URL = "termsconditions.url";
-    private static final Set<Country> TEST_COUNTRIES = EnumSet.of(Country.UNITED_KINGDOM, Country.JAPAN, Country.CANADA);
-    private static final Integer TEST_COUNTRY_NUMBER = 12;
 
     @After
     public final void tearDown() {
@@ -66,7 +60,6 @@ public class FidelOptionsAdapterTests {
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_POLICY_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.ALLOWED_COUNTRIES_KEY));
         assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
         for (String key: FidelOptionsAdapter.OPTION_KEYS) {
             //for the card schemes value we only check if it exists
@@ -131,14 +124,6 @@ public class FidelOptionsAdapterTests {
         assertNull(Fidel.metaData);
     }
 
-    @Test
-    public void test_IfHasCountryKeyButNoValue_DoNotSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.ALLOWED_COUNTRIES_KEY;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithCountryInt();
-        assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
-    }
-
     //Tests when keys are missing
 
     @Test
@@ -187,13 +172,6 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithNoKey();
         processWithMap(key, TEST_META_DATA());
         assertNull(Fidel.metaData);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveCountryKey_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithNoKey();
-        processWithCountryInt();
-        assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
     }
 
     @Test
@@ -258,19 +236,11 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
-    public void test_WhenAllowedCountriesAreSet_ConvertThemWithCountryAdapterForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.ALLOWED_COUNTRIES_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithCountryInt();
-        assertEquals(countryAdapterStub.countriesToReturn, Fidel.allowedCountries);
-    }
-
-    @Test
     public void test_WhenCardSchemesAreSet_ConvertThemWithCountryAdapterForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithCardSchemes(CardScheme.VISA, CardScheme.MASTERCARD);
-        assertEquals(map.readableArrayToReturn, cardSchemesAdapterStub.cardSchemesReceived);
+        assertEquals(map.readableArraysToReturn.get(keyToTestFor), cardSchemesAdapterStub.cardSchemesReceived);
     }
 
     @Test
@@ -281,21 +251,6 @@ public class FidelOptionsAdapterTests {
         Set<CardScheme> expectedSchemesSet = EnumSet.copyOf(Arrays.asList(expectedSchemes));
         processWithCardSchemes(expectedSchemes);
         assertEquals(expectedSchemesSet, Fidel.supportedCardSchemes);
-    }
-
-    //Exposed constants tests
-    @Test
-    public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
-        Map<String, Object> actualConstants = sut.getConstants();
-        Map<String, Object> expectedConstants = countryAdapterStub.getConstants();
-        assertMapContainsMap(actualConstants, expectedConstants);
-    }
-
-    @Test
-    public void test_WhenAskedForConstants_IncludeConstantsFromCardSchemesAdapter() {
-        Map<String, Object> actualConstants = sut.getConstants();
-        Map<String, Object> expectedConstants = cardSchemesAdapterStub.getConstants();
-        assertMapContainsMap(actualConstants, expectedConstants);
     }
 
     //Helper functions
@@ -326,14 +281,9 @@ public class FidelOptionsAdapterTests {
         map.mapsForKeysToReturn.put(key, mapToReturn);
         sut.process(map);
     }
-    private void processWithCountryInt() {
-        countryAdapterStub.countriesToReturn = TEST_COUNTRIES;
-        map.intToReturn = TEST_COUNTRY_NUMBER;
-        sut.process(map);
-    }
     private void processWithCardSchemes(CardScheme... cardSchemes) {
         cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.copyOf(Arrays.asList(cardSchemes));
-        map.readableArrayToReturn = JavaOnlyArray.of((Object[]) cardSchemes);
+        map.readableArraysToReturn.put(FidelOptionsAdapter.CARD_SCHEMES_KEY, JavaOnlyArray.of((Object[]) cardSchemes));
         sut.process(map);
     }
 
