@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
@@ -17,10 +18,12 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
 
     private final DataProcessor<ReadableMap> imageAdapter;
     private final CountryAdapter countryAdapter;
+    private final CardSchemesAdapter cardSchemesAdapter;
 
-    public FidelSetupAdapter(DataProcessor<ReadableMap> imageAdapter, CountryAdapter countryAdapter) {
+    public FidelSetupAdapter(DataProcessor<ReadableMap> imageAdapter, CountryAdapter countryAdapter, CardSchemesAdapter cardSchemesAdapter) {
         this.imageAdapter = imageAdapter;
         this.countryAdapter = countryAdapter;
+        this.cardSchemesAdapter = cardSchemesAdapter;
     }
 
     @Override
@@ -34,6 +37,9 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             if (optionsMap.hasKey(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName())) {
                 Fidel.allowedCountries = countryAdapter.parseAllowedCountries(optionsMap.getArray(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
             }
+            if (optionsMap.hasKey(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName())) {
+                Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(optionsMap.getArray(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName()));
+            }
         }
     }
 
@@ -46,7 +52,7 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
     @Override
     public Map<String, Object> getConstants() {
         Map<String, Object> constants = countryAdapter.getConstants();
-//        constants.putAll(cardSchemesAdapter.getConstants());
+        constants.putAll(cardSchemesAdapter.getConstants());
         return constants;
     }
 }

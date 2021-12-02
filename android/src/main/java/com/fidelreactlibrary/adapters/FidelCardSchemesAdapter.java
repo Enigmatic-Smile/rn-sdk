@@ -1,10 +1,14 @@
 package com.fidelreactlibrary.adapters;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.ReadableArray;
 import com.fidelapi.entities.CardScheme;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -38,9 +42,9 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     }
 
     @Override
-    public Set<CardScheme> cardSchemesWithReadableArray(ReadableArray arrayToAdapt) {
+    public @NonNull Set<CardScheme> cardSchemesWithReadableArray(@Nullable ReadableArray arrayToAdapt) {
         if (arrayToAdapt == null) {
-            return null;
+            return EnumSet.noneOf(CardScheme.class);
         }
         ArrayList<Integer> integerArrayToAdapt = new ArrayList<>();
         ArrayList<Object> arrayToAdaptObjects = arrayToAdapt.toArrayList();
@@ -54,7 +58,7 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
             }
         }
         Set<Integer> receivedObjectsSet = new HashSet<>(integerArrayToAdapt);
-        Set<CardScheme> cardSchemeSet = new HashSet<>();
+        Set<CardScheme> cardSchemeSet = EnumSet.noneOf(CardScheme.class);
         for (CardScheme scheme : CardScheme.values()) {
             if (receivedObjectsSet.contains(scheme.ordinal())) {
                 cardSchemeSet.add(scheme);

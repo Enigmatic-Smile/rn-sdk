@@ -1,12 +1,8 @@
 package com.fidelreactlibrary;
 
-import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
-import com.fidelapi.entities.CardScheme;
-import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
-import com.fidelreactlibrary.fakes.CardSchemeAdapterStub;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
@@ -14,13 +10,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.Set;
 
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
-import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
 
 
@@ -29,8 +21,7 @@ import static org.junit.Assert.*;
 public class FidelOptionsAdapterTests {
 
     private ReadableMapStub map;
-    private CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
-    private FidelOptionsAdapter sut = new FidelOptionsAdapter(cardSchemesAdapterStub);
+    private FidelOptionsAdapter sut = new FidelOptionsAdapter();
 
     private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
@@ -41,38 +32,11 @@ public class FidelOptionsAdapterTests {
     public final void tearDown() {
         sut = null;
         Fidel.shouldAutoScanCard = false;
-        Fidel.companyName = null;
         Fidel.programName = null;
         Fidel.deleteInstructions = null;
         Fidel.privacyPolicyUrl = null;
         Fidel.termsAndConditionsUrl = null;
         Fidel.metaData = null;
-        Fidel.allowedCountries = EnumSet.allOf(Country.class);
-        Fidel.supportedCardSchemes = EnumSet.allOf(CardScheme.class);
-    }
-
-    //Verification values tests
-    @Test
-    public void test_ChecksAllKeys() {
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.SHOULD_AUTO_SCAN_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PROGRAM_NAME_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.PRIVACY_POLICY_URL_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.META_DATA_KEY));
-        assertThat(FidelOptionsAdapter.OPTION_KEYS, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
-        for (String key: FidelOptionsAdapter.OPTION_KEYS) {
-            //for the card schemes value we only check if it exists
-            if (!key.equals(FidelOptionsAdapter.CARD_SCHEMES_KEY)) {
-                assertToCheckForKey(key);
-            }
-        }
-    }
-
-    public void test_ChecksForSupportedCardSchemes() {
-        ReadableMapStub map = ReadableMapStub.mapWithExistingKey(FidelOptionsAdapter.CARD_SCHEMES_KEY);
-        sut.process(map);
-        assertThat(map.keyNamesCheckedFor, hasItem(FidelOptionsAdapter.CARD_SCHEMES_KEY));
     }
 
     //Tests when keys are present, but no data is found for that key
@@ -174,13 +138,6 @@ public class FidelOptionsAdapterTests {
         assertNull(Fidel.metaData);
     }
 
-    @Test
-    public void test_IfDoesNotHaveCardSchemeKey_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithNoKey();
-        processWithCardSchemes(CardScheme.VISA);
-        assertEquals(EnumSet.allOf(CardScheme.class), Fidel.supportedCardSchemes);
-    }
-
     //Setting correct values tests
 
     @Test
@@ -235,24 +192,6 @@ public class FidelOptionsAdapterTests {
         assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
     }
 
-    @Test
-    public void test_WhenCardSchemesAreSet_ConvertThemWithCountryAdapterForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithCardSchemes(CardScheme.VISA, CardScheme.MASTERCARD);
-        assertEquals(map.readableArraysToReturn.get(keyToTestFor), cardSchemesAdapterStub.cardSchemesReceived);
-    }
-
-    @Test
-    public void test_WhenCardSchemesAreSet_SetThemForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.CARD_SCHEMES_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        CardScheme[] expectedSchemes = {CardScheme.VISA, CardScheme.MASTERCARD};
-        Set<CardScheme> expectedSchemesSet = EnumSet.copyOf(Arrays.asList(expectedSchemes));
-        processWithCardSchemes(expectedSchemes);
-        assertEquals(expectedSchemesSet, Fidel.supportedCardSchemes);
-    }
-
     //Helper functions
     private static HashMap<String, Object> TEST_HASH_MAP() {
         HashMap<String, Object> hashmapToReturn = new HashMap<>();
@@ -281,11 +220,6 @@ public class FidelOptionsAdapterTests {
         map.mapsForKeysToReturn.put(key, mapToReturn);
         sut.process(map);
     }
-    private void processWithCardSchemes(CardScheme... cardSchemes) {
-        cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.copyOf(Arrays.asList(cardSchemes));
-        map.readableArraysToReturn.put(FidelOptionsAdapter.CARD_SCHEMES_KEY, JavaOnlyArray.of((Object[]) cardSchemes));
-        sut.process(map);
-    }
 
     private void assertEqualsString(String key, String valueToCheckWith) {
         sut.process(map);
@@ -295,13 +229,5 @@ public class FidelOptionsAdapterTests {
     private void assertNotEqualsString(String key, String valueToCheckWith) {
         sut.process(map);
         assertNotEquals(map.stringForKeyToReturn.get(key), valueToCheckWith);
-    }
-
-    private void assertToCheckForKey(String keyToCheckFor) {
-        ReadableMapStub map = ReadableMapStub.mapWithExistingKey(keyToCheckFor);
-        sut.process(map);
-        assertThat(map.keyNamesCheckedFor, hasItem(keyToCheckFor));
-        assertThat(map.keyNamesVerifiedNullFor, hasItem(keyToCheckFor));
-        assertThat(map.keyNamesAskedFor, hasItem(keyToCheckFor));
     }
 }

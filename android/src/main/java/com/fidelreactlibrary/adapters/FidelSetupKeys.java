@@ -10,7 +10,8 @@ public enum FidelSetupKeys {
 
     public enum Options {
         BANNER_IMAGE("bannerImage"),
-        ALLOWED_COUNTRIES("allowedCountries");
+        ALLOWED_COUNTRIES("allowedCountries"),
+        SUPPORTED_CARD_SCHEMES("supportedCardSchemes");
 
         private final @NonNull String jsName;
 

@@ -1,6 +1,7 @@
 package com.fidelreactlibrary.fakes;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.facebook.react.bridge.Dynamic;
 import com.facebook.react.bridge.JavaOnlyArray;
@@ -8,7 +9,6 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
-import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
 
 import java.util.ArrayList;
@@ -17,9 +17,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class ReadableMapStub implements ReadableMap {
 
@@ -71,6 +68,7 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub bannerImageReadableMap = new ReadableMapStub();
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), bannerImageReadableMap);
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName(), new JavaOnlyArray());
+        mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), new JavaOnlyArray());
         return mapStub;
     }
 
@@ -85,6 +83,7 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.hasKeyStrings.remove(key.jsName());
         mapStub.stringForKeyToReturn.remove(key.jsName());
         mapStub.mapsForKeysToReturn.remove(key.jsName());
+        mapStub.readableArraysToReturn.remove(key.jsName());
         return mapStub;
     }
 
@@ -93,13 +92,11 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
         assert optionsMapStub != null;
         optionsMapStub.hasKeyStrings.remove(optionsKey.jsName());
-        switch (optionsKey) {
-            case BANNER_IMAGE:
-                optionsMapStub.mapsForKeysToReturn.remove(optionsKey.jsName());
-                break;
-            default:
-                break;
-        }
+
+        optionsMapStub.stringForKeyToReturn.remove(optionsKey.jsName());
+        optionsMapStub.mapsForKeysToReturn.remove(optionsKey.jsName());
+        optionsMapStub.readableArraysToReturn.remove(optionsKey.jsName());
+
         return mapStub;
     }
 
@@ -107,6 +104,8 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
         mapStub.isNullStrings.remove(key.jsName());
         mapStub.stringForKeyToReturn.remove(key.jsName());
+        mapStub.mapsForKeysToReturn.remove(key.jsName());
+        mapStub.readableArraysToReturn.remove(key.jsName());
         return mapStub;
     }
 
@@ -115,7 +114,9 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
         assert optionsMapStub != null;
         optionsMapStub.isNullStrings.add(optionKey.jsName());
+        optionsMapStub.stringForKeyToReturn.remove(optionKey.jsName());
         optionsMapStub.mapsForKeysToReturn.remove(optionKey.jsName());
+        optionsMapStub.readableArraysToReturn.remove(optionKey.jsName());
         return mapStub;
     }
 
@@ -124,67 +125,67 @@ public class ReadableMapStub implements ReadableMap {
     }
 
     @Override
-    public boolean hasKey(@Nonnull String name) {
+    public boolean hasKey(@NonNull String name) {
         keyNamesCheckedFor.add(name);
         return hasKeyStrings.contains(name);
     }
 
     @Override
-    public boolean isNull(@Nonnull String name) {
+    public boolean isNull(@NonNull String name) {
         keyNamesVerifiedNullFor.add(name);
         return isNullStrings.contains(name);
     }
 
     @Override
-    public boolean getBoolean(@Nonnull String name) {
+    public boolean getBoolean(@NonNull String name) {
         keyNamesAskedFor.add(name);
         return boolToReturn;
     }
 
     @Override
-    public double getDouble(@Nonnull String name) {
+    public double getDouble(@NonNull String name) {
         return 0;
     }
 
     @Override
-    public int getInt(@Nonnull String name) {
+    public int getInt(@NonNull String name) {
         return -1;
     }
 
     @Nullable
     @Override
-    public String getString(@Nonnull String name) {
+    public String getString(@NonNull String name) {
         keyNamesAskedFor.add(name);
         return stringForKeyToReturn.get(name);
     }
 
     @Nullable
     @Override
-    public ReadableArray getArray(@Nonnull String name) {
+    public ReadableArray getArray(@NonNull String name) {
         keyNamesAskedFor.add(name);
         return readableArraysToReturn.get(name);
     }
 
     @Nullable
     @Override
-    public ReadableMap getMap(@Nonnull String name) {
+    public ReadableMap getMap(@NonNull String name) {
         keyNamesAskedFor.add(name);
         return mapsForKeysToReturn.get(name);
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public Dynamic getDynamic(@Nonnull String name) {
+    public Dynamic getDynamic(@NonNull String name) {
         return null;
     }
 
-    @Nonnull
+    @NonNull
     @Override
-    public ReadableType getType(@Nonnull String name) {
+    public ReadableType getType(@NonNull String name) {
         return null;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public ReadableMapKeySetIterator keySetIterator() {
         return null;
@@ -196,7 +197,7 @@ public class ReadableMapStub implements ReadableMap {
         return null;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public HashMap<String, Object> toHashMap() {
         return hashMapToReturn;

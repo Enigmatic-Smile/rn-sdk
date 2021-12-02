@@ -4,11 +4,14 @@ import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
+import com.fidelreactlibrary.fakes.CardSchemeAdapterStub;
 import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
+import com.fidelreactlibrary.fakes.ReadableArrayStub;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
 import org.junit.After;
@@ -35,11 +38,13 @@ public class FidelSetupAdapterTests {
     private static final String TEST_COMPANY_NAME = "some company name";
 
     private static final Set<Country> TEST_COUNTRIES = EnumSet.of(Country.UNITED_KINGDOM, Country.JAPAN, Country.CANADA);
+    private static final Set<CardScheme> TEST_CARD_SCHEMES_SET = EnumSet.of(CardScheme.VISA, CardScheme.AMERICAN_EXPRESS);
 
 
     private final DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
     private final CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
-    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy, countryAdapterStub);
+    private final CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
+    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
     
     @After
     public final void tearDown() {
@@ -49,6 +54,7 @@ public class FidelSetupAdapterTests {
         Fidel.companyName = null;
         Fidel.bannerImage = null;
         Fidel.allowedCountries = EnumSet.allOf(Country.class);
+        Fidel.supportedCardSchemes = EnumSet.allOf(CardScheme.class);
     }
 
     @Test
@@ -199,14 +205,6 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.bannerImage);
     }
 
-
-
-
-
-
-
-
-
     @Test
     public void test_WhenDataHasNoOptionsKey_DoNotSetAllowedCountriesForFidel() {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
@@ -259,14 +257,82 @@ public class FidelSetupAdapterTests {
         assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
     }
 
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotSetSupportedCardSchemesForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        Fidel.supportedCardSchemes = TEST_CARD_SCHEMES_SET;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
+    }
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessCardSchemesWithTheCardSchemesAdapter() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        sut.process(map);
+        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertFalse(cardSchemesAdapterStub.askedToAdaptCardSchemes);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveSupportedCardSchemesKey_DoNotSetSupportedCardSchemesForFidel() {
+        Fidel.supportedCardSchemes = TEST_CARD_SCHEMES_SET;
+        cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.allOf(CardScheme.class);
+        sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES));
+        assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
+    }
+
+    @Test
+    public void test_IfDoesHaveSupportedCardSchemesKey_ButNullValue_ShouldSetAdaptedCardSchemesForFidel() {
+        Fidel.supportedCardSchemes = TEST_CARD_SCHEMES_SET;
+        cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.allOf(CardScheme.class);
+        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES);
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        sut.process(map);
+
+        assertTrue(optionsMap.keyNamesAskedFor.contains(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName()));
+        assertEquals(EnumSet.allOf(CardScheme.class), Fidel.supportedCardSchemes);
+    }
+
+    @Test
+    public void test_WhenCardSchemesAreSet_ConvertThemWithCardSchemesAdapterForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        ReadableArrayStub readableCardSchemesArray = new ReadableArrayStub(1, new int[]{1});
+        optionsMap.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), readableCardSchemesArray);
+        cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.noneOf(CardScheme.class);
+
+        sut.process(map);
+
+        assertEquals(readableCardSchemesArray, cardSchemesAdapterStub.cardSchemesReceived);
+    }
+
+    @Test
+    public void test_WhenCardSchemesAreSet_SetThemForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        ReadableArrayStub readableCardSchemesArray = new ReadableArrayStub(1, new int[]{1});
+        optionsMap.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), readableCardSchemesArray);
+
+        cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = TEST_CARD_SCHEMES_SET;
+
+        sut.process(map);
+
+        assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
+    }
+
     //Exposed constants tests
 
-//    @Test
-//    public void test_WhenAskedForConstants_IncludeConstantsFromCardSchemesAdapter() {
-//        Map<String, Object> actualConstants = sut.getConstants();
-//        Map<String, Object> expectedConstants = cardSchemesAdapterStub.getConstants();
-//        assertMapContainsMap(actualConstants, expectedConstants);
-//    }
+    @Test
+    public void test_WhenAskedForConstants_IncludeConstantsFromCardSchemesAdapter() {
+        Map<String, Object> actualConstants = sut.getConstants();
+        Map<String, Object> expectedConstants = cardSchemesAdapterStub.getConstants();
+        assertMapContainsMap(actualConstants, expectedConstants);
+    }
 
     @Test
     public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {

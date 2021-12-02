@@ -24,11 +24,11 @@ const App = () => {
 
     //this is the default value for supported card schemes,
     //but you can remove the support for some of the card schemes if you want to
-    // const cardSchemes = [
-    //   Fidel.CardScheme.visa,
-    //   Fidel.CardScheme.mastercard,
-    //   Fidel.CardScheme.americanExpress,
-    // ];
+    const cardSchemes = [
+      Fidel.CardScheme.visa,
+      Fidel.CardScheme.mastercard,
+      Fidel.CardScheme.americanExpress,
+    ];
 
     const countries = [
       Fidel.Country.unitedArabEmirates,
@@ -47,11 +47,11 @@ const App = () => {
       options: {
         bannerImage: resolvedImage,
         allowedCountries: countries,
+        supportedCardSchemes: cardSchemes,
       },
     });
 
     Fidel.setOptions ({
-      // supportedCardSchemes: cardSchemes,
       shouldAutoScanCard: false,
       metaData: {'meta-data-1': 'value1'},
       deleteInstructions: 'My custom delete instructions!',

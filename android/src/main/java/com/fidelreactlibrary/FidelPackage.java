@@ -31,21 +31,15 @@ public class FidelPackage implements ReactPackage {
 
     @Override
     public @NonNull List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
-        ImageFromReadableMapAdapter imageAdapter =
-                new ImageFromReadableMapAdapter(reactContext);
-        CountryAdapter countryAdapter =
-                new FidelCountryAdapter();
-
-        FidelCardSchemesAdapter cardSchemesAdapter =
-                new FidelCardSchemesAdapter();
-
-        FidelSetupAdapter setupAdapter =
-                new FidelSetupAdapter(imageAdapter, countryAdapter);
-
+        ImageFromReadableMapAdapter imageAdapter = new ImageFromReadableMapAdapter(reactContext);
+        FidelSetupAdapter setupAdapter = new FidelSetupAdapter(
+                imageAdapter, new FidelCountryAdapter(), new FidelCardSchemesAdapter()
+        );
         imageAdapter.bitmapOutput = setupAdapter;
 
         FidelOptionsAdapter optionsAdapter =
-                new FidelOptionsAdapter(cardSchemesAdapter);
+                new FidelOptionsAdapter();
+
         List<ConstantsProvider> constantsProviderList =
                 new ArrayList<>();
         constantsProviderList.add(setupAdapter);

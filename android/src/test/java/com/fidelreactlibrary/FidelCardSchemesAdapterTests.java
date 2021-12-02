@@ -17,8 +17,7 @@ import javax.annotation.Nonnull;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 public final class FidelCardSchemesAdapterTests {
     private static final String CARD_SCHEMES_KEY = "CardScheme";
@@ -111,8 +110,8 @@ public final class FidelCardSchemesAdapterTests {
     }
 
     @Test
-    public void test_WhenAdaptingNullSchemes_ReturnNullSet() {
-        assertNull(sut.cardSchemesWithReadableArray(null));
+    public void test_WhenAdaptingNullSchemes_ReturnEmptySet() {
+        assertTrue(sut.cardSchemesWithReadableArray(null).isEmpty());
     }
 
     @Test

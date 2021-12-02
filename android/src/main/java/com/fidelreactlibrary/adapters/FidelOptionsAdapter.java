@@ -19,7 +19,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap> {
     public static final String PRIVACY_POLICY_URL_KEY = "privacyPolicyUrl";
     public static final String TERMS_CONDITIONS_URL_KEY = "termsAndConditionsUrl";
     public static final String META_DATA_KEY = "metaData";
-    public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
                     SHOULD_AUTO_SCAN_KEY,
@@ -27,15 +26,8 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap> {
                     DELETE_INSTRUCTIONS_KEY,
                     PRIVACY_POLICY_URL_KEY,
                     TERMS_CONDITIONS_URL_KEY,
-                    META_DATA_KEY,
-                    CARD_SCHEMES_KEY
+                    META_DATA_KEY
             ));
-
-    private final CardSchemesAdapter cardSchemesAdapter;
-
-    public FidelOptionsAdapter(CardSchemesAdapter cardSchemesAdapter) {
-        this.cardSchemesAdapter = cardSchemesAdapter;
-    }
 
     @Override
     public void process(ReadableMap data) {
@@ -59,9 +51,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap> {
             if (metaDataMap != null) {
                 Fidel.metaData = getJSONWithMap(metaDataMap);
             }
-        }
-        if (data.hasKey(CARD_SCHEMES_KEY)) {
-            Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(data.getArray(CARD_SCHEMES_KEY));
         }
     }
 
