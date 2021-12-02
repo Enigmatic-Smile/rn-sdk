@@ -40,13 +40,6 @@ public class FidelOptionsAdapterTests {
     }
 
     //Tests when keys are present, but no data is found for that key
-    @Test
-    public void test_IfHasAutoScanKeyButNoValue_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(FidelOptionsAdapter.SHOULD_AUTO_SCAN_KEY);
-        map.boolToReturn = true;
-        sut.process(map);
-        assertFalse(Fidel.shouldAutoScanCard);
-    }
 
     @Test
     public void test_IfHasProgramNameKeyButNoValue_DoNotSetItToTheSDK() {
@@ -141,18 +134,6 @@ public class FidelOptionsAdapterTests {
     //Setting correct values tests
 
     @Test
-    public void test_WhenAutoScanValueIsTrue_SetItTrueForTheSDK() {
-        processWithBoolean(true);
-        assertTrue(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_WhenAutoScanValueIsFalse_SetItFalseForTheSDK() {
-        processWithBoolean(false);
-        assertFalse(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
     public void test_WhenProgramNameValueIsSet_SetItForTheSDK() {
         String keyToTestFor = FidelOptionsAdapter.PROGRAM_NAME_KEY;
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
@@ -207,11 +188,6 @@ public class FidelOptionsAdapterTests {
         return map;
     }
 
-    private void processWithBoolean(Boolean bool) {
-        map = ReadableMapStub.mapWithExistingKey(FidelOptionsAdapter.SHOULD_AUTO_SCAN_KEY);
-        map.boolToReturn = bool;
-        sut.process(map);
-    }
     private void processWithString(String string, String key) {
         map.stringForKeyToReturn.put(key, string);
         sut.process(map);

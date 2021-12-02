@@ -22,7 +22,7 @@ public class ReadableMapStub implements ReadableMap {
 
     public List<String> keyNamesCheckedFor = new ArrayList<>();
     public List<String> keyNamesVerifiedNullFor = new ArrayList<>();
-    public List<String> keyNamesAskedFor = new ArrayList<>();
+    public List<String> keyNamesAskedValueFor = new ArrayList<>();
     public HashMap<String, ReadableMap> mapsForKeysToReturn = new HashMap<>();
     public HashMap<String, Object> hashMapToReturn;
     public HashMap<String, String> stringForKeyToReturn = new HashMap<>();
@@ -69,6 +69,7 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), bannerImageReadableMap);
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName(), new JavaOnlyArray());
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), new JavaOnlyArray());
+        mapStub.boolToReturn = false;
         return mapStub;
     }
 
@@ -92,7 +93,6 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
         assert optionsMapStub != null;
         optionsMapStub.hasKeyStrings.remove(optionsKey.jsName());
-
         optionsMapStub.stringForKeyToReturn.remove(optionsKey.jsName());
         optionsMapStub.mapsForKeysToReturn.remove(optionsKey.jsName());
         optionsMapStub.readableArraysToReturn.remove(optionsKey.jsName());
@@ -138,7 +138,7 @@ public class ReadableMapStub implements ReadableMap {
 
     @Override
     public boolean getBoolean(@NonNull String name) {
-        keyNamesAskedFor.add(name);
+        keyNamesAskedValueFor.add(name);
         return boolToReturn;
     }
 
@@ -155,21 +155,21 @@ public class ReadableMapStub implements ReadableMap {
     @Nullable
     @Override
     public String getString(@NonNull String name) {
-        keyNamesAskedFor.add(name);
+        keyNamesAskedValueFor.add(name);
         return stringForKeyToReturn.get(name);
     }
 
     @Nullable
     @Override
     public ReadableArray getArray(@NonNull String name) {
-        keyNamesAskedFor.add(name);
+        keyNamesAskedValueFor.add(name);
         return readableArraysToReturn.get(name);
     }
 
     @Nullable
     @Override
     public ReadableMap getMap(@NonNull String name) {
-        keyNamesAskedFor.add(name);
+        keyNamesAskedValueFor.add(name);
         return mapsForKeysToReturn.get(name);
     }
 

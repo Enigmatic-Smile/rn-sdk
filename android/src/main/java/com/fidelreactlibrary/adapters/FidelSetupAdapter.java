@@ -2,6 +2,8 @@ package com.fidelreactlibrary.adapters;
 
 import android.graphics.Bitmap;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
@@ -11,8 +13,6 @@ import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
 import java.util.Map;
-
-import javax.annotation.Nonnull;
 
 public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
 
@@ -40,6 +40,9 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             if (optionsMap.hasKey(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName())) {
                 Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(optionsMap.getArray(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName()));
             }
+            if (optionsMap.hasKey(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName())) {
+                Fidel.shouldAutoScanCard = optionsMap.getBoolean(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName());
+            }
         }
     }
 
@@ -48,7 +51,7 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
         Fidel.bannerImage = data;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Map<String, Object> getConstants() {
         Map<String, Object> constants = countryAdapter.getConstants();

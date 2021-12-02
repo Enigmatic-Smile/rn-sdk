@@ -159,7 +159,7 @@ public class FidelSetupAdapterTests {
     public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessBannerImageInformationWithTheImageAdapter() {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
         sut.process(map);
-        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
         assertFalse(imageAdapterSpy.hasAskedToProcessData);
     }
 
@@ -210,7 +210,7 @@ public class FidelSetupAdapterTests {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
         Fidel.allowedCountries = TEST_COUNTRIES;
         sut.process(map);
-        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
         assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
     }
 
@@ -218,7 +218,7 @@ public class FidelSetupAdapterTests {
     public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessCountriesWithTheCountryAdapter() {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
         sut.process(map);
-        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
         assertFalse(countryAdapterStub.askedToParseAllowedCountries);
     }
 
@@ -240,7 +240,7 @@ public class FidelSetupAdapterTests {
 
         sut.process(map);
 
-        assertTrue(optionsMap.keyNamesAskedFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
+        assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
         assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
     }
 
@@ -253,7 +253,7 @@ public class FidelSetupAdapterTests {
 
         sut.process(map);
 
-        assertTrue(optionsMap.keyNamesAskedFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
+        assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
         assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
     }
 
@@ -262,7 +262,7 @@ public class FidelSetupAdapterTests {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
         Fidel.supportedCardSchemes = TEST_CARD_SCHEMES_SET;
         sut.process(map);
-        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
         assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
     }
 
@@ -270,7 +270,7 @@ public class FidelSetupAdapterTests {
     public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessCardSchemesWithTheCardSchemesAdapter() {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
         sut.process(map);
-        assertTrue(map.keyNamesAskedFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
         assertFalse(cardSchemesAdapterStub.askedToAdaptCardSchemes);
     }
 
@@ -292,7 +292,7 @@ public class FidelSetupAdapterTests {
 
         sut.process(map);
 
-        assertTrue(optionsMap.keyNamesAskedFor.contains(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName()));
+        assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName()));
         assertEquals(EnumSet.allOf(CardScheme.class), Fidel.supportedCardSchemes);
     }
 
@@ -323,6 +323,59 @@ public class FidelSetupAdapterTests {
         sut.process(map);
 
         assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
+    }
+
+
+
+
+
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotSetShouldAutoScanCardPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        Fidel.supportedCardSchemes = TEST_CARD_SCHEMES_SET;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveShouldAutoScanCardKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.SHOULD_AUTO_SCAN);
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        Fidel.shouldAutoScanCard = true;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(optionsMap.keyNamesCheckedFor.contains(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName()));
+        assertFalse(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName()));
+        assertTrue(Fidel.shouldAutoScanCard);
+    }
+
+    @Test
+    public void test_WhenShouldAutoScanCardPropertyIsFalse_ShouldBeSetToFalseForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        optionsMap.boolToReturn = false;
+
+        sut.process(map);
+
+        assertFalse(Fidel.shouldAutoScanCard);
+    }
+
+    @Test
+    public void test_WhenShouldAutoScanCardPropertyIsTrue_ShouldBeSetToTrueForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        optionsMap.boolToReturn = true;
+
+        sut.process(map);
+
+        assertTrue(Fidel.shouldAutoScanCard);
     }
 
     //Exposed constants tests

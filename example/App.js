@@ -48,12 +48,13 @@ const App = () => {
         bannerImage: resolvedImage,
         allowedCountries: countries,
         supportedCardSchemes: cardSchemes,
+        shouldAutoScanCard: false,
       },
     });
 
     Fidel.setOptions ({
-      shouldAutoScanCard: false,
       metaData: {'meta-data-1': 'value1'},
+
       deleteInstructions: 'My custom delete instructions!',
       privacyPolicyUrl: 'https://fidel.uk',
       termsAndConditionsUrl: 'https://fidel.uk',
