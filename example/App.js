@@ -53,8 +53,6 @@ const App = () => {
     });
 
     Fidel.setOptions ({
-      metaData: {'meta-data-1': 'value1'},
-
       deleteInstructions: 'My custom delete instructions!',
       privacyPolicyUrl: 'https://fidel.uk',
       termsAndConditionsUrl: 'https://fidel.uk',

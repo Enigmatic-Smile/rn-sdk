@@ -12,7 +12,8 @@ public enum FidelSetupKeys {
         BANNER_IMAGE("bannerImage"),
         ALLOWED_COUNTRIES("allowedCountries"),
         SUPPORTED_CARD_SCHEMES("supportedCardSchemes"),
-        SHOULD_AUTO_SCAN("shouldAutoScanCard");
+        SHOULD_AUTO_SCAN("shouldAutoScanCard"),
+        META_DATA("metaData");
 
         private final @NonNull String jsName;
 

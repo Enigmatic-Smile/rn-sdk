@@ -65,11 +65,13 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub mapStub = new ReadableMapStub();
         String[] keyJsNames = Arrays.stream(FidelSetupKeys.Options.values()).map(FidelSetupKeys.Options::jsName).toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
-        ReadableMapStub bannerImageReadableMap = new ReadableMapStub();
-        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), bannerImageReadableMap);
+        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), new ReadableMapStub());
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName(), new JavaOnlyArray());
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), new JavaOnlyArray());
         mapStub.boolToReturn = false;
+        ReadableMapStub metaDataMap = new ReadableMapStub();
+        metaDataMap.hashMapToReturn = new HashMap<>();
+        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.META_DATA.jsName(), metaDataMap);
         return mapStub;
     }
 

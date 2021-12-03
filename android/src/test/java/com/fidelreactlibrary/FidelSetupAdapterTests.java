@@ -1,6 +1,7 @@
 package com.fidelreactlibrary;
 
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
+import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
@@ -14,6 +15,8 @@ import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReadableArrayStub;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
 
@@ -26,6 +29,7 @@ import org.robolectric.RobolectricTestRunner;
 import android.graphics.Bitmap;
 
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -55,6 +59,8 @@ public class FidelSetupAdapterTests {
         Fidel.bannerImage = null;
         Fidel.allowedCountries = EnumSet.allOf(Country.class);
         Fidel.supportedCardSchemes = EnumSet.allOf(CardScheme.class);
+        Fidel.shouldAutoScanCard = false;
+        Fidel.metaData = null;
     }
 
     @Test
@@ -333,10 +339,10 @@ public class FidelSetupAdapterTests {
     @Test
     public void test_WhenDataHasNoOptionsKey_DoNotSetShouldAutoScanCardPropertyForFidel() {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
-        Fidel.supportedCardSchemes = TEST_CARD_SCHEMES_SET;
+        Fidel.shouldAutoScanCard = true;
         sut.process(map);
         assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
-        assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
+        assertTrue(Fidel.shouldAutoScanCard);
     }
 
     @Test
@@ -378,6 +384,69 @@ public class FidelSetupAdapterTests {
         assertTrue(Fidel.shouldAutoScanCard);
     }
 
+
+
+
+
+
+
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotSetMetadataPropertyForFidel() throws JSONException {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        JSONObject testMetaData = new JSONObject("{\"some_code\":123 }");
+        Fidel.metaData = testMetaData;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertEquals(Fidel.metaData, testMetaData);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveMetadataKey_DoNotSetThisPropertyForFidel() throws JSONException {
+        ReadableMapStub map = ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.META_DATA);
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        JSONObject testMetaData = new JSONObject("{\"some_code\":123 }");
+        Fidel.metaData = testMetaData;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(optionsMap.keyNamesCheckedFor.contains(FidelSetupKeys.Options.META_DATA.jsName()));
+        assertFalse(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.META_DATA.jsName()));
+        assertEquals(Fidel.metaData, testMetaData);
+    }
+
+    @Test
+    public void test_IfDoesHaveMetadataKey_ButWithNullValue_ShouldNullMetaDataValueForFidel() throws JSONException {
+        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.META_DATA);
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        Fidel.metaData = new JSONObject("{\"some_code\":123 }");
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(optionsMap.keyNamesCheckedFor.contains(FidelSetupKeys.Options.META_DATA.jsName()));
+        assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.META_DATA.jsName()));
+        assertNull(Fidel.metaData);
+    }
+
+    @Test
+    public void test_WhenMetaDataValueIsSet_ConvertItToJSONForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        optionsMap.mapsForKeysToReturn.put(FidelSetupKeys.Options.META_DATA.jsName(), TEST_META_DATA());
+
+        sut.process(map);
+
+        assertNotNull(Fidel.metaData);
+        assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
+    }
+
+
+
     //Exposed constants tests
 
     @Test
@@ -392,5 +461,21 @@ public class FidelSetupAdapterTests {
         Map<String, Object> actualConstants = sut.getConstants();
         Map<String, Object> expectedConstants = countryAdapterStub.getConstants();
         assertMapContainsMap(actualConstants, expectedConstants);
+    }
+
+    // Helper functions
+
+    private static HashMap<String, Object> TEST_HASH_MAP() {
+        HashMap<String, Object> hashmapToReturn = new HashMap<>();
+        hashmapToReturn.put("stringKey", "StringVal");
+        hashmapToReturn.put("intKey", 3);
+        hashmapToReturn.put("doubleKey", 4.5);
+        return hashmapToReturn;
+    }
+
+    private static ReadableMapStub TEST_META_DATA() {
+        ReadableMapStub map = new ReadableMapStub();
+        map.hashMapToReturn = TEST_HASH_MAP();
+        return map;
     }
 }

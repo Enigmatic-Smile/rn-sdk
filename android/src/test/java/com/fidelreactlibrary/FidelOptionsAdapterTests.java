@@ -1,6 +1,5 @@
 package com.fidelreactlibrary;
 
-import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelreactlibrary.adapters.FidelOptionsAdapter;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
@@ -10,9 +9,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 
-import java.util.HashMap;
-
-import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
 import static org.junit.Assert.*;
 
 
@@ -73,14 +69,6 @@ public class FidelOptionsAdapterTests {
         assertNotEqualsString(keyToTestFor, Fidel.termsAndConditionsUrl);
     }
 
-    @Test
-    public void test_IfHasMetaDataKeyButNoValue_DoNotSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.META_DATA_KEY;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithMap(keyToTestFor, TEST_META_DATA());
-        assertNull(Fidel.metaData);
-    }
-
     //Tests when keys are missing
 
     @Test
@@ -123,14 +111,6 @@ public class FidelOptionsAdapterTests {
         assertNotEqualsString(key, Fidel.termsAndConditionsUrl);
     }
 
-    @Test
-    public void test_IfDoesNotHaveMetaDataKey_DoNotSetItToTheSDK() {
-        String key = FidelOptionsAdapter.META_DATA_KEY;
-        map = ReadableMapStub.mapWithNoKey();
-        processWithMap(key, TEST_META_DATA());
-        assertNull(Fidel.metaData);
-    }
-
     //Setting correct values tests
 
     @Test
@@ -165,35 +145,10 @@ public class FidelOptionsAdapterTests {
         assertEqualsString(keyToTestFor, Fidel.termsAndConditionsUrl);
     }
 
-    @Test
-    public void test_WhenMetaDataValueIsSet_ConvertItToJSONForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.META_DATA_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithMap(keyToTestFor, TEST_META_DATA());
-        assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
-    }
-
     //Helper functions
-    private static HashMap<String, Object> TEST_HASH_MAP() {
-        HashMap<String, Object> hashmapToReturn = new HashMap<>();
-        hashmapToReturn.put("stringKey", "StringVal");
-        hashmapToReturn.put("intKey", 3);
-        hashmapToReturn.put("doubleKey", 4.5);
-        return hashmapToReturn;
-    }
-
-    private static ReadableMapStub TEST_META_DATA() {
-        ReadableMapStub map = new ReadableMapStub();
-        map.hashMapToReturn = TEST_HASH_MAP();
-        return map;
-    }
 
     private void processWithString(String string, String key) {
         map.stringForKeyToReturn.put(key, string);
-        sut.process(map);
-    }
-    private void processWithMap(String key, ReadableMap mapToReturn) {
-        map.mapsForKeysToReturn.put(key, mapToReturn);
         sut.process(map);
     }
 

@@ -12,6 +12,8 @@ import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
+import org.json.JSONObject;
+
 import java.util.Map;
 
 public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, DataOutput<Bitmap>, ConstantsProvider {
@@ -42,6 +44,14 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             }
             if (optionsMap.hasKey(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName())) {
                 Fidel.shouldAutoScanCard = optionsMap.getBoolean(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName());
+            }
+            if (optionsMap.hasKey(FidelSetupKeys.Options.META_DATA.jsName())) {
+                ReadableMap metaDataMap = optionsMap.getMap(FidelSetupKeys.Options.META_DATA.jsName());
+                if (metaDataMap != null) {
+                    Fidel.metaData = new JSONObject(metaDataMap.toHashMap());
+                } else {
+                    Fidel.metaData = null;
+                }
             }
         }
     }
