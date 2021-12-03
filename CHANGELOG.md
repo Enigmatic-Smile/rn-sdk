@@ -1,5 +1,8 @@
 # Fidel React Native bridge library change log
 
+## 1.5.0
+- Remove card scanning confirmation screen.
+
 ## 1.4.3
 - Add United Arab Emirates option as a country of issuance.
 - Country label shrinks its font size, to fit longer country names, on smaller devices.
