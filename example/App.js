@@ -50,12 +50,14 @@ const App = () => {
         supportedCardSchemes: cardSchemes,
         shouldAutoScanCard: false,
       },
+      consentText: {
+        termsAndConditionsUrl: 'https://fidel.uk',
+      },
     });
 
     Fidel.setOptions ({
       deleteInstructions: 'My custom delete instructions!',
       privacyPolicyUrl: 'https://fidel.uk',
-      termsAndConditionsUrl: 'https://fidel.uk',
       programName: 'My program name',
     });
 

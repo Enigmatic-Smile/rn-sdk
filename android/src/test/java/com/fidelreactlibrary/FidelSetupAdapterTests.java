@@ -153,8 +153,6 @@ public class FidelSetupAdapterTests {
         assertEquals(TEST_COMPANY_NAME, Fidel.companyName);
     }
 
-
-
     @Test
     public void test_WhenDataHasNoOptionsKey_DoNotSetBannerImageForFidel() {
         sut.process(ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS));
@@ -331,11 +329,6 @@ public class FidelSetupAdapterTests {
         assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
     }
 
-
-
-
-
-
     @Test
     public void test_WhenDataHasNoOptionsKey_DoNotSetShouldAutoScanCardPropertyForFidel() {
         ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
@@ -383,13 +376,6 @@ public class FidelSetupAdapterTests {
 
         assertTrue(Fidel.shouldAutoScanCard);
     }
-
-
-
-
-
-
-
 
     @Test
     public void test_WhenDataHasNoOptionsKey_DoNotSetMetadataPropertyForFidel() throws JSONException {
@@ -445,6 +431,63 @@ public class FidelSetupAdapterTests {
         assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
     }
 
+    @Test
+    public void test_WhenDataHasNoConsentTextKey_DoNotSetTermsAndConditionsUrlForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.CONSENT_TEXT);
+        String fakeTermsAndConditionsUrl = "some test, fake terms and conditions";
+        Fidel.termsAndConditionsUrl = fakeTermsAndConditionsUrl;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertEquals(fakeTermsAndConditionsUrl, Fidel.termsAndConditionsUrl);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveTermsAndConditionsUrlKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutConsentTextKey(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        String fakeTermsAndConditionsUrl = "some test, fake terms and conditions";
+        Fidel.termsAndConditionsUrl = fakeTermsAndConditionsUrl;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
+        assertFalse(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
+        assertEquals(fakeTermsAndConditionsUrl, Fidel.termsAndConditionsUrl);
+    }
+
+    @Test
+    public void test_IfDoesHaveTermsAndConditionsUrlKey_ButWithNullValue_ShouldSetNullTermsAndConditionsUrlForFidel() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForConsentTextKey(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        Fidel.termsAndConditionsUrl = "some test, fake terms and conditions";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
+        assertNull(Fidel.termsAndConditionsUrl);
+    }
+
+    @Test
+    public void test_IfDoesHaveTermsAndConditionsUrlKeyAndValue_ShouldSetTheValueForFidel() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+        String expectedTermsAndConditions = "some terms and conditions url";
+        consentTextMap.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName(), expectedTermsAndConditions);
+
+        Fidel.termsAndConditionsUrl = "previous fake terms and conditions url";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
+        assertEquals(expectedTermsAndConditions, Fidel.termsAndConditionsUrl);
+    }
 
 
     //Exposed constants tests

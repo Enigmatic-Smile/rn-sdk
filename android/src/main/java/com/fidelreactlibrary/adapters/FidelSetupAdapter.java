@@ -1,11 +1,16 @@
 package com.fidelreactlibrary.adapters;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.EnrollmentErrorType;
+import com.fidelapi.entities.FidelError;
+import com.fidelapi.entities.FidelErrorType;
+import com.fidelapi.entities.FidelResult;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
@@ -54,6 +59,36 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
                 }
             }
         }
+
+        ReadableMap consentTextMap = data.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
+        if (consentTextMap != null) {
+            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName())) {
+                Fidel.termsAndConditionsUrl = consentTextMap.getString(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName());
+            }
+        }
+        
+        Fidel.onResult = (result -> {
+            if (result instanceof FidelResult.Enrollment) {
+                Log.d("Fidel.Debug", ((FidelResult.Enrollment) result).getEnrollmentResult().cardId);
+            } else if (result instanceof FidelResult.VerificationSuccessful) {
+                Log.d("Fidel.Debug", "The card verification was successful");
+            } else {
+                FidelError error = ((FidelResult.Error) result).getError();
+                Log.e("Fidel.Debug", error.getMessage());
+                if (error.type == FidelErrorType.UserCanceled.INSTANCE) {
+                    Log.e("Fidel.Debug", "the user cancelled the flow");
+                } else if (error.type == FidelErrorType.SdkConfigurationError.INSTANCE) {
+                    Log.e("Fidel.Debug", "Fidel should be configured correctly");
+                } else if (error.type instanceof FidelErrorType.EnrollmentError) {
+                    FidelErrorType.EnrollmentError enrollmentError = (FidelErrorType.EnrollmentError)error.type;
+                    if (enrollmentError.type == EnrollmentErrorType.CARD_ALREADY_EXISTS) {
+                        Log.e("Fidel.Debug", "card was already enrolled");
+                    } else {
+                        Log.e("Fidel.Debug", "another enrollment error");
+                    }
+                }
+            }
+        });
     }
 
     @Override

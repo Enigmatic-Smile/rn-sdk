@@ -6,7 +6,8 @@ public enum FidelSetupKeys {
     SDK_KEY("sdkKey"),
     PROGRAM_ID("programId"),
     COMPANY_NAME("companyName"),
-    OPTIONS("options");
+    OPTIONS("options"),
+    CONSENT_TEXT("consentText");
 
     public enum Options {
         BANNER_IMAGE("bannerImage"),
@@ -21,6 +22,23 @@ public enum FidelSetupKeys {
          * @param jsName The name of the key that will be available in JavaScript
          */
         Options(final @NonNull String jsName) {
+            this.jsName = jsName;
+        }
+
+        public String jsName() {
+            return jsName;
+        }
+    }
+
+    public enum ConsentText {
+        TERMS_AND_CONDITIONS_URL("termsAndConditionsUrl");
+
+        private final @NonNull String jsName;
+
+        /**
+         * @param jsName The name of the key that will be available in JavaScript
+         */
+        ConsentText(final @NonNull String jsName) {
             this.jsName = jsName;
         }
 

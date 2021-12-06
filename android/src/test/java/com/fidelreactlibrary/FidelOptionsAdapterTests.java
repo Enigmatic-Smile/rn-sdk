@@ -22,7 +22,6 @@ public class FidelOptionsAdapterTests {
     private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
     private static final String TEST_PRIVACY_URL = "testprivacy.url";
-    private static final String TEST_TERMS_CONDITIONS_URL = "termsconditions.url";
 
     @After
     public final void tearDown() {
@@ -61,14 +60,6 @@ public class FidelOptionsAdapterTests {
         assertNotEqualsString(keyToTestFor, Fidel.privacyPolicyUrl);
     }
 
-    @Test
-    public void test_IfHasTermsConditionsURLKeyButNoValue_DoNotSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithString(TEST_TERMS_CONDITIONS_URL, keyToTestFor);
-        assertNotEqualsString(keyToTestFor, Fidel.termsAndConditionsUrl);
-    }
-
     //Tests when keys are missing
 
     @Test
@@ -103,14 +94,6 @@ public class FidelOptionsAdapterTests {
         assertNotEqualsString(key, Fidel.privacyPolicyUrl);
     }
 
-    @Test
-    public void test_IfDoesNotHaveTermsConditionsURLKey_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithNoKey();
-        String key = FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY;
-        processWithString(TEST_TERMS_CONDITIONS_URL, key);
-        assertNotEqualsString(key, Fidel.termsAndConditionsUrl);
-    }
-
     //Setting correct values tests
 
     @Test
@@ -135,14 +118,6 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithString(TEST_PRIVACY_URL, keyToTestFor);
         assertEqualsString(keyToTestFor, Fidel.privacyPolicyUrl);
-    }
-
-    @Test
-    public void test_WhenTermsConditionsURLValueIsSet_SetItForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.TERMS_CONDITIONS_URL_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithString(TEST_TERMS_CONDITIONS_URL, keyToTestFor);
-        assertEqualsString(keyToTestFor, Fidel.termsAndConditionsUrl);
     }
 
     //Helper functions

@@ -58,6 +58,8 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.COMPANY_NAME.jsName(), "some test company name");
         ReadableMapStub optionsReadableMap = ReadableMapStub.optionsMapWithAllValidSetupKeys();
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.OPTIONS.jsName(), optionsReadableMap);
+        ReadableMapStub consentTextReadableMap = ReadableMapStub.consentTextMapWithAllValidSetupKeys();
+        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.CONSENT_TEXT.jsName(), consentTextReadableMap);
         return mapStub;
     }
 
@@ -72,6 +74,14 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub metaDataMap = new ReadableMapStub();
         metaDataMap.hashMapToReturn = new HashMap<>();
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.META_DATA.jsName(), metaDataMap);
+        return mapStub;
+    }
+
+    private static ReadableMapStub consentTextMapWithAllValidSetupKeys() {
+        ReadableMapStub mapStub = new ReadableMapStub();
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.ConsentText.values()).map(FidelSetupKeys.ConsentText::jsName).toArray(String[]::new);
+        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName(), "some test terms and conditions url");
         return mapStub;
     }
 
@@ -98,7 +108,17 @@ public class ReadableMapStub implements ReadableMap {
         optionsMapStub.stringForKeyToReturn.remove(optionsKey.jsName());
         optionsMapStub.mapsForKeysToReturn.remove(optionsKey.jsName());
         optionsMapStub.readableArraysToReturn.remove(optionsKey.jsName());
+        return mapStub;
+    }
 
+    public static ReadableMapStub withoutConsentTextKey(FidelSetupKeys.ConsentText consentTextKey) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assert consentTextMapStub != null;
+        consentTextMapStub.hasKeyStrings.remove(consentTextKey.jsName());
+        consentTextMapStub.stringForKeyToReturn.remove(consentTextKey.jsName());
+        consentTextMapStub.mapsForKeysToReturn.remove(consentTextKey.jsName());
+        consentTextMapStub.readableArraysToReturn.remove(consentTextKey.jsName());
         return mapStub;
     }
 
@@ -119,6 +139,17 @@ public class ReadableMapStub implements ReadableMap {
         optionsMapStub.stringForKeyToReturn.remove(optionKey.jsName());
         optionsMapStub.mapsForKeysToReturn.remove(optionKey.jsName());
         optionsMapStub.readableArraysToReturn.remove(optionKey.jsName());
+        return mapStub;
+    }
+
+    public static ReadableMapStub withNullValueForConsentTextKey(FidelSetupKeys.ConsentText consentTextKey) {
+        ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assert consentTextMapStub != null;
+        consentTextMapStub.isNullStrings.add(consentTextKey.jsName());
+        consentTextMapStub.stringForKeyToReturn.remove(consentTextKey.jsName());
+        consentTextMapStub.mapsForKeysToReturn.remove(consentTextKey.jsName());
+        consentTextMapStub.readableArraysToReturn.remove(consentTextKey.jsName());
         return mapStub;
     }
 
