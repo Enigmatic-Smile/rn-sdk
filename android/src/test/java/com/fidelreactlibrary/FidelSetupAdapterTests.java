@@ -77,24 +77,39 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.programId);
         assertNull(Fidel.companyName);
         assertNull(Fidel.bannerImage);
+        assertFalse(Fidel.shouldAutoScanCard);
+        assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
+        assertEquals(EnumSet.allOf(CardScheme.class), Fidel.supportedCardSchemes);
+        assertNull(Fidel.metaData);
+        assertNull(Fidel.privacyPolicyUrl);
+        assertNull(Fidel.termsAndConditionsUrl);
+        assertNull(Fidel.programName);
+        assertNull(Fidel.deleteInstructions);
+        assertEquals(ProgramType.TRANSACTION_SELECT, Fidel.programType);
     }
 
     @Test
     public void test_WhenDataHasNoSdkKey_DoNotSetThisPropertyForFidel() {
+        String expectedSdkKey = "some sdk key";
+        Fidel.sdkKey = expectedSdkKey;
         sut.process(ReadableMapStub.withoutKey(FidelSetupKeys.SDK_KEY));
-        assertNull(Fidel.sdkKey);
+        assertEquals(expectedSdkKey, Fidel.sdkKey);
     }
 
     @Test
     public void test_WhenDataHasNoProgramIDKey_DoNotSetThisPropertyForFidel() {
+        String expectedProgramId = "some program id";
+        Fidel.programId = expectedProgramId;
         sut.process(ReadableMapStub.withoutKey(FidelSetupKeys.PROGRAM_ID));
-        assertNull(Fidel.programId);
+        assertEquals(expectedProgramId, Fidel.programId);
     }
 
     @Test
     public void test_WhenDataHasNoCompanyNameKey_DoNotSetThisPropertyForFidel() {
+        String expectedCompanyName = "some company name";
+        Fidel.companyName = expectedCompanyName;
         sut.process(ReadableMapStub.withoutKey(FidelSetupKeys.COMPANY_NAME));
-        assertNull(Fidel.companyName);
+        assertEquals(expectedCompanyName, Fidel.companyName);
     }
 
     @Test
@@ -110,7 +125,7 @@ public class FidelSetupAdapterTests {
     }
 
     @Test
-    public void test_WhenDataHasNoValueForCompanyNameKey_DoNotSetThisPropertyForFidel() {
+    public void test_WhenDataHasNullValueForCompanyNameKey_DoNotSetThisPropertyForFidel() {
         sut.process(ReadableMapStub.withNullValueForKey(FidelSetupKeys.COMPANY_NAME));
         assertNull(Fidel.companyName);
     }
@@ -175,15 +190,10 @@ public class FidelSetupAdapterTests {
     }
 
     @Test
-    public void test_IfDoesNotHaveBannerImageKey_DoNotSetBannerImageForFidel() {
+    public void test_IfDoesNotHaveBannerImageKey_DoNotTryProcessingItWithTheImageAdapter() {
         sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.BANNER_IMAGE));
-        assertNull(Fidel.bannerImage);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveBannerImageKey_ShouldSendDataToImageAdapterAnyways() {
-        sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.BANNER_IMAGE));
-        assertTrue(imageAdapterSpy.hasAskedToProcessData);
+        assertFalse(imageAdapterSpy.hasAskedToProcessData);
+        assertNull(imageAdapterSpy.dataToProcess);
     }
 
     @Test

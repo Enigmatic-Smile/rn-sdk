@@ -14,7 +14,7 @@ public class FidelProgramTypeAdapterTests {
     private final FidelProgramTypeAdapter sut = new FidelProgramTypeAdapter();
 
     @Test
-    public void test_ToExposeCountryConstants() {
+    public void test_ToExposeProgramTypeConstants() {
         Map<String, Object> exposedConstants = sut.getConstants();
         String expectedProgramTypesConstantsKey = "ProgramType";
         assertTrue(exposedConstants.containsKey(expectedProgramTypesConstantsKey));
