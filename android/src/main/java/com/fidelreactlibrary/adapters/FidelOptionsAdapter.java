@@ -8,7 +8,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap> {
 
     public static final String PROGRAM_NAME_KEY = "programName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
-    public static final String PRIVACY_POLICY_URL_KEY = "privacyPolicyUrl";
 
     @Override
     public void process(ReadableMap data) {
@@ -17,9 +16,6 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap> {
         }
         if (valueIsValidFor(data, DELETE_INSTRUCTIONS_KEY)) {
             Fidel.deleteInstructions = data.getString(DELETE_INSTRUCTIONS_KEY);
-        }
-        if (valueIsValidFor(data, PRIVACY_POLICY_URL_KEY)) {
-            Fidel.privacyPolicyUrl = data.getString(PRIVACY_POLICY_URL_KEY);
         }
     }
 

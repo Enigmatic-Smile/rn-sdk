@@ -65,6 +65,9 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName())) {
                 Fidel.termsAndConditionsUrl = consentTextMap.getString(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName());
             }
+            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName())) {
+                Fidel.privacyPolicyUrl = consentTextMap.getString(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName());
+            }
         }
         
         Fidel.onResult = (result -> {

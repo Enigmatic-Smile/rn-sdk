@@ -21,17 +21,12 @@ public class FidelOptionsAdapterTests {
 
     private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
-    private static final String TEST_PRIVACY_URL = "testprivacy.url";
 
     @After
     public final void tearDown() {
         sut = null;
-        Fidel.shouldAutoScanCard = false;
         Fidel.programName = null;
         Fidel.deleteInstructions = null;
-        Fidel.privacyPolicyUrl = null;
-        Fidel.termsAndConditionsUrl = null;
-        Fidel.metaData = null;
     }
 
     //Tests when keys are present, but no data is found for that key
@@ -50,14 +45,6 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
         processWithString(TEST_DELETE_INSTRUCTIONS, keyToTestFor);
         assertNotEqualsString(keyToTestFor, Fidel.deleteInstructions);
-    }
-
-    @Test
-    public void test_IfHasPrivacyURLKeyButNoValue_DoNotSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.PRIVACY_POLICY_URL_KEY;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithString(TEST_PRIVACY_URL, keyToTestFor);
-        assertNotEqualsString(keyToTestFor, Fidel.privacyPolicyUrl);
     }
 
     //Tests when keys are missing
@@ -86,14 +73,6 @@ public class FidelOptionsAdapterTests {
         assertNotEqualsString(key, Fidel.deleteInstructions);
     }
 
-    @Test
-    public void test_IfDoesNotHavePrivacyURLKey_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithNoKey();
-        String key = FidelOptionsAdapter.PRIVACY_POLICY_URL_KEY;
-        processWithString(TEST_PRIVACY_URL, key);
-        assertNotEqualsString(key, Fidel.privacyPolicyUrl);
-    }
-
     //Setting correct values tests
 
     @Test
@@ -110,14 +89,6 @@ public class FidelOptionsAdapterTests {
         map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
         processWithString(TEST_DELETE_INSTRUCTIONS, keyToTestFor);
         assertEqualsString(keyToTestFor, Fidel.deleteInstructions);
-    }
-
-    @Test
-    public void test_WhenPrivacyURLValueIsSet_SetItForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.PRIVACY_POLICY_URL_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithString(TEST_PRIVACY_URL, keyToTestFor);
-        assertEqualsString(keyToTestFor, Fidel.privacyPolicyUrl);
     }
 
     //Helper functions

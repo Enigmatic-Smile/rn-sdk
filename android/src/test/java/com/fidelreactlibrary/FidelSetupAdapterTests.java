@@ -61,6 +61,8 @@ public class FidelSetupAdapterTests {
         Fidel.supportedCardSchemes = EnumSet.allOf(CardScheme.class);
         Fidel.shouldAutoScanCard = false;
         Fidel.metaData = null;
+        Fidel.privacyPolicyUrl = null;
+        Fidel.termsAndConditionsUrl = null;
     }
 
     @Test
@@ -487,6 +489,64 @@ public class FidelSetupAdapterTests {
         assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
         assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName()));
         assertEquals(expectedTermsAndConditions, Fidel.termsAndConditionsUrl);
+    }
+
+    @Test
+    public void test_WhenDataHasNoConsentTextKey_DoNotSetPrivacyPolicyUrlForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.CONSENT_TEXT);
+        String fakePrivacyPolicyUrl = "some test, fake url";
+        Fidel.privacyPolicyUrl = fakePrivacyPolicyUrl;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertEquals(fakePrivacyPolicyUrl, Fidel.privacyPolicyUrl);
+    }
+
+    @Test
+    public void test_IfDoesNotHavePrivacyPolicyUrlKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutConsentTextKey(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        String fakePrivacyPolicyUrl = "some test, fake url";
+        Fidel.privacyPolicyUrl = fakePrivacyPolicyUrl;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
+        assertFalse(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
+        assertEquals(fakePrivacyPolicyUrl, Fidel.privacyPolicyUrl);
+    }
+
+    @Test
+    public void test_IfDoesHavePrivacyPolicyUrlKey_ButWithNullValue_ShouldSetNullTermsAndConditionsUrlForFidel() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForConsentTextKey(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        Fidel.privacyPolicyUrl = "some test, fake url";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
+        assertNull(Fidel.privacyPolicyUrl);
+    }
+
+    @Test
+    public void test_IfDoesHavePrivacyPolicyUrlKeyAndValue_ShouldSetTheValueForFidel() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+        String expectedTermsAndConditions = "some test url";
+        consentTextMap.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName(), expectedTermsAndConditions);
+
+        Fidel.privacyPolicyUrl = "previous fake url";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
+        assertEquals(expectedTermsAndConditions, Fidel.privacyPolicyUrl);
     }
 
 

@@ -31,7 +31,8 @@ public enum FidelSetupKeys {
     }
 
     public enum ConsentText {
-        TERMS_AND_CONDITIONS_URL("termsAndConditionsUrl");
+        TERMS_AND_CONDITIONS_URL("termsAndConditionsUrl"),
+        PRIVACY_POLICY_URL("privacyPolicyUrl");
 
         private final @NonNull String jsName;
 
