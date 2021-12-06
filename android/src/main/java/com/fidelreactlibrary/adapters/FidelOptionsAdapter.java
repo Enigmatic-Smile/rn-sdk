@@ -6,14 +6,10 @@ import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
 public final class FidelOptionsAdapter implements DataProcessor<ReadableMap> {
 
-    public static final String PROGRAM_NAME_KEY = "programName";
     public static final String DELETE_INSTRUCTIONS_KEY = "deleteInstructions";
 
     @Override
     public void process(ReadableMap data) {
-        if (valueIsValidFor(data, PROGRAM_NAME_KEY)) {
-            Fidel.programName = data.getString(PROGRAM_NAME_KEY);
-        }
         if (valueIsValidFor(data, DELETE_INSTRUCTIONS_KEY)) {
             Fidel.deleteInstructions = data.getString(DELETE_INSTRUCTIONS_KEY);
         }

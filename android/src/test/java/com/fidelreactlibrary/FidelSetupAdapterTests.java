@@ -63,6 +63,7 @@ public class FidelSetupAdapterTests {
         Fidel.metaData = null;
         Fidel.privacyPolicyUrl = null;
         Fidel.termsAndConditionsUrl = null;
+        Fidel.programName = null;
     }
 
     @Test
@@ -518,7 +519,7 @@ public class FidelSetupAdapterTests {
     }
 
     @Test
-    public void test_IfDoesHavePrivacyPolicyUrlKey_ButWithNullValue_ShouldSetNullTermsAndConditionsUrlForFidel() {
+    public void test_IfDoesHavePrivacyPolicyUrlKey_ButWithNullValue_ShouldSetNullPrivacyPolicyUrlForFidel() {
         ReadableMapStub map = ReadableMapStub.withNullValueForConsentTextKey(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL);
         ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
         assertNotNull(consentTextMap);
@@ -547,6 +548,64 @@ public class FidelSetupAdapterTests {
         assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
         assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName()));
         assertEquals(expectedTermsAndConditions, Fidel.privacyPolicyUrl);
+    }
+
+    @Test
+    public void test_WhenDataHasNoConsentTextKey_DoNotSetProgramNameForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.CONSENT_TEXT);
+        String expectedValue = "some previously set value";
+        Fidel.programName = expectedValue;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertEquals(expectedValue, Fidel.programName);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveProgramNameKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutConsentTextKey(FidelSetupKeys.ConsentText.PROGRAM_NAME);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        String expectedValue = "some previously set value";
+        Fidel.programName = expectedValue;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
+        assertFalse(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
+        assertEquals(expectedValue, Fidel.programName);
+    }
+
+    @Test
+    public void test_IfDoesHaveProgramNameKey_ButWithNullValue_ShouldSetNullProgramNameForFidel() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForConsentTextKey(FidelSetupKeys.ConsentText.PROGRAM_NAME);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        Fidel.programName = "some previously set value";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
+        assertNull(Fidel.programName);
+    }
+
+    @Test
+    public void test_IfDoesHaveProgramNameKeyAndValue_ShouldSetTheValueForFidel() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+        String expectedValue = "some program name";
+        consentTextMap.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName(), expectedValue);
+
+        Fidel.programName = "some previously set value";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
+        assertEquals(expectedValue, Fidel.programName);
     }
 
 

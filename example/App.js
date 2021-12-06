@@ -53,12 +53,12 @@ const App = () => {
       consentText: {
         termsAndConditionsUrl: 'https://fidel.uk',
         privacyPolicyUrl: 'https://fidel.uk',
+        programName: 'Your program name',
       },
     });
 
     Fidel.setOptions ({
-      deleteInstructions: 'My custom delete instructions!',
-      programName: 'My program name',
+      deleteInstructions: 'Your custom delete instructions!',
     });
 
 

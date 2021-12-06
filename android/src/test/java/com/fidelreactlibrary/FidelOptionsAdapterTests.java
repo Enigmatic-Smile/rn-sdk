@@ -19,25 +19,15 @@ public class FidelOptionsAdapterTests {
     private ReadableMapStub map;
     private FidelOptionsAdapter sut = new FidelOptionsAdapter();
 
-    private static final String TEST_PROGRAM_NAME = "Test Program Name";
     private static final String TEST_DELETE_INSTRUCTIONS = "Test Delete instructions.";
 
     @After
     public final void tearDown() {
         sut = null;
-        Fidel.programName = null;
         Fidel.deleteInstructions = null;
     }
 
     //Tests when keys are present, but no data is found for that key
-
-    @Test
-    public void test_IfHasProgramNameKeyButNoValue_DoNotSetItToTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.PROGRAM_NAME_KEY;
-        map = ReadableMapStub.mapWithExistingKeyButNoValue(keyToTestFor);
-        processWithString(TEST_PROGRAM_NAME, keyToTestFor);
-        assertNotEqualsString(keyToTestFor, Fidel.programName);
-    }
 
     @Test
     public void test_IfHasDeleteInstructionsKeyButNoValue_DoNotSetThemToTheSDK() {
@@ -58,14 +48,6 @@ public class FidelOptionsAdapterTests {
     }
 
     @Test
-    public void test_IfDoesNotHaveProgramNameKey_DoNotSetItToTheSDK() {
-        map = ReadableMapStub.mapWithNoKey();
-        String key = FidelOptionsAdapter.PROGRAM_NAME_KEY;
-        processWithString(TEST_PROGRAM_NAME, key);
-        assertNotEqualsString(key, Fidel.programName);
-    }
-
-    @Test
     public void test_IfDoesNotHaveDeleteInstructionsKey_DoNotSetThemToTheSDK() {
         map = ReadableMapStub.mapWithNoKey();
         String key = FidelOptionsAdapter.DELETE_INSTRUCTIONS_KEY;
@@ -74,14 +56,6 @@ public class FidelOptionsAdapterTests {
     }
 
     //Setting correct values tests
-
-    @Test
-    public void test_WhenProgramNameValueIsSet_SetItForTheSDK() {
-        String keyToTestFor = FidelOptionsAdapter.PROGRAM_NAME_KEY;
-        map = ReadableMapStub.mapWithExistingKey(keyToTestFor);
-        processWithString(TEST_PROGRAM_NAME, keyToTestFor);
-        assertEqualsString(keyToTestFor, Fidel.programName);
-    }
 
     @Test
     public void test_WhenDeleteInstructionsValueIsSet_SetItForTheSDK() {
