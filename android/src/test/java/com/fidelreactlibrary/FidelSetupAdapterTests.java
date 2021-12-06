@@ -7,11 +7,13 @@ import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
+import com.fidelapi.entities.ProgramType;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
 import com.fidelreactlibrary.fakes.CardSchemeAdapterStub;
 import com.fidelreactlibrary.fakes.CountryAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
+import com.fidelreactlibrary.fakes.ProgramTypeAdapterStub;
 import com.fidelreactlibrary.fakes.ReadableArrayStub;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
 
@@ -20,8 +22,7 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -48,7 +49,8 @@ public class FidelSetupAdapterTests {
     private final DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
     private final CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
     private final CardSchemeAdapterStub cardSchemesAdapterStub = new CardSchemeAdapterStub();
-    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub);
+    private final ProgramTypeAdapterStub programTypeAdapterStub = new ProgramTypeAdapterStub();
+    private FidelSetupAdapter sut = new FidelSetupAdapter(imageAdapterSpy, countryAdapterStub, cardSchemesAdapterStub, programTypeAdapterStub);
     
     @After
     public final void tearDown() {
@@ -65,6 +67,7 @@ public class FidelSetupAdapterTests {
         Fidel.termsAndConditionsUrl = null;
         Fidel.programName = null;
         Fidel.deleteInstructions = null;
+        Fidel.programType = ProgramType.TRANSACTION_SELECT;
     }
 
     @Test
@@ -667,6 +670,35 @@ public class FidelSetupAdapterTests {
         assertEquals(expectedValue, Fidel.deleteInstructions);
     }
 
+    @Test
+    public void test_IfDoesNotHaveProgramTypeKey_ShouldNotSetTheProgramTypeForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.PROGRAM_TYPE);
+
+        Fidel.programType = ProgramType.TRANSACTION_STREAM;
+        programTypeAdapterStub.programTypeToReturn = ProgramType.TRANSACTION_SELECT;
+        sut.process(map);
+
+        assertTrue(map.keyNamesCheckedFor.contains(FidelSetupKeys.PROGRAM_TYPE.jsName()));
+        assertFalse(map.keyNamesAskedValueFor.contains(FidelSetupKeys.PROGRAM_TYPE.jsName()));
+        assertNull(programTypeAdapterStub.receivedProgramTypeString);
+        assertEquals(ProgramType.TRANSACTION_STREAM, Fidel.programType);
+    }
+
+    @Test
+    public void test_IfDoesHaveProgramTypeKey_ShouldSetTheValueProvidedByTheProgramTypeAdapter() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        String testProgramTypeValue = "program type value";
+        map.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_TYPE.jsName(), testProgramTypeValue);
+
+        Fidel.programType = ProgramType.TRANSACTION_SELECT;
+        programTypeAdapterStub.programTypeToReturn = ProgramType.TRANSACTION_STREAM;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.PROGRAM_TYPE.jsName()));
+        assertEquals(testProgramTypeValue, programTypeAdapterStub.receivedProgramTypeString);
+        assertEquals(ProgramType.TRANSACTION_STREAM, Fidel.programType);
+    }
+
 
     //Exposed constants tests
 
@@ -681,6 +713,13 @@ public class FidelSetupAdapterTests {
     public void test_WhenAskedForConstants_IncludeConstantsFromCountriesAdapter() {
         Map<String, Object> actualConstants = sut.getConstants();
         Map<String, Object> expectedConstants = countryAdapterStub.getConstants();
+        assertMapContainsMap(actualConstants, expectedConstants);
+    }
+
+    @Test
+    public void test_WhenAskedForConstants_IncludeConstantsFromProgramTypeAdapter() {
+        Map<String, Object> actualConstants = sut.getConstants();
+        Map<String, Object> expectedConstants = programTypeAdapterStub.getConstants();
         assertMapContainsMap(actualConstants, expectedConstants);
     }
 

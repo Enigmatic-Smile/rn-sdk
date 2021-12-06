@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 public enum FidelSetupKeys {
     SDK_KEY("sdkKey"),
     PROGRAM_ID("programId"),
+    PROGRAM_TYPE("programType"),
     COMPANY_NAME("companyName"),
     OPTIONS("options"),
     CONSENT_TEXT("consentText");

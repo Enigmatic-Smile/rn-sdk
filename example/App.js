@@ -44,6 +44,7 @@ const App = () => {
       sdkKey: 'Your API Key',
       programId: 'Your Program ID',
       companyName: 'Your Company Name',
+      programType: Fidel.ProgramType.transactionSelect,
       options: {
         bannerImage: resolvedImage,
         allowedCountries: countries,

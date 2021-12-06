@@ -17,6 +17,7 @@ import com.facebook.react.uimanager.ViewManager;
 import com.facebook.react.bridge.JavaScriptModule;
 import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
+import com.fidelreactlibrary.adapters.FidelProgramTypeAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
 import com.fidelreactlibrary.adapters.WritableMapDataConverter;
@@ -31,7 +32,8 @@ public class FidelPackage implements ReactPackage {
     public @NonNull List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         ImageFromReadableMapAdapter imageAdapter = new ImageFromReadableMapAdapter(reactContext);
         FidelSetupAdapter setupAdapter = new FidelSetupAdapter(
-                imageAdapter, new FidelCountryAdapter(), new FidelCardSchemesAdapter()
+                imageAdapter, new FidelCountryAdapter(),
+                new FidelCardSchemesAdapter(), new FidelProgramTypeAdapter()
         );
         imageAdapter.bitmapOutput = setupAdapter;
 

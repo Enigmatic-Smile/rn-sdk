@@ -32,21 +32,9 @@ public class ReadableMapStub implements ReadableMap {
     private final List<String> isNullStrings = new ArrayList<>();
 
     public ReadableMapStub() {}
-    private ReadableMapStub(String hasKeyString, String isNullString) {
-        this.hasKeyStrings.add(hasKeyString);
-        this.isNullStrings.add(isNullString);
-    }
 
     public static ReadableMapStub mapWithNoKey() {
         return new ReadableMapStub();
-    }
-
-    public static ReadableMapStub mapWithExistingKey(String existingKey) {
-        return new ReadableMapStub(existingKey, "");
-    }
-
-    public static ReadableMapStub mapWithExistingKeyButNoValue(String existingKey) {
-        return new ReadableMapStub(existingKey, existingKey);
     }
 
     public static ReadableMapStub mapWithAllValidSetupKeys() {
@@ -56,6 +44,7 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.SDK_KEY.jsName(), "pk_test_some_sdk_key");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_ID.jsName(), "some test program ID");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.COMPANY_NAME.jsName(), "some test company name");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_TYPE.jsName(), "some test program type");
         ReadableMapStub optionsReadableMap = ReadableMapStub.optionsMapWithAllValidSetupKeys();
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.OPTIONS.jsName(), optionsReadableMap);
         ReadableMapStub consentTextReadableMap = ReadableMapStub.consentTextMapWithAllValidSetupKeys();

@@ -16,6 +16,7 @@ import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataOutput;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.adapters.abstraction.ProgramTypeAdapter;
 
 import org.json.JSONObject;
 
@@ -26,11 +27,14 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
     private final DataProcessor<ReadableMap> imageAdapter;
     private final CountryAdapter countryAdapter;
     private final CardSchemesAdapter cardSchemesAdapter;
+    private final ProgramTypeAdapter programTypeAdapter;
 
-    public FidelSetupAdapter(DataProcessor<ReadableMap> imageAdapter, CountryAdapter countryAdapter, CardSchemesAdapter cardSchemesAdapter) {
+    public FidelSetupAdapter(DataProcessor<ReadableMap> imageAdapter, CountryAdapter countryAdapter,
+                             CardSchemesAdapter cardSchemesAdapter, ProgramTypeAdapter programTypeAdapter) {
         this.imageAdapter = imageAdapter;
         this.countryAdapter = countryAdapter;
         this.cardSchemesAdapter = cardSchemesAdapter;
+        this.programTypeAdapter = programTypeAdapter;
     }
 
     @Override
@@ -39,6 +43,11 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
         Fidel.programId = data.getString(FidelSetupKeys.PROGRAM_ID.jsName());
         Fidel.companyName = data.getString(FidelSetupKeys.COMPANY_NAME.jsName());
         ReadableMap optionsMap = data.getMap(FidelSetupKeys.OPTIONS.jsName());
+        if (data.hasKey(FidelSetupKeys.PROGRAM_TYPE.jsName())) {
+            String programTypeValue = data.getString(FidelSetupKeys.PROGRAM_TYPE.jsName());
+            Fidel.programType = programTypeAdapter.parseProgramType(programTypeValue);
+        }
+
         if (optionsMap != null) {
             imageAdapter.process(optionsMap.getMap(FidelSetupKeys.Options.BANNER_IMAGE.jsName()));
             if (optionsMap.hasKey(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName())) {
@@ -110,6 +119,7 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
     public Map<String, Object> getConstants() {
         Map<String, Object> constants = countryAdapter.getConstants();
         constants.putAll(cardSchemesAdapter.getConstants());
+        constants.putAll(programTypeAdapter.getConstants());
         return constants;
     }
 }
