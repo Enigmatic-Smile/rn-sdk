@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 public class ReadableArrayStub implements ReadableArray {
 
-    private int size;
-    private int[] values;
+    private final int size;
+    private final int[] values;
 
     public ReadableArrayStub(int size, int[] values) {
         this.size = size;

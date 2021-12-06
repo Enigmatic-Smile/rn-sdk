@@ -5,8 +5,6 @@ import com.facebook.react.bridge.WritableMap;
 import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
 import com.fidelapi.entities.EnrollmentResult;
-import com.fidelapi.entities.FidelError;
-import com.fidelapi.entities.FidelErrorType;
 import com.fidelapi.entities.FidelResult;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
 import com.fidelreactlibrary.fakes.CallbackSpy;
@@ -26,7 +24,6 @@ public class CallbackActivityEventListenerTests {
     private DataConverterStub<Object, WritableMap> linkResultConverterStub;
     private DataProcessorSpy<WritableMap> errorHandlerSpy;
 
-    private static final FidelError testLinkResultError = new FidelError(FidelErrorType.UserCanceled.INSTANCE, "test error message", -1);
     private static final EnrollmentResult testLinkResult = new EnrollmentResult(
             "TEST CARD ID", "", "", -1, CardScheme.MASTERCARD,
             false, 2021,12, Country.CANADA, "444400", "4001", null

@@ -37,7 +37,7 @@ public class FidelModuleTests {
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         ReactContextMock reactContext = new ReactContextMock(context);
-        setupAdapterSpy = new DataProcessorSpy();
+        setupAdapterSpy = new DataProcessorSpy<>();
         constantsProviderListStub = new ArrayList<>();
         ConstantsProvider constantsProvider = new ConstantsProviderStub("testModuleConstantKey", 345);
         constantsProviderListStub.add(constantsProvider);

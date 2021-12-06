@@ -13,11 +13,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.IsCollectionContaining.hasItem;
 import static org.junit.Assert.*;
+
+import androidx.annotation.NonNull;
 
 public final class FidelCardSchemesAdapterTests {
     private static final String CARD_SCHEMES_KEY = "CardScheme";
@@ -131,7 +131,7 @@ public final class FidelCardSchemesAdapterTests {
     }
 
     //Helpers
-    private @Nonnull Map<String, Integer> getConstantKeyValues() {
+    private @NonNull Map<String, Integer> getConstantKeyValues() {
         Map<String, Object> exposedConstants = sut.getConstants();
         Map<String, Integer> constantKeyValues = (Map<String, Integer>)exposedConstants.get(CARD_SCHEMES_KEY);
         if (constantKeyValues == null) return new HashMap<>();

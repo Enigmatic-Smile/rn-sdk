@@ -37,7 +37,7 @@ public final class ReactContextMock extends ReactApplicationContext {
     private class JSModuleSpyInvocationHandler implements InvocationHandler {
 
         @Override
-        public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+        public Object invoke(Object o, Method method, Object[] objects) {
             receivedErrorName = (String) objects[0];
             receivedErrorData = (WritableMap) objects[1];
             eventEmitterInvokedMethodName = method.getName();

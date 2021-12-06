@@ -3,6 +3,8 @@ package com.fidelreactlibrary;
 
 import android.app.Activity;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
@@ -43,6 +45,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
     this.reactContext = reactContext;
   }
 
+  @NonNull
   @Override
   public String getName() {
     return "NativeFidelBridge";
