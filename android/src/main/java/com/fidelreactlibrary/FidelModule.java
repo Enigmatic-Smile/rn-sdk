@@ -29,18 +29,15 @@ public class FidelModule extends ReactContextBaseJavaModule {
 
   private final CallbackInput callbackInput;
   private final DataProcessor<ReadableMap> setupProcessor;
-  private final DataProcessor<ReadableMap> optionsProcessor;
   private final List<ConstantsProvider> constantsProviderList;
   private final ReactApplicationContext reactContext;
 
   public FidelModule(ReactApplicationContext reactContext,
                      DataProcessor<ReadableMap> setupProcessor,
-                     DataProcessor<ReadableMap> optionsProcessor,
                      List<ConstantsProvider> constantsProviderList,
                      CallbackInput callbackInput) {
     super(reactContext);
     this.setupProcessor = setupProcessor;
-    this.optionsProcessor = optionsProcessor;
     this.callbackInput = callbackInput;
     this.constantsProviderList = constantsProviderList;
     this.reactContext = reactContext;
@@ -78,11 +75,6 @@ public class FidelModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void setup(ReadableMap map) {
     setupProcessor.process(map);
-  }
-
-  @ReactMethod
-  public void setOptions(ReadableMap map) {
-    optionsProcessor.process(map);
   }
 
   @Nullable

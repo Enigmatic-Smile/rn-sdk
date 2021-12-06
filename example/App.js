@@ -54,11 +54,8 @@ const App = () => {
         termsAndConditionsUrl: 'https://fidel.uk',
         privacyPolicyUrl: 'https://fidel.uk',
         programName: 'Your program name',
+        deleteInstructions: "following our delete instructions",
       },
-    });
-
-    Fidel.setOptions ({
-      deleteInstructions: 'Your custom delete instructions!',
     });
 
 

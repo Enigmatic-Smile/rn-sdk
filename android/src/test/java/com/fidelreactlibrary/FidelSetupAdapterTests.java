@@ -64,6 +64,7 @@ public class FidelSetupAdapterTests {
         Fidel.privacyPolicyUrl = null;
         Fidel.termsAndConditionsUrl = null;
         Fidel.programName = null;
+        Fidel.deleteInstructions = null;
     }
 
     @Test
@@ -606,6 +607,64 @@ public class FidelSetupAdapterTests {
         assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
         assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName()));
         assertEquals(expectedValue, Fidel.programName);
+    }
+
+    @Test
+    public void test_WhenDataHasNoConsentTextKey_DoNotSetDeleteInstructionsForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.CONSENT_TEXT);
+        String expectedValue = "some previously set value";
+        Fidel.deleteInstructions = expectedValue;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertEquals(expectedValue, Fidel.deleteInstructions);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveDeleteInstructionsKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutConsentTextKey(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        String expectedValue = "some previously set value";
+        Fidel.deleteInstructions = expectedValue;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName()));
+        assertFalse(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName()));
+        assertEquals(expectedValue, Fidel.deleteInstructions);
+    }
+
+    @Test
+    public void test_IfDoesHaveDeleteInstructionsKey_ButWithNullValue_ShouldSetNullDeleteInstructionsForFidel() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForConsentTextKey(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        Fidel.deleteInstructions = "some previously set value";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName()));
+        assertNull(Fidel.deleteInstructions);
+    }
+
+    @Test
+    public void test_IfDoesHaveDeleteInstructionsKeyAndValue_ShouldSetTheValueForFidel() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+        String expectedValue = "some delete instructions";
+        consentTextMap.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName(), expectedValue);
+
+        Fidel.deleteInstructions = "some previously set value";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName()));
+        assertEquals(expectedValue, Fidel.deleteInstructions);
     }
 
 

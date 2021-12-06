@@ -12,7 +12,6 @@ class Fidel {
         this.eventSubscription = Fidel.emitter.addListener("ResultReceived", result => callback(result));
         NativeFidelBridge.setup(params);
     }
-    static setOptions(params) { NativeFidelBridge.setOptions(params); }
     static start() {
         NativeFidelBridge.start();
     }

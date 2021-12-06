@@ -2,6 +2,7 @@ package com.fidelreactlibrary;
 
 import android.content.Context;
 
+import com.facebook.react.bridge.ReadableMap;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.fakes.CallbackInputSpy;
 import com.fidelreactlibrary.fakes.CallbackSpy;
@@ -28,8 +29,7 @@ import static org.junit.Assert.*;
 public class FidelModuleTests {
     
     private FidelModule sut;
-    private DataProcessorSpy optionsAdapterSpy;
-    private DataProcessorSpy setupAdapterSpy;
+    private DataProcessorSpy<ReadableMap> setupAdapterSpy;
     private List<ConstantsProvider> constantsProviderListStub;
     private CallbackInputSpy callbackInputSpy;
     
@@ -37,7 +37,6 @@ public class FidelModuleTests {
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         ReactContextMock reactContext = new ReactContextMock(context);
-        optionsAdapterSpy = new DataProcessorSpy();
         setupAdapterSpy = new DataProcessorSpy();
         constantsProviderListStub = new ArrayList<>();
         ConstantsProvider constantsProvider = new ConstantsProviderStub("testModuleConstantKey", 345);
@@ -45,7 +44,6 @@ public class FidelModuleTests {
         callbackInputSpy = new CallbackInputSpy();
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
-                optionsAdapterSpy,
                 constantsProviderListStub,
                 callbackInputSpy);
     }
@@ -53,15 +51,8 @@ public class FidelModuleTests {
     @After
     public final void tearDown() {
         sut = null;
-        optionsAdapterSpy = null;
+        setupAdapterSpy = null;
         constantsProviderListStub = null;
-    }
-
-    @Test
-    public void test_WhenSettingOptions_ForwardThemToOptionsAdapter() {
-        ReadableMapStub fakeMap = new ReadableMapStub();
-        sut.setOptions(fakeMap);
-        assertEquals(optionsAdapterSpy.dataToProcess, fakeMap);
     }
 
     @Test
