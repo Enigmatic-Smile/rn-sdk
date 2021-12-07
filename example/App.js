@@ -57,6 +57,18 @@ const App = () => {
         programName: 'Your program name',
         deleteInstructions: "following our delete instructions",
       },
+    }, (result) => {
+      switch (result.type) {
+        case ENROLLMENT_RESULT:
+          console.log("card was enrolled: " + result.enrollmentResult.cardId);
+          break;
+        case FIDEL_ERROR:
+          console.log("encountered error: " + result.error.message);
+          break;
+        case VERIFICATION_SUCCESSFUL:
+          console.log("card verification was successful 🎉");
+          break;
+      }
     });
 
 
@@ -65,54 +77,41 @@ const App = () => {
     //   programId: 'Your Program ID',
     //   programType: ProgramType.transactionStream,
     //   companyName: 'My RN Company',
-    //   terms: {
-    //     termsAndConditionsUrl: 'https://fidel.uk',
-    //     deleteInstructions: 'My custom delete instructions!',
-    //     privacyPolicyUrl: 'https://fidel.uk',
-    //     programName: 'My program name',
-    //   },
-    //   options: {
-    //     bannerImage: resolvedImage,
-    //     allowedCountries: countries,
-    //     supportedCardSchemes: cardSchemes,
-    //     shouldAutoScanCard: false,
-    //     metaData: {'meta-data-1': 'value1'},
+    // }, (result) => {
+    //   const exampleResult = {
+    //     enrollmentResult: {
+    //       cardId: "asd"
+    //     },
+    //     error: {
+    //       type: 
+    //     },
+    //     verificationResult: {
+    //       sucessful: false
+    //     }
     //   }
-    // }, callback: (result) => {
-      // const exampleResult = {
-      //   enrollmentResult: {
-      //     cardId: "asd"
-      //   },
-      //   error: {
-      //     type: 
-      //   },
-      //   verificationResult: {
-      //     sucessful: false
-      //   }
-      // }
 
-      // if (exampleObject[FidelResult.Enrollment]) {
+    //   if (exampleObject[FidelResult.Enrollment]) {
 
-      // }
-
-      // {
-      //   type: "error" | "enrollmentResult" | "verificationResult"
-      //   enrollmentResult: EnrollmentResult,
-      //   error: FidelError,
-      //   verificationResult: VerificationResult
-      // }
-
-    //   switch (result.type) {
-    //     case ENROLLMENT_RESULT:
-    //       console.log("card was enrolled: " + result.enrollmentResult.cardId);
-    //       break;
-    //     case FidelResult.Error:
-    //       console.log("encountered error: " + result.error.message);
-    //       break;
-    //     case FidelResult.VerificationSuccessful:
-    //       console.log("card verification was successful 🎉");
-    //       break;
     //   }
+
+    //   {
+    //     type: "error" | "enrollmentResult" | "verificationResult"
+    //     enrollmentResult: EnrollmentResult,
+    //     error: FidelError,
+    //     verificationResult: VerificationResult
+    //   }
+
+      // switch (result.type) {
+      //   case ENROLLMENT_RESULT:
+      //     console.log("card was enrolled: " + result.enrollmentResult.cardId);
+      //     break;
+      //   case FidelResult.Error:
+      //     console.log("encountered error: " + result.error.message);
+      //     break;
+      //   case FidelResult.VerificationSuccessful:
+      //     console.log("card verification was successful 🎉");
+      //     break;
+      // }
     // });
 
     Fidel.start();

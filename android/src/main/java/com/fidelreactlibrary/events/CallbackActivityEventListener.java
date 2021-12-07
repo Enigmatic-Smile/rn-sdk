@@ -2,7 +2,6 @@ package com.fidelreactlibrary.events;
 
 import android.util.Log;
 
-import com.facebook.react.bridge.BaseActivityEventListener;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.WritableMap;
 import com.fidelapi.entities.EnrollmentErrorType;
@@ -10,24 +9,18 @@ import com.fidelapi.entities.FidelError;
 import com.fidelapi.entities.FidelErrorType;
 import com.fidelapi.entities.FidelResult;
 import com.fidelapi.entities.abstraction.OnResultObserver;
-import com.fidelreactlibrary.adapters.abstraction.DataConverter;
+import com.fidelreactlibrary.adapters.abstraction.DataAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 
-public final class CallbackActivityEventListener implements CallbackInput, OnResultObserver {
+public final class CallbackActivityEventListener implements OnResultObserver {
 
-    private final DataConverter<Object, WritableMap> linkResultConverter;
-    private final DataProcessor<WritableMap> errorHandler;
-    private Callback callback;
+    private final DataAdapter<Object, WritableMap> resultAdapter;
+    private final DataProcessor<WritableMap> resultHandler;
 
-    public CallbackActivityEventListener(DataConverter<Object, WritableMap> linkResultConverter,
-                                         DataProcessor<WritableMap> errorHandler) {
-        this.linkResultConverter = linkResultConverter;
-        this.errorHandler = errorHandler;
-    }
-
-    @Override
-    public void callbackIsReady(Callback callback) {
-        this.callback = callback;
+    public CallbackActivityEventListener(DataAdapter<Object, WritableMap> resultAdapter,
+                                         DataProcessor<WritableMap> resultHandler) {
+        this.resultAdapter = resultAdapter;
+        this.resultHandler = resultHandler;
     }
 
     @Override

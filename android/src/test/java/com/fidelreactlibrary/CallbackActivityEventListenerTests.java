@@ -7,8 +7,7 @@ import com.fidelapi.entities.Country;
 import com.fidelapi.entities.EnrollmentResult;
 import com.fidelapi.entities.FidelResult;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
-import com.fidelreactlibrary.fakes.CallbackSpy;
-import com.fidelreactlibrary.fakes.DataConverterStub;
+import com.fidelreactlibrary.fakes.DataAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 
 import org.junit.After;
@@ -20,8 +19,7 @@ import static org.junit.Assert.*;
 public class CallbackActivityEventListenerTests {
 
     private CallbackActivityEventListener sut;
-    private CallbackSpy callbackSpy;
-    private DataConverterStub<Object, WritableMap> linkResultConverterStub;
+    private DataAdapterStub<Object, WritableMap> linkResultConverterStub;
     private DataProcessorSpy<WritableMap> errorHandlerSpy;
 
     private static final EnrollmentResult testLinkResult = new EnrollmentResult(
@@ -31,11 +29,9 @@ public class CallbackActivityEventListenerTests {
 
     @Before
     public final void setUp() {
-        linkResultConverterStub = new DataConverterStub<>();
+        linkResultConverterStub = new DataAdapterStub<>();
         errorHandlerSpy = new DataProcessorSpy<>();
         sut = new CallbackActivityEventListener(linkResultConverterStub, errorHandlerSpy);
-        callbackSpy = new CallbackSpy();
-        sut.callbackIsReady(callbackSpy);
 
         linkResultConverterStub.convertedDataToReturn = new JavaOnlyMap();
     }
@@ -43,16 +39,7 @@ public class CallbackActivityEventListenerTests {
     @After
     public final void tearDown() {
         sut = null;
-        callbackSpy = null;
         linkResultConverterStub = null;
         errorHandlerSpy = null;
-    }
-
-    @Test
-    public void test_WhenReceivingLinkResult_SendItConvertedInCallback() {
-        sut.onResultAvailable(new FidelResult.Enrollment(testLinkResult));
-
-        assertTrue(callbackSpy.didInvoke);
-        assertEquals(linkResultConverterStub.convertedDataToReturn, callbackSpy.receivedResultMap);
     }
 }

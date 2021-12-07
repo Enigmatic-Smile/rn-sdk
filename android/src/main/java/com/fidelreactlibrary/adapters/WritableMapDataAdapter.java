@@ -1,7 +1,7 @@
 package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.WritableMap;
-import com.fidelreactlibrary.adapters.abstraction.DataConverter;
+import com.fidelreactlibrary.adapters.abstraction.DataAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 
 import org.json.JSONException;
@@ -10,15 +10,15 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 
-public final class WritableMapDataConverter implements DataConverter<Object, WritableMap> {
+public final class WritableMapDataAdapter implements DataAdapter<Object, WritableMap> {
 
     private final ObjectFactory<WritableMap> writableMapFactory;
-    public WritableMapDataConverter(ObjectFactory<WritableMap> writableMapFactory) {
+    public WritableMapDataAdapter(ObjectFactory<WritableMap> writableMapFactory) {
         this.writableMapFactory = writableMapFactory;
     }
 
     @Override
-    public WritableMap getConvertedDataFor(Object data) {
+    public WritableMap getAdaptedObjectFor(Object data) {
         if (data == null) {
             return null;
         }
@@ -27,21 +27,17 @@ public final class WritableMapDataConverter implements DataConverter<Object, Wri
             for (Field field: data.getClass().getDeclaredFields()) {
                 if (field.getType() == String.class) {
                     map.putString(field.getName(), (String)field.get(data));
-                }
-                else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
+                } else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
                     map.putBoolean(field.getName(), (boolean)field.get(data));
-                }
-                else if (field.getType() == int.class) {
+                } else if (field.getType() == int.class) {
                     map.putInt(field.getName(), (int)field.get(data));
-                }
-                else if (field.getType() == JSONObject.class) {
+                } else if (field.getType() == JSONObject.class) {
                     WritableMap mapToPut = this.getMapFor((JSONObject)field.get(data));
                     map.putMap(field.getName(), mapToPut);
                 }
             }
             return map;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return map;
         }
     }

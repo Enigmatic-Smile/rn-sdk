@@ -1,12 +1,8 @@
 package com.fidelreactlibrary;
 
-import android.os.Parcelable;
-
 import com.facebook.react.bridge.JavaOnlyMap;
-import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
-import com.fidelapi.entities.EnrollmentResult;
-import com.fidelreactlibrary.adapters.WritableMapDataConverter;
+import com.fidelreactlibrary.adapters.WritableMapDataAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 
 import org.json.JSONException;
@@ -19,21 +15,20 @@ import org.robolectric.RobolectricTestRunner;
 
 import java.lang.reflect.Field;
 
-import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;
 import static org.junit.Assert.*;
 
 //Custom test runner is necessary for being able to use JSONObject
 @RunWith(RobolectricTestRunner.class)
-public class WritableMapDataConverterTests {
+public class WritableMapDataAdapterTests {
 
     private static final String TEST_CARD_ID = "Test Card ID";
     private static final String TEST_ERROR_MESSAGE = "Test Error Message";
 
-    private WritableMapDataConverter sut;
+    private WritableMapDataAdapter sut;
 
     @Before
     public final void setUp() {
-        sut = new WritableMapDataConverter(new ObjectFactory<WritableMap>() {
+        sut = new WritableMapDataAdapter(new ObjectFactory<WritableMap>() {
             @Override
             public WritableMap create() {
                 return new JavaOnlyMap();
@@ -48,7 +43,7 @@ public class WritableMapDataConverterTests {
 
     @Test
     public void test_WhenAskedToConvertNullObject_ReturnNull() {
-        assertNull(sut.getConvertedDataFor(null));
+        assertNull(sut.getAdaptedObjectFor(null));
     }
 
 //    @Test

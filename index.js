@@ -5,11 +5,13 @@ const { NativeFidelBridge } = NativeModules;
 
 class Fidel {
     
-    static setup(params, callback) { 
+    static setup(params, callback) {
         if (this.eventSubscription != null) {
             this.eventSubscription.remove();
         }
-        this.eventSubscription = Fidel.emitter.addListener("ResultReceived", result => callback(result));
+        if (callback != null && callback != undefined) {
+            this.eventSubscription = Fidel.emitter.addListener("ResultAvailable", result => callback(result));
+        }
         NativeFidelBridge.setup(params);
     }
     static start() {
@@ -18,7 +20,8 @@ class Fidel {
 }
 
 Fidel.emitter = new NativeEventEmitter(NativeFidelBridge);
-Fidel.Country = NativeFidelBridge.Country
-Fidel.CardScheme = NativeFidelBridge.CardScheme
+Fidel.Country = NativeFidelBridge.Country;
+Fidel.CardScheme = NativeFidelBridge.CardScheme;
+Fidel.ProgramType = NativeFidelBridge.ProgramType;
 
 module.exports = Fidel;

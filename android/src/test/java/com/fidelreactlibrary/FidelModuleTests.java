@@ -3,9 +3,9 @@ package com.fidelreactlibrary;
 import android.content.Context;
 
 import com.facebook.react.bridge.ReadableMap;
+import com.fidelapi.Fidel;
+import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
-import com.fidelreactlibrary.fakes.CallbackInputSpy;
-import com.fidelreactlibrary.fakes.CallbackSpy;
 import com.fidelreactlibrary.fakes.ConstantsProviderStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReactContextMock;
@@ -29,23 +29,20 @@ import static org.junit.Assert.*;
 public class FidelModuleTests {
     
     private FidelModule sut;
-    private DataProcessorSpy<ReadableMap> setupAdapterSpy;
-    private List<ConstantsProvider> constantsProviderListStub;
-    private CallbackInputSpy callbackInputSpy;
+    private DataProcessorSpy<ReadableMap> setupAdapterSpy = new DataProcessorSpy<>();;
+    private List<ConstantsProvider> constantsProviderListStub = new ArrayList<>();
+    private final OnResultObserver testOnResultObserver = fidelResult -> { };
     
     @Before
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         ReactContextMock reactContext = new ReactContextMock(context);
-        setupAdapterSpy = new DataProcessorSpy<>();
-        constantsProviderListStub = new ArrayList<>();
         ConstantsProvider constantsProvider = new ConstantsProviderStub("testModuleConstantKey", 345);
         constantsProviderListStub.add(constantsProvider);
-        callbackInputSpy = new CallbackInputSpy();
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
-                constantsProviderListStub,
-                callbackInputSpy);
+                testOnResultObserver,
+                constantsProviderListStub);
     }
     
     @After
@@ -68,9 +65,15 @@ public class FidelModuleTests {
     }
 
     @Test
-    public void test_WhenAddedOnResultListener_SendCallbackToInput() {
-        CallbackSpy callback = new CallbackSpy();
-        sut.onResult(callback);
-        assertEquals(callbackInputSpy.receivedCallback, callback);
+    public void test_WhenAListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
+        sut.addListener("any event");
+        assertEquals(testOnResultObserver, Fidel.onResult);
+    }
+
+    @Test
+    public void test_WhenListenersHaveBeenRemoved_AddTheOnResultObserverToFidel() {
+        Fidel.onResult = testOnResultObserver;
+        sut.removeListeners(0);
+        assertNull(Fidel.onResult);
     }
 }

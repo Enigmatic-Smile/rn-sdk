@@ -4,7 +4,6 @@ package com.fidelreactlibrary;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,17 +13,18 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ViewManager;
-import com.facebook.react.bridge.JavaScriptModule;
+import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelProgramTypeAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
-import com.fidelreactlibrary.adapters.WritableMapDataConverter;
+import com.fidelreactlibrary.adapters.WritableMapDataAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
-import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
+import com.fidelreactlibrary.adapters.abstraction.DataAdapter;
+import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 import com.fidelreactlibrary.events.CallbackActivityEventListener;
-import com.fidelreactlibrary.events.ErrorEventEmitter;
+import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
 
 public class FidelPackage implements ReactPackage {
 
@@ -32,39 +32,28 @@ public class FidelPackage implements ReactPackage {
     public @NonNull List<NativeModule> createNativeModules(@NonNull ReactApplicationContext reactContext) {
         ImageFromReadableMapAdapter imageAdapter = new ImageFromReadableMapAdapter(reactContext);
         FidelSetupAdapter setupAdapter = new FidelSetupAdapter(
-                imageAdapter, new FidelCountryAdapter(),
-                new FidelCardSchemesAdapter(), new FidelProgramTypeAdapter()
+                imageAdapter,
+                new FidelCountryAdapter(),
+                new FidelCardSchemesAdapter(),
+                new FidelProgramTypeAdapter()
         );
         imageAdapter.bitmapOutput = setupAdapter;
 
-        List<ConstantsProvider> constantsProviderList =
-                new ArrayList<>();
+        List<ConstantsProvider> constantsProviderList = new ArrayList<>();
         constantsProviderList.add(setupAdapter);
-        WritableMapDataConverter linkResultConverter =
-                new WritableMapDataConverter(new ObjectFactory<WritableMap>() {
-                    @Override
-                    public WritableMap create() {
-                        return new WritableNativeMap();
-                    }
-                });
-        ErrorEventEmitter errorEventEmitter =
-                new ErrorEventEmitter(reactContext);
-        CallbackActivityEventListener activityEventListener =
-                new CallbackActivityEventListener(linkResultConverter, errorEventEmitter);
-      return Arrays.<NativeModule>asList(
-              new FidelModule(reactContext,
-                      setupAdapter,
-                      constantsProviderList,
-                      activityEventListener));
+
+
+        DataAdapter<Object, WritableMap> resultAdapter = new WritableMapDataAdapter(WritableNativeMap::new);
+        DataProcessor<WritableMap> resultHandler = new ResultAvailableEventEmitter(reactContext);
+        OnResultObserver onResultObserver = new CallbackActivityEventListener(resultAdapter, resultHandler);
+
+        FidelModule fidelModule = new FidelModule(reactContext, setupAdapter, onResultObserver, constantsProviderList);
+        return Collections.singletonList(fidelModule);
     }
 
-    // Deprecated from RN 0.47
-    public List<Class<? extends JavaScriptModule>> createJSModules() {
-      return Collections.emptyList();
-    }
-
+    @NonNull
     @Override
-    public List<ViewManager> createViewManagers(ReactApplicationContext reactContext) {
-      return Collections.emptyList();
+    public List<ViewManager> createViewManagers(@NonNull ReactApplicationContext reactContext) {
+        return Collections.emptyList();
     }
 }
