@@ -15,9 +15,16 @@ import {
 } from 'react-native';
 import Fidel, { ENROLLMENT_RESULT, ERROR, VERIFICATION_SUCCESSFUL } from 'fidel-react-native';
 
-const App = () => {
+export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isShown: true,
+    };
+    this.configureFidel();
+  }
 
-  const onButtonPress = () => {
+  configureFidel() {
     const myImage = require('./demo_images/fdl_test_banner.png');
     const resolveAssetSource = require('react-native/Libraries/Image/resolveAssetSource');
     const resolvedImage = resolveAssetSource(myImage);
@@ -63,14 +70,16 @@ const App = () => {
           console.log("card was enrolled: " + result.enrollmentResult.cardId);
           break;
         case ERROR:
-          handleError(result.error);
+          this.handleError(result.error);
           break;
         case VERIFICATION_SUCCESSFUL:
           console.log("card verification was successful 🎉");
           break;
       }
     });
+  }
 
+  onButtonPress = () => {
     Fidel.start();
   }
 
@@ -84,10 +93,10 @@ const App = () => {
         console.log("Please configure the Fidel SDK correctly");
         break;
       case Fidel.ErrorType.enrollmentError:
-        handleEnrollmentError(error);
+        this.handleEnrollmentError(error);
         break;
       case Fidel.ErrorType.verificationError:
-        handleVerificationError(error);
+        this.handleVerificationError(error);
         break;
     }
   }
@@ -141,17 +150,19 @@ const App = () => {
     }
   }
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>Fidel React Native SDK example</Text>
-      <Text style={styles.instructions}>To get started, tap the button below.</Text>
-      <Button
-        onPress={onButtonPress}
-        title="Link a card"
-        color="#3846ce"
-      />
-    </View>
-  );
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>Fidel React Native SDK example</Text>
+        <Text style={styles.instructions}>To get started, tap the button below.</Text>
+        <Button
+          onPress={this.onButtonPress}
+          title="Link a card"
+          color="#3846ce"
+        />
+      </View>
+    );
+  }
 };
 
 const styles = StyleSheet.create({
@@ -172,6 +183,3 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
-
-
-export default App;

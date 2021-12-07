@@ -25,12 +25,14 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final DataProcessor<ReadableMap> setupProcessor;
   private final List<ConstantsProvider> constantsProviderList;
   private final OnResultObserver onResultObserver;
+  private final ReactApplicationContext reactContext;
 
   public FidelModule(ReactApplicationContext reactContext,
                      DataProcessor<ReadableMap> setupProcessor,
                      OnResultObserver onResultObserver,
                      List<ConstantsProvider> constantsProviderList) {
     super(reactContext);
+    this.reactContext = reactContext;
     this.setupProcessor = setupProcessor;
     this.constantsProviderList = constantsProviderList;
     this.onResultObserver = onResultObserver;
@@ -63,6 +65,10 @@ public class FidelModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void setup(ReadableMap map) {
     setupProcessor.process(map);
+    final Activity activity = getCurrentActivity();
+    if (activity != null) {
+      Fidel.onMainActivityCreate(activity);
+    }
   }
 
   @Nullable
