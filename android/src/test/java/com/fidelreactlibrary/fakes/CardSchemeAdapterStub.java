@@ -15,6 +15,7 @@ public final class CardSchemeAdapterStub implements CardSchemesAdapter {
     public ReadableArray cardSchemesReceived;
     public Set<CardScheme> fakeAdaptedCardSchemesToReturn;
     public boolean askedToAdaptCardSchemes = false;
+    public String jsValueToReturn;
 
     @NonNull
     @Override
@@ -28,5 +29,11 @@ public final class CardSchemeAdapterStub implements CardSchemesAdapter {
     @Override
     public Map<String, Object> getConstants() {
         return new ConstantsProviderStub("testKeyCardSchemeAdapter", 234).getConstants();
+    }
+
+    @NonNull
+    @Override
+    public String jsValue(@NonNull CardScheme cardScheme) {
+        return jsValueToReturn;
     }
 }

@@ -49,23 +49,38 @@ public final class FidelCardSchemesAdapterTests {
         assertThat(getConstantKeyValues().keySet(), hasItem(MASTERCARD_SCHEME_KEY));
     }
 
+    @Test
+    public void test_ToAdaptVisaCardSchemeWithCorrectJSValue() {
+        assertEquals("visa", sut.jsValue(CardScheme.VISA));
+    }
+
+    @Test
+    public void test_ToAdaptMastercardCardSchemeWithCorrectJSValue() {
+        assertEquals("mastercard", sut.jsValue(CardScheme.MASTERCARD));
+    }
+
+    @Test
+    public void test_ToAdaptAmexCardSchemeWithCorrectJSValue() {
+        assertEquals("americanExpress", sut.jsValue(CardScheme.AMERICAN_EXPRESS));
+    }
+
     //Test to expose correct card scheme values
     @Test
     public void test_ToExposeCorrectVisaValue() {
-        int cardSchemesValue = getConstantKeyValues().get(VISA_CARD_SCHEME_KEY);
-        assertEquals(CardScheme.VISA.ordinal(), cardSchemesValue);
+        String cardSchemesValue = getConstantKeyValues().get(VISA_CARD_SCHEME_KEY);
+        assertEquals("visa", cardSchemesValue);
     }
 
     @Test
     public void test_ToExposeCorrectMastercardValue() {
-        int cardSchemesValue = getConstantKeyValues().get(MASTERCARD_SCHEME_KEY);
-        assertEquals(CardScheme.MASTERCARD.ordinal(), cardSchemesValue);
+        String cardSchemesValue = getConstantKeyValues().get(MASTERCARD_SCHEME_KEY);
+        assertEquals("mastercard", cardSchemesValue);
     }
 
     @Test
     public void test_ToExposeCorrectAmericanExpressValue() {
-        int cardSchemesValue = getConstantKeyValues().get(AMEX_SCHEME_KEY);
-        assertEquals(CardScheme.AMERICAN_EXPRESS.ordinal(), cardSchemesValue);
+        String cardSchemesValue = getConstantKeyValues().get(AMEX_SCHEME_KEY);
+        assertEquals("americanExpress", cardSchemesValue);
     }
 
     //Adaptation tests
@@ -117,36 +132,27 @@ public final class FidelCardSchemesAdapterTests {
     @Test
     public void test_WhenAdaptingSchemeListWithInvalidValues_IgnoreTheInvalidValues() {
         float invalidValue = (float) CardScheme.values().length + 10;
-        ReadableArray invalidDoubleValues = JavaOnlyArray.of(invalidValue, CardScheme.VISA.ordinal());
+        ReadableArray invalidDoubleValues = JavaOnlyArray.of(invalidValue, sut.jsValue(CardScheme.VISA));
         Set<CardScheme> result = sut.cardSchemesWithReadableArray(invalidDoubleValues);
         assertEquals(EnumSet.of(CardScheme.VISA), result);
     }
 
-    @Test
-    public void test_WhenAdaptingSchemeListWithValidFloatValue_AdaptValidFloatValue() {
-        double validDoubleValue = (double) CardScheme.MASTERCARD.ordinal();
-        ReadableArray invalidDoubleValues = JavaOnlyArray.of(validDoubleValue, CardScheme.VISA.ordinal());
-        Set<CardScheme> result = sut.cardSchemesWithReadableArray(invalidDoubleValues);
-        assertEquals(EnumSet.of(CardScheme.VISA, CardScheme.MASTERCARD), result);
-    }
-
     //Helpers
-    private @NonNull Map<String, Integer> getConstantKeyValues() {
+    private @NonNull Map<String, String> getConstantKeyValues() {
         Map<String, Object> exposedConstants = sut.getConstants();
-        Map<String, Integer> constantKeyValues = (Map<String, Integer>)exposedConstants.get(CARD_SCHEMES_KEY);
+        Map<String, String> constantKeyValues = (Map<String, String>)exposedConstants.get(CARD_SCHEMES_KEY);
         if (constantKeyValues == null) return new HashMap<>();
         return constantKeyValues;
     }
 
     private void assertCorrectConversionWithSchemes(CardScheme... schemes) {
-        Integer[] schemeOrdinals = new Integer[schemes.length];
+        String[] schemeJsNames = new String[schemes.length];
         int schemeNumber = 0;
-        for (CardScheme scheme :
-                schemes) {
-            schemeOrdinals[schemeNumber] = scheme.ordinal();
+        for (CardScheme scheme : schemes) {
+            schemeJsNames[schemeNumber] = sut.jsValue(scheme);
             schemeNumber++;
         }
-        ReadableArray arrayStub = JavaOnlyArray.of((Object[]) schemeOrdinals);
+        ReadableArray arrayStub = JavaOnlyArray.of((Object[]) schemeJsNames);
         Set<CardScheme> result = sut.cardSchemesWithReadableArray(arrayStub);
         assertEquals(EnumSet.copyOf(Arrays.asList(schemes)), result);
     }

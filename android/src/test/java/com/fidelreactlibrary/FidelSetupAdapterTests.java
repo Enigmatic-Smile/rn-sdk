@@ -322,7 +322,7 @@ public class FidelSetupAdapterTests {
         ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
         ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
         assertNotNull(optionsMap);
-        ReadableArrayStub readableCardSchemesArray = new ReadableArrayStub(1, new int[]{1});
+        ReadableArrayStub readableCardSchemesArray = new ReadableArrayStub(1, new String[]{"visa"});
         optionsMap.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), readableCardSchemesArray);
         cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = EnumSet.noneOf(CardScheme.class);
 
@@ -336,7 +336,7 @@ public class FidelSetupAdapterTests {
         ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
         ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
         assertNotNull(optionsMap);
-        ReadableArrayStub readableCardSchemesArray = new ReadableArrayStub(1, new int[]{1});
+        ReadableArrayStub readableCardSchemesArray = new ReadableArrayStub(1, new String[]{"visa"});
         optionsMap.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), readableCardSchemesArray);
 
         cardSchemesAdapterStub.fakeAdaptedCardSchemesToReturn = TEST_CARD_SCHEMES_SET;

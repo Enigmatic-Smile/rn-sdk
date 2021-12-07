@@ -37,8 +37,6 @@ public class FidelModuleTests {
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         ReactContextMock reactContext = new ReactContextMock(context);
-        ConstantsProvider constantsProvider = new ConstantsProviderStub("testModuleConstantKey", 345);
-        constantsProviderListStub.add(constantsProvider);
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
                 testOnResultObserver,
@@ -53,8 +51,13 @@ public class FidelModuleTests {
     }
 
     @Test
-    public void test_WhenGettingConstants_ReturnConstantsFromFirstConstantsProvider() {
-        assertMapContainsMap(sut.getConstants(), constantsProviderListStub.get(0).getConstants());
+    public void test_WhenGettingConstants_ReturnConstantsFromAllConstantsProvider() {
+        ConstantsProvider constantsProvider1 = new ConstantsProviderStub("testModuleConstantKey", 345);
+        ConstantsProvider constantsProvider2 = new ConstantsProviderStub("testModuleConstantKey2", 348);
+        constantsProviderListStub.add(constantsProvider1);
+        constantsProviderListStub.add(constantsProvider2);
+        assertMapContainsMap(sut.getConstants(), constantsProvider1.getConstants());
+        assertMapContainsMap(sut.getConstants(), constantsProvider2.getConstants());
     }
 
     @Test

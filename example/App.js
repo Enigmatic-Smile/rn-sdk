@@ -13,7 +13,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import Fidel from 'fidel-react-native';
+import Fidel, { ENROLLMENT_RESULT, ERROR, VERIFICATION_SUCCESSFUL } from 'fidel-react-native';
 
 const App = () => {
 
@@ -41,10 +41,10 @@ const App = () => {
     ];
 
     Fidel.setup ({
-      sdkKey: 'Your API Key',
-      programId: 'Your Program ID',
+      sdkKey: 'pk_test_4bb15564-01da-4f7b-a108-2de19e96e136',
+      programId: 'e5e012e3-a448-45e1-93a4-da45e1c53bd7',
       companyName: 'Your Company Name',
-      programType: Fidel.ProgramType.transactionSelect,
+      programType: Fidel.ProgramType.transactionStream,
       options: {
         bannerImage: resolvedImage,
         allowedCountries: countries,
@@ -62,8 +62,8 @@ const App = () => {
         case ENROLLMENT_RESULT:
           console.log("card was enrolled: " + result.enrollmentResult.cardId);
           break;
-        case FIDEL_ERROR:
-          console.log("encountered error: " + result.error.message);
+        case ERROR:
+          handleError(result.error);
           break;
         case VERIFICATION_SUCCESSFUL:
           console.log("card verification was successful 🎉");
@@ -71,69 +71,75 @@ const App = () => {
       }
     });
 
-
-    // Fidel.setup ({
-    //   sdkKey: 'Your API Key',
-    //   programId: 'Your Program ID',
-    //   programType: ProgramType.transactionStream,
-    //   companyName: 'My RN Company',
-    // }, (result) => {
-    //   const exampleResult = {
-    //     enrollmentResult: {
-    //       cardId: "asd"
-    //     },
-    //     error: {
-    //       type: 
-    //     },
-    //     verificationResult: {
-    //       sucessful: false
-    //     }
-    //   }
-
-    //   if (exampleObject[FidelResult.Enrollment]) {
-
-    //   }
-
-    //   {
-    //     type: "error" | "enrollmentResult" | "verificationResult"
-    //     enrollmentResult: EnrollmentResult,
-    //     error: FidelError,
-    //     verificationResult: VerificationResult
-    //   }
-
-      // switch (result.type) {
-      //   case ENROLLMENT_RESULT:
-      //     console.log("card was enrolled: " + result.enrollmentResult.cardId);
-      //     break;
-      //   case FidelResult.Error:
-      //     console.log("encountered error: " + result.error.message);
-      //     break;
-      //   case FidelResult.VerificationSuccessful:
-      //     console.log("card verification was successful 🎉");
-      //     break;
-      // }
-    // });
-
     Fidel.start();
   }
 
-  // handleError = (error) => {
-  //   if (result.enrollmentError != null) {
-  //     console.log("");
-  //   }
-  //   switch (error.type) {
-  //     case FidelErrorType.UserCanceled:
-  //       console.log("user canceled the process");
-  //       break;
-  //     case FidelErrorType.SdkConfigurationError:
-  //       console.log("Please configure the Fidel SDK correctly");
-  //       break;
-  //     case FidelErrorType.EnrollmentError:
-  //       console.log("An enrollment error ocurred");
-  //     case FidelErrorType.VerificationError:
-  //       break;
-  //   }
-  // }
+  handleError = (error) => {
+    console.log("Error message: " + error.message);
+    switch (error.type) {
+      case Fidel.ErrorType.userCanceled:
+        console.log("User canceled the process");
+        break;
+      case Fidel.ErrorType.sdkConfigurationError:
+        console.log("Please configure the Fidel SDK correctly");
+        break;
+      case Fidel.ErrorType.enrollmentError:
+        handleEnrollmentError(error);
+        break;
+      case Fidel.ErrorType.verificationError:
+        handleVerificationError(error);
+        break;
+    }
+  }
+
+  handleEnrollmentError = (enrollmentError) => {
+    switch (enrollmentError.subtype) {
+      case Fidel.EnrollmentErrorType.cardAlreadyExists:
+        console.log("This card was already enrolled.");
+        break;
+      case Fidel.EnrollmentErrorType.invalidProgramId:
+        console.log("Please configure Fidel with a valid program ID.");
+        break;
+      case Fidel.EnrollmentErrorType.invalidSdkKey:
+        console.log("Please configure Fidel with a valid SDK Key.");
+        break;
+      case Fidel.EnrollmentErrorType.inexistentProgram:
+        console.log("Please configure Fidel with a valid program ID.");
+        break;
+      case Fidel.EnrollmentErrorType.unexpected:
+        console.log("Unexpected enrollment error occurred.");
+        break;
+    }
+  }
+
+  handleVerificationError = (verificationError) => {
+    switch (verificationError.subtype) {
+      case Fidel.VerificationErrorType.unauthorized:
+        console.log("You are not authorized to do card verification.");
+        break;
+      case Fidel.VerificationErrorType.incorrectAmount:
+        console.log("The card verification amount entered is not correct.");
+        break;
+      case Fidel.VerificationErrorType.maximumAttemptsReached:
+        console.log("You have reached the maximum attempts allowed to verify this card.");
+        break;
+      case Fidel.VerificationErrorType.cardAlreadyVerified:
+        console.log("This card was already verified.");
+        break;
+      case Fidel.VerificationErrorType.cardNotFound:
+        console.log("This card is not found.");
+        break;
+      case Fidel.VerificationErrorType.verificationNotFound:
+        console.log("Verification not found.");
+        break;
+      case Fidel.VerificationErrorType.genericError:
+        console.log("Generic error.");
+        break;
+      case Fidel.VerificationErrorType.unexpected:
+        console.log("Unexpected card verification error occurred.");
+        break;
+    }
+  }
 
   return (
     <View style={styles.container}>

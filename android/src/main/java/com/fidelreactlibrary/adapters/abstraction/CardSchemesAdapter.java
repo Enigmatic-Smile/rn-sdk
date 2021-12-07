@@ -10,4 +10,5 @@ import java.util.Set;
 
 public interface CardSchemesAdapter extends ConstantsProvider {
     @NonNull Set<CardScheme> cardSchemesWithReadableArray(@Nullable ReadableArray cardSchemes);
+    @NonNull String jsValue(@NonNull CardScheme cardScheme);
 }

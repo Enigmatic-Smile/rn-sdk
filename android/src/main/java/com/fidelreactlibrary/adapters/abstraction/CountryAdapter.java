@@ -11,4 +11,7 @@ import java.util.Set;
 public interface CountryAdapter extends ConstantsProvider {
     @NonNull
     Set<Country> parseAllowedCountries(@Nullable ReadableArray inputArray);
+
+    @NonNull
+    String jsCountryValue(@NonNull Country country);
 }

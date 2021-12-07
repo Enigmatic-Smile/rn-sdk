@@ -12,9 +12,9 @@ import java.util.ArrayList;
 public class ReadableArrayStub implements ReadableArray {
 
     private final int size;
-    private final int[] values;
+    private final String[] values;
 
-    public ReadableArrayStub(int size, int[] values) {
+    public ReadableArrayStub(int size, String[] values) {
         this.size = size;
         this.values = values;
     }
@@ -41,13 +41,13 @@ public class ReadableArrayStub implements ReadableArray {
 
     @Override
     public int getInt(int index) {
-        return values[index];
+        return -1;
     }
 
     @NonNull
     @Override
     public String getString(int index) {
-        return null;
+        return values[index];
     }
 
     @NonNull

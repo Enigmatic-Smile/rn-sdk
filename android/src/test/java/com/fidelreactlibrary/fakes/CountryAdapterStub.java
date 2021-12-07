@@ -13,6 +13,7 @@ public final class CountryAdapterStub implements CountryAdapter {
 
     public Set<Country> countriesToReturn;
     public boolean askedToParseAllowedCountries = false;
+    public String jsValueToReturn;
 
     @NonNull
     @Override
@@ -26,5 +27,11 @@ public final class CountryAdapterStub implements CountryAdapter {
     public Set<Country> parseAllowedCountries(ReadableArray inputArray) {
         askedToParseAllowedCountries = true;
         return countriesToReturn;
+    }
+
+    @NonNull
+    @Override
+    public String jsCountryValue(@NonNull Country country) {
+        return jsValueToReturn;
     }
 }

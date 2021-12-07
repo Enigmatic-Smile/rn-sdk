@@ -9,15 +9,12 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
-import com.facebook.react.bridge.WritableNativeMap;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.abstraction.OnResultObserver;
-import com.fidelreactlibrary.adapters.WritableMapDataAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
-import com.fidelreactlibrary.events.CallbackActivityEventListener;
-import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +68,10 @@ public class FidelModule extends ReactContextBaseJavaModule {
   @Nullable
   @Override
   public Map<String, Object> getConstants() {
-    return constantsProviderList.get(0).getConstants();
+    Map<String, Object> constants = new HashMap<>();
+    for (ConstantsProvider provider: constantsProviderList) {
+      constants.putAll(provider.getConstants());
+    }
+    return constants;
   }
 }

@@ -5,22 +5,18 @@ import com.facebook.react.bridge.WritableMap;
 import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
 import com.fidelapi.entities.EnrollmentResult;
-import com.fidelapi.entities.FidelResult;
-import com.fidelreactlibrary.events.CallbackActivityEventListener;
+import com.fidelreactlibrary.events.ResultsObserver;
 import com.fidelreactlibrary.fakes.DataAdapterStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+public class ResultsObserverTests {
 
-public class CallbackActivityEventListenerTests {
-
-    private CallbackActivityEventListener sut;
-    private DataAdapterStub<Object, WritableMap> linkResultConverterStub;
-    private DataProcessorSpy<WritableMap> errorHandlerSpy;
+    private DataAdapterStub<Object, WritableMap> resultAdapterStub = new DataAdapterStub<>();
+    private DataProcessorSpy<WritableMap> resultHandlerSpy = new DataProcessorSpy<>();
+    private ResultsObserver sut = new ResultsObserver(resultAdapterStub, resultHandlerSpy, JavaOnlyMap::new);
 
     private static final EnrollmentResult testLinkResult = new EnrollmentResult(
             "TEST CARD ID", "", "", -1, CardScheme.MASTERCARD,
@@ -29,17 +25,13 @@ public class CallbackActivityEventListenerTests {
 
     @Before
     public final void setUp() {
-        linkResultConverterStub = new DataAdapterStub<>();
-        errorHandlerSpy = new DataProcessorSpy<>();
-        sut = new CallbackActivityEventListener(linkResultConverterStub, errorHandlerSpy);
-
-        linkResultConverterStub.convertedDataToReturn = new JavaOnlyMap();
+        resultAdapterStub.convertedDataToReturn = new JavaOnlyMap();
     }
 
     @After
     public final void tearDown() {
         sut = null;
-        linkResultConverterStub = null;
-        errorHandlerSpy = null;
+        resultAdapterStub = null;
+        resultHandlerSpy = null;
     }
 }
