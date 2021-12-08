@@ -1,5 +1,5 @@
 //
-//  FLRNImageAdapter.h
+//  FLRNImageFromRNAdapter.h
 //  Fidel
 //
 //  Created by Corneliu on 24/03/2019.
@@ -7,10 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
+#import "fidel_react_native-Swift.h"
 
-@protocol FLRNImageAdapter <NSObject>
-
--(UIImage *)imageFromRawData:(id)rawImageData;
+@interface FLRNImageFromRNAdapter : NSObject <FLRNImageAdapter>
 
 @end

@@ -15,6 +15,6 @@
 #import "React/RCTEventEmitter.h" // Required when used as a Pod in a Swift project
 #endif
 
-@interface Fidel: RCTEventEmitter <RCTBridgeModule>
+@interface FidelNativeModule: RCTEventEmitter <RCTBridgeModule>
 
 @end
