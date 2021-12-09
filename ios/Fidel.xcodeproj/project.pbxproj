@@ -1,0 +1,370 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A126CD2922882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */; };
+		A1B445B2226D6EDC00F7AAA6 /* FLRNSetupAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */; };
+		A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */; };
+		A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */; };
+		A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */; };
+		A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */; };
+		A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */ = {isa = PBXBuildFile; fileRef = A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */; };
+		B3E7B58A1CC2AC0600A0062D /* Fidel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3E7B5891CC2AC0600A0062D /* Fidel.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		58B511D91A9E6C8500147676 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		134814201AA4EA6300B7C361 /* libFidel.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFidel.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A126CD24228827A80046C95B /* FLRNCardSchemesAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCardSchemesAdapter.h; sourceTree = "<group>"; };
+		A126CD252288280B0046C95B /* FLRNConstantsProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNConstantsProvider.h; sourceTree = "<group>"; };
+		A126CD2622882A610046C95B /* RCTConvert+CardScheme.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+CardScheme.h"; sourceTree = "<group>"; };
+		A126CD2722882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCardSchemesFromJSAdapter.h; sourceTree = "<group>"; };
+		A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNCardSchemesFromJSAdapter.m; sourceTree = "<group>"; };
+		A15765722244AB0D00BD29E3 /* RCTConvert+Country.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Country.h"; sourceTree = "<group>"; };
+		A1B445B0226D6EDC00F7AAA6 /* FLRNSetupAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSetupAdapter.h; sourceTree = "<group>"; };
+		A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNSetupAdapter.m; sourceTree = "<group>"; };
+		A1B445B3226D70A600F7AAA6 /* FLRNSDKSetupOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSDKSetupOptions.h; sourceTree = "<group>"; };
+		A1B445B4226D856800F7AAA6 /* FLRNObjectToDictionaryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNObjectToDictionaryAdapter.h; sourceTree = "<group>"; };
+		A1B445B5226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNRuntimeObjectToDictionaryAdapter.h; sourceTree = "<group>"; };
+		A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNRuntimeObjectToDictionaryAdapter.m; sourceTree = "<group>"; };
+		A1DCB8EA2247ED5E00C45711 /* FLRNOptionsAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLRNOptionsAdapter.h; sourceTree = "<group>"; };
+		A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLRNOptionsAdapter.m; sourceTree = "<group>"; };
+		A1DCB8EF2247EFAA00C45711 /* FLRNCountryAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCountryAdapter.h; sourceTree = "<group>"; };
+		A1DCB8F02247F05A00C45711 /* FLRNImageAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNImageAdapter.h; sourceTree = "<group>"; };
+		A1DCB8F22247F0F500C45711 /* FLRNCountryFromJSAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNCountryFromJSAdapter.h; sourceTree = "<group>"; };
+		A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNCountryFromJSAdapter.m; sourceTree = "<group>"; };
+		A1DCB8F52247F13700C45711 /* FLRNImageFromRNAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNImageFromRNAdapter.h; sourceTree = "<group>"; };
+		A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FLRNImageFromRNAdapter.m; sourceTree = "<group>"; };
+		A1DCB8F82247F48D00C45711 /* FLRNSDKOptions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FLRNSDKOptions.h; sourceTree = "<group>"; };
+		A1DCB8F92247F4EA00C45711 /* RCTConvert+Options.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RCTConvert+Options.h"; sourceTree = "<group>"; };
+		A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "RCTConvert+Options.m"; sourceTree = "<group>"; };
+		B3E7B5881CC2AC0600A0062D /* Fidel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Fidel.h; sourceTree = "<group>"; };
+		B3E7B5891CC2AC0600A0062D /* Fidel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Fidel.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		58B511D81A9E6C8500147676 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		134814211AA4EA7D00B7C361 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				134814201AA4EA6300B7C361 /* libFidel.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		58B511D21A9E6C8500147676 = {
+			isa = PBXGroup;
+			children = (
+				A1DCB8ED2247EF8000C45711 /* Adapters */,
+				B3E7B5881CC2AC0600A0062D /* Fidel.h */,
+				B3E7B5891CC2AC0600A0062D /* Fidel.m */,
+				134814211AA4EA7D00B7C361 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A1DCB8ED2247EF8000C45711 /* Adapters */ = {
+			isa = PBXGroup;
+			children = (
+				A1DCB8F12247F0C200C45711 /* Helpers */,
+				A1DCB8EA2247ED5E00C45711 /* FLRNOptionsAdapter.h */,
+				A1DCB8EB2247ED5E00C45711 /* FLRNOptionsAdapter.m */,
+				A1B445B0226D6EDC00F7AAA6 /* FLRNSetupAdapter.h */,
+				A1B445B1226D6EDC00F7AAA6 /* FLRNSetupAdapter.m */,
+			);
+			name = Adapters;
+			sourceTree = "<group>";
+		};
+		A1DCB8EE2247EF9200C45711 /* Abstraction */ = {
+			isa = PBXGroup;
+			children = (
+				A126CD24228827A80046C95B /* FLRNCardSchemesAdapter.h */,
+				A126CD252288280B0046C95B /* FLRNConstantsProvider.h */,
+				A1DCB8EF2247EFAA00C45711 /* FLRNCountryAdapter.h */,
+				A1DCB8F02247F05A00C45711 /* FLRNImageAdapter.h */,
+				A1B445B4226D856800F7AAA6 /* FLRNObjectToDictionaryAdapter.h */,
+			);
+			name = Abstraction;
+			sourceTree = "<group>";
+		};
+		A1DCB8F12247F0C200C45711 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A1DCB8EE2247EF9200C45711 /* Abstraction */,
+				A1DCB8F82247F48D00C45711 /* FLRNSDKOptions.h */,
+				A1B445B3226D70A600F7AAA6 /* FLRNSDKSetupOptions.h */,
+				A1DCB8F92247F4EA00C45711 /* RCTConvert+Options.h */,
+				A1DCB8FA2247F76500C45711 /* RCTConvert+Options.m */,
+				A15765722244AB0D00BD29E3 /* RCTConvert+Country.h */,
+				A126CD2622882A610046C95B /* RCTConvert+CardScheme.h */,
+				A126CD2722882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.h */,
+				A126CD2822882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m */,
+				A1DCB8F22247F0F500C45711 /* FLRNCountryFromJSAdapter.h */,
+				A1DCB8F32247F0F500C45711 /* FLRNCountryFromJSAdapter.m */,
+				A1DCB8F52247F13700C45711 /* FLRNImageFromRNAdapter.h */,
+				A1DCB8F62247F13700C45711 /* FLRNImageFromRNAdapter.m */,
+				A1B445B5226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.h */,
+				A1B445B6226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		58B511DA1A9E6C8500147676 /* Fidel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Fidel" */;
+			buildPhases = (
+				58B511D71A9E6C8500147676 /* Sources */,
+				58B511D81A9E6C8500147676 /* Frameworks */,
+				58B511D91A9E6C8500147676 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Fidel;
+			productName = RCTDataManager;
+			productReference = 134814201AA4EA6300B7C361 /* libFidel.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		58B511D31A9E6C8500147676 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = Facebook;
+				TargetAttributes = {
+					58B511DA1A9E6C8500147676 = {
+						CreatedOnToolsVersion = 6.1.1;
+						LastSwiftMigration = 1020;
+					};
+				};
+			};
+			buildConfigurationList = 58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "Fidel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				English,
+				en,
+			);
+			mainGroup = 58B511D21A9E6C8500147676;
+			productRefGroup = 58B511D21A9E6C8500147676;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				58B511DA1A9E6C8500147676 /* Fidel */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		58B511D71A9E6C8500147676 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1B445B7226D85B900F7AAA6 /* FLRNRuntimeObjectToDictionaryAdapter.m in Sources */,
+				A1DCB8FB2247F76500C45711 /* RCTConvert+Options.m in Sources */,
+				A1DCB8F42247F0F500C45711 /* FLRNCountryFromJSAdapter.m in Sources */,
+				A126CD2922882BBA0046C95B /* FLRNCardSchemesFromJSAdapter.m in Sources */,
+				A1DCB8F72247F13700C45711 /* FLRNImageFromRNAdapter.m in Sources */,
+				A1B445B2226D6EDC00F7AAA6 /* FLRNSetupAdapter.m in Sources */,
+				A1DCB8EC2247ED5E00C45711 /* FLRNOptionsAdapter.m in Sources */,
+				B3E7B58A1CC2AC0600A0062D /* Fidel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		58B511ED1A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		58B511EE1A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		58B511F01A9E6C8500147676 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"\"${PODS_ROOT}/Fidel/Fidel.framework/Headers\"",
+					"\"${PODS_ROOT}/Headers/Public/React\"",
+					"\"${PODS_ROOT}/Headers/Public/yoga\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PODS_ROOT = "${SRCROOT}/../../../ios/Pods";
+				PRODUCT_NAME = Fidel;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fidel-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		58B511F11A9E6C8500147676 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/../../../React/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"\"${PODS_ROOT}/Fidel/Fidel.framework/Headers\"",
+					"\"${PODS_ROOT}/Headers/Public/React\"",
+					"\"${PODS_ROOT}/Headers/Public/yoga\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "-ObjC";
+				PODS_ROOT = "${SRCROOT}/../../../ios/Pods";
+				PRODUCT_NAME = Fidel;
+				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "Fidel-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58B511D61A9E6C8500147676 /* Build configuration list for PBXProject "Fidel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511ED1A9E6C8500147676 /* Debug */,
+				58B511EE1A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		58B511EF1A9E6C8500147676 /* Build configuration list for PBXNativeTarget "Fidel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				58B511F01A9E6C8500147676 /* Debug */,
+				58B511F11A9E6C8500147676 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 58B511D31A9E6C8500147676 /* Project object */;
+}

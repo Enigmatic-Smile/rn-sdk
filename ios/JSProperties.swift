@@ -7,15 +7,26 @@
 
 import Foundation
 
-enum JSProperties {
-    case setup(SetupJSProperties)
-}
-
-enum SetupJSProperties: String {
+enum JSProperties: String {
     case sdkKey
     case programID = "programId"
     case companyName
     case programType
     case options
     case consentText
+    
+    enum Options: String {
+        case bannerImage
+        case allowedCountries
+        case supportedCardSchemes
+        case shouldAutoScanCard
+        case metaData
+    }
+    
+    enum ConsentText: String {
+        case termsAndConditionsURL = "termsAndConditionsUrl"
+        case privacyPolicyURL = "privacyPolicyUrl"
+        case programName
+        case deleteInstructions
+    }
 }

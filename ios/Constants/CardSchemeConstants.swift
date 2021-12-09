@@ -21,4 +21,18 @@ extension CardScheme: ConstantsProvider {
     
     static var allCases: Set<CardScheme> = [CardScheme.visa, .mastercard, .americanExpress]
     static var parentKeyName: String = String(describing: Self.self)
+    
+    static func cardSchemesSet(from cardSchemeConstantKeys: [String]) -> Set<CardScheme> {
+        return Set<CardScheme>(cardSchemeConstantKeys.compactMap { CardScheme.cardScheme(from: $0) })
+    }
+    
+    private static func cardScheme(from constantKey: String) -> CardScheme? {
+        switch constantKey {
+        case "visa": return .visa
+        case "mastercard": return .mastercard
+        case "americanExpress": return .americanExpress
+        default: return nil
+        }
+    }
+    
 }

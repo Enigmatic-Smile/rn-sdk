@@ -57,6 +57,7 @@ export default class App extends React.Component {
         allowedCountries: countries,
         supportedCardSchemes: cardSchemes,
         shouldAutoScanCard: false,
+        metaData: { userId: 1234 }
       },
       consentText: {
         termsAndConditionsUrl: 'https://fidel.uk',
