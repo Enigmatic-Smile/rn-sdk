@@ -38,10 +38,15 @@ RCT_EXPORT_METHOD(start) {
 }
 
 - (void)addListener:(NSString *)eventName {
-    [self.resultsObserver startObserving];
+    [super addListener:eventName];
+    __weak typeof(self) weakSelf = self;
+    [self.resultsObserver startObservingWith:^(NSDictionary * _Nonnull result) {
+        [weakSelf sendEventWithName:@"ResultAvailable" body:result];
+    }];
 }
 
 - (void)removeListeners:(double)count {
+    [super removeListeners:count];
     [self.resultsObserver stopObserving];
 }
 
