@@ -1,5 +1,8 @@
 # Fidel React Native bridge library change log
 
+## 1.6.0
+- Added the `defaultSelectedCountry` property which sets the country that will be selected by default, when opening the card enrollment screen.
+
 ## 1.5.0
 - Remove card scanning confirmation screen.
 

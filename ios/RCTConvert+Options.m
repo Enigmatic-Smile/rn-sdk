@@ -10,6 +10,7 @@
 
 NSString *const kBannerImageOptionKey = @"bannerImage";
 NSString *const kAllowedCountriesOptionKey = @"allowedCountries";
+NSString *const kDefaultSelectedCountryOptionKey = @"defaultSelectedCountry";
 NSString *const kAutoScanOptionKey = @"autoScan";
 NSString *const kMetaDataOptionKey = @"metaData";
 NSString *const kCompanyNameOptionKey = @"companyName";

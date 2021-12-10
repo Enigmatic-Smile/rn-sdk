@@ -49,6 +49,7 @@ const App: () => Node = () => {
     Fidel.setOptions ({
       bannerImage: resolvedImage,
       allowedCountries: countries,
+      defaultSelectedCountry: Fidel.Country.unitedKingdom,
       supportedCardSchemes: Array.from(cardSchemes),
       autoScan: false,
       metaData: {'meta-data-1': 'value1'},
