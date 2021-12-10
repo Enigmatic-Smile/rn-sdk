@@ -5,7 +5,7 @@ import android.content.Context;
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.fidelreactlibrary.events.ErrorEventEmitter;
+import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
 import com.fidelreactlibrary.fakes.ReactContextMock;
 
 import org.junit.After;
@@ -19,16 +19,16 @@ import androidx.test.core.app.ApplicationProvider;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
-public class ErrorEventEmitterTests {
+public class ResultAvailableEventEmitterTests {
 
-    private ErrorEventEmitter sut;
+    private ResultAvailableEventEmitter sut;
     private ReactContextMock reactContext;
 
     @Before
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         reactContext = new ReactContextMock(context);
-        sut = new ErrorEventEmitter(reactContext);
+        sut = new ResultAvailableEventEmitter(reactContext);
     }
 
     @After
@@ -49,7 +49,7 @@ public class ErrorEventEmitterTests {
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
-        assertEquals(reactContext.receivedErrorName, "CardLinkFailed");
+        assertEquals(reactContext.receivedErrorName, "ResultAvailable");
         assertEquals(reactContext.receivedErrorData, map);
         assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
     }

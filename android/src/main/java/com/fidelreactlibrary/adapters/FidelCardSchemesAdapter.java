@@ -1,10 +1,16 @@
 package com.fidelreactlibrary.adapters;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.facebook.react.bridge.ReadableType;
+import com.fidelapi.entities.CardScheme;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -23,41 +29,49 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     @Override
     public @Nonnull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
-        Map<String, Object> cardSchemesConstants = new HashMap<>();
-        for (Fidel.CardScheme cardScheme : Fidel.CardScheme.values()) {
-            String cardSchemeKey = null;
-            switch (cardScheme) {
-                case VISA: cardSchemeKey = VISA_CARD_SCHEME_VALUE; break;
-                case MASTERCARD: cardSchemeKey = MASTERCARD_SCHEME_VALUE; break;
-                case AMERICAN_EXPRESS: cardSchemeKey = AMERICAN_EXPRESS_CARD_SCHEME_VALUE; break;
-            }
-            cardSchemesConstants.put(cardSchemeKey, cardScheme.ordinal());
+        Map<String, String> cardSchemesConstants = new HashMap<>();
+        for (CardScheme cardScheme : CardScheme.values()) {
+            String cardSchemeKey = jsValue(cardScheme);
+            cardSchemesConstants.put(cardSchemeKey, cardSchemeKey);
         }
         constants.put(EXPORTED_CARD_SCHEME_KEY, cardSchemesConstants);
         return constants;
     }
 
+    @NonNull
     @Override
-    public Set<Fidel.CardScheme> cardSchemesWithReadableArray(ReadableArray arrayToAdapt) {
+    public String jsValue(@NonNull CardScheme cardScheme) {
+        switch (cardScheme) {
+            case VISA: return VISA_CARD_SCHEME_VALUE;
+            case MASTERCARD: return MASTERCARD_SCHEME_VALUE;
+            case AMERICAN_EXPRESS: return AMERICAN_EXPRESS_CARD_SCHEME_VALUE;
+        }
+        return "notFound";
+    }
+
+    @Nullable
+    private CardScheme cardSchemeWithJsValue(String jsValue) {
+        switch (jsValue) {
+            case VISA_CARD_SCHEME_VALUE: return CardScheme.VISA;
+            case MASTERCARD_SCHEME_VALUE: return CardScheme.MASTERCARD;
+            case AMERICAN_EXPRESS_CARD_SCHEME_VALUE: return CardScheme.AMERICAN_EXPRESS;
+        }
+        return null;
+    }
+
+    @Override
+    public @NonNull Set<CardScheme> cardSchemesWithReadableArray(@Nullable ReadableArray arrayToAdapt) {
+        Set<CardScheme> cardSchemeSet = EnumSet.noneOf(CardScheme.class);
         if (arrayToAdapt == null) {
-            return null;
+            return cardSchemeSet;
         }
-        ArrayList<Integer> integerArrayToAdapt = new ArrayList<>();
-        ArrayList<Object> arrayToAdaptObjects = arrayToAdapt.toArrayList();
-        for (Object objectToAdapt: arrayToAdaptObjects) {
-            if (objectToAdapt.getClass() == Integer.class) {
-                integerArrayToAdapt.add((Integer)objectToAdapt);
+        for (int i = 0; i < arrayToAdapt.size(); i++) {
+            if (arrayToAdapt.getType(i) != ReadableType.String) {
+                continue;
             }
-            else if (objectToAdapt.getClass() == Double.class) {
-                Double doubleObjectToAdapt = (Double)objectToAdapt;
-                integerArrayToAdapt.add(doubleObjectToAdapt.intValue());
-            }
-        }
-        Set<Integer> receivedObjectsSet = new HashSet<>(integerArrayToAdapt);
-        Set<Fidel.CardScheme> cardSchemeSet = new HashSet<>();
-        for (Fidel.CardScheme scheme : Fidel.CardScheme.values()) {
-            if (receivedObjectsSet.contains(scheme.ordinal())) {
-                cardSchemeSet.add(scheme);
+            CardScheme cardScheme = cardSchemeWithJsValue(arrayToAdapt.getString(i));
+            if (cardScheme != null) {
+                cardSchemeSet.add(cardScheme);
             }
         }
         return cardSchemeSet;

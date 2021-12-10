@@ -1,13 +1,17 @@
 package com.fidelreactlibrary.adapters;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.facebook.react.bridge.ReadableType;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.annotation.Nonnull;
+import java.util.Set;
 
 public final class FidelCountryAdapter implements CountryAdapter {
 
@@ -23,7 +27,8 @@ public final class FidelCountryAdapter implements CountryAdapter {
 
     private static final String NOT_FOUND_COUNTRY_KEY = "notFound";
 
-    public @Nonnull String keyFor(@Nonnull Fidel.Country country) {
+    @NonNull
+    private String keyFor(@NonNull Country country) {
         switch (country) {
             case UNITED_KINGDOM: return UNITED_KINGDOM_COUNTRY_KEY;
             case UNITED_STATES: return UNITED_STATES_COUNTRY_KEY;
@@ -36,32 +41,52 @@ public final class FidelCountryAdapter implements CountryAdapter {
         return NOT_FOUND_COUNTRY_KEY;
     }
 
+    private @Nullable Country countryWithJSValue(String jsValue) {
+        switch (jsValue) {
+            case UNITED_KINGDOM_COUNTRY_KEY: return Country.UNITED_KINGDOM;
+            case UNITED_STATES_COUNTRY_KEY: return Country.UNITED_STATES;
+            case UNITED_ARAB_EMIRATES_KEY: return Country.UNITED_ARAB_EMIRATES;
+            case JAPAN_COUNTRY_KEY: return Country.JAPAN;
+            case SWEDEN_COUNTRY_KEY: return Country.SWEDEN;
+            case IRELAND_COUNTRY_KEY: return Country.IRELAND;
+            case CANADA_COUNTRY_KEY: return Country.CANADA;
+        }
+        return null;
+    }
+
+    @NonNull
     @Override
-    public @Nonnull Map<String, Object> getConstants() {
+    public String jsCountryValue(@NonNull Country country) {
+        return keyFor(country);
+    }
+
+    @Override
+    public @NonNull Map<String, Object> getConstants() {
         final Map<String, Object> constants = new HashMap<>();
-        final Map<String, Integer> countriesMap = new HashMap<>();
-        for (Fidel.Country country :
-                Fidel.Country.values()) {
+        final Map<String, String> countriesMap = new HashMap<>();
+        for (Country country :
+                Country.values()) {
             String countryKey = keyFor(country);
-            countriesMap.put(countryKey, country.ordinal());
+            countriesMap.put(countryKey, countryKey);
         }
         constants.put(EXPORTED_COUNTRY_KEY, countriesMap);
         return constants;
     }
 
     @Override
-    public Fidel.Country countryWithInteger(int integer) {
-        if (integer < Fidel.Country.values().length) {
-            return Fidel.Country.values()[integer];
+    public @NonNull Set<Country> parseAllowedCountries(@Nullable ReadableArray inputArray) {
+        Set<Country> countries = EnumSet.noneOf(Country.class);
+        if (inputArray == null) {
+            return countries;
         }
-        return null;
-    }
-
-    @Override
-    public Fidel.Country[] parseAllowedCountries(ReadableArray inputArray) {
-        Fidel.Country[] countries = new Fidel.Country[inputArray.size()];
         for (int i = 0; i < inputArray.size(); i++) {
-            countries[i] = countryWithInteger(inputArray.getInt(i));
+            if (inputArray.getType(i) != ReadableType.String) {
+                continue;
+            }
+            Country country = countryWithJSValue(inputArray.getString(i));
+            if (country != null) {
+                countries.add(country);
+            }
         }
         return countries;
     }

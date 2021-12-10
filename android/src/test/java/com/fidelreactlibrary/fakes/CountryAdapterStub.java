@@ -1,32 +1,37 @@
 package com.fidelreactlibrary.fakes;
 
+import androidx.annotation.NonNull;
+
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
-import com.fidel.sdk.Fidel.Country;
+import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 
 import java.util.Map;
-
-import javax.annotation.Nonnull;
+import java.util.Set;
 
 public final class CountryAdapterStub implements CountryAdapter {
 
-    public Country[] countriesToReturn;
+    public Set<Country> countriesToReturn;
+    public boolean askedToParseAllowedCountries = false;
+    public String jsValueToReturn;
 
-    @Nonnull
+    @NonNull
     @Override
     public Map<String, Object> getConstants() {
         ConstantsProviderStub constantsProviderStub = new ConstantsProviderStub("testKey", 2);
         return constantsProviderStub.getConstants();
     }
 
+    @NonNull
     @Override
-    public Country countryWithInteger(int integer) {
-        return null;
+    public Set<Country> parseAllowedCountries(ReadableArray inputArray) {
+        askedToParseAllowedCountries = true;
+        return countriesToReturn;
     }
 
+    @NonNull
     @Override
-    public Country[] parseAllowedCountries(ReadableArray inputArray) {
-        return new Fidel.Country[]{Fidel.Country.UNITED_KINGDOM, Fidel.Country.JAPAN, Fidel.Country.CANADA};
+    public String jsCountryValue(@NonNull Country country) {
+        return jsValueToReturn;
     }
 }

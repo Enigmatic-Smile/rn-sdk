@@ -9,8 +9,8 @@ import javax.annotation.Nonnull;
 
 public final class ConstantsProviderStub implements ConstantsProvider {
 
-    private String key;
-    private Integer value;
+    private final String key;
+    private final Integer value;
 
     public ConstantsProviderStub(String key, Integer value) {
         this.key = key;
