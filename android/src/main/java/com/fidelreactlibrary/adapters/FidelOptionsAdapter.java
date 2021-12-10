@@ -30,6 +30,7 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
     public static final String TERMS_CONDITIONS_URL_KEY = "termsConditionsUrl";
     public static final String META_DATA_KEY = "metaData";
     public static final String ALLOWED_COUNTRIES_KEY = "allowedCountries";
+    public static final String DEFAULT_SELECTED_COUNTRY_KEY = "defaultSelectedCountry";
     public static final String CARD_SCHEMES_KEY = "supportedCardSchemes";
     public static final List<String> OPTION_KEYS = Collections.unmodifiableList(
             Arrays.asList(
@@ -88,6 +89,9 @@ public final class FidelOptionsAdapter implements DataProcessor<ReadableMap>, Da
         }
         if (valueIsValidFor(data, ALLOWED_COUNTRIES_KEY)) {
             Fidel.allowedCountries = countryAdapter.parseAllowedCountries(data.getArray(ALLOWED_COUNTRIES_KEY));
+        }
+        if (valueIsValidFor(data, DEFAULT_SELECTED_COUNTRY_KEY)) {
+            Fidel.defaultSelectedCountry = countryAdapter.countryWithInteger(data.getInt(DEFAULT_SELECTED_COUNTRY_KEY));
         }
         if (data.hasKey(CARD_SCHEMES_KEY)) {
             Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(data.getArray(CARD_SCHEMES_KEY));
