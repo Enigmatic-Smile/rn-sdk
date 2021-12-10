@@ -62,6 +62,11 @@ NSString *const kOptionKey = @"Option";
         FLFidel.objc_allowedCountries = (NSArray<NSNumber *> *) rawData;
     }
     
+    if ([self valueIsValidFor:kDefaultSelectedCountryOptionKey fromDictionary:options]) {
+        id rawData = options[kDefaultSelectedCountryOptionKey];
+        FLFidel.defaultSelectedCountry = [((NSNumber *) rawData) integerValue];
+    }
+    
     if ([self valueIsValidFor:kAutoScanOptionKey fromDictionary:options]) {
         FLFidel.autoScan = [options[kAutoScanOptionKey] boolValue];
     }

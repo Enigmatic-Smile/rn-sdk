@@ -20,7 +20,8 @@
 #define FLSDKOptionValues\
 @{\
     kBannerImageOptionKey: @(FLSDKOptionBannerImage), \
-    kAllowedCountriesOptionKey: @(FLSDKOptionCountry), \
+    kAllowedCountriesOptionKey: @(FLSDKOptionAllowedCountries), \
+    kDefaultSelectedCountryOptionKey: @(FLSDKOptionDefaultSelectedCountry), \
     kAutoScanOptionKey: @(FLSDKOptionAutoScan),\
     kMetaDataOptionKey: @(FLSDKOptionMetaData), \
     kCompanyNameOptionKey: @(FLSDKOptionCompanyName), \
@@ -33,6 +34,7 @@
 
 FOUNDATION_EXPORT NSString *const kBannerImageOptionKey;
 FOUNDATION_EXPORT NSString *const kAllowedCountriesOptionKey;
+FOUNDATION_EXPORT NSString *const kDefaultSelectedCountryOptionKey;
 FOUNDATION_EXPORT NSString *const kAutoScanOptionKey;
 FOUNDATION_EXPORT NSString *const kMetaDataOptionKey;
 FOUNDATION_EXPORT NSString *const kCompanyNameOptionKey;
