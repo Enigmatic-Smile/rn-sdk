@@ -15,8 +15,8 @@ extension EnrollmentError: ConstantsProvider {
     var constantKey: String {
         switch self {
         case .cardAlreadyExists: return "cardAlreadyExists"
-        case .invalidProgramID: return "invalidProgramID"
-        case .invalidSDKKey: return "invalidSDKKey"
+        case .invalidProgramID: return "invalidProgramId"
+        case .invalidSDKKey: return "invalidSdkKey"
         case .inexistentProgram: return "inexistentProgram"
         case .unexpected: return "unexpected"
         @unknown default: return "unexpected"

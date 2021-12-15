@@ -16,7 +16,7 @@ extension VerificationError: ConstantsProvider {
         switch self {
         case .maximumAttemptsReached: return "maximumAttemptsReached"
         case .cardAlreadyVerified: return "cardAlreadyVerified"
-        case .invalidSDKKey: return "invalidSDKKey"
+        case .invalidSDKKey: return "invalidSdkKey"
         case .cardNotFound: return "cardNotFound"
         case .verificationNotFound: return "verificationNotFound"
         case .genericError: return "genericError"
