@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "fidel_react_native-Swift.h"
 
-@interface FLRNImageFromRNAdapter : NSObject <FLRNImageAdapter>
+@interface FLRNImageFromRNAdapter : NSObject
+
+-(UIImage *)imageFromRawData:(id)rawImageData;
 
 @end

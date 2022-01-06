@@ -8,10 +8,9 @@
 import Foundation
 import Fidel
 
-@objc(FLRNExportedConstantsProvider)
 class ExportedConstantsProvider: NSObject {
     
-    @objc var constants: NSDictionary {
+    var constants: [AnyHashable: Any] {
         var constants = [String: [String: String]]()
         constants.merge(CardScheme.constantsToExport) { (current, _) in current }
         constants.merge(Country.constantsToExport) { (current, _) in current }
@@ -20,7 +19,7 @@ class ExportedConstantsProvider: NSObject {
         constants.merge(VerificationError.constantsToExport) { (current, _) in current }
         constants.merge(FidelErrorType.constantsToExport) { (current, _) in current }
         constants.merge(FidelResult.constantsToExport) { (current, _) in current }
-        return constants as NSDictionary
+        return constants
     }
 }
 

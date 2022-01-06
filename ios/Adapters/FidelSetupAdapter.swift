@@ -8,18 +8,15 @@
 import Foundation
 import Fidel
 
-@objc(FLRNSetupAdapter)
 class FidelSetupAdapter: NSObject {
     
-    private let imageAdapter: ImageAdapter
+    private let imageAdapter: FLRNImageFromRNAdapter
     
-    @objc(initWithImageAdapter:)
-    init(imageAdapter: ImageAdapter) {
+    init(imageAdapter: FLRNImageFromRNAdapter) {
         self.imageAdapter = imageAdapter
         super.init()
     }
     
-    @objc(setupWith:)
     func setup(with parameters: NSDictionary) {
         guard let parameters = parameters as? [String: Any?] else {
             return
@@ -50,7 +47,7 @@ class FidelSetupAdapter: NSObject {
     func setOptions(_ options: [String: Any?]) {
         if options.keys.contains(JSProperties.Options.bannerImage.rawValue),
            let rawImageObject = options[JSProperties.Options.bannerImage.rawValue] as? NSObject {
-            Fidel.bannerImage = imageAdapter.image(from: rawImageObject)
+            Fidel.bannerImage = imageAdapter.image(fromRawData: rawImageObject)
         }
         if options.keys.contains(JSProperties.Options.allowedCountries.rawValue),
            let countryJSKeys = options[JSProperties.Options.allowedCountries.rawValue] as? [String] {

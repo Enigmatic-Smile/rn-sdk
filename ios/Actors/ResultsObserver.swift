@@ -8,18 +8,16 @@
 import Foundation
 import Fidel
 
-@objc(FLRNResultsObserver)
-class ResultsObserver: NSObject {
+class ResultsObserver {
     
     private var onResultCallback: ((NSDictionary) -> Void)?
     
-    @objc(startObservingWith:)
     func startObserving(_ callback: @escaping (NSDictionary) -> Void) {
         self.onResultCallback = callback
         Fidel.onResult = self.onResult
     }
     
-    @objc func stopObserving() {
+    func stopObserving() {
         Fidel.onResult = nil
     }
     

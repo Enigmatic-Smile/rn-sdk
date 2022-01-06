@@ -50,8 +50,8 @@ export default class App extends React.Component {
     Fidel.setup ({
       sdkKey: 'Your SDK Key',
       programId: 'Your program ID',
-      companyName: 'Your Company Name',
       programType: Fidel.ProgramType.transactionStream,
+      companyName: 'Your Company Name',
       options: {
         bannerImage: resolvedImage,
         allowedCountries: countries,
