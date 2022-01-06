@@ -27,9 +27,6 @@ class FidelSetupAdapter: NSObject {
         if parameters.keys.contains(JSProperties.programID.rawValue) {
             Fidel.programID = parameters[JSProperties.programID.rawValue] as? String
         }
-        if parameters.keys.contains(JSProperties.companyName.rawValue) {
-            Fidel.companyName = parameters[JSProperties.companyName.rawValue] as? String
-        }
         if parameters.keys.contains(JSProperties.programType.rawValue) {
             let programTypeJSValue = parameters[JSProperties.programType.rawValue] as? String
             Fidel.programType = ProgramType.programType(from: programTypeJSValue)
@@ -66,6 +63,9 @@ class FidelSetupAdapter: NSObject {
     }
     
     private func setConsentTextValues(_ consentTextValues: [String: Any?]) {
+        if consentTextValues.keys.contains(JSProperties.ConsentText.companyName.rawValue) {
+            Fidel.companyName = consentTextValues[JSProperties.ConsentText.companyName.rawValue] as? String
+        }
         if consentTextValues.keys.contains(JSProperties.ConsentText.termsAndConditionsURL.rawValue) {
             Fidel.termsAndConditionsURL = consentTextValues[JSProperties.ConsentText.termsAndConditionsURL.rawValue] as? String
         }

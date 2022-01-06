@@ -105,14 +105,6 @@ public class FidelSetupAdapterTests {
     }
 
     @Test
-    public void test_WhenDataHasNoCompanyNameKey_DoNotSetThisPropertyForFidel() {
-        String expectedCompanyName = "some company name";
-        Fidel.companyName = expectedCompanyName;
-        sut.process(ReadableMapStub.withoutKey(FidelSetupKeys.COMPANY_NAME));
-        assertEquals(expectedCompanyName, Fidel.companyName);
-    }
-
-    @Test
     public void test_WhenDataHasNoValueForSdkKey_DoNotSetThisPropertyForFidel() {
         sut.process(ReadableMapStub.withNullValueForKey(FidelSetupKeys.SDK_KEY));
         assertNull(Fidel.sdkKey);
@@ -122,12 +114,6 @@ public class FidelSetupAdapterTests {
     public void test_WhenDataHasNoValueForProgramIDKey_DoNotSetThisPropertyForFidel() {
         sut.process(ReadableMapStub.withNullValueForKey(FidelSetupKeys.PROGRAM_ID));
         assertNull(Fidel.programId);
-    }
-
-    @Test
-    public void test_WhenDataHasNullValueForCompanyNameKey_DoNotSetThisPropertyForFidel() {
-        sut.process(ReadableMapStub.withNullValueForKey(FidelSetupKeys.COMPANY_NAME));
-        assertNull(Fidel.companyName);
     }
 
     @Test
@@ -145,13 +131,6 @@ public class FidelSetupAdapterTests {
     }
 
     @Test
-    public void test_WhenDataHasEmptyValueForCompanyName_ShouldSetEmptyValueForThisPropertyForFidel() {
-        sut.process(ReadableMapStub.withEmptyValueForKey(FidelSetupKeys.COMPANY_NAME));
-        assertNotNull(Fidel.companyName);
-        assertTrue(Fidel.companyName.isEmpty());
-    }
-
-    @Test
     public void test_WhenApiKeyIsSet_SetItToSDK() {
         ReadableMapStub readableMap = ReadableMapStub.mapWithAllValidSetupKeys();
         readableMap.putString(FidelSetupKeys.SDK_KEY.jsName(), TEST_SDK_KEY);
@@ -165,14 +144,6 @@ public class FidelSetupAdapterTests {
         readableMap.putString(FidelSetupKeys.PROGRAM_ID.jsName(), TEST_PROGRAM_ID);
         sut.process(readableMap);
         assertEquals(TEST_PROGRAM_ID, Fidel.programId);
-    }
-
-    @Test
-    public void test_WhenCompanyNameIsSet_SetItToSDK() {
-        ReadableMapStub readableMap = ReadableMapStub.mapWithAllValidSetupKeys();
-        readableMap.putString(FidelSetupKeys.COMPANY_NAME.jsName(), TEST_COMPANY_NAME);
-        sut.process(readableMap);
-        assertEquals(TEST_COMPANY_NAME, Fidel.companyName);
     }
 
     @Test
@@ -446,6 +417,64 @@ public class FidelSetupAdapterTests {
 
         assertNotNull(Fidel.metaData);
         assertMapEqualsWithJSONObject(TEST_HASH_MAP(), Fidel.metaData);
+    }
+
+    @Test
+    public void test_WhenDataHasNoConsentTextKey_DoNotSetCompanyNameForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.CONSENT_TEXT);
+        String fakeCompanyName = "some test, fake company name";
+        Fidel.companyName = fakeCompanyName;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertEquals(fakeCompanyName, Fidel.companyName);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveCompanyNameKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutConsentTextKey(FidelSetupKeys.ConsentText.COMPANY_NAME);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        String fakeCompanyName = "some test, company name";
+        Fidel.companyName = fakeCompanyName;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName()));
+        assertFalse(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName()));
+        assertEquals(fakeCompanyName, Fidel.companyName);
+    }
+
+    @Test
+    public void test_IfDoesHaveCompanyNameKey_ButWithNullValue_ShouldSetNullCompanyNameForFidel() {
+        ReadableMapStub map = ReadableMapStub.withNullValueForConsentTextKey(FidelSetupKeys.ConsentText.COMPANY_NAME);
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+
+        Fidel.companyName = "some test, fake company";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName()));
+        assertNull(Fidel.companyName);
+    }
+
+    @Test
+    public void test_IfDoesHaveCompanyNameKeyAndValue_ShouldSetTheValueForFidel() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub consentTextMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.CONSENT_TEXT.jsName());
+        assertNotNull(consentTextMap);
+        String expectedCompanyName = "some company name";
+        consentTextMap.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName(), expectedCompanyName);
+
+        Fidel.companyName = "previous fake company name";
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.CONSENT_TEXT.jsName()));
+        assertTrue(consentTextMap.keyNamesCheckedFor.contains(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName()));
+        assertTrue(consentTextMap.keyNamesAskedValueFor.contains(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName()));
+        assertEquals(expectedCompanyName, Fidel.companyName);
     }
 
     @Test

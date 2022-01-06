@@ -43,7 +43,6 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.SDK_KEY.jsName(), "pk_test_some_sdk_key");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_ID.jsName(), "some test program ID");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.COMPANY_NAME.jsName(), "some test company name");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.PROGRAM_TYPE.jsName(), "some test program type");
         ReadableMapStub optionsReadableMap = ReadableMapStub.optionsMapWithAllValidSetupKeys();
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.OPTIONS.jsName(), optionsReadableMap);
@@ -70,6 +69,7 @@ public class ReadableMapStub implements ReadableMap {
         ReadableMapStub mapStub = new ReadableMapStub();
         String[] keyJsNames = Arrays.stream(FidelSetupKeys.ConsentText.values()).map(FidelSetupKeys.ConsentText::jsName).toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName(), "some test company name");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName(), "some test terms and conditions url");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName(), "some test privacy policy url");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName(), "some test program name");

@@ -40,9 +40,6 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
         if (data.hasKey(FidelSetupKeys.PROGRAM_ID.jsName())) {
             Fidel.programId = data.getString(FidelSetupKeys.PROGRAM_ID.jsName());
         }
-        if (data.hasKey(FidelSetupKeys.COMPANY_NAME.jsName())) {
-            Fidel.companyName = data.getString(FidelSetupKeys.COMPANY_NAME.jsName());
-        }
         if (data.hasKey(FidelSetupKeys.PROGRAM_TYPE.jsName())) {
             String programTypeValue = data.getString(FidelSetupKeys.PROGRAM_TYPE.jsName());
             Fidel.programType = programTypeAdapter.parseProgramType(programTypeValue);
@@ -73,6 +70,9 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
 
         ReadableMap consentTextMap = data.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
         if (consentTextMap != null) {
+            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName())) {
+                Fidel.companyName = consentTextMap.getString(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName());
+            }
             if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName())) {
                 Fidel.termsAndConditionsUrl = consentTextMap.getString(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName());
             }

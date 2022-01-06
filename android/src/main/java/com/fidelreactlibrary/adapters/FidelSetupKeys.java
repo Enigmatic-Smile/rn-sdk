@@ -6,7 +6,6 @@ public enum FidelSetupKeys {
     SDK_KEY("sdkKey"),
     PROGRAM_ID("programId"),
     PROGRAM_TYPE("programType"),
-    COMPANY_NAME("companyName"),
     OPTIONS("options"),
     CONSENT_TEXT("consentText");
 
@@ -32,6 +31,7 @@ public enum FidelSetupKeys {
     }
 
     public enum ConsentText {
+        COMPANY_NAME("companyName"),
         TERMS_AND_CONDITIONS_URL("termsAndConditionsUrl"),
         PRIVACY_POLICY_URL("privacyPolicyUrl"),
         PROGRAM_NAME("programName"),

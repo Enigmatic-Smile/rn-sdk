@@ -51,7 +51,6 @@ export default class App extends React.Component {
       sdkKey: 'Your SDK Key',
       programId: 'Your program ID',
       programType: Fidel.ProgramType.transactionStream,
-      companyName: 'Your Company Name',
       options: {
         bannerImage: resolvedImage,
         allowedCountries: countries,
@@ -60,6 +59,7 @@ export default class App extends React.Component {
         metaData: { userId: 1234 }
       },
       consentText: {
+        companyName: 'Your Company Name',
         termsAndConditionsUrl: 'https://fidel.uk',
         privacyPolicyUrl: 'https://fidel.uk',
         programName: 'Your program name',
@@ -158,7 +158,7 @@ export default class App extends React.Component {
         <Text style={styles.instructions}>To get started, tap the button below.</Text>
         <Button
           onPress={this.onButtonPress}
-          title="Link a card"
+          title="Start"
           color="#3846ce"
         />
       </View>
