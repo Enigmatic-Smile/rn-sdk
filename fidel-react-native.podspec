@@ -13,7 +13,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, "9.1"
 
   s.source       = { :git => "https://github.com/FidelLimited/rn-sdk.git", :tag => "v#{s.version}" }
-  s.source_files  = "ios/**/*.{h,m}"
+  s.source_files  = "ios/**/*.{h,m,swift}"
 
   s.dependency 'React'
   s.dependency 'Fidel'

@@ -35,21 +35,12 @@ android {
 
 repositories {
     mavenCentral()
-    flatDir {
-        dirs 'libs'
-    }
 }
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
 
-    // Remove the following dependencies when launching
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
-    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'io.card:android-sdk:5.5.1'
-    implementation(name:'sdk-release', ext:'aar')
-    // END
+    implementation 'com.github.FidelLimited:android-sdk:2.0.0-beta2'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test.ext:junit:1.1.3'

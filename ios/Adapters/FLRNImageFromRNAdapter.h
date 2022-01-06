@@ -1,5 +1,5 @@
 //
-//  FLRNImageAdapter.h
+//  FLRNImageFromRNAdapter.h
 //  Fidel
 //
 //  Created by Corneliu on 24/03/2019.
@@ -7,9 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <UIKit/UIKit.h>
 
-@protocol FLRNImageAdapter <NSObject>
+@interface FLRNImageFromRNAdapter : NSObject
 
 -(UIImage *)imageFromRawData:(id)rawImageData;
 

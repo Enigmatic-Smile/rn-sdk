@@ -48,15 +48,16 @@ export default class App extends React.Component {
     ];
 
     Fidel.setup ({
-      sdkKey: 'pk_test_4bb15564-01da-4f7b-a108-2de19e96e136',
-      programId: 'e5e012e3-a448-45e1-93a4-da45e1c53bd7',
-      companyName: 'Your Company Name',
+      sdkKey: 'Your SDK Key',
+      programId: 'Your program ID',
       programType: Fidel.ProgramType.transactionStream,
+      companyName: 'Your Company Name',
       options: {
         bannerImage: resolvedImage,
         allowedCountries: countries,
         supportedCardSchemes: cardSchemes,
         shouldAutoScanCard: false,
+        metaData: { userId: 1234 }
       },
       consentText: {
         termsAndConditionsUrl: 'https://fidel.uk',
