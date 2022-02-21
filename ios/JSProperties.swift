@@ -10,7 +10,6 @@ import Foundation
 enum JSProperties: String {
     case sdkKey
     case programID = "programId"
-    case companyName
     case programType
     case options
     case consentText
@@ -26,6 +25,7 @@ enum JSProperties: String {
     enum ConsentText: String {
         case termsAndConditionsURL = "termsAndConditionsUrl"
         case privacyPolicyURL = "privacyPolicyUrl"
+        case companyName
         case programName
         case deleteInstructions
     }
