@@ -54,6 +54,43 @@ public class WritableMapDataConverterTests {
     }
 
     @Test
+    public void test_WhenExpectedNonNullStringFieldContainsNullValueInLinkResult_ReturnMapWithNullValueForIt() {
+        LinkResult linkResult = new LinkResult(TEST_CARD_ID);
+        setFieldsFor(linkResult);
+        linkResult.accountId = null;
+        WritableMap receivedMap = sut.getConvertedDataFor(linkResult);
+        assertNull(receivedMap.getString("accountId"));
+    }
+
+    @Test
+    public void test_WhenExpectedNonNullBooleanFieldContainsNullValueInLinkResult_ReturnMapWithFalseValueForIt() {
+        LinkResult linkResult = new LinkResult(TEST_CARD_ID);
+        setFieldsFor(linkResult);
+        linkResult.live = null;
+        WritableMap receivedMap = sut.getConvertedDataFor(linkResult);
+        assertFalse(receivedMap.getBoolean("live"));
+    }
+
+    @Test
+    public void test_WhenExpectedLinkResultWithNullMetaData_ReturnMapWithNullMetaData() {
+        LinkResult linkResult = new LinkResult(TEST_CARD_ID);
+        setFieldsFor(linkResult);
+        linkResult.metaData = null;
+        WritableMap receivedMap = sut.getConvertedDataFor(linkResult);
+        assertNull(receivedMap.getMap("metaData"));
+    }
+
+    @Test
+    public void test_WhenConvertingLinkResultWithError_AndErrorCodeIsUnknown_SetNullErrorCodeField() {
+        LinkResult linkResult = new LinkResult(null, TEST_ERROR_MESSAGE, "2021-05-19T12:37:55.278Z");
+        Object objectToConvert = linkResult.getError();
+
+        WritableMap receivedMap = sut.getConvertedDataFor(objectToConvert);
+        assertNotNull(receivedMap);
+        assertNull(receivedMap.getString("code"));
+    }
+
+    @Test
     public void test_WhenConvertingValidLinkResult_IncludeAllObjectFields() throws IllegalAccessException {
         LinkResult linkResult = new LinkResult(TEST_CARD_ID);
         setFieldsFor(linkResult);
@@ -98,7 +135,7 @@ public class WritableMapDataConverterTests {
                 assertEquals(receivedString, field.get(objectToConvert));
             }
             else if (field.getType() == LinkResultErrorCode.class) {
-                String displayFieldName = field.getName() == "errorCode" ? "code" : field.getName();
+                String displayFieldName = field.getName().equals("errorCode") ? "code" : field.getName();
                 String receivedErrorCodeString = receivedMap.getString(displayFieldName);
                 LinkResultErrorCode expectedErrorCode = (LinkResultErrorCode) field.get(objectToConvert);
                 String expectedErrorCodeString = expectedErrorCode.toString().toLowerCase();
