@@ -64,7 +64,7 @@ const App: () => Node = () => {
       if (error) {
         console.debug(error);
       } else {
-        console.info(result);
+        console.debug(result);
       }
     });
   }

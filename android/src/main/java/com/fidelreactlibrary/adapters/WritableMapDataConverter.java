@@ -1,7 +1,6 @@
 package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.WritableMap;
-import com.fidel.sdk.LinkResultError;
 import com.fidel.sdk.LinkResultErrorCode;
 import com.fidelreactlibrary.adapters.abstraction.DataConverter;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
@@ -14,7 +13,7 @@ import java.util.Iterator;
 
 public final class WritableMapDataConverter implements DataConverter<Object, WritableMap> {
 
-    private ObjectFactory<WritableMap> writableMapFactory;
+    private final ObjectFactory<WritableMap> writableMapFactory;
     public WritableMapDataConverter(ObjectFactory<WritableMap> writableMapFactory) {
         this.writableMapFactory = writableMapFactory;
     }
@@ -24,32 +23,44 @@ public final class WritableMapDataConverter implements DataConverter<Object, Wri
             return null;
         }
         WritableMap map = writableMapFactory.create();
-        try {
-            for (Field field: data.getClass().getDeclaredFields()) {
-                if (field.getType() == String.class) {
-                    map.putString(field.getName(), (String)field.get(data));
+
+        for (Field field: data.getClass().getDeclaredFields()) {
+            if (field.getType() == String.class) {
+                try {
+                    map.putString(field.getName(), (String) field.get(data));
+                } catch (Exception e) {
+                    map.putNull(field.getName());
                 }
-                else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
-                    map.putBoolean(field.getName(), (boolean)field.get(data));
+            } else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
+                try {
+                    map.putBoolean(field.getName(), field.getBoolean(data));
+                } catch (Exception e) {
+                    map.putBoolean(field.getName(), false);
                 }
-                else if (field.getType() == int.class) {
-                    map.putInt(field.getName(), (int)field.get(data));
+            } else if (field.getType() == int.class) {
+                try {
+                    map.putInt(field.getName(), field.getInt(data));
+                } catch (Exception e) {
+                    map.putInt(field.getName(), -1);
                 }
-                else if (field.getType() == LinkResultErrorCode.class) {
+            } else if (field.getType() == LinkResultErrorCode.class) {
+                String displayFieldName = field.getName().equals("errorCode") ? "code" : field.getName();
+                try {
                     LinkResultErrorCode errorCode = (LinkResultErrorCode)field.get(data);
-                    String displayFieldName = field.getName() == "errorCode" ? "code" : field.getName();
                     map.putString(displayFieldName, errorCode.toString().toLowerCase());
+                } catch (Exception e) {
+                    map.putNull(displayFieldName);
                 }
-                else if (field.getType() == JSONObject.class) {
+            } else if (field.getType() == JSONObject.class) {
+                try {
                     WritableMap mapToPut = this.getMapFor((JSONObject)field.get(data));
                     map.putMap(field.getName(), mapToPut);
+                } catch (Exception e) {
+                    map.putNull(field.getName());
                 }
             }
-            return map;
         }
-        catch (Exception e) {
-            return map;
-        }
+        return map;
     }
 
     private WritableMap getMapFor(JSONObject json) {
@@ -59,14 +70,14 @@ public final class WritableMapDataConverter implements DataConverter<Object, Wri
             String key = jsonKeyIterator.next();
             try {
                 Object value = json.get(key);
-                Class valueClass = value.getClass();
+                Class<?> valueClass = value.getClass();
                 if (valueClass == String.class) {
                     map.putString(key, (String)value);
                 }
-                else if (valueClass == boolean.class || valueClass == Boolean.class) {
+                else if (valueClass == Boolean.class) {
                     map.putBoolean(key, (boolean)value);
                 }
-                else if (valueClass == int.class || valueClass == Integer.class) {
+                else if (valueClass == Integer.class) {
                     map.putInt(key, (int)value);
                 }
                 else if (valueClass == JSONObject.class) {
