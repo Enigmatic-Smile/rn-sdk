@@ -1,5 +1,9 @@
 # Fidel React Native bridge library change log
 
+## 1.6.1
+- Always provide the `scheme` field in Android, after successful card enrollments.
+- Provide support for `resConfigs` optimization parameter in Android.
+
 ## 1.6.0
 - Added the `defaultSelectedCountry` property which sets the country that will be selected by default, when opening the card enrollment screen.
 

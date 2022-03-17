@@ -45,7 +45,8 @@
   },
   "homepage": "https://github.com/FidelLimited/rn-sdk#readme",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react": "*",
+    "react-native": "*"
   },
   "dependencies": {}
 }
