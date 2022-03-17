@@ -22,4 +22,5 @@ android/.idea
 android/.gradle
 android/local.properties
 android/*.iml
-      
+
+example/android/app/KeyStore/*
