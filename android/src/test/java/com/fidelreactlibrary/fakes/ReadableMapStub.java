@@ -57,6 +57,7 @@ public class ReadableMapStub implements ReadableMap {
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), new ReadableMapStub());
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName(), new JavaOnlyArray());
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY.jsName(), "japan");
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName(), new JavaOnlyArray());
         mapStub.boolToReturn = false;
         ReadableMapStub metaDataMap = new ReadableMapStub();

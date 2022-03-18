@@ -17,6 +17,7 @@ enum JSProperties: String {
     enum Options: String {
         case bannerImage
         case allowedCountries
+        case defaultSelectedCountry
         case supportedCardSchemes
         case shouldAutoScanCard
         case metaData

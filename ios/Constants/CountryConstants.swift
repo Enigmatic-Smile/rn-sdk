@@ -30,7 +30,7 @@ extension Country: ConstantsProvider {
         return Set<Country>(countryConstantKeys.compactMap { Country.country(from: $0) })
     }
     
-    private static func country(from countryConstantKey: String) -> Country? {
+    static func country(from countryConstantKey: String) -> Country? {
         switch countryConstantKey {
         case "canada": return .canada
         case "ireland": return .ireland

@@ -40,11 +40,9 @@ public class FidelSetupAdapterTests {
 
     private static final String TEST_SDK_KEY = "pk_123123123";
     private static final String TEST_PROGRAM_ID = "234234";
-    private static final String TEST_COMPANY_NAME = "some company name";
 
     private static final Set<Country> TEST_COUNTRIES = EnumSet.of(Country.UNITED_KINGDOM, Country.JAPAN, Country.CANADA);
     private static final Set<CardScheme> TEST_CARD_SCHEMES_SET = EnumSet.of(CardScheme.VISA, CardScheme.AMERICAN_EXPRESS);
-
 
     private final DataProcessorSpy<ReadableMap> imageAdapterSpy = new DataProcessorSpy<>();
     private final CountryAdapterStub countryAdapterStub = new CountryAdapterStub();
@@ -60,6 +58,7 @@ public class FidelSetupAdapterTests {
         Fidel.companyName = null;
         Fidel.bannerImage = null;
         Fidel.allowedCountries = EnumSet.allOf(Country.class);
+        Fidel.defaultSelectedCountry = Country.UNITED_KINGDOM;
         Fidel.supportedCardSchemes = EnumSet.allOf(CardScheme.class);
         Fidel.shouldAutoScanCard = false;
         Fidel.metaData = null;
@@ -79,6 +78,7 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.bannerImage);
         assertFalse(Fidel.shouldAutoScanCard);
         assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
+        assertEquals(Country.UNITED_KINGDOM, Fidel.defaultSelectedCountry);
         assertEquals(EnumSet.allOf(CardScheme.class), Fidel.supportedCardSchemes);
         assertNull(Fidel.metaData);
         assertNull(Fidel.privacyPolicyUrl);
@@ -247,6 +247,58 @@ public class FidelSetupAdapterTests {
 
         assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
         assertEquals(TEST_COUNTRIES, Fidel.allowedCountries);
+    }
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotSetDefaultSelectedCountryForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        Fidel.defaultSelectedCountry = Country.CANADA;
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertEquals(Country.CANADA, Fidel.defaultSelectedCountry);
+    }
+
+    @Test
+    public void test_WhenDataHasNoOptionsKey_DoNotTryToProcessCountryWithTheCountryAdapter() {
+        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupKeys.OPTIONS);
+        sut.process(map);
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertNull(countryAdapterStub.countryJSValueReceived);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveDefaultSelectedCountryKey_DoNotSetDefaultSelectedCountryForFidel() {
+        Fidel.defaultSelectedCountry = Country.JAPAN;
+        countryAdapterStub.countriesToReturn = EnumSet.allOf(Country.class);
+        sut.process(ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY));
+        assertEquals(Country.JAPAN, Fidel.defaultSelectedCountry);
+    }
+
+    @Test
+    public void test_IfDoesHaveDefaultSelectedCountryKey_ButNullValue_ShouldSetAdaptedCountriesForFidel() {
+        Fidel.defaultSelectedCountry = Country.UNITED_STATES;
+        countryAdapterStub.countryForJSValueToReturn = Country.IRELAND;
+        ReadableMapStub map = ReadableMapStub.withNullValueForOptionKey(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY);
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        sut.process(map);
+
+        assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY.jsName()));
+        assertEquals(Country.IRELAND, Fidel.defaultSelectedCountry);
+    }
+
+    @Test
+    public void test_WhenDefaultSelectedCountryIsSet_ConvertItWithCountryAdapterForTheSDK() {
+        countryAdapterStub.countryForJSValueToReturn = Country.SWEDEN;
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub)map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        sut.process(map);
+
+        assertTrue(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY.jsName()));
+        assertEquals(Country.SWEDEN, Fidel.defaultSelectedCountry);
     }
 
     @Test

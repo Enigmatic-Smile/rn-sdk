@@ -50,6 +50,11 @@ class FidelSetupAdapter: NSObject {
            let countryJSKeys = options[JSProperties.Options.allowedCountries.rawValue] as? [String] {
             Fidel.allowedCountries = Country.countriesSet(from: countryJSKeys)
         }
+        if options.keys.contains(JSProperties.Options.defaultSelectedCountry.rawValue),
+           let countryJSKey = options[JSProperties.Options.defaultSelectedCountry.rawValue] as? String,
+           let defaultSelectedCountry = Country.country(from: countryJSKey) {
+            Fidel.defaultSelectedCountry = defaultSelectedCountry
+        }
         if options.keys.contains(JSProperties.Options.supportedCardSchemes.rawValue),
            let supportedCardSchemeJSKeys = options[JSProperties.Options.supportedCardSchemes.rawValue] as? [String] {
             Fidel.supportedCardSchemes = CardScheme.cardSchemesSet(from: supportedCardSchemeJSKeys)

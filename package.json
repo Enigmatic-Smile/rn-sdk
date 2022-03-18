@@ -1,6 +1,6 @@
 {
   "name": "fidel-react-native",
-  "version": "2.0.0-beta2",
+  "version": "2.0.0-beta3",
   "description": "Fidel's React Native bridge library for iOS and Android.",
   "main": "index.js",
   "nativePackage": true,
@@ -42,7 +42,8 @@
   },
   "homepage": "https://github.com/FidelLimited/rn-sdk#readme",
   "peerDependencies": {
-    "react-native": "^0.41.2"
+    "react": "*",
+    "react-native": "*"
   },
   "dependencies": {}
 }

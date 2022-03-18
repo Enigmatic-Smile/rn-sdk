@@ -1,7 +1,5 @@
 package com.fidelreactlibrary.adapters;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
@@ -46,58 +44,82 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
             return null;
         }
         WritableMap map = writableMapFactory.create();
-        try {
-            for (Field field: data.getClass().getDeclaredFields()) {
-                if (field.getType() == String.class) {
-                    String fieldValue = null;
-                    try {
-                        fieldValue = (String)field.get(data);
-                    } catch (IllegalAccessException e) {
-                        String getterMethodName = String.format("get%s", field.getName());
-                        for (Method method: data.getClass().getDeclaredMethods()) {
-                            if (method.getName().toLowerCase().equals(getterMethodName) && method.getReturnType() == String.class) {
+        for (Field field: data.getClass().getDeclaredFields()) {
+            if (field.getType() == String.class) {
+                String fieldValue = null;
+                try {
+                    fieldValue = (String)field.get(data);
+                } catch (Throwable e) {
+                    String getterMethodName = String.format("get%s", field.getName());
+                    for (Method method: data.getClass().getDeclaredMethods()) {
+                        if (method.getName().toLowerCase().equals(getterMethodName) && method.getReturnType() == String.class) {
+                            try {
                                 fieldValue = (String)method.invoke(data);
-                                break;
-                            }
+                            } catch (Throwable ignored) {}
+                            break;
                         }
                     }
-                    if (fieldValue != null) {
-                        map.putString(field.getName(), fieldValue);
-                    }
-                } else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
-                    map.putBoolean(field.getName(), (boolean)field.get(data));
-                } else if (field.getType() == int.class) {
-                    map.putInt(field.getName(), (int)field.get(data));
-                } else if (field.getType() == long.class) {
-                    map.putDouble(field.getName(), (long)field.get(data));
-                } else if (field.getType() == JSONObject.class) {
-                    try {
-                        JSONObject jsonObject = (JSONObject)field.get(data);
-                        WritableMap mapToPut = this.getMapFor(jsonObject);
-                        map.putMap(field.getName(), mapToPut);
-                    } catch (NullPointerException e) {
-                        map.putNull(field.getName());
-                    }
-                } else if (field.getType() == Country.class) {
+                }
+                if (fieldValue != null) {
+                    map.putString(field.getName(), fieldValue);
+                } else {
+                    map.putNull(field.getName());
+                }
+            } else if (field.getType() == boolean.class || field.getType() == Boolean.class) {
+                try {
+                    map.putBoolean(field.getName(), field.getBoolean(data));
+                } catch (Throwable e) {
+                    map.putBoolean(field.getName(), false);
+                }
+            } else if (field.getType() == int.class) {
+                try {
+                    map.putInt(field.getName(), field.getInt(data));
+                } catch (Throwable e) {
+                    map.putInt(field.getName(), -1);
+                }
+            } else if (field.getType() == long.class) {
+                try {
+                    map.putDouble(field.getName(), field.getLong(data));
+                } catch (Throwable e) {
+                    map.putDouble(field.getName(), (long)-1);
+                }
+            } else if (field.getType() == JSONObject.class) {
+                try {
+                    JSONObject jsonObject = (JSONObject)field.get(data);
+                    WritableMap mapToPut = this.getMapFor(jsonObject);
+                    map.putMap(field.getName(), mapToPut);
+                } catch (Throwable e) {
+                    map.putNull(field.getName());
+                }
+            } else if (field.getType() == Country.class) {
+                try {
                     String countryValue = countryAdapter.jsCountryValue((Country)field.get(data));
                     map.putString(field.getName(), countryValue);
-                } else if (field.getType() == CardScheme.class) {
+                } catch (Throwable e) {
+                    map.putNull(field.getName());
+                }
+            } else if (field.getType() == CardScheme.class) {
+                try {
                     String cardSchemeValue = cardSchemesAdapter.jsValue((CardScheme)field.get(data));
                     map.putString(field.getName(), cardSchemeValue);
-                } else if (field.getType() == FidelErrorType.class) {
-                    FidelErrorType errorType = (FidelErrorType)field.get(data);
+                } catch (Throwable e) {
+                    map.putNull(field.getName());
+                }
+            } else if (field.getType() == FidelErrorType.class) {
+                try {
+                    FidelErrorType errorType = (FidelErrorType) field.get(data);
                     String jsErrorType = getJSErrorType(errorType);
                     map.putString(field.getName(), jsErrorType);
                     String jsErrorSubtype = getJSErrorSubtype(errorType);
                     if (jsErrorSubtype != null) {
                         map.putString("subtype", jsErrorSubtype);
                     }
+                } catch (Throwable e) {
+                    map.putString(field.getName(), "unknown");
                 }
             }
-            return map;
-        } catch (Exception e) {
-            return map;
         }
+        return map;
     }
 
     @NonNull
@@ -218,17 +240,14 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
             String key = jsonKeyIterator.next();
             try {
                 Object value = json.get(key);
-                Class valueClass = value.getClass();
+                Class<?> valueClass = value.getClass();
                 if (valueClass == String.class) {
                     map.putString(key, (String)value);
-                }
-                else if (valueClass == boolean.class || valueClass == Boolean.class) {
+                } else if (valueClass == Boolean.class) {
                     map.putBoolean(key, (boolean)value);
-                }
-                else if (valueClass == int.class || valueClass == Integer.class) {
+                } else if (valueClass == Integer.class) {
                     map.putInt(key, (int)value);
-                }
-                else if (valueClass == JSONObject.class) {
+                } else if (valueClass == JSONObject.class) {
                     WritableMap mapToPut = this.getMapFor((JSONObject)value);
                     map.putMap(key, mapToPut);
                 }

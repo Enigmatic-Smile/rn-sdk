@@ -41,7 +41,7 @@ public final class FidelCountryAdapter implements CountryAdapter {
         return NOT_FOUND_COUNTRY_KEY;
     }
 
-    private @Nullable Country countryWithJSValue(String jsValue) {
+    public @Nullable Country countryWithJSValue(String jsValue) {
         switch (jsValue) {
             case UNITED_KINGDOM_COUNTRY_KEY: return Country.UNITED_KINGDOM;
             case UNITED_STATES_COUNTRY_KEY: return Country.UNITED_STATES;

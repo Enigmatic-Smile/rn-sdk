@@ -12,6 +12,9 @@ public interface CountryAdapter extends ConstantsProvider {
     @NonNull
     Set<Country> parseAllowedCountries(@Nullable ReadableArray inputArray);
 
+    @Nullable
+    Country countryWithJSValue(String jsValue);
+
     @NonNull
     String jsCountryValue(@NonNull Country country);
 }

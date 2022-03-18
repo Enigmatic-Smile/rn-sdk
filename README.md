@@ -81,6 +81,7 @@ const countries = [Fidel.Country.ireland, Fidel.Country.unitedStates];
 Fidel.setOptions({
   bannerImage: resolvedImage,
   allowedCountries: countries,
+  defaultSelectedCountry: Fidel.Country.unitedStates,
   supportedCardSchemes: Array.from(cardSchemes),
   autoScan: false,
   metaData: {'meta-data-1': 'value1'}, // additional data to pass with the card
@@ -182,6 +183,18 @@ Fidel.setOptions({
 ```
 
 The possible options are: `.canada`, `.ireland`, `.japan`, `.sweden`, `.unitedArabEmirates`, `.unitedKingdom`, `.unitedStates`. You can set one or multiple of these countries. If you don't set any allowed countries, the user will be able to choose any of the countries above. If you set only one country, the card linking screen will not show the country picker UI. Note that, when you set multiple countries, they will be displayed in the country picker UI in the order that you set them.
+
+### defaultSelectedCountry
+
+Use this parameter to set the country that will be selected by default when opening the card enrollment screen.
+
+```javascript
+Fidel.setOptions({
+  defaultSelectedCountry: Fidel.Country.unitedKingdom
+});
+```
+
+The possible options are: `.canada`, `.ireland`, `.japan`, `.sweden`, `.unitedArabEmirates`, `.unitedKingdom`, `.unitedStates`. The `defaultSelectedCountry` has to be part of the `allowedCountries` list. The default value of this option is `.unitedKingdom`.
 
 ### supportedCardSchemes
 

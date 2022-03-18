@@ -12,6 +12,7 @@ public enum FidelSetupKeys {
     public enum Options {
         BANNER_IMAGE("bannerImage"),
         ALLOWED_COUNTRIES("allowedCountries"),
+        DEFAULT_SELECTED_COUNTRY("defaultSelectedCountry"),
         SUPPORTED_CARD_SCHEMES("supportedCardSchemes"),
         SHOULD_AUTO_SCAN("shouldAutoScanCard"),
         META_DATA("metaData");
