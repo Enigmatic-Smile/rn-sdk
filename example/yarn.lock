@@ -2802,8 +2802,8 @@ fb-watchman@^2.0.0:
     bser "2.1.1"
 
 "fidel-react-native@https://github.com/FidelLimited/rn-sdk#em":
-  version "2.0.0-beta1"
-  resolved "https://github.com/FidelLimited/rn-sdk#009f87c832a1fccb27faff16e67daa2006f844d1"
+  version "2.0.0-beta4"
+  resolved "https://github.com/FidelLimited/rn-sdk#249741e0c572b46f9f464a89502ca52a2d9d341e"
 
 file-entry-cache@^5.0.1:
   version "5.0.1"
