@@ -90,6 +90,9 @@ export default class App extends React.Component {
       case Fidel.ErrorType.sdkConfigurationError:
         console.log("Please configure the Fidel SDK correctly");
         break;
+      case Fidel.ErrorType.deviceNotSecure:
+        console.log("Your card details are considered sensitive information. Make sure you're providing them only using secure devices.");
+        break;
       case Fidel.ErrorType.enrollmentError:
         this.handleEnrollmentError(error);
         break;
