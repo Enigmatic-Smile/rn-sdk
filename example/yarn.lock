@@ -2801,10 +2801,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fidel-react-native@1.6.2:
-  version "1.6.2"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-1.6.2.tgz#18bbcea17d9058b51899b7de43c5cdfb563e6156"
-  integrity sha512-dhRLcvdQZ3yjUCy8MVpAQG9fouLQwAyodKnbCNI/qZFQNJPZzW4lCcj8rQhGkapr7oeLeLYCFgkFlVAPFo3MCg==
+fidel-react-native@1.6.3:
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-1.6.3.tgz#b9d18ff0656548c0a5ff2fe46d3172f53b3020c5"
+  integrity sha512-gttaqfsS9GmUzRsaK4aUuoN2wx1X0vQWGMZeSqu68Bx85QWG7NMaQtU+sq514buZy03l3xPRvXWmebHCkCLXCw==
 
 file-entry-cache@^5.0.1:
   version "5.0.1"
