@@ -21,7 +21,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
-        versionName "1.6.2"
+        versionName "1.6.3"
     }
     lintOptions {
         abortOnError false
