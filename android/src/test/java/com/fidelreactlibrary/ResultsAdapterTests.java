@@ -41,11 +41,6 @@ public class ResultsAdapterTests {
     }
 
     @Test
-    public void test_WhenAskedTo() {
-        assertNull(sut.getAdaptedObjectFor(null));
-    }
-
-    @Test
     public void test_WhenAskedToConvertDeviceNotSecureObject_ShouldReturnCorrectErrorTypeForJS() {
         FidelError fidelError = new FidelError(FidelErrorType.DeviceNotSecure.INSTANCE, "some message", 123);
         assertEquals("deviceNotSecure", sut.getAdaptedObjectFor(fidelError).getString("type"));
