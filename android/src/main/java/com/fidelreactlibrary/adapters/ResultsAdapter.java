@@ -126,6 +126,8 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
     private String getJSErrorType(FidelErrorType errorType) {
         if (errorType == FidelErrorType.UserCanceled.INSTANCE) {
             return "userCanceled";
+        } else if (errorType == FidelErrorType.DeviceNotSecure.INSTANCE) {
+            return "deviceNotSecure";
         } else if (errorType == FidelErrorType.SdkConfigurationError.INSTANCE) {
             return "sdkConfigurationError";
         } else if (errorType instanceof FidelErrorType.EnrollmentError) {
@@ -192,6 +194,7 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
         Map<String, Object> errorConstants = new HashMap<>();
         Map<String, String> errorTypeConstants = new HashMap<>();
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.UserCanceled.INSTANCE);
+        putErrorTypeConstant(errorTypeConstants, FidelErrorType.DeviceNotSecure.INSTANCE);
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.SdkConfigurationError.INSTANCE);
         putErrorTypeConstant(errorTypeConstants, new FidelErrorType.EnrollmentError(EnrollmentErrorType.CARD_ALREADY_EXISTS));
         putErrorTypeConstant(errorTypeConstants, new FidelErrorType.VerificationError(VerificationErrorType.CARD_ALREADY_VERIFIED));

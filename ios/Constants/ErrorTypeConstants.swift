@@ -19,6 +19,7 @@ extension FidelErrorType: ConstantsProvider {
         case .verificationError: return "verificationError"
         case .sdkConfigurationError: return "sdkConfigurationError"
         case .userCanceled: return "userCanceled"
+        case .deviceNotSecure: return "deviceNotSecure"
         @unknown default: return "unexpected"
         }
     }

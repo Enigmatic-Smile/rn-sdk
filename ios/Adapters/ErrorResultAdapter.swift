@@ -29,6 +29,7 @@ extension FidelErrorType {
         case .verificationError: return "verificationError"
         case .userCanceled: return "userCanceled"
         case .sdkConfigurationError: return "sdkConfigurationError"
+        case .deviceNotSecure: return "deviceNotSecure"
         @unknown default: return "unknown"
         }
     }
