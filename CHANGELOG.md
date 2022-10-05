@@ -1,5 +1,15 @@
 # Fidel React Native bridge library change log
 
+## 1.6.4
+- Updated the consent text for United States and Canadian issued cards.
+
+## 1.6.3
+- Replace "Fidel" with "Fidel API" in the consent text.
+- Allow expiration date editing on Android without switching to country selection.
+
+## 1.6.2
+- Update Fidel API logo
+
 ## 1.6.2
 - Update Fidel API logo
 
