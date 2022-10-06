@@ -16,7 +16,7 @@ extension FidelResult: ConstantsProvider {
         switch self {
         case .enrollmentResult: return "EnrollmentResult"
         case .error: return "Error"
-        case .verificationSuccessful: return "VerificationSuccessful"
+        case .verificationResult: return "VerificationResult"
         @unknown default: return "unexpected"
         }
     }
@@ -24,7 +24,7 @@ extension FidelResult: ConstantsProvider {
     static var constantsToExport: [String : [String : String]] {
         var casesConstants = [String: String]()
         casesConstants["EnrollmentResult"] = "EnrollmentResult"
-        casesConstants["VerificationSuccessful"] = "VerificationSuccessful"
+        casesConstants["VerificationResult"] = "VerificationResult"
         casesConstants["Error"] = "Error"
         return [Self.parentKeyName: casesConstants]
     }

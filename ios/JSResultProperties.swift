@@ -10,5 +10,6 @@ import Foundation
 enum JSResultProperties: String {
     case type
     case enrollmentResult
+    case verificationResult
     case error
 }

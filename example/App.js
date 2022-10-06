@@ -13,7 +13,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import Fidel, { ENROLLMENT_RESULT, ERROR, VERIFICATION_SUCCESSFUL } from 'fidel-react-native';
+import Fidel, { ENROLLMENT_RESULT, ERROR, VERIFICATION_RESULT } from 'fidel-react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -70,8 +70,8 @@ export default class App extends React.Component {
         case ERROR:
           this.handleError(result.error);
           break;
-        case VERIFICATION_SUCCESSFUL:
-          console.log("card verification was successful 🎉");
+        case VERIFICATION_RESULT:
+          console.log('card verification was successful 🎉: ' + result.verificationResult.cardId);
           break;
       }
     });
