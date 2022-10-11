@@ -10,5 +10,5 @@ import Foundation
 enum JSResultTypes: String {
     case enrollmentResult = "EnrollmentResult"
     case error = "Error"
-    case verificationSuccessful = "VerificationSuccessful"
+    case verificationResult = "VerificationResult"
 }

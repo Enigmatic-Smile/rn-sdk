@@ -27,8 +27,9 @@ class ResultsObserver {
         case .enrollmentResult(let enrollmentResult):
             resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.enrollmentResult.rawValue
             resultDictionary[JSResultProperties.enrollmentResult.rawValue] = enrollmentResult.dictionary
-        case .verificationSuccessful:
-            resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.verificationSuccessful.rawValue
+        case .verificationResult(let verificationResult):
+            resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.verificationResult.rawValue
+            resultDictionary[JSResultProperties.verificationResult.rawValue] = verificationResult.dictionary
         case .error(let fidelError):
             resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.error.rawValue
             resultDictionary[JSResultProperties.error.rawValue] = fidelError.dictionary
