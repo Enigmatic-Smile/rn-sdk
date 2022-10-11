@@ -28,4 +28,4 @@ export default class Fidel {
 
 export const ENROLLMENT_RESULT = NativeFidelBridge.ResultType.EnrollmentResult;
 export const ERROR = NativeFidelBridge.ResultType.Error;
-export const VERIFICATION_SUCCESSFUL = NativeFidelBridge.ResultType.VerificationSuccessful;
+export const VERIFICATION_RESULT = NativeFidelBridge.ResultType.VerificationResult;
