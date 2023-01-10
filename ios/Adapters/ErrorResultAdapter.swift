@@ -43,6 +43,13 @@ extension FidelErrorType {
             case .invalidSDKKey: return "invalidSdkKey"
             case .invalidProgramID: return "invalidProgramId"
             case .unexpected: return "unexpected"
+            case .unauthorized: return "unauthorized"
+            case .issuerProcessingError: return "issuerProcessingError"
+            case .duplicateTransactionError: return "duplicateTransactionError"
+            case .insufficientFundsError: return "insufficientFundsError"
+            case .processingChargeError: return "processingChargeError"
+            case .cardDetailsError: return "cardDetailsError"
+            case .cardLimitExceededError: return "cardLimitExceededError"
             @unknown default: return "unexpected"
             }
         case let .verificationError(verificationError):
@@ -52,7 +59,7 @@ extension FidelErrorType {
             case .verificationNotFound: return "verificationNotFound"
             case .genericError: return "genericError"
             case .maximumAttemptsReached: return "maximumAttemptsReached"
-            case .incorrectAmount: return "incorrectAmount"
+            case .incorrectAmount, .incorrectAmountCode: return "incorrectAmount"
             case .unauthorized: return "unauthorized"
             case .unexpected: return "unexpected"
             case .invalidSDKKey: return "invalidSdkKey"

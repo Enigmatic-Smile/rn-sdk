@@ -2801,9 +2801,9 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-"fidel-react-native@https://github.com/FidelLimited/rn-sdk#em":
-  version "2.0.0-beta6"
-  resolved "https://github.com/FidelLimited/rn-sdk#cf26d3601a7b5ea84d86ba185877c272f14c86b9"
+"fidel-react-native@https://github.com/FidelLimited/rn-sdk#IDK-180-Change-the-endpoints-for-card-verification-and-amount-verification":
+  version "2.0.0-beta8"
+  resolved "https://github.com/FidelLimited/rn-sdk#95eadda1c22596a12980ea1ccf235b8332bab310"
 
 file-entry-cache@^5.0.1:
   version "5.0.1"

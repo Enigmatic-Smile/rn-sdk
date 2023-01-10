@@ -45,5 +45,7 @@
     "react": "*",
     "react-native": "*"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@babel/runtime": "^7.20.7"
+  }
 }

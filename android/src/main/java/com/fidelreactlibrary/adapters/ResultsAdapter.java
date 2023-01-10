@@ -160,6 +160,22 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
                 return "invalidSdkKey";
             case INEXISTENT_PROGRAM:
                 return "inexistentProgram";
+            case CARD_CONSENT_ISSUER_PROCESSING_CHARGE_ERROR:
+                return "cardConsentIssuerProcessingChargeError";
+            case CARD_CONSENT_DUPLICATE_TRANSACTION_ERROR:
+                return "cardConsentDuplicateTransactionError";
+            case CARD_CONSENT_INSUFFICIENT_FUNDS_ERROR:
+                return "cardConsentInsufficientFundsError";
+            case CARD_CONSENT_PROCESSING_CHARGE_ERROR:
+                return "cardConsentProcessingChargeError";
+            case CARD_CONSENT_INCORRECT_CARD_DETAILS_ERROR:
+                return "cardConsentIncorrectCardDetailsError";
+            case CARD_CONSENT_CARD_LIMIT_EXCEEDED:
+                return "cardConsentCardLimitExceeded";
+            case CARD_CONSENT_ERROR_GENERIC:
+                return "cardConsentErrorGeneric";
+            case UNAUTHORIZED:
+                return "unauthorized";
             case UNEXPECTED:
                 return "unexpected";
         }
@@ -205,6 +221,14 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.INEXISTENT_PROGRAM);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.INVALID_PROGRAM_ID);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.INVALID_SDK_KEY);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_ISSUER_PROCESSING_CHARGE_ERROR);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_DUPLICATE_TRANSACTION_ERROR);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_INSUFFICIENT_FUNDS_ERROR);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_PROCESSING_CHARGE_ERROR);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_INCORRECT_CARD_DETAILS_ERROR);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_CARD_LIMIT_EXCEEDED);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_ERROR_GENERIC);
+        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.UNAUTHORIZED);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.UNEXPECTED);
         errorConstants.put("EnrollmentErrorType", enrollmentErrorTypeConstants);
 

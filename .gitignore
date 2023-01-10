@@ -5,6 +5,7 @@
 
 # node.js
 #
+node_modules/
 example/node_modules/
 example/npm-debug.log
 example/yarn-error.log
