@@ -53,8 +53,8 @@ declare module "fidel-react-native" {
   type EnrollmentErrorSubType = {
     cardAlreadyExists: "cardAlreadyExists";
     inexistentProgram: "inexistentProgram";
-    invalidSDKKey: "invalidSDKKey";
-    invalidProgramID: "invalidProgramID";
+    invalidSdkKey: "invalidSdkKey";
+    invalidProgramId: "invalidProgramId";
     unexpected: "unexpected";
     unauthorized: "unauthorized";
     issuerProcessingError: "issuerProcessingError";
