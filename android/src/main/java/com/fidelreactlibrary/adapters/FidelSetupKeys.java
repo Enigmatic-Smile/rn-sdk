@@ -15,6 +15,7 @@ public enum FidelSetupKeys {
         DEFAULT_SELECTED_COUNTRY("defaultSelectedCountry"),
         SUPPORTED_CARD_SCHEMES("supportedCardSchemes"),
         SHOULD_AUTO_SCAN("shouldAutoScanCard"),
+        ENABLE_CARD_SCANNER("enableCardScanner"),
         META_DATA("metaData");
 
         private final @NonNull String jsName;

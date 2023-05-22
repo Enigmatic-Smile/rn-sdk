@@ -21,7 +21,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 32
         versionCode 1
-        versionName "2.0.0-beta9"
+        versionName "2.0.0-beta10"
     }
     lintOptions {
         abortOnError false
@@ -40,7 +40,7 @@ repositories {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.github.FidelLimited:android-sdk:2.0.0-beta12'
+    implementation 'com.github.FidelLimited:android-sdk:2.0.0-beta15'
 
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'androidx.test.ext:junit:1.1.3'

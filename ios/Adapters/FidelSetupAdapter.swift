@@ -41,7 +41,7 @@ class FidelSetupAdapter: NSObject {
         }
     }
     
-    func setOptions(_ options: [String: Any?]) {
+    func setOptions(_ options: [String: Any?]) {     
         if options.keys.contains(JSProperties.Options.bannerImage.rawValue),
            let rawImageObject = options[JSProperties.Options.bannerImage.rawValue] as? NSObject {
             Fidel.bannerImage = imageAdapter.image(fromRawData: rawImageObject)
@@ -61,6 +61,9 @@ class FidelSetupAdapter: NSObject {
         }
         if options.keys.contains(JSProperties.Options.shouldAutoScanCard.rawValue) {
             Fidel.shouldAutoScanCard = options[JSProperties.Options.shouldAutoScanCard.rawValue] as? Bool ?? false
+        }
+        if options.keys.contains(JSProperties.Options.enableCardScanner.rawValue) {
+            Fidel.enableCardScanner = options[JSProperties.Options.enableCardScanner.rawValue] as? Bool ?? false
         }
         if options.keys.contains(JSProperties.Options.metaData.rawValue) {
             Fidel.metaData = options[JSProperties.Options.metaData.rawValue] as? [String: Any]

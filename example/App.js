@@ -22,6 +22,7 @@ export default class App extends React.Component {
       isShown: true,
     };
     this.configureFidel();
+
   }
 
   configureFidel() {
@@ -43,38 +44,45 @@ export default class App extends React.Component {
       Fidel.Country.canada,
     ];
 
-    Fidel.setup ({
-      sdkKey: 'Your SDK Key',
-      programId: 'Your program ID',
-      programType: Fidel.ProgramType.transactionStream,
-      options: {
-        bannerImage: resolvedImage,
-        allowedCountries: countries,
-        defaultSelectedCountry: Fidel.Country.unitedStates,
-        supportedCardSchemes: cardSchemes,
-        shouldAutoScanCard: false,
-        metaData: { userId: 1234 }
+    Fidel.setup(
+      {
+        sdkKey: 'pk_test_6bee5ea2-28f7-42c5-a043-40b325214dd0',
+        programId: '52669e48-a05e-4deb-963e-85c46e622130',
+        programType: Fidel.ProgramType.transactionStream,
+        options: {
+          bannerImage: resolvedImage,
+          allowedCountries: countries,
+          defaultSelectedCountry: Fidel.Country.unitedStates,
+          supportedCardSchemes: cardSchemes,
+          shouldAutoScanCard: false,
+          metaData: {userId: 1234},
+          enableCardScanner: true,
+        },
+        consentText: {
+          companyName: 'Your Company Name',
+          termsAndConditionsUrl: 'https://fidel.uk',
+          privacyPolicyUrl: 'https://fidel.uk',
+          programName: 'Your program name',
+          deleteInstructions: 'following our delete instructions',
+        },
       },
-      consentText: {
-        companyName: 'Your Company Name',
-        termsAndConditionsUrl: 'https://fidel.uk',
-        privacyPolicyUrl: 'https://fidel.uk',
-        programName: 'Your program name',
-        deleteInstructions: "following our delete instructions",
+      result => {
+        switch (result.type) {
+          case ENROLLMENT_RESULT:
+            console.log('card was enrolled: ' + result.enrollmentResult.cardId);
+            break;
+          case ERROR:
+            this.handleError(result.error);
+            break;
+          case VERIFICATION_RESULT:
+            console.log(
+              'card verification was successful 🎉: ' +
+                result.verificationResult.cardId,
+            );
+            break;
+        }
       },
-    }, (result) => {
-      switch (result.type) {
-        case ENROLLMENT_RESULT:
-          console.log("card was enrolled: " + result.enrollmentResult.cardId);
-          break;
-        case ERROR:
-          this.handleError(result.error);
-          break;
-        case VERIFICATION_RESULT:
-          console.log('card verification was successful 🎉: ' + result.verificationResult.cardId);
-          break;
-      }
-    });
+    );
   }
 
   onButtonPress = () => {
@@ -174,6 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   welcome: {
+    color: '#333333',
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
