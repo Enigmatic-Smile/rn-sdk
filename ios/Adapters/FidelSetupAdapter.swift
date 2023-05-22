@@ -41,7 +41,7 @@ class FidelSetupAdapter: NSObject {
         }
     }
     
-    func setOptions(_ options: [String: Any?]) {     
+    func setOptions(_ options: [String: Any?]) {
         if options.keys.contains(JSProperties.Options.bannerImage.rawValue),
            let rawImageObject = options[JSProperties.Options.bannerImage.rawValue] as? NSObject {
             Fidel.bannerImage = imageAdapter.image(fromRawData: rawImageObject)
