@@ -65,6 +65,9 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             if (optionsMap.hasKey(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName())) {
                 Fidel.shouldAutoScanCard = optionsMap.getBoolean(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName());
             }
+            if (optionsMap.hasKey(FidelSetupKeys.Options.ENABLE_CARD_SCANNER.jsName())) {
+                Fidel.enableCardScanner = optionsMap.getBoolean(FidelSetupKeys.Options.ENABLE_CARD_SCANNER.jsName());
+            }
             if (optionsMap.hasKey(FidelSetupKeys.Options.META_DATA.jsName())) {
                 ReadableMap metaDataMap = optionsMap.getMap(FidelSetupKeys.Options.META_DATA.jsName());
                 if (metaDataMap != null) {

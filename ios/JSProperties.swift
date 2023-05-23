@@ -20,6 +20,7 @@ enum JSProperties: String {
         case defaultSelectedCountry
         case supportedCardSchemes
         case shouldAutoScanCard
+        case enableCardScanner
         case metaData
     }
     

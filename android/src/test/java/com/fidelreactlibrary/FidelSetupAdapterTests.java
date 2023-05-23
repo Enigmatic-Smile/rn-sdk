@@ -67,6 +67,7 @@ public class FidelSetupAdapterTests {
         Fidel.programName = null;
         Fidel.deleteInstructions = null;
         Fidel.programType = ProgramType.TRANSACTION_SELECT;
+        Fidel.enableCardScanner = false;
     }
 
     @Test
@@ -86,6 +87,7 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.programName);
         assertNull(Fidel.deleteInstructions);
         assertEquals(ProgramType.TRANSACTION_SELECT, Fidel.programType);
+        assertFalse(Fidel.enableCardScanner);
     }
 
     @Test
@@ -788,6 +790,45 @@ public class FidelSetupAdapterTests {
         assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.PROGRAM_TYPE.jsName()));
         assertEquals(testProgramTypeValue, programTypeAdapterStub.receivedProgramTypeString);
         assertEquals(ProgramType.TRANSACTION_STREAM, Fidel.programType);
+    }
+
+    @Test
+    public void test_IfDoesNotHaveEnableCardScannerKey_DoNotSetThisPropertyForFidel() {
+        ReadableMapStub map = ReadableMapStub.withoutOptionsKey(FidelSetupKeys.Options.ENABLE_CARD_SCANNER);
+        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+
+        Fidel.enableCardScanner = true;
+        sut.process(map);
+
+        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupKeys.OPTIONS.jsName()));
+        assertTrue(optionsMap.keyNamesCheckedFor.contains(FidelSetupKeys.Options.ENABLE_CARD_SCANNER.jsName()));
+        assertFalse(optionsMap.keyNamesAskedValueFor.contains(FidelSetupKeys.Options.ENABLE_CARD_SCANNER.jsName()));
+        assertTrue(Fidel.enableCardScanner);
+    }
+
+    @Test
+    public void test_WhenEnableCardScannerPropertyIsFalse_ShouldBeSetToFalseForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        optionsMap.boolToReturn = false;
+
+        sut.process(map);
+
+        assertFalse(Fidel.enableCardScanner);
+    }
+
+    @Test
+    public void test_WhenEnableCardScannerPropertyIsTrue_ShouldBeSetToTrueForTheSDK() {
+        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
+        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn.get(FidelSetupKeys.OPTIONS.jsName());
+        assertNotNull(optionsMap);
+        optionsMap.boolToReturn = true;
+
+        sut.process(map);
+
+        assertTrue(Fidel.shouldAutoScanCard);
     }
 
 
