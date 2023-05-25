@@ -65,6 +65,9 @@ class FidelSetupAdapter: NSObject {
         if options.keys.contains(JSProperties.Options.enableCardScanner.rawValue) {
             Fidel.enableCardScanner = options[JSProperties.Options.enableCardScanner.rawValue] as? Bool ?? false
         }
+        if options.keys.contains(JSProperties.Options.thirdPartyVerificationChoice.rawValue) {
+            Fidel.thirdPartyVerificationChoice = options[JSProperties.Options.thirdPartyVerificationChoice.rawValue] as? Bool ?? false
+        }
         if options.keys.contains(JSProperties.Options.metaData.rawValue) {
             Fidel.metaData = options[JSProperties.Options.metaData.rawValue] as? [String: Any]
         }

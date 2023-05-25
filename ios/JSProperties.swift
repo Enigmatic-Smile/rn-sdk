@@ -21,6 +21,7 @@ enum JSProperties: String {
         case supportedCardSchemes
         case shouldAutoScanCard
         case enableCardScanner
+        case thirdPartyVerificationChoice
         case metaData
     }
     
