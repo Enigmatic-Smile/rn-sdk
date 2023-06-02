@@ -19,6 +19,7 @@ extension Country: ConstantsProvider {
         case .unitedArabEmirates: return "unitedArabEmirates"
         case .unitedKingdom: return "unitedKingdom"
         case .unitedStates: return "unitedStates"
+        case .norway: return "norway"
         @unknown default: return "unexpected"
         }
     }
@@ -39,6 +40,7 @@ extension Country: ConstantsProvider {
         case "unitedArabEmirates": return .unitedArabEmirates
         case "unitedKingdom": return .unitedKingdom
         case "unitedStates": return .unitedStates
+        case "norway": return .norway
         default: return nil
         }
     }
