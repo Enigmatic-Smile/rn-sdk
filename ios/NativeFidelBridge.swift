@@ -35,6 +35,31 @@ class NativeFidelBridge: RCTEventEmitter {
         flowStarter.start(from: startViewController)
     }
     
+    @objc(verifyCard:)
+    func verifyCard(with parameters: NSDictionary) {
+        guard let startViewController = UIApplication.shared.delegate?.window??.rootViewController else {
+            return
+        }
+        
+        var id = ""
+        var consentID = ""
+        var last4Digits = ""
+        guard let cardConfig = parameters[JSProperties.cardConfig.rawValue] as? [String: Any?]
+        else {
+            return
+        }
+        if cardConfig.keys.contains(JSProperties.CardConfig.id.rawValue) {
+            id = cardConfig[JSProperties.CardConfig.id.rawValue] as? String ?? ""
+        }
+        if cardConfig.keys.contains(JSProperties.CardConfig.consentID.rawValue) {
+            consentID = cardConfig[JSProperties.CardConfig.consentID.rawValue] as? String ?? ""
+        }
+        if cardConfig.keys.contains(JSProperties.CardConfig.last4Digits.rawValue) {
+            last4Digits = cardConfig[JSProperties.CardConfig.last4Digits.rawValue] as? String ?? ""
+        }
+        flowStarter.verifyCard(from: startViewController, id: id, consentID: consentID, last4Digits: last4Digits)
+    }
+
     override func supportedEvents() -> [String]! {
         return ["ResultAvailable"]
     }

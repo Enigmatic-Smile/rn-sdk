@@ -10,9 +10,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.CardVerificationConfiguration;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.adapters.FidelSetupKeys;
 
 import java.util.HashMap;
 import java.util.List;
@@ -68,6 +70,30 @@ public class FidelModule extends ReactContextBaseJavaModule {
     final Activity activity = getCurrentActivity();
     if (activity != null) {
       Fidel.onMainActivityCreate(activity);
+    }
+  }
+
+  @ReactMethod
+  public void verifyCard(ReadableMap data) {
+    final Activity activity = getCurrentActivity();
+    if (activity != null) {
+      String id = "";
+      String consentId = "";
+      String last4Digits = "";
+      ReadableMap optionsMap = data.getMap(FidelSetupKeys.CARD_CONFIG.jsName());
+      if (optionsMap != null) {
+        if (optionsMap.hasKey(FidelSetupKeys.CardConfig.ID.jsName())) {
+          id = optionsMap.getString(FidelSetupKeys.CardConfig.ID.jsName());
+        }
+        if (optionsMap.hasKey(FidelSetupKeys.CardConfig.CONSENT_ID.jsName())) {
+          consentId = optionsMap.getString(FidelSetupKeys.CardConfig.CONSENT_ID.jsName());
+        }
+        if (optionsMap.hasKey(FidelSetupKeys.CardConfig.LAST_4_DIGITS.jsName())) {
+          last4Digits = optionsMap.getString(FidelSetupKeys.CardConfig.LAST_4_DIGITS.jsName());
+        }
+      }
+      CardVerificationConfiguration cardConfig = new CardVerificationConfiguration(id, consentId, last4Digits);
+      Fidel.verifyCard(activity, cardConfig);
     }
   }
 

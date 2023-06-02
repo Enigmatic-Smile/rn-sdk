@@ -6,4 +6,6 @@ RCT_EXTERN_METHOD(setup:(NSDictionary *)setupInfo)
 
 RCT_EXTERN_METHOD(start)
 
+RCT_EXTERN_METHOD(verifyCard:(NSDictionary *)setupInfo)
+
 @end

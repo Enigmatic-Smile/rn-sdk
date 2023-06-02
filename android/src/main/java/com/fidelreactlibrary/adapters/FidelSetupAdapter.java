@@ -74,7 +74,6 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             if (optionsMap.hasKey(FidelSetupKeys.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName())) {
                 Fidel.thirdPartyVerificationChoice = optionsMap
                         .getBoolean(FidelSetupKeys.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName());
-                print("setting verification choice to: " + Fidel.thirdPartyVerificationChoice);
             }
             if (optionsMap.hasKey(FidelSetupKeys.Options.META_DATA.jsName())) {
                 ReadableMap metaDataMap = optionsMap.getMap(FidelSetupKeys.Options.META_DATA.jsName());

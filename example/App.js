@@ -88,6 +88,16 @@ export default class App extends React.Component {
     Fidel.start();
   };
 
+  onVerifyButtonPress = () => {
+    Fidel.verifyCard({
+      cardConfig: {
+        id: 'rty',
+        consentID: 'abc',
+        last4Digits: '1234',
+      },
+    });
+  };
+
   handleError = error => {
     console.log('Error message: ' + error.message);
     switch (error.type) {
@@ -169,6 +179,11 @@ export default class App extends React.Component {
         <Text style={styles.instructions}>
           To get started, tap the button below.
         </Text>
+        <Button
+          onPress={this.onVerifyButtonPress}
+          title="Verify"
+          color="#3846ce"
+        />
         <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
       </View>
     );

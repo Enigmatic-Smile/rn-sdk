@@ -7,7 +7,8 @@ public enum FidelSetupKeys {
     PROGRAM_ID("programId"),
     PROGRAM_TYPE("programType"),
     OPTIONS("options"),
-    CONSENT_TEXT("consentText");
+    CONSENT_TEXT("consentText"),
+    CARD_CONFIG("cardConfig");
 
     public enum Options {
         BANNER_IMAGE("bannerImage"),
@@ -46,6 +47,25 @@ public enum FidelSetupKeys {
          * @param jsName The name of the key that will be available in JavaScript
          */
         ConsentText(final @NonNull String jsName) {
+            this.jsName = jsName;
+        }
+
+        public String jsName() {
+            return jsName;
+        }
+    }
+
+    public enum CardConfig {
+        ID("id"),
+        CONSENT_ID("consentID"),
+        LAST_4_DIGITS("last4Digits");
+
+        private final @NonNull String jsName;
+
+        /**
+         * @param jsName The name of the key that will be available in JavaScript
+         */
+        CardConfig(final @NonNull String jsName) {
             this.jsName = jsName;
         }
 
