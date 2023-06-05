@@ -72,6 +72,11 @@ public class FidelCountryAdapterTests {
     }
 
     @Test
+    public void test_WhenAskedForNorwayCountryValue_ItProvidesTheCorrectOne() {
+        assertEquals("norway", sut.jsCountryValue(Country.NORWAY));
+    }
+
+    @Test
     public void test_WhenAskedForUnitedArabEmiratesCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("unitedArabEmirates", sut.jsCountryValue(Country.UNITED_ARAB_EMIRATES));
     }
@@ -112,11 +117,12 @@ public class FidelCountryAdapterTests {
                 sut.jsCountryValue(Country.SWEDEN),
                 sut.jsCountryValue(Country.UNITED_STATES),
                 sut.jsCountryValue(Country.IRELAND),
-                sut.jsCountryValue(Country.JAPAN)
+                sut.jsCountryValue(Country.JAPAN),
+                sut.jsCountryValue(Country.NORWAY)
         );
 
         Set<Country> expectedCountries = EnumSet.of(Country.CANADA, Country.UNITED_ARAB_EMIRATES, Country.UNITED_KINGDOM,
-                Country.SWEDEN, Country.UNITED_STATES, Country.IRELAND, Country.JAPAN);
+                Country.SWEDEN, Country.UNITED_STATES, Country.IRELAND, Country.JAPAN, Country.NORWAY);
         Set<Country> adaptedCountries = sut.parseAllowedCountries(countriesArrayValues);
 
         assertEquals(countriesArrayValues.size(), adaptedCountries.size());
