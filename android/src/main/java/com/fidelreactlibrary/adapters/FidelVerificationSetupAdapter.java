@@ -3,6 +3,7 @@ package com.fidelreactlibrary.adapters;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.CardVerificationConfiguration;
 import com.fidelreactlibrary.adapters.abstraction.VerificationSetupAdapter;
+import com.facebook.react.bridge.ReadableMap;
 
 public class FidelVerificationSetupAdapter implements VerificationSetupAdapter {
     @Override
