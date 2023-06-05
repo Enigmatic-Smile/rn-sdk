@@ -15,6 +15,7 @@ import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
+import com.fidelreactlibrary.adapters.abstraction.VerificationSetupAdapter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,17 +28,20 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final DataProcessor<ReadableMap> setupProcessor;
   private final List<ConstantsProvider> constantsProviderList;
   private final OnResultObserver onResultObserver;
+  private final VerificationSetupAdapter verificationSetupAdapter;
   private final ReactApplicationContext reactContext;
 
   public FidelModule(ReactApplicationContext reactContext,
                      DataProcessor<ReadableMap> setupProcessor,
                      OnResultObserver onResultObserver,
-                     List<ConstantsProvider> constantsProviderList) {
+                     List<ConstantsProvider> constantsProviderList,
+                     VerificationSetupAdapter verificationSetupAdapter) {
     super(reactContext);
     this.reactContext = reactContext;
     this.setupProcessor = setupProcessor;
     this.constantsProviderList = constantsProviderList;
     this.onResultObserver = onResultObserver;
+    this.verificationSetupAdapter = verificationSetupAdapter;
   }
 
   @NonNull
@@ -77,22 +81,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
   public void verifyCard(ReadableMap data) {
     final Activity activity = getCurrentActivity();
     if (activity != null) {
-      String id = "";
-      String consentId = "";
-      String last4Digits = "";
-      ReadableMap optionsMap = data.getMap(FidelSetupKeys.CARD_CONFIG.jsName());
-      if (optionsMap != null) {
-        if (optionsMap.hasKey(FidelSetupKeys.CardConfig.ID.jsName())) {
-          id = optionsMap.getString(FidelSetupKeys.CardConfig.ID.jsName());
-        }
-        if (optionsMap.hasKey(FidelSetupKeys.CardConfig.CONSENT_ID.jsName())) {
-          consentId = optionsMap.getString(FidelSetupKeys.CardConfig.CONSENT_ID.jsName());
-        }
-        if (optionsMap.hasKey(FidelSetupKeys.CardConfig.LAST_4_DIGITS.jsName())) {
-          last4Digits = optionsMap.getString(FidelSetupKeys.CardConfig.LAST_4_DIGITS.jsName());
-        }
-      }
-      CardVerificationConfiguration cardConfig = new CardVerificationConfiguration(id, consentId, last4Digits);
+      CardVerificationConfiguration cardConfig = verificationSetupAdapter.map(data);
       Fidel.verifyCard(activity, cardConfig);
     }
   }

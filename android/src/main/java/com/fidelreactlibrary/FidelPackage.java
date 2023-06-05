@@ -23,6 +23,7 @@ import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.adapters.FidelVerificationSetupAdapter;
 import com.fidelreactlibrary.events.ResultsObserver;
 import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
 
@@ -52,7 +53,7 @@ public class FidelPackage implements ReactPackage {
         constantsProviderList.add(resultsAdapter);
         constantsProviderList.add(resultsObserver);
 
-        FidelModule fidelModule = new FidelModule(reactContext, setupAdapter, resultsObserver, constantsProviderList);
+        FidelModule fidelModule = new FidelModule(reactContext, setupAdapter, resultsObserver, constantsProviderList, new FidelVerificationSetupAdapter());
         return Collections.singletonList(fidelModule);
     }
 

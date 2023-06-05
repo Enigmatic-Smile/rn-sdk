@@ -6,6 +6,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
+import com.fidelreactlibrary.adapters.FidelVerificationSetupAdapter;
 import com.fidelreactlibrary.fakes.ConstantsProviderStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReactContextMock;
@@ -40,7 +41,7 @@ public class FidelModuleTests {
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
                 testOnResultObserver,
-                constantsProviderListStub);
+                constantsProviderListStub, new FidelVerificationSetupAdapter());
     }
     
     @After

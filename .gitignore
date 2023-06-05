@@ -22,6 +22,9 @@ android/.idea
 android/.gradle
 android/local.properties
 android/*.iml
+android/gradle
+android/gradlew
+android/gradlew.bat
 
 example/android/app/KeyStore/*
 
