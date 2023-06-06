@@ -9,6 +9,7 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
+import com.fidelreactlibrary.adapters.CardVerificationConfigurationKeys;
 import com.fidelreactlibrary.adapters.FidelSetupKeys;
 
 import java.util.ArrayList;
@@ -31,7 +32,8 @@ public class ReadableMapStub implements ReadableMap {
     private final List<String> hasKeyStrings = new ArrayList<>();
     private final List<String> isNullStrings = new ArrayList<>();
 
-    public ReadableMapStub() {}
+    public ReadableMapStub() {
+    }
 
     public static ReadableMapStub mapWithNoKey() {
         return new ReadableMapStub();
@@ -53,7 +55,8 @@ public class ReadableMapStub implements ReadableMap {
 
     private static ReadableMapStub optionsMapWithAllValidSetupKeys() {
         ReadableMapStub mapStub = new ReadableMapStub();
-        String[] keyJsNames = Arrays.stream(FidelSetupKeys.Options.values()).map(FidelSetupKeys.Options::jsName).toArray(String[]::new);
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.Options.values()).map(FidelSetupKeys.Options::jsName)
+                .toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
         mapStub.mapsForKeysToReturn.put(FidelSetupKeys.Options.BANNER_IMAGE.jsName(), new ReadableMapStub());
         mapStub.readableArraysToReturn.put(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName(), new JavaOnlyArray());
@@ -68,11 +71,14 @@ public class ReadableMapStub implements ReadableMap {
 
     private static ReadableMapStub consentTextMapWithAllValidSetupKeys() {
         ReadableMapStub mapStub = new ReadableMapStub();
-        String[] keyJsNames = Arrays.stream(FidelSetupKeys.ConsentText.values()).map(FidelSetupKeys.ConsentText::jsName).toArray(String[]::new);
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.ConsentText.values()).map(FidelSetupKeys.ConsentText::jsName)
+                .toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName(), "some test company name");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName(), "some test terms and conditions url");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName(), "some test privacy policy url");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName(),
+                "some test terms and conditions url");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName(),
+                "some test privacy policy url");
         mapStub.stringForKeyToReturn.put(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName(), "some test program name");
         return mapStub;
     }
@@ -94,7 +100,7 @@ public class ReadableMapStub implements ReadableMap {
 
     public static ReadableMapStub withoutOptionsKey(FidelSetupKeys.Options optionsKey) {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
+        ReadableMapStub optionsMapStub = (ReadableMapStub) mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
         assert optionsMapStub != null;
         optionsMapStub.hasKeyStrings.remove(optionsKey.jsName());
         optionsMapStub.stringForKeyToReturn.remove(optionsKey.jsName());
@@ -105,7 +111,7 @@ public class ReadableMapStub implements ReadableMap {
 
     public static ReadableMapStub withoutConsentTextKey(FidelSetupKeys.ConsentText consentTextKey) {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub consentTextMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
+        ReadableMapStub consentTextMapStub = (ReadableMapStub) mapStub.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
         assert consentTextMapStub != null;
         consentTextMapStub.hasKeyStrings.remove(consentTextKey.jsName());
         consentTextMapStub.stringForKeyToReturn.remove(consentTextKey.jsName());
@@ -125,7 +131,7 @@ public class ReadableMapStub implements ReadableMap {
 
     public static ReadableMapStub withNullValueForOptionKey(FidelSetupKeys.Options optionKey) {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
+        ReadableMapStub optionsMapStub = (ReadableMapStub) mapStub.getMap(FidelSetupKeys.OPTIONS.jsName());
         assert optionsMapStub != null;
         optionsMapStub.isNullStrings.add(optionKey.jsName());
         optionsMapStub.stringForKeyToReturn.remove(optionKey.jsName());
@@ -136,7 +142,7 @@ public class ReadableMapStub implements ReadableMap {
 
     public static ReadableMapStub withNullValueForConsentTextKey(FidelSetupKeys.ConsentText consentTextKey) {
         ReadableMapStub mapStub = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub consentTextMapStub = (ReadableMapStub)mapStub.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
+        ReadableMapStub consentTextMapStub = (ReadableMapStub) mapStub.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
         assert consentTextMapStub != null;
         consentTextMapStub.isNullStrings.add(consentTextKey.jsName());
         consentTextMapStub.stringForKeyToReturn.remove(consentTextKey.jsName());
@@ -145,22 +151,25 @@ public class ReadableMapStub implements ReadableMap {
         return mapStub;
     }
 
-    public static ReadableMapStub mapWithVerificationSetup() {
+    public static ReadableMapStub cardConfigWithAllValidConfigKeys() {
         ReadableMapStub mapStub = new ReadableMapStub();
-        String[] keyJsNames = Arrays.stream(FidelSetupKeys.values()).map(FidelSetupKeys::jsName).toArray(String[]::new);
+        String[] keyJsNames = Arrays.stream(CardVerificationConfigurationKeys.values())
+                .map(CardVerificationConfigurationKeys::jsName).toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
-
-        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.CARD_CONFIG.jsName(), cardConfigWithAllValidSetupKeys());
+        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationKeys.ID.jsName(), "123");
+        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationKeys.CONSENT_ID.jsName(), "456");
+        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationKeys.LAST_4_DIGITS.jsName(), "4567");
         return mapStub;
     }
 
-    private static ReadableMapStub cardConfigWithAllValidSetupKeys() {
+    public static ReadableMapStub cardConfigWithAllInValidConfigKeys() {
         ReadableMapStub mapStub = new ReadableMapStub();
-        String[] keyJsNames = Arrays.stream(FidelSetupKeys.CardConfig.values()).map(FidelSetupKeys.CardConfig::jsName).toArray(String[]::new);
+        String[] keyJsNames = Arrays.stream(CardVerificationConfigurationKeys.values())
+                .map(CardVerificationConfigurationKeys::jsName).toArray(String[]::new);
         mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.CardConfig.ID.jsName(), "123");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.CardConfig.CONSENT_ID.jsName(), "456");
-        mapStub.stringForKeyToReturn.put(FidelSetupKeys.CardConfig.LAST_4_DIGITS.jsName(), "4567");
+        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationKeys.ID.jsName(), null);
+        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationKeys.CONSENT_ID.jsName(), null);
+        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationKeys.LAST_4_DIGITS.jsName(), null);
         return mapStub;
     }
 

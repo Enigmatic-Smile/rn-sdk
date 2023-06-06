@@ -14,8 +14,7 @@ import com.fidelapi.entities.CardVerificationConfiguration;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
-import com.fidelreactlibrary.adapters.FidelSetupKeys;
-import com.fidelreactlibrary.adapters.abstraction.VerificationSetupAdapter;
+import com.fidelreactlibrary.adapters.abstraction.VerificationConfigurationAdapter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,20 +27,20 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final DataProcessor<ReadableMap> setupProcessor;
   private final List<ConstantsProvider> constantsProviderList;
   private final OnResultObserver onResultObserver;
-  private final VerificationSetupAdapter verificationSetupAdapter;
+  private final VerificationConfigurationAdapter verificationAdapter;
   private final ReactApplicationContext reactContext;
 
   public FidelModule(ReactApplicationContext reactContext,
-                     DataProcessor<ReadableMap> setupProcessor,
-                     OnResultObserver onResultObserver,
-                     List<ConstantsProvider> constantsProviderList,
-                     VerificationSetupAdapter verificationSetupAdapter) {
+      DataProcessor<ReadableMap> setupProcessor,
+      OnResultObserver onResultObserver,
+      List<ConstantsProvider> constantsProviderList,
+      VerificationConfigurationAdapter verificationAdapter) {
     super(reactContext);
     this.reactContext = reactContext;
     this.setupProcessor = setupProcessor;
     this.constantsProviderList = constantsProviderList;
     this.onResultObserver = onResultObserver;
-    this.verificationSetupAdapter = verificationSetupAdapter;
+    this.verificationAdapter = verificationAdapter;
   }
 
   @NonNull
@@ -64,7 +63,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
   public void start() {
     final Activity activity = getCurrentActivity();
     if (activity != null) {
-        Fidel.start(activity);
+      Fidel.start(activity);
     }
   }
 
@@ -81,7 +80,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
   public void verifyCard(ReadableMap data) {
     final Activity activity = getCurrentActivity();
     if (activity != null) {
-      CardVerificationConfiguration cardConfig = verificationSetupAdapter.map(data);
+      CardVerificationConfiguration cardConfig = verificationAdapter.adapt(data);
       Fidel.verifyCard(activity, cardConfig);
     }
   }
@@ -90,7 +89,7 @@ public class FidelModule extends ReactContextBaseJavaModule {
   @Override
   public Map<String, Object> getConstants() {
     Map<String, Object> constants = new HashMap<>();
-    for (ConstantsProvider provider: constantsProviderList) {
+    for (ConstantsProvider provider : constantsProviderList) {
       constants.putAll(provider.getConstants());
     }
     return constants;

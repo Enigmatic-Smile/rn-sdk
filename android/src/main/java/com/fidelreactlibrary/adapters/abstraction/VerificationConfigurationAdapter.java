@@ -3,7 +3,7 @@ package com.fidelreactlibrary.adapters.abstraction;
 import com.fidelapi.entities.CardVerificationConfiguration;
 import com.facebook.react.bridge.ReadableMap;
 
-public interface VerificationSetupAdapter {
+public interface VerificationConfigurationAdapter {
 
-    CardVerificationConfiguration map(ReadableMap data);
+    CardVerificationConfiguration adapt(ReadableMap data);
 }

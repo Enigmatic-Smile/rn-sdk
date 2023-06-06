@@ -6,11 +6,11 @@ import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
-import com.fidelreactlibrary.adapters.FidelVerificationSetupAdapter;
 import com.fidelreactlibrary.fakes.ConstantsProviderStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReactContextMock;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
+import com.fidelreactlibrary.fakes.VerificationConfigurationAdapterStub;
 
 import org.junit.After;
 import org.junit.Before;
@@ -28,12 +28,13 @@ import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class FidelModuleTests {
-    
+
     private FidelModule sut;
     private DataProcessorSpy<ReadableMap> setupAdapterSpy = new DataProcessorSpy<>();;
     private List<ConstantsProvider> constantsProviderListStub = new ArrayList<>();
-    private final OnResultObserver testOnResultObserver = fidelResult -> { };
-    
+    private final OnResultObserver testOnResultObserver = fidelResult -> {
+    };
+
     @Before
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
@@ -41,9 +42,9 @@ public class FidelModuleTests {
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
                 testOnResultObserver,
-                constantsProviderListStub, new FidelVerificationSetupAdapter());
+                constantsProviderListStub, new VerificationConfigurationAdapterStub());
     }
-    
+
     @After
     public final void tearDown() {
         sut = null;

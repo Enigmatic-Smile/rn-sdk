@@ -89,13 +89,7 @@ export default class App extends React.Component {
   };
 
   onVerifyButtonPress = () => {
-    Fidel.verifyCard({
-      cardConfig: {
-        id: 'rty',
-        consentID: 'abc',
-        last4Digits: '1234',
-      },
-    });
+    Fidel.verifyCard({id, consentId, last4Digits});
   };
 
   handleError = error => {

@@ -17,13 +17,13 @@ import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelProgramTypeAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
+import com.fidelreactlibrary.adapters.FidelVerificationConfigurationAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
 import com.fidelreactlibrary.adapters.ResultsAdapter;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
-import com.fidelreactlibrary.adapters.FidelVerificationSetupAdapter;
 import com.fidelreactlibrary.events.ResultsObserver;
 import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
 
@@ -38,12 +38,10 @@ public class FidelPackage implements ReactPackage {
                 imageAdapter,
                 countryAdapter,
                 cardSchemeAdapter,
-                new FidelProgramTypeAdapter()
-        );
+                new FidelProgramTypeAdapter());
         imageAdapter.bitmapOutput = setupAdapter;
 
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
-
 
         ResultsAdapter resultsAdapter = new ResultsAdapter(WritableNativeMap::new, countryAdapter, cardSchemeAdapter);
         DataProcessor<WritableMap> resultHandler = new ResultAvailableEventEmitter(reactContext);
@@ -53,7 +51,8 @@ public class FidelPackage implements ReactPackage {
         constantsProviderList.add(resultsAdapter);
         constantsProviderList.add(resultsObserver);
 
-        FidelModule fidelModule = new FidelModule(reactContext, setupAdapter, resultsObserver, constantsProviderList, new FidelVerificationSetupAdapter());
+        FidelModule fidelModule = new FidelModule(reactContext, setupAdapter, resultsObserver, constantsProviderList,
+                new FidelVerificationConfigurationAdapter());
         return Collections.singletonList(fidelModule);
     }
 

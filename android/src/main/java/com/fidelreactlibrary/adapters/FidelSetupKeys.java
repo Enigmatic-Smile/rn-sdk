@@ -55,25 +55,6 @@ public enum FidelSetupKeys {
         }
     }
 
-    public enum CardConfig {
-        ID("id"),
-        CONSENT_ID("consentID"),
-        LAST_4_DIGITS("last4Digits");
-
-        private final @NonNull String jsName;
-
-        /**
-         * @param jsName The name of the key that will be available in JavaScript
-         */
-        CardConfig(final @NonNull String jsName) {
-            this.jsName = jsName;
-        }
-
-        public String jsName() {
-            return jsName;
-        }
-    }
-
     private final @NonNull String jsName;
 
     /**
