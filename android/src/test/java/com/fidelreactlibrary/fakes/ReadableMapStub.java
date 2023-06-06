@@ -145,6 +145,25 @@ public class ReadableMapStub implements ReadableMap {
         return mapStub;
     }
 
+    public static ReadableMapStub mapWithVerificationSetup() {
+        ReadableMapStub mapStub = new ReadableMapStub();
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.values()).map(FidelSetupKeys::jsName).toArray(String[]::new);
+        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
+
+        mapStub.mapsForKeysToReturn.put(FidelSetupKeys.CARD_CONFIG.jsName(), cardConfigWithAllValidSetupKeys());
+        return mapStub;
+    }
+
+    private static ReadableMapStub cardConfigWithAllValidSetupKeys() {
+        ReadableMapStub mapStub = new ReadableMapStub();
+        String[] keyJsNames = Arrays.stream(FidelSetupKeys.CardConfig.values()).map(FidelSetupKeys.CardConfig::jsName).toArray(String[]::new);
+        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.CardConfig.ID.jsName(), "123");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.CardConfig.CONSENT_ID.jsName(), "456");
+        mapStub.stringForKeyToReturn.put(FidelSetupKeys.CardConfig.LAST_4_DIGITS.jsName(), "4567");
+        return mapStub;
+    }
+
     public void putString(String key, String value) {
         stringForKeyToReturn.put(key, value);
     }
