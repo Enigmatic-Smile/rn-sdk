@@ -7,15 +7,16 @@
 
 import Foundation
 import React
+import Fidel
 
 @objc(NativeFidelBridge)
 class NativeFidelBridge: RCTEventEmitter {
     
     private let resultsObserver = ResultsObserver()
     private let imageAdapter = FLRNImageFromRNAdapter()
-    private let flowStarter = FlowStarter()
     private let setupAdapter: FidelSetupAdapter
     private let constantsProvider = ExportedConstantsProvider()
+    private let verificationConfigAdapter = FidelVerificationConfigurationAdapter()
     
     override init() {
         setupAdapter = FidelSetupAdapter(imageAdapter: imageAdapter)
@@ -32,9 +33,18 @@ class NativeFidelBridge: RCTEventEmitter {
         guard let startViewController = UIApplication.shared.delegate?.window??.rootViewController else {
             return
         }
-        flowStarter.start(from: startViewController)
+        Fidel.start(from: startViewController)
     }
     
+    @objc(verifyCard:)
+    func verifyCard(with parameters: NSDictionary) {
+        guard let startViewController = UIApplication.shared.delegate?.window??.rootViewController else {
+            return
+        }
+        let cardVerificationConfig = verificationConfigAdapter.adapt(parameters)
+        Fidel.verifyCard(from: startViewController, cardVerificationConfiguration: cardVerificationConfig)
+    }
+
     override func supportedEvents() -> [String]! {
         return ["ResultAvailable"]
     }

@@ -6,13 +6,10 @@ import androidx.annotation.Nullable;
 import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableType;
 import com.fidelapi.entities.CardScheme;
-import com.fidelapi.entities.Country;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -42,9 +39,12 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     @Override
     public String jsValue(@NonNull CardScheme cardScheme) {
         switch (cardScheme) {
-            case VISA: return VISA_CARD_SCHEME_VALUE;
-            case MASTERCARD: return MASTERCARD_SCHEME_VALUE;
-            case AMERICAN_EXPRESS: return AMERICAN_EXPRESS_CARD_SCHEME_VALUE;
+            case VISA:
+                return VISA_CARD_SCHEME_VALUE;
+            case MASTERCARD:
+                return MASTERCARD_SCHEME_VALUE;
+            case AMERICAN_EXPRESS:
+                return AMERICAN_EXPRESS_CARD_SCHEME_VALUE;
         }
         return "notFound";
     }
@@ -52,9 +52,12 @@ public final class FidelCardSchemesAdapter implements CardSchemesAdapter {
     @Nullable
     private CardScheme cardSchemeWithJsValue(String jsValue) {
         switch (jsValue) {
-            case VISA_CARD_SCHEME_VALUE: return CardScheme.VISA;
-            case MASTERCARD_SCHEME_VALUE: return CardScheme.MASTERCARD;
-            case AMERICAN_EXPRESS_CARD_SCHEME_VALUE: return CardScheme.AMERICAN_EXPRESS;
+            case VISA_CARD_SCHEME_VALUE:
+                return CardScheme.VISA;
+            case MASTERCARD_SCHEME_VALUE:
+                return CardScheme.MASTERCARD;
+            case AMERICAN_EXPRESS_CARD_SCHEME_VALUE:
+                return CardScheme.AMERICAN_EXPRESS;
         }
         return null;
     }
