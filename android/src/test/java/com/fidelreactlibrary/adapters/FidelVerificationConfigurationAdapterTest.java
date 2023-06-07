@@ -14,38 +14,38 @@ public class FidelVerificationConfigurationAdapterTest {
     public void test_ShouldMapEmptyMapCorrectly() {
         CardVerificationConfiguration expectedConfig = new CardVerificationConfiguration("", "", null);
 
-        CardVerificationConfiguration cardConfig = sut.adapt(ReadableMapStub.mapWithNoKey());
+        CardVerificationConfiguration cardVerificationConfig = sut.adapt(ReadableMapStub.mapWithNoKey());
 
-        assertEquals(expectedConfig, cardConfig);
+        assertEquals(expectedConfig, cardVerificationConfig);
     }
 
     @Test
     public void test_ShouldMapNonEmptyValidMapCorrectly() {
         CardVerificationConfiguration expectedConfig = new CardVerificationConfiguration("123", "456", "4567");
 
-        CardVerificationConfiguration cardConfig = sut.adapt(ReadableMapStub.cardConfigWithAllValidConfigKeys());
+        CardVerificationConfiguration cardVerificationConfig = sut.adapt(ReadableMapStub.cardConfigWithAllValidConfigKeys());
 
-        assertEquals(expectedConfig, cardConfig);
+        assertEquals(expectedConfig, cardVerificationConfig);
     }
 
     @Test
     public void test_ShouldMapNullIdCorrectly() {
-        CardVerificationConfiguration cardConfig = sut.adapt(ReadableMapStub.cardConfigWithAllInValidConfigKeys());
+        CardVerificationConfiguration cardVerificationConfig = sut.adapt(ReadableMapStub.cardConfigWithAllInValidConfigKeys());
 
-        assertEquals("", cardConfig.id);
+        assertEquals("", cardVerificationConfig.id);
     }
 
     @Test
     public void test_ShouldMapNullConsentIdCorrectly() {
-        CardVerificationConfiguration cardConfig = sut.adapt(ReadableMapStub.cardConfigWithAllInValidConfigKeys());
+        CardVerificationConfiguration cardVerificationConfig = sut.adapt(ReadableMapStub.cardConfigWithAllInValidConfigKeys());
 
-        assertEquals("", cardConfig.consentId);
+        assertEquals("", cardVerificationConfig.consentId);
     }
 
     @Test
     public void test_ShouldMapNullLast4DigitsCorrectly() {
-        CardVerificationConfiguration cardConfig = sut.adapt(ReadableMapStub.cardConfigWithAllInValidConfigKeys());
+        CardVerificationConfiguration cardVerificationConfig = sut.adapt(ReadableMapStub.cardConfigWithAllInValidConfigKeys());
 
-        assertEquals(null, cardConfig.last4Digits);
+        assertNull(cardVerificationConfig.last4Digits);
     }
 }

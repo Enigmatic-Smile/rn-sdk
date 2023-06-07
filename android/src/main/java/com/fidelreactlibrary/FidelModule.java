@@ -80,8 +80,8 @@ public class FidelModule extends ReactContextBaseJavaModule {
   public void verifyCard(ReadableMap data) {
     final Activity activity = getCurrentActivity();
     if (activity != null) {
-      CardVerificationConfiguration cardConfig = verificationAdapter.adapt(data);
-      Fidel.verifyCard(activity, cardConfig);
+      CardVerificationConfiguration cardVerificationConfig = verificationAdapter.adapt(data);
+      Fidel.verifyCard(activity, cardVerificationConfig);
     }
   }
 
