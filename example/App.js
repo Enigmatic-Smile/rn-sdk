@@ -7,13 +7,12 @@
  */
 
 import React from 'react';
-import {
-  Button,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import Fidel, { ENROLLMENT_RESULT, ERROR, VERIFICATION_RESULT } from 'fidel-react-native';
+import {Button, StyleSheet, Text, View} from 'react-native';
+import Fidel, {
+  ENROLLMENT_RESULT,
+  ERROR,
+  VERIFICATION_RESULT,
+} from 'fidel-react-native';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -22,7 +21,6 @@ export default class App extends React.Component {
       isShown: true,
     };
     this.configureFidel();
-
   }
 
   configureFidel() {
@@ -55,8 +53,9 @@ export default class App extends React.Component {
           defaultSelectedCountry: Fidel.Country.unitedStates,
           supportedCardSchemes: cardSchemes,
           shouldAutoScanCard: false,
-          metaData: {userId: 1234},
+          metaData: { userId: 1234 },
           enableCardScanner: true,
+          thirdPartyVerificationChoice: false,
         },
         consentText: {
           companyName: 'Your Company Name',
@@ -90,19 +89,29 @@ export default class App extends React.Component {
 
   onButtonPress = () => {
     Fidel.start();
-  }
+  };
 
-  handleError = (error) => {
-    console.log("Error message: " + error.message);
+  onVerifyButtonPress = () => {
+    Fidel.verifyCard({
+      id: 'Your card ID to verify',
+      consentId: 'Your consent ID to verify',
+      last4Digits: '1234', // (Optional) The last 4 digits of the card to verify (used only for display purposes)
+    });
+  };
+
+  handleError = error => {
+    console.log('Error message: ' + error.message);
     switch (error.type) {
       case Fidel.ErrorType.userCanceled:
-        console.log("User canceled the process");
+        console.log('User canceled the process');
         break;
       case Fidel.ErrorType.sdkConfigurationError:
-        console.log("Please configure the Fidel SDK correctly");
+        console.log('Please configure the Fidel SDK correctly');
         break;
       case Fidel.ErrorType.deviceNotSecure:
-        console.log("Your card details are considered sensitive information. Make sure you're providing them only using secure devices.");
+        console.log(
+          "Your card details are considered sensitive information. Make sure you're providing them only using secure devices.",
+        );
         break;
       case Fidel.ErrorType.enrollmentError:
         this.handleEnrollmentError(error);
@@ -111,71 +120,77 @@ export default class App extends React.Component {
         this.handleVerificationError(error);
         break;
     }
-  }
+  };
 
-  handleEnrollmentError = (enrollmentError) => {
+  handleEnrollmentError = enrollmentError => {
     switch (enrollmentError.subtype) {
       case Fidel.EnrollmentErrorType.cardAlreadyExists:
-        console.log("This card was already enrolled.");
+        console.log('This card was already enrolled.');
         break;
       case Fidel.EnrollmentErrorType.invalidProgramId:
-        console.log("Please configure Fidel with a valid program ID.");
+        console.log('Please configure Fidel with a valid program ID.');
         break;
       case Fidel.EnrollmentErrorType.invalidSdkKey:
-        console.log("Please configure Fidel with a valid SDK Key.");
+        console.log('Please configure Fidel with a valid SDK Key.');
         break;
       case Fidel.EnrollmentErrorType.inexistentProgram:
-        console.log("Please configure Fidel with a valid program ID.");
+        console.log('Please configure Fidel with a valid program ID.');
         break;
       case Fidel.EnrollmentErrorType.unexpected:
-        console.log("Unexpected enrollment error occurred.");
+        console.log('Unexpected enrollment error occurred.');
         break;
     }
-  }
+  };
 
-  handleVerificationError = (verificationError) => {
+  handleVerificationError = verificationError => {
     switch (verificationError.subtype) {
       case Fidel.VerificationErrorType.unauthorized:
-        console.log("You are not authorized to do card verification.");
+        console.log('You are not authorized to do card verification.');
         break;
       case Fidel.VerificationErrorType.incorrectAmount:
-        console.log("The card verification amount entered is not correct.");
+        console.log('The card verification amount entered is not correct.');
         break;
       case Fidel.VerificationErrorType.maximumAttemptsReached:
-        console.log("You have reached the maximum attempts allowed to verify this card.");
+        console.log(
+          'You have reached the maximum attempts allowed to verify this card.',
+        );
         break;
       case Fidel.VerificationErrorType.cardAlreadyVerified:
-        console.log("This card was already verified.");
+        console.log('This card was already verified.');
         break;
       case Fidel.VerificationErrorType.cardNotFound:
-        console.log("This card is not found.");
+        console.log('This card is not found.');
         break;
       case Fidel.VerificationErrorType.verificationNotFound:
-        console.log("Verification not found.");
+        console.log('Verification not found.');
         break;
       case Fidel.VerificationErrorType.genericError:
-        console.log("Generic error.");
+        console.log('Generic error.');
         break;
       case Fidel.VerificationErrorType.unexpected:
-        console.log("Unexpected card verification error occurred.");
+        console.log('Unexpected card verification error occurred.');
         break;
     }
-  }
+  };
 
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>Fidel React Native SDK example</Text>
-        <Text style={styles.instructions}>To get started, tap the button below.</Text>
+        <Text style={styles.instructions}>
+          To get started, tap the button below.
+        </Text>
+        <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
+        <View style={{ height: 10 }} />
         <Button
-          onPress={this.onButtonPress}
-          title="Start"
+          onPress={this.onVerifyButtonPress}
+          title="Verify card"
           color="#3846ce"
         />
       </View>
     );
   }
-};
+}
 
 const styles = StyleSheet.create({
   container: {

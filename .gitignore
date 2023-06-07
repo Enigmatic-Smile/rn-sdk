@@ -22,5 +22,13 @@ android/.idea
 android/.gradle
 android/local.properties
 android/*.iml
+android/gradle
+android/gradlew
+android/gradlew.bat
 
 example/android/app/KeyStore/*
+
+fidel-react-native-2.0.0-beta*.tgz
+
+yarn.lock
+node_modules/.yarn-integrity

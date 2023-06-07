@@ -17,6 +17,7 @@ import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelProgramTypeAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
+import com.fidelreactlibrary.adapters.FidelVerificationConfigurationAdapter;
 import com.fidelreactlibrary.adapters.ImageFromReadableMapAdapter;
 import com.fidelreactlibrary.adapters.ResultsAdapter;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
@@ -39,8 +40,7 @@ public class FidelPackage implements ReactPackage {
                 imageAdapter,
                 countryAdapter,
                 cardSchemeAdapter,
-                new FidelProgramTypeAdapter()
-        );
+                new FidelProgramTypeAdapter());
         imageAdapter.bitmapOutput = setupAdapter;
 
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
@@ -61,7 +61,8 @@ public class FidelPackage implements ReactPackage {
                 setupAdapter,
                 resultsObserver,
                 cardVerificationStartedObserver,
-                constantsProviderList
+                constantsProviderList,
+                new FidelVerificationConfigurationAdapter()
         );
         return Collections.singletonList(fidelModule);
     }

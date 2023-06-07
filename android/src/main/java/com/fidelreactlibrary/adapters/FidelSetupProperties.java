@@ -2,7 +2,7 @@ package com.fidelreactlibrary.adapters;
 
 import androidx.annotation.NonNull;
 
-public enum FidelSetupKeys {
+public enum FidelSetupProperties {
     SDK_KEY("sdkKey"),
     PROGRAM_ID("programId"),
     PROGRAM_TYPE("programType"),
@@ -16,6 +16,7 @@ public enum FidelSetupKeys {
         SUPPORTED_CARD_SCHEMES("supportedCardSchemes"),
         SHOULD_AUTO_SCAN("shouldAutoScanCard"),
         ENABLE_CARD_SCANNER("enableCardScanner"),
+        THIRD_PARTY_VERIFICATION_CHOICE("thirdPartyVerificationChoice"),
         META_DATA("metaData");
 
         private final @NonNull String jsName;
@@ -58,7 +59,7 @@ public enum FidelSetupKeys {
     /**
      * @param jsName The name of the key that will be available in JavaScript
      */
-    FidelSetupKeys(final @NonNull String jsName) {
+    FidelSetupProperties(final @NonNull String jsName) {
         this.jsName = jsName;
     }
 
