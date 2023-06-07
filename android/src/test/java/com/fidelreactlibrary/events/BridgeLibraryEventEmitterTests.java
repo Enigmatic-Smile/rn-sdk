@@ -5,8 +5,6 @@ import android.content.Context;
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.fidelreactlibrary.events.BridgeLibraryEventEmitter;
-import com.fidelreactlibrary.events.BridgeLibraryEventTypes;
 import com.fidelreactlibrary.fakes.ReactContextMock;
 
 import org.junit.After;
@@ -38,7 +36,7 @@ public class BridgeLibraryEventEmitterTests {
 
     @Test
     public void test_WhenReceivingWritableData_AskForJSModule() {
-        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.RESULT_AVAILABLE);
+        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.RESULT_AVAILABLE);
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
@@ -47,22 +45,22 @@ public class BridgeLibraryEventEmitterTests {
 
     @Test
     public void test_WhenReceivingWritableData_SendCorrectResultAvailableEventUsingTheObtainedJSModule() {
-        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.RESULT_AVAILABLE);
+        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.RESULT_AVAILABLE);
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
-        assertEquals(reactContext.receivedErrorName, BridgeLibraryEventTypes.RESULT_AVAILABLE.getEventName());
+        assertEquals(reactContext.receivedErrorName, BridgeLibraryEvent.RESULT_AVAILABLE.getEventName());
         assertEquals(reactContext.receivedErrorData, map);
         assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
     }
 
     @Test
     public void test_WhenReceivingWritableData_SendCorrectCardVerificationStartedEventUsingTheObtainedJSModule() {
-        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED);
+        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.CARD_VERIFICATION_STARTED);
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
-        assertEquals(reactContext.receivedErrorName, BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED.getEventName());
+        assertEquals(reactContext.receivedErrorName, BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName());
         assertEquals(reactContext.receivedErrorData, map);
         assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
     }

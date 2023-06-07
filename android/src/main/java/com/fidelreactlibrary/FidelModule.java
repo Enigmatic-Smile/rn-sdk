@@ -14,7 +14,7 @@ import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
-import com.fidelreactlibrary.events.BridgeLibraryEventTypes;
+import com.fidelreactlibrary.events.BridgeLibraryEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,9 +49,9 @@ public class FidelModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void addListener(String eventName) {
-    if (eventName.equals(BridgeLibraryEventTypes.RESULT_AVAILABLE.getEventName())) {
+    if (eventName.equals(BridgeLibraryEvent.RESULT_AVAILABLE.getEventName())) {
       Fidel.onResult = onResultObserver;
-    } else if (eventName.equals(BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED.getEventName())) {
+    } else if (eventName.equals(BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName())) {
       Fidel.onCardVerificationStarted = onCardVerificationStartedObserver;
     }
   }

@@ -1,12 +1,12 @@
 package com.fidelreactlibrary.events;
 
-public enum BridgeLibraryEventTypes {
+public enum BridgeLibraryEvent {
     RESULT_AVAILABLE("ResultAvailable"),
     CARD_VERIFICATION_STARTED("CardVerificationStarted");
 
     private final String eventName;
 
-    BridgeLibraryEventTypes(String eventName) {
+    BridgeLibraryEvent(String eventName) {
         this.eventName = eventName;
     }
 

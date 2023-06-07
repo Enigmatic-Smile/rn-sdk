@@ -4,14 +4,14 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-public class BridgeLibraryEventTypesTests {
+public class BridgeLibraryEventTests {
     @Test
     public void test_ResultAvailableEventType_ShouldHaveCorrectEventName() {
-        assertEquals("ResultAvailable", BridgeLibraryEventTypes.RESULT_AVAILABLE.getEventName());
+        assertEquals("ResultAvailable", BridgeLibraryEvent.RESULT_AVAILABLE.getEventName());
     }
 
     @Test
     public void test_CardVerificationStartedEventType_ShouldHaveCorrectEventName() {
-        assertEquals("CardVerificationStarted", BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED.getEventName());
+        assertEquals("CardVerificationStarted", BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName());
     }
 }

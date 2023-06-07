@@ -23,7 +23,7 @@ import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
-import com.fidelreactlibrary.events.BridgeLibraryEventTypes;
+import com.fidelreactlibrary.events.BridgeLibraryEvent;
 import com.fidelreactlibrary.events.CardVerificationStartedObserver;
 import com.fidelreactlibrary.events.ResultsObserver;
 import com.fidelreactlibrary.events.BridgeLibraryEventEmitter;
@@ -46,10 +46,10 @@ public class FidelPackage implements ReactPackage {
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
 
         ResultsAdapter resultsAdapter = new ResultsAdapter(WritableNativeMap::new, countryAdapter, cardSchemeAdapter);
-        DataProcessor<ReadableMap> resultHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.RESULT_AVAILABLE);
+        DataProcessor<ReadableMap> resultHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.RESULT_AVAILABLE);
         ResultsObserver resultsObserver = new ResultsObserver(resultsAdapter, resultHandler, WritableNativeMap::new);
 
-        DataProcessor<ReadableMap> cardVerificationStartedHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED);
+        DataProcessor<ReadableMap> cardVerificationStartedHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.CARD_VERIFICATION_STARTED);
         CardVerificationStartedObserver cardVerificationStartedObserver = new CardVerificationStartedObserver(cardVerificationStartedHandler, WritableNativeMap::new);
 
         constantsProviderList.add(setupAdapter);
