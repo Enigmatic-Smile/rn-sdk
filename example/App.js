@@ -46,8 +46,8 @@ export default class App extends React.Component {
 
     Fidel.setup(
       {
-        sdkKey: 'pk_test_6bee5ea2-28f7-42c5-a043-40b325214dd0',
-        programId: '52669e48-a05e-4deb-963e-85c46e622130',
+        sdkKey: 'Your SDK Key',
+        programId: 'Your program ID',
         programType: Fidel.ProgramType.transactionStream,
         options: {
           bannerImage: resolvedImage,
