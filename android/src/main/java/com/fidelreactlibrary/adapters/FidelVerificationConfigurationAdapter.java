@@ -14,14 +14,14 @@ public class FidelVerificationConfigurationAdapter implements VerificationConfig
         String consentId = "";
         String last4Digits = null;
         if (data != null) {
-            id = getStringParam(data, CardVerificationConfigurationKeys.ID, "");
-            consentId = getStringParam(data, CardVerificationConfigurationKeys.CONSENT_ID, "");
-            last4Digits = getStringParam(data, CardVerificationConfigurationKeys.LAST_4_DIGITS, null);
+            id = getStringParam(data, CardVerificationConfigurationProperties.ID, "");
+            consentId = getStringParam(data, CardVerificationConfigurationProperties.CONSENT_ID, "");
+            last4Digits = getStringParam(data, CardVerificationConfigurationProperties.LAST_4_DIGITS, null);
         }
         return new CardVerificationConfiguration(id, consentId, last4Digits);
     }
 
-    private static String getStringParam(ReadableMap data, CardVerificationConfigurationKeys key,
+    private static String getStringParam(ReadableMap data, CardVerificationConfigurationProperties key,
             @Nullable String defaultValue) {
         String value = defaultValue;
         if (data.hasKey(key.jsName())) {

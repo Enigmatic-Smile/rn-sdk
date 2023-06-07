@@ -2,7 +2,7 @@ package com.fidelreactlibrary.adapters;
 
 import androidx.annotation.NonNull;
 
-public enum CardVerificationConfigurationKeys {
+public enum CardVerificationConfigurationProperties {
     ID("id"),
     CONSENT_ID("consentId"),
     LAST_4_DIGITS("last4Digits");
@@ -12,7 +12,7 @@ public enum CardVerificationConfigurationKeys {
     /**
      * @param jsName The name of the key that will be available in JavaScript
      */
-    CardVerificationConfigurationKeys(final @NonNull String jsName) {
+    CardVerificationConfigurationProperties(final @NonNull String jsName) {
         this.jsName = jsName;
     }
 

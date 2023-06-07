@@ -7,15 +7,16 @@
 
 import Foundation
 import React
+import Fidel
 
 @objc(NativeFidelBridge)
 class NativeFidelBridge: RCTEventEmitter {
     
     private let resultsObserver = ResultsObserver()
     private let imageAdapter = FLRNImageFromRNAdapter()
-    private let flowStarter = FlowStarter()
     private let setupAdapter: FidelSetupAdapter
     private let constantsProvider = ExportedConstantsProvider()
+    private let verificationConfigAdapter = FidelVerificationConfigurationAdapter()
     
     override init() {
         setupAdapter = FidelSetupAdapter(imageAdapter: imageAdapter)
@@ -32,7 +33,7 @@ class NativeFidelBridge: RCTEventEmitter {
         guard let startViewController = UIApplication.shared.delegate?.window??.rootViewController else {
             return
         }
-        flowStarter.start(from: startViewController)
+        Fidel.start(from: startViewController)
     }
     
     @objc(verifyCard:)
@@ -40,24 +41,8 @@ class NativeFidelBridge: RCTEventEmitter {
         guard let startViewController = UIApplication.shared.delegate?.window??.rootViewController else {
             return
         }
-        
-        var id = ""
-        var consentID = ""
-        var last4Digits = ""
-        guard let cardConfig = parameters[JSProperties.cardConfig.rawValue] as? [String: Any?]
-        else {
-            return
-        }
-        if cardConfig.keys.contains(JSProperties.CardConfig.id.rawValue) {
-            id = cardConfig[JSProperties.CardConfig.id.rawValue] as? String ?? ""
-        }
-        if cardConfig.keys.contains(JSProperties.CardConfig.consentID.rawValue) {
-            consentID = cardConfig[JSProperties.CardConfig.consentID.rawValue] as? String ?? ""
-        }
-        if cardConfig.keys.contains(JSProperties.CardConfig.last4Digits.rawValue) {
-            last4Digits = cardConfig[JSProperties.CardConfig.last4Digits.rawValue] as? String ?? ""
-        }
-        flowStarter.verifyCard(from: startViewController, id: id, consentID: consentID, last4Digits: last4Digits)
+        let cardConfig = verificationConfigAdapter.adapt(parameters)
+        Fidel.verifyCard(from: startViewController, cardVerificationConfiguration: cardConfig)
     }
 
     override func supportedEvents() -> [String]! {

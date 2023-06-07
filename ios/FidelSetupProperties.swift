@@ -1,5 +1,5 @@
 //
-//  JSProperties.swift
+//  FidelSetupProperties.swift
 //  fidel-react-native
 //
 //  Created by Corneliu Chitanu on 08/12/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum JSProperties: String {
+enum FidelSetupProperties: String {
     case sdkKey
     case programID = "programId"
     case programType
@@ -32,11 +32,5 @@ enum JSProperties: String {
         case companyName
         case programName
         case deleteInstructions
-    }
-
-    enum CardConfig: String {
-        case id
-        case consentID
-        case last4Digits
     }
 }

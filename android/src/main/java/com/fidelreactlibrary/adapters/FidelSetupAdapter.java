@@ -35,48 +35,48 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
 
     @Override
     public void process(ReadableMap data) {
-        if (data.hasKey(FidelSetupKeys.SDK_KEY.jsName())) {
-            Fidel.sdkKey = data.getString(FidelSetupKeys.SDK_KEY.jsName());
+        if (data.hasKey(FidelSetupProperties.SDK_KEY.jsName())) {
+            Fidel.sdkKey = data.getString(FidelSetupProperties.SDK_KEY.jsName());
         }
-        if (data.hasKey(FidelSetupKeys.PROGRAM_ID.jsName())) {
-            Fidel.programId = data.getString(FidelSetupKeys.PROGRAM_ID.jsName());
+        if (data.hasKey(FidelSetupProperties.PROGRAM_ID.jsName())) {
+            Fidel.programId = data.getString(FidelSetupProperties.PROGRAM_ID.jsName());
         }
-        if (data.hasKey(FidelSetupKeys.PROGRAM_TYPE.jsName())) {
-            String programTypeValue = data.getString(FidelSetupKeys.PROGRAM_TYPE.jsName());
+        if (data.hasKey(FidelSetupProperties.PROGRAM_TYPE.jsName())) {
+            String programTypeValue = data.getString(FidelSetupProperties.PROGRAM_TYPE.jsName());
             Fidel.programType = programTypeAdapter.parseProgramType(programTypeValue);
         }
-        ReadableMap optionsMap = data.getMap(FidelSetupKeys.OPTIONS.jsName());
+        ReadableMap optionsMap = data.getMap(FidelSetupProperties.OPTIONS.jsName());
         if (optionsMap != null) {
-            if (optionsMap.hasKey(FidelSetupKeys.Options.BANNER_IMAGE.jsName())) {
-                imageAdapter.process(optionsMap.getMap(FidelSetupKeys.Options.BANNER_IMAGE.jsName()));
+            if (optionsMap.hasKey(FidelSetupProperties.Options.BANNER_IMAGE.jsName())) {
+                imageAdapter.process(optionsMap.getMap(FidelSetupProperties.Options.BANNER_IMAGE.jsName()));
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName())) {
+            if (optionsMap.hasKey(FidelSetupProperties.Options.ALLOWED_COUNTRIES.jsName())) {
                 Fidel.allowedCountries = countryAdapter
-                        .parseAllowedCountries(optionsMap.getArray(FidelSetupKeys.Options.ALLOWED_COUNTRIES.jsName()));
+                        .parseAllowedCountries(optionsMap.getArray(FidelSetupProperties.Options.ALLOWED_COUNTRIES.jsName()));
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY.jsName())) {
+            if (optionsMap.hasKey(FidelSetupProperties.Options.DEFAULT_SELECTED_COUNTRY.jsName())) {
                 Country defaultSelectedCountry = countryAdapter.countryWithJSValue(
-                        optionsMap.getString(FidelSetupKeys.Options.DEFAULT_SELECTED_COUNTRY.jsName()));
+                        optionsMap.getString(FidelSetupProperties.Options.DEFAULT_SELECTED_COUNTRY.jsName()));
                 if (defaultSelectedCountry != null) {
                     Fidel.defaultSelectedCountry = defaultSelectedCountry;
                 }
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName())) {
+            if (optionsMap.hasKey(FidelSetupProperties.Options.SUPPORTED_CARD_SCHEMES.jsName())) {
                 Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(
-                        optionsMap.getArray(FidelSetupKeys.Options.SUPPORTED_CARD_SCHEMES.jsName()));
+                        optionsMap.getArray(FidelSetupProperties.Options.SUPPORTED_CARD_SCHEMES.jsName()));
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName())) {
-                Fidel.shouldAutoScanCard = optionsMap.getBoolean(FidelSetupKeys.Options.SHOULD_AUTO_SCAN.jsName());
+            if (optionsMap.hasKey(FidelSetupProperties.Options.SHOULD_AUTO_SCAN.jsName())) {
+                Fidel.shouldAutoScanCard = optionsMap.getBoolean(FidelSetupProperties.Options.SHOULD_AUTO_SCAN.jsName());
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.ENABLE_CARD_SCANNER.jsName())) {
-                Fidel.enableCardScanner = optionsMap.getBoolean(FidelSetupKeys.Options.ENABLE_CARD_SCANNER.jsName());
+            if (optionsMap.hasKey(FidelSetupProperties.Options.ENABLE_CARD_SCANNER.jsName())) {
+                Fidel.enableCardScanner = optionsMap.getBoolean(FidelSetupProperties.Options.ENABLE_CARD_SCANNER.jsName());
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName())) {
+            if (optionsMap.hasKey(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName())) {
                 Fidel.thirdPartyVerificationChoice = optionsMap
-                        .getBoolean(FidelSetupKeys.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName());
+                        .getBoolean(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName());
             }
-            if (optionsMap.hasKey(FidelSetupKeys.Options.META_DATA.jsName())) {
-                ReadableMap metaDataMap = optionsMap.getMap(FidelSetupKeys.Options.META_DATA.jsName());
+            if (optionsMap.hasKey(FidelSetupProperties.Options.META_DATA.jsName())) {
+                ReadableMap metaDataMap = optionsMap.getMap(FidelSetupProperties.Options.META_DATA.jsName());
                 if (metaDataMap != null) {
                     Fidel.metaData = new JSONObject(metaDataMap.toHashMap());
                 } else {
@@ -85,25 +85,25 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
             }
         }
 
-        ReadableMap consentTextMap = data.getMap(FidelSetupKeys.CONSENT_TEXT.jsName());
+        ReadableMap consentTextMap = data.getMap(FidelSetupProperties.CONSENT_TEXT.jsName());
         if (consentTextMap != null) {
-            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName())) {
-                Fidel.companyName = consentTextMap.getString(FidelSetupKeys.ConsentText.COMPANY_NAME.jsName());
+            if (consentTextMap.hasKey(FidelSetupProperties.ConsentText.COMPANY_NAME.jsName())) {
+                Fidel.companyName = consentTextMap.getString(FidelSetupProperties.ConsentText.COMPANY_NAME.jsName());
             }
-            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName())) {
+            if (consentTextMap.hasKey(FidelSetupProperties.ConsentText.TERMS_AND_CONDITIONS_URL.jsName())) {
                 Fidel.termsAndConditionsUrl = consentTextMap
-                        .getString(FidelSetupKeys.ConsentText.TERMS_AND_CONDITIONS_URL.jsName());
+                        .getString(FidelSetupProperties.ConsentText.TERMS_AND_CONDITIONS_URL.jsName());
             }
-            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName())) {
+            if (consentTextMap.hasKey(FidelSetupProperties.ConsentText.PRIVACY_POLICY_URL.jsName())) {
                 Fidel.privacyPolicyUrl = consentTextMap
-                        .getString(FidelSetupKeys.ConsentText.PRIVACY_POLICY_URL.jsName());
+                        .getString(FidelSetupProperties.ConsentText.PRIVACY_POLICY_URL.jsName());
             }
-            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName())) {
-                Fidel.programName = consentTextMap.getString(FidelSetupKeys.ConsentText.PROGRAM_NAME.jsName());
+            if (consentTextMap.hasKey(FidelSetupProperties.ConsentText.PROGRAM_NAME.jsName())) {
+                Fidel.programName = consentTextMap.getString(FidelSetupProperties.ConsentText.PROGRAM_NAME.jsName());
             }
-            if (consentTextMap.hasKey(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName())) {
+            if (consentTextMap.hasKey(FidelSetupProperties.ConsentText.DELETE_INSTRUCTIONS.jsName())) {
                 Fidel.deleteInstructions = consentTextMap
-                        .getString(FidelSetupKeys.ConsentText.DELETE_INSTRUCTIONS.jsName());
+                        .getString(FidelSetupProperties.ConsentText.DELETE_INSTRUCTIONS.jsName());
             }
         }
     }
