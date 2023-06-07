@@ -13,7 +13,6 @@ enum FidelSetupProperties: String {
     case programType
     case options
     case consentText
-    case cardConfig
     
     enum Options: String {
         case bannerImage

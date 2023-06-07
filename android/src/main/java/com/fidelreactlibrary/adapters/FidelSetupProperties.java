@@ -7,8 +7,7 @@ public enum FidelSetupProperties {
     PROGRAM_ID("programId"),
     PROGRAM_TYPE("programType"),
     OPTIONS("options"),
-    CONSENT_TEXT("consentText"),
-    CARD_CONFIG("cardConfig");
+    CONSENT_TEXT("consentText");
 
     public enum Options {
         BANNER_IMAGE("bannerImage"),
