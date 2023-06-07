@@ -41,8 +41,8 @@ class NativeFidelBridge: RCTEventEmitter {
         guard let startViewController = UIApplication.shared.delegate?.window??.rootViewController else {
             return
         }
-        let cardConfig = verificationConfigAdapter.adapt(parameters)
-        Fidel.verifyCard(from: startViewController, cardVerificationConfiguration: cardConfig)
+        let cardVerificationConfig = verificationConfigAdapter.adapt(parameters)
+        Fidel.verifyCard(from: startViewController, cardVerificationConfiguration: cardVerificationConfig)
     }
 
     override func supportedEvents() -> [String]! {
