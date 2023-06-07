@@ -1,4 +1,4 @@
-package com.fidelreactlibrary;
+package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableArray;

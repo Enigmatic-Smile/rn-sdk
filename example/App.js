@@ -65,6 +65,9 @@ export default class App extends React.Component {
           programName: 'Your program name',
           deleteInstructions: 'following our delete instructions',
         },
+        onCardVerificationStarted: consentDetails => {
+          console.log('card verification started: ' + JSON.stringify(consentDetails));
+        },
       },
       result => {
         switch (result.type) {

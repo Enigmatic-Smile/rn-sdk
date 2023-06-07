@@ -1,4 +1,4 @@
-package com.fidelreactlibrary;
+package com.fidelreactlibrary.adapters;
 
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.fidelapi.entities.FidelError;

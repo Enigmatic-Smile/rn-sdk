@@ -10,9 +10,11 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.events.BridgeLibraryEventTypes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -25,17 +27,18 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final DataProcessor<ReadableMap> setupProcessor;
   private final List<ConstantsProvider> constantsProviderList;
   private final OnResultObserver onResultObserver;
-  private final ReactApplicationContext reactContext;
+  private final OnCardVerificationStartedObserver onCardVerificationStartedObserver;
 
   public FidelModule(ReactApplicationContext reactContext,
                      DataProcessor<ReadableMap> setupProcessor,
                      OnResultObserver onResultObserver,
+                     OnCardVerificationStartedObserver onCardVerificationStartedObserver,
                      List<ConstantsProvider> constantsProviderList) {
     super(reactContext);
-    this.reactContext = reactContext;
     this.setupProcessor = setupProcessor;
     this.constantsProviderList = constantsProviderList;
     this.onResultObserver = onResultObserver;
+    this.onCardVerificationStartedObserver = onCardVerificationStartedObserver;
   }
 
   @NonNull
@@ -46,7 +49,11 @@ public class FidelModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void addListener(String eventName) {
-    Fidel.onResult = onResultObserver;
+    if (eventName.equals(BridgeLibraryEventTypes.RESULT_AVAILABLE.getEventName())) {
+      Fidel.onResult = onResultObserver;
+    } else if (eventName.equals(BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED.getEventName())) {
+      Fidel.onCardVerificationStarted = onCardVerificationStartedObserver;
+    }
   }
 
   @ReactMethod

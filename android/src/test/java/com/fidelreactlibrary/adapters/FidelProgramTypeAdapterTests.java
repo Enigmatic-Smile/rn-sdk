@@ -1,4 +1,4 @@
-package com.fidelreactlibrary;
+package com.fidelreactlibrary.adapters;
 
 import static org.junit.Assert.*;
 

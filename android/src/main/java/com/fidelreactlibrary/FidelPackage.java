@@ -10,7 +10,7 @@ import java.util.List;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.WritableMap;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ViewManager;
 import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
@@ -23,8 +23,10 @@ import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.events.BridgeLibraryEventTypes;
+import com.fidelreactlibrary.events.CardVerificationStartedObserver;
 import com.fidelreactlibrary.events.ResultsObserver;
-import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
+import com.fidelreactlibrary.events.BridgeLibraryEventEmitter;
 
 public class FidelPackage implements ReactPackage {
 
@@ -43,16 +45,24 @@ public class FidelPackage implements ReactPackage {
 
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
 
-
         ResultsAdapter resultsAdapter = new ResultsAdapter(WritableNativeMap::new, countryAdapter, cardSchemeAdapter);
-        DataProcessor<WritableMap> resultHandler = new ResultAvailableEventEmitter(reactContext);
+        DataProcessor<ReadableMap> resultHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.RESULT_AVAILABLE);
         ResultsObserver resultsObserver = new ResultsObserver(resultsAdapter, resultHandler, WritableNativeMap::new);
+
+        DataProcessor<ReadableMap> cardVerificationStartedHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED);
+        CardVerificationStartedObserver cardVerificationStartedObserver = new CardVerificationStartedObserver(cardVerificationStartedHandler, WritableNativeMap::new);
 
         constantsProviderList.add(setupAdapter);
         constantsProviderList.add(resultsAdapter);
         constantsProviderList.add(resultsObserver);
 
-        FidelModule fidelModule = new FidelModule(reactContext, setupAdapter, resultsObserver, constantsProviderList);
+        FidelModule fidelModule = new FidelModule(
+                reactContext,
+                setupAdapter,
+                resultsObserver,
+                cardVerificationStartedObserver,
+                constantsProviderList
+        );
         return Collections.singletonList(fidelModule);
     }
 

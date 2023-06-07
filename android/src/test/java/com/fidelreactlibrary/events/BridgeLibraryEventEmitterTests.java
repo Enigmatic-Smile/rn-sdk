@@ -1,11 +1,12 @@
-package com.fidelreactlibrary;
+package com.fidelreactlibrary.events;
 
 import android.content.Context;
 
 import com.facebook.react.bridge.JavaOnlyMap;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.fidelreactlibrary.events.ResultAvailableEventEmitter;
+import com.fidelreactlibrary.events.BridgeLibraryEventEmitter;
+import com.fidelreactlibrary.events.BridgeLibraryEventTypes;
 import com.fidelreactlibrary.fakes.ReactContextMock;
 
 import org.junit.After;
@@ -19,16 +20,15 @@ import androidx.test.core.app.ApplicationProvider;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(RobolectricTestRunner.class)
-public class ResultAvailableEventEmitterTests {
+public class BridgeLibraryEventEmitterTests {
 
-    private ResultAvailableEventEmitter sut;
+    private BridgeLibraryEventEmitter sut;
     private ReactContextMock reactContext;
 
     @Before
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
         reactContext = new ReactContextMock(context);
-        sut = new ResultAvailableEventEmitter(reactContext);
     }
 
     @After
@@ -38,6 +38,7 @@ public class ResultAvailableEventEmitterTests {
 
     @Test
     public void test_WhenReceivingWritableData_AskForJSModule() {
+        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.RESULT_AVAILABLE);
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
@@ -45,11 +46,23 @@ public class ResultAvailableEventEmitterTests {
     }
 
     @Test
-    public void test_WhenReceivingWritableData_SendEventUsingTheObtainedJSModule() {
+    public void test_WhenReceivingWritableData_SendCorrectResultAvailableEventUsingTheObtainedJSModule() {
+        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.RESULT_AVAILABLE);
         WritableMap map = new JavaOnlyMap();
         map.putString("testKey", "testValue");
         sut.process(map);
-        assertEquals(reactContext.receivedErrorName, "ResultAvailable");
+        assertEquals(reactContext.receivedErrorName, BridgeLibraryEventTypes.RESULT_AVAILABLE.getEventName());
+        assertEquals(reactContext.receivedErrorData, map);
+        assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
+    }
+
+    @Test
+    public void test_WhenReceivingWritableData_SendCorrectCardVerificationStartedEventUsingTheObtainedJSModule() {
+        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED);
+        WritableMap map = new JavaOnlyMap();
+        map.putString("testKey", "testValue");
+        sut.process(map);
+        assertEquals(reactContext.receivedErrorName, BridgeLibraryEventTypes.CARD_VERIFICATION_STARTED.getEventName());
         assertEquals(reactContext.receivedErrorData, map);
         assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
     }

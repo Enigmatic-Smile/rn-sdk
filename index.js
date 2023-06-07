@@ -1,4 +1,3 @@
-
 import { NativeEventEmitter, NativeModules } from 'react-native';
 
 const { NativeFidelBridge } = NativeModules;
@@ -16,7 +15,16 @@ export default class Fidel {
         if (this.eventSubscription != null) {
             this.eventSubscription.remove();
         }
-        if (callback != null && callback != undefined) {
+        const { onCardVerificationStarted } = params;
+        if (onCardVerificationStarted != null && onCardVerificationStarted != undefined && typeof onCardVerificationStarted === 'function') {
+            if (this.onCardVerificationStartedEventSubscription != null) {
+                this.onCardVerificationStartedEventSubscription.remove();
+            }
+            this.onCardVerificationStartedEventSubscription = Fidel.emitter.addListener("CardVerificationStarted", consentDetails => {
+                onCardVerificationStarted(consentDetails);
+            });
+        }
+        if (callback != null && callback != undefined && typeof callback === 'function') {
             this.eventSubscription = Fidel.emitter.addListener("ResultAvailable", result => callback(result));
         }
         NativeFidelBridge.setup(params);

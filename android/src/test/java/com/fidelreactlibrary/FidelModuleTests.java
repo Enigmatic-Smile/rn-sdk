@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.fakes.ConstantsProviderStub;
@@ -32,6 +33,7 @@ public class FidelModuleTests {
     private DataProcessorSpy<ReadableMap> setupAdapterSpy = new DataProcessorSpy<>();;
     private List<ConstantsProvider> constantsProviderListStub = new ArrayList<>();
     private final OnResultObserver testOnResultObserver = fidelResult -> { };
+    private final OnCardVerificationStartedObserver testOnCardVerificationStartedObserver = consentDetails -> { };
     
     @Before
     public final void setUp() {
@@ -40,6 +42,7 @@ public class FidelModuleTests {
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
                 testOnResultObserver,
+                testOnCardVerificationStartedObserver,
                 constantsProviderListStub);
     }
     
@@ -68,9 +71,15 @@ public class FidelModuleTests {
     }
 
     @Test
-    public void test_WhenAListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
-        sut.addListener("any event");
+    public void test_WhenAResultAvailableListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
+        sut.addListener("ResultAvailable");
         assertEquals(testOnResultObserver, Fidel.onResult);
+    }
+
+    @Test
+    public void test_WhenACardVerificationStartedListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
+        sut.addListener("CardVerificationStarted");
+        assertEquals(testOnCardVerificationStartedObserver, Fidel.onCardVerificationStarted);
     }
 
     @Test
