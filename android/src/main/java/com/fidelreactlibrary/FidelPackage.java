@@ -50,13 +50,18 @@ public class FidelPackage implements ReactPackage {
         List<ConstantsProvider> constantsProviderList = new ArrayList<>();
 
         ResultsAdapter resultsAdapter = new ResultsAdapter(WritableNativeMap::new, countryAdapter, cardSchemeAdapter);
-        DataProcessor<ReadableMap> resultHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.RESULT_AVAILABLE);
+        DataProcessor<ReadableMap> resultHandler = new BridgeLibraryEventEmitter(reactContext,
+                BridgeLibraryEvent.RESULT_AVAILABLE);
         ResultsObserver resultsObserver = new ResultsObserver(resultsAdapter, resultHandler, WritableNativeMap::new);
 
-        DataProcessor<ReadableMap> cardVerificationStartedHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.CARD_VERIFICATION_STARTED);
-        DataProcessor<ReadableMap> cardVerificationChoiceHandler = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.CARD_VERIFICATION_CHOICE);
-        CardVerificationStartedObserver cardVerificationStartedObserver = new CardVerificationStartedObserver(cardVerificationStartedHandler, WritableNativeMap::new);
-        CardVerificationChoiceObserver cardVerificationChoiceObserver = new CardVerificationChoiceObserver(cardVerificationChoiceHandler, WritableNativeMap::new);
+        DataProcessor<ReadableMap> cardVerificationStartedHandler = new BridgeLibraryEventEmitter(reactContext,
+                BridgeLibraryEvent.CARD_VERIFICATION_STARTED);
+        DataProcessor<ReadableMap> cardVerificationChoiceHandler = new BridgeLibraryEventEmitter(reactContext,
+                BridgeLibraryEvent.CARD_VERIFICATION_CHOICE);
+        CardVerificationStartedObserver cardVerificationStartedObserver = new CardVerificationStartedObserver(
+                cardVerificationStartedHandler, WritableNativeMap::new);
+        CardVerificationChoiceObserver cardVerificationChoiceObserver = new CardVerificationChoiceObserver(
+                cardVerificationChoiceHandler, WritableNativeMap::new);
 
         constantsProviderList.add(setupAdapter);
         constantsProviderList.add(resultsAdapter);
@@ -69,8 +74,7 @@ public class FidelPackage implements ReactPackage {
                 cardVerificationStartedObserver,
                 cardVerificationChoiceObserver,
                 constantsProviderList,
-                new FidelVerificationConfigurationAdapter()
-        );
+                new FidelVerificationConfigurationAdapter());
         return Collections.singletonList(fidelModule);
     }
 

@@ -35,12 +35,12 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final VerificationConfigurationAdapter verificationAdapter;
 
   public FidelModule(ReactApplicationContext reactContext,
-                     DataProcessor<ReadableMap> setupProcessor,
-                     OnResultObserver onResultObserver,
-                     OnCardVerificationStartedObserver onCardVerificationStartedObserver,
-                     OnCardVerificationChoiceSelectedObserver onCardVerificationChoiceSelectedObserver,
-                     List<ConstantsProvider> constantsProviderList,
-                     VerificationConfigurationAdapter verificationAdapter) {
+      DataProcessor<ReadableMap> setupProcessor,
+      OnResultObserver onResultObserver,
+      OnCardVerificationStartedObserver onCardVerificationStartedObserver,
+      OnCardVerificationChoiceSelectedObserver onCardVerificationChoiceSelectedObserver,
+      List<ConstantsProvider> constantsProviderList,
+      VerificationConfigurationAdapter verificationAdapter) {
     super(reactContext);
     this.setupProcessor = setupProcessor;
     this.onCardVerificationChoiceSelectedObserver = onCardVerificationChoiceSelectedObserver;

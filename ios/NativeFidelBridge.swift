@@ -69,6 +69,7 @@ class NativeFidelBridge: RCTEventEmitter {
         switch event {
         case .cardVerificationStarted: return CardVerificationStartedObserver()
         case .resultAvailable: return ResultsObserver()
+        case .cardVerificationChoiceSelected: return CardVerificationChoiceSelectedObserver()
         }
     }
     

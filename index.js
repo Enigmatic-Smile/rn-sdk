@@ -42,7 +42,7 @@ export default class Fidel {
         this.onCardVerificationChoiceSelected.remove();
       }
       this.onCardVerificationChoiceSelected = Fidel.emitter.addListener(
-        "CardVerificationChoice",
+        "CardVerificationChoiceSelected",
         (verificationChoice) => {
           onCardVerificationChoiceSelected(verificationChoice);
         }

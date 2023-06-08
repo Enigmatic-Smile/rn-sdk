@@ -16,7 +16,8 @@ public class CardVerificationChoiceObserver implements OnCardVerificationChoiceS
     private final ObjectFactory<WritableMap> writableMapFactory;
     private final DataProcessor<ReadableMap> adaptedVerificationChoiceDetailsProcessor;
 
-    public CardVerificationChoiceObserver(DataProcessor<ReadableMap> adaptedVerificationChoiceDetailsProcessor, ObjectFactory<WritableMap> writableMapFactory) {
+    public CardVerificationChoiceObserver(DataProcessor<ReadableMap> adaptedVerificationChoiceDetailsProcessor,
+            ObjectFactory<WritableMap> writableMapFactory) {
         this.adaptedVerificationChoiceDetailsProcessor = adaptedVerificationChoiceDetailsProcessor;
         this.writableMapFactory = writableMapFactory;
     }
