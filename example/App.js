@@ -71,7 +71,7 @@ export default class App extends React.Component {
         },
         onCardVerificationChoiceSelected: verificationChoice => {
           console.log(
-            'card verification choice: ',
+            'card verification choice: ' + JSON.stringify(verificationChoice),
           );
         },
       },

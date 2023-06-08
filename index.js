@@ -38,15 +38,16 @@ export default class Fidel {
       onCardVerificationChoiceSelected != undefined &&
       typeof onCardVerificationChoiceSelected === "function"
     ) {
-      if (this.onCardVerificationChoiceSelected != null) {
-        this.onCardVerificationChoiceSelected.remove();
+      if (this.onCardVerificationChoiceSelectedEventSubscription != null) {
+        this.onCardVerificationChoiceSelectedEventSubscription.remove();
       }
-      this.onCardVerificationChoiceSelected = Fidel.emitter.addListener(
-        "CardVerificationChoiceSelected",
-        (verificationChoice) => {
-          onCardVerificationChoiceSelected(verificationChoice);
-        }
-      );
+      this.onCardVerificationChoiceSelectedEventSubscription =
+        Fidel.emitter.addListener(
+          "CardVerificationChoiceSelected",
+          (verificationChoice) => {
+            onCardVerificationChoiceSelected(verificationChoice);
+          }
+        );
     }
     if (
       callback != null &&
