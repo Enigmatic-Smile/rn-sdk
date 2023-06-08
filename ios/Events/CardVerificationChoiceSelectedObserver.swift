@@ -14,7 +14,12 @@ struct CardVerificationChoiceSelectedObserver: EventObserver {
     func startObserving(_ onEvent: @escaping (NSDictionary) -> Void) {
         Fidel.onCardVerificationChoiceSelected = {
             let dictionary: NSMutableDictionary = NSMutableDictionary()
-            dictionary["verificationChoice"] = $0.self
+            switch($0) {
+            case .delegatedToThirdParty:
+                dictionary["verificationChoice"] = "ON_THE_SPOT"
+            case .onTheSpot:
+                dictionary["verificationChoice"] = "DELEGATED_TO_THIRD_PARTY"
+            }
             onEvent(dictionary)
         }
     }
