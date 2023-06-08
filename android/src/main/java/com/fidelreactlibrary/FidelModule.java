@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.CardVerificationConfiguration;
+import com.fidelapi.entities.abstraction.OnCardVerificationChoiceSelectedObserver;
 import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
@@ -27,6 +28,7 @@ import javax.annotation.Nullable;
 public class FidelModule extends ReactContextBaseJavaModule {
 
   private final DataProcessor<ReadableMap> setupProcessor;
+  private final OnCardVerificationChoiceSelectedObserver onCardVerificationChoiceSelectedObserver;
   private final List<ConstantsProvider> constantsProviderList;
   private final OnResultObserver onResultObserver;
   private final OnCardVerificationStartedObserver onCardVerificationStartedObserver;
@@ -36,10 +38,12 @@ public class FidelModule extends ReactContextBaseJavaModule {
                      DataProcessor<ReadableMap> setupProcessor,
                      OnResultObserver onResultObserver,
                      OnCardVerificationStartedObserver onCardVerificationStartedObserver,
+                     OnCardVerificationChoiceSelectedObserver onCardVerificationChoiceSelectedObserver,
                      List<ConstantsProvider> constantsProviderList,
                      VerificationConfigurationAdapter verificationAdapter) {
     super(reactContext);
     this.setupProcessor = setupProcessor;
+    this.onCardVerificationChoiceSelectedObserver = onCardVerificationChoiceSelectedObserver;
     this.constantsProviderList = constantsProviderList;
     this.onResultObserver = onResultObserver;
     this.onCardVerificationStartedObserver = onCardVerificationStartedObserver;
@@ -58,6 +62,8 @@ public class FidelModule extends ReactContextBaseJavaModule {
       Fidel.onResult = onResultObserver;
     } else if (eventName.equals(BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName())) {
       Fidel.onCardVerificationStarted = onCardVerificationStartedObserver;
+    } else if (eventName.equals(BridgeLibraryEvent.CARD_VERIFICATION_CHOICE.getEventName())) {
+      Fidel.onCardVerificationChoiceSelected = onCardVerificationChoiceSelectedObserver;
     }
   }
 

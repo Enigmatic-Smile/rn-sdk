@@ -32,6 +32,22 @@ export default class Fidel {
           }
         );
     }
+    const { onCardVerificationChoiceSelected } = params;
+    if (
+      onCardVerificationChoiceSelected != null &&
+      onCardVerificationChoiceSelected != undefined &&
+      typeof onCardVerificationChoiceSelected === "function"
+    ) {
+      if (this.onCardVerificationChoiceSelected != null) {
+        this.onCardVerificationChoiceSelected.remove();
+      }
+      this.onCardVerificationChoiceSelected = Fidel.emitter.addListener(
+        "CardVerificationChoice",
+        (verificationChoice) => {
+          onCardVerificationChoiceSelected(verificationChoice);
+        }
+      );
+    }
     if (
       callback != null &&
       callback != undefined &&

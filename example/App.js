@@ -65,7 +65,12 @@ export default class App extends React.Component {
           deleteInstructions: 'following our delete instructions',
         },
         onCardVerificationStarted: consentDetails => {
-          console.log('card verification started: ' + JSON.stringify(consentDetails));
+          console.log(
+            'card verification started: ' + JSON.stringify(consentDetails),
+          );
+        },
+        onCardVerificationChoiceSelected: verificationChoice => {
+          console.log('card verification choice: ' + JSON.stringify(verificationChoice));
         },
       },
       result => {
@@ -180,6 +185,7 @@ export default class App extends React.Component {
         <Text style={styles.instructions}>
           To get started, tap the button below.
         </Text>
+        <View style={{height: 10}} />
         <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
         <View style={{ height: 10 }} />
         <Button

@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.entities.abstraction.OnCardVerificationChoiceSelectedObserver;
 import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
@@ -35,7 +36,8 @@ public class FidelModuleTests {
     private List<ConstantsProvider> constantsProviderListStub = new ArrayList<>();
     private final OnResultObserver testOnResultObserver = fidelResult -> {};
     private final OnCardVerificationStartedObserver testOnCardVerificationStartedObserver = consentDetails -> {};
-    
+
+    private final OnCardVerificationChoiceSelectedObserver testOnCardVerificationChoiceSelectedObserver = cardVerificationChoice -> {};
     @Before
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
@@ -44,6 +46,7 @@ public class FidelModuleTests {
                 setupAdapterSpy,
                 testOnResultObserver,
                 testOnCardVerificationStartedObserver,
+                testOnCardVerificationChoiceSelectedObserver,
                 constantsProviderListStub,
                 new VerificationConfigurationAdapterStub()
         );
