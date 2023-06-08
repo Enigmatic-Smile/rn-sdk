@@ -2,6 +2,7 @@ package com.fidelreactlibrary.events;
 
 import androidx.annotation.NonNull;
 
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.fidelapi.entities.EnrollmentResult;
 import com.fidelapi.entities.FidelError;
@@ -19,7 +20,7 @@ import java.util.Map;
 public final class ResultsObserver implements OnResultObserver, ConstantsProvider {
 
     private final DataAdapter<Object, WritableMap> resultAdapter;
-    private final DataProcessor<WritableMap> resultHandler;
+    private final DataProcessor<ReadableMap> resultHandler;
     private final ObjectFactory<WritableMap> writableMapFactory;
 
     private final String ENROLLMENT_RESULT_TYPE = "EnrollmentResult";
@@ -27,7 +28,7 @@ public final class ResultsObserver implements OnResultObserver, ConstantsProvide
     private final String VERIFICATION_RESULT_TYPE = "VerificationResult";
 
     public ResultsObserver(DataAdapter<Object, WritableMap> resultAdapter,
-                           DataProcessor<WritableMap> resultHandler,
+                           DataProcessor<ReadableMap> resultHandler,
                            ObjectFactory<WritableMap> writableMapFactory) {
         this.resultAdapter = resultAdapter;
         this.resultHandler = resultHandler;

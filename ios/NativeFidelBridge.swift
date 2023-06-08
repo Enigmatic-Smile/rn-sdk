@@ -12,7 +12,7 @@ import Fidel
 @objc(NativeFidelBridge)
 class NativeFidelBridge: RCTEventEmitter {
     
-    private let resultsObserver = ResultsObserver()
+    private var eventObservers = [BridgeLibraryEvent: EventObserver]()
     private let imageAdapter = FLRNImageFromRNAdapter()
     private let setupAdapter: FidelSetupAdapter
     private let constantsProvider = ExportedConstantsProvider()
@@ -46,19 +46,35 @@ class NativeFidelBridge: RCTEventEmitter {
     }
 
     override func supportedEvents() -> [String]! {
-        return ["ResultAvailable"]
+        return BridgeLibraryEvent.allCases.map { $0.rawValue }
     }
     
     override func addListener(_ eventName: String!) {
         super.addListener(eventName)
-        resultsObserver.startObserving {[weak self] result in
-            self?.sendEvent(withName: "ResultAvailable", body: result)
+        guard let event = BridgeLibraryEvent(rawValue: eventName) else {
+            return
+        }
+        startObserving(event: event)
+    }
+    
+    private func startObserving(event: BridgeLibraryEvent) {
+        let observer = self.makeObserver(for: event)
+        eventObservers[event] = observer
+        observer.startObserving { [weak self] in
+            self?.sendEvent(withName: event.rawValue, body: $0)
+        }
+    }
+    
+    private func makeObserver(for event: BridgeLibraryEvent) -> EventObserver {
+        switch event {
+        case .cardVerificationStarted: return CardVerificationStartedObserver()
+        case .resultAvailable: return ResultsObserver()
         }
     }
     
     override func removeListeners(_ count: Double) {
         super.removeListeners(count)
-        resultsObserver.stopObserving()
+        eventObservers[.resultAvailable]?.stopObserving()
     }
     
     override func constantsToExport() -> [AnyHashable : Any]! {

@@ -11,10 +11,12 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
 import com.fidelapi.entities.CardVerificationConfiguration;
+import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 import com.fidelreactlibrary.adapters.abstraction.VerificationConfigurationAdapter;
+import com.fidelreactlibrary.events.BridgeLibraryEvent;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,19 +29,20 @@ public class FidelModule extends ReactContextBaseJavaModule {
   private final DataProcessor<ReadableMap> setupProcessor;
   private final List<ConstantsProvider> constantsProviderList;
   private final OnResultObserver onResultObserver;
+  private final OnCardVerificationStartedObserver onCardVerificationStartedObserver;
   private final VerificationConfigurationAdapter verificationAdapter;
-  private final ReactApplicationContext reactContext;
 
   public FidelModule(ReactApplicationContext reactContext,
-      DataProcessor<ReadableMap> setupProcessor,
-      OnResultObserver onResultObserver,
-      List<ConstantsProvider> constantsProviderList,
-      VerificationConfigurationAdapter verificationAdapter) {
+                     DataProcessor<ReadableMap> setupProcessor,
+                     OnResultObserver onResultObserver,
+                     OnCardVerificationStartedObserver onCardVerificationStartedObserver,
+                     List<ConstantsProvider> constantsProviderList,
+                     VerificationConfigurationAdapter verificationAdapter) {
     super(reactContext);
-    this.reactContext = reactContext;
     this.setupProcessor = setupProcessor;
     this.constantsProviderList = constantsProviderList;
     this.onResultObserver = onResultObserver;
+    this.onCardVerificationStartedObserver = onCardVerificationStartedObserver;
     this.verificationAdapter = verificationAdapter;
   }
 
@@ -51,7 +54,11 @@ public class FidelModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void addListener(String eventName) {
-    Fidel.onResult = onResultObserver;
+    if (eventName.equals(BridgeLibraryEvent.RESULT_AVAILABLE.getEventName())) {
+      Fidel.onResult = onResultObserver;
+    } else if (eventName.equals(BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName())) {
+      Fidel.onCardVerificationStarted = onCardVerificationStartedObserver;
+    }
   }
 
   @ReactMethod

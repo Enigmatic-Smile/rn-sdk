@@ -1,4 +1,4 @@
-package com.fidelreactlibrary;
+package com.fidelreactlibrary.adapters;
 
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapContainsMap;
 import static com.fidelreactlibrary.helpers.AssertHelpers.assertMapEqualsWithJSONObject;

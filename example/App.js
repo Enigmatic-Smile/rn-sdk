@@ -44,8 +44,8 @@ export default class App extends React.Component {
 
     Fidel.setup(
       {
-        sdkKey: 'pk_test_6bee5ea2-28f7-42c5-a043-40b325214dd0',
-        programId: '52669e48-a05e-4deb-963e-85c46e622130',
+        sdkKey: 'Your SDK Key',
+        programId: 'Your program ID',
         programType: Fidel.ProgramType.transactionStream,
         options: {
           bannerImage: resolvedImage,
@@ -53,9 +53,9 @@ export default class App extends React.Component {
           defaultSelectedCountry: Fidel.Country.unitedStates,
           supportedCardSchemes: cardSchemes,
           shouldAutoScanCard: false,
-          metaData: {userId: 1234},
+          metaData: { userId: 1234 },
           enableCardScanner: true,
-          thirdPartyVerificationChoice: true,
+          thirdPartyVerificationChoice: false,
         },
         consentText: {
           companyName: 'Your Company Name',
@@ -63,6 +63,9 @@ export default class App extends React.Component {
           privacyPolicyUrl: 'https://fidel.uk',
           programName: 'Your program name',
           deleteInstructions: 'following our delete instructions',
+        },
+        onCardVerificationStarted: consentDetails => {
+          console.log('card verification started: ' + JSON.stringify(consentDetails));
         },
       },
       result => {
@@ -90,9 +93,9 @@ export default class App extends React.Component {
 
   onVerifyButtonPress = () => {
     Fidel.verifyCard({
-      id: '1234',
-      consentId: '456',
-      last4Digits: '4999',
+      id: 'Your card ID to verify',
+      consentId: 'Your consent ID to verify',
+      last4Digits: '1234', // (Optional) The last 4 digits of the card to verify (used only for display purposes)
     });
   };
 
@@ -177,12 +180,13 @@ export default class App extends React.Component {
         <Text style={styles.instructions}>
           To get started, tap the button below.
         </Text>
+        <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
+        <View style={{ height: 10 }} />
         <Button
           onPress={this.onVerifyButtonPress}
-          title="Verify"
+          title="Verify card"
           color="#3846ce"
         />
-        <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
       </View>
     );
   }

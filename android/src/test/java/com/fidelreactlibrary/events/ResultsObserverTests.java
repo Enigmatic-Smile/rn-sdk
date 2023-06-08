@@ -1,6 +1,7 @@
-package com.fidelreactlibrary;
+package com.fidelreactlibrary.events;
 
 import com.facebook.react.bridge.JavaOnlyMap;
+import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.WritableMap;
 import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
@@ -15,7 +16,7 @@ import org.junit.Before;
 public class ResultsObserverTests {
 
     private DataAdapterStub<Object, WritableMap> resultAdapterStub = new DataAdapterStub<>();
-    private DataProcessorSpy<WritableMap> resultHandlerSpy = new DataProcessorSpy<>();
+    private DataProcessorSpy<ReadableMap> resultHandlerSpy = new DataProcessorSpy<>();
     private ResultsObserver sut = new ResultsObserver(resultAdapterStub, resultHandlerSpy, JavaOnlyMap::new);
 
     private static final EnrollmentResult testLinkResult = new EnrollmentResult(
