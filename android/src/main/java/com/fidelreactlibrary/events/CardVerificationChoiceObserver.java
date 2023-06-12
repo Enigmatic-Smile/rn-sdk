@@ -7,25 +7,23 @@ import com.facebook.react.bridge.WritableMap;
 import com.fidelapi.entities.CardVerificationChoice;
 import com.fidelapi.entities.abstraction.OnCardVerificationChoiceSelectedObserver;
 import com.fidelapi.utils.FidelExperimental;
+import com.fidelreactlibrary.adapters.abstraction.CardVerificationChoiceAdapter;
 import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
 import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
 
 @FidelExperimental
 public class CardVerificationChoiceObserver implements OnCardVerificationChoiceSelectedObserver {
-
-    private final ObjectFactory<WritableMap> writableMapFactory;
     private final DataProcessor<ReadableMap> adaptedVerificationChoiceDetailsProcessor;
+    private final CardVerificationChoiceAdapter cardVerificationChoiceAdapter;
 
     public CardVerificationChoiceObserver(DataProcessor<ReadableMap> adaptedVerificationChoiceDetailsProcessor,
-            ObjectFactory<WritableMap> writableMapFactory) {
+                                          CardVerificationChoiceAdapter cardVerificationChoiceAdapter) {
         this.adaptedVerificationChoiceDetailsProcessor = adaptedVerificationChoiceDetailsProcessor;
-        this.writableMapFactory = writableMapFactory;
+        this.cardVerificationChoiceAdapter = cardVerificationChoiceAdapter;
     }
 
     @Override
     public void onCardVerificationChoiceSelected(@NonNull CardVerificationChoice cardVerificationChoice) {
-        WritableMap map = writableMapFactory.create();
-        map.putString("verificationChoice", cardVerificationChoice.name());
-        adaptedVerificationChoiceDetailsProcessor.process(map);
+        adaptedVerificationChoiceDetailsProcessor.process(cardVerificationChoiceAdapter.adapt(cardVerificationChoice));
     }
 }

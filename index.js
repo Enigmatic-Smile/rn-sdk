@@ -10,6 +10,7 @@ export default class Fidel {
   static ErrorType = NativeFidelBridge.ErrorType;
   static EnrollmentErrorType = NativeFidelBridge.EnrollmentErrorType;
   static VerificationErrorType = NativeFidelBridge.VerificationErrorType;
+  static CardVerificationChoice = NativeFidelBridge.CardVerificationChoice;
 
   static setup(params, callback) {
     if (this.eventSubscription != null) {

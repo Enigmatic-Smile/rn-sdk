@@ -19,6 +19,7 @@ class ExportedConstantsProvider: NSObject {
         constants.merge(VerificationError.constantsToExport) { (current, _) in current }
         constants.merge(FidelErrorType.constantsToExport) { (current, _) in current }
         constants.merge(FidelResult.constantsToExport) { (current, _) in current }
+        constants.merge(CardVerificationChoice.constantsToExport) { (current, _) in current }
         return constants
     }
 }

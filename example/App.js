@@ -70,9 +70,17 @@ export default class App extends React.Component {
           );
         },
         onCardVerificationChoiceSelected: verificationChoice => {
-          console.log(
-            'card verification choice: ' + JSON.stringify(verificationChoice),
-          );
+          switch (verificationChoice) {
+            case Fidel.CardVerificationChoice.onTheSpot:
+               console.log(
+                 'card verification choice: on the spot',
+               );
+              break;
+            case Fidel.CardVerificationChoice.delegatedToThirdParty:
+               console.log('card verification choice: delegated to third party');
+              break;
+          }
+         
         },
       },
       result => {

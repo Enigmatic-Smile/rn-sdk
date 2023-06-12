@@ -16,6 +16,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 import com.facebook.react.uimanager.ViewManager;
 import com.fidelapi.utils.FidelExperimental;
 import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
+import com.fidelreactlibrary.adapters.FidelCardVerificationChoiceAdapter;
 import com.fidelreactlibrary.adapters.FidelCountryAdapter;
 import com.fidelreactlibrary.adapters.FidelProgramTypeAdapter;
 import com.fidelreactlibrary.adapters.FidelSetupAdapter;
@@ -60,12 +61,14 @@ public class FidelPackage implements ReactPackage {
                 BridgeLibraryEvent.CARD_VERIFICATION_CHOICE);
         CardVerificationStartedObserver cardVerificationStartedObserver = new CardVerificationStartedObserver(
                 cardVerificationStartedHandler, WritableNativeMap::new);
+        FidelCardVerificationChoiceAdapter cardVerificationChoiceAdapter = new FidelCardVerificationChoiceAdapter(WritableNativeMap::new );
         CardVerificationChoiceObserver cardVerificationChoiceObserver = new CardVerificationChoiceObserver(
-                cardVerificationChoiceHandler, WritableNativeMap::new);
+                cardVerificationChoiceHandler, cardVerificationChoiceAdapter);
 
         constantsProviderList.add(setupAdapter);
         constantsProviderList.add(resultsAdapter);
         constantsProviderList.add(resultsObserver);
+        constantsProviderList.add(cardVerificationChoiceAdapter);
 
         FidelModule fidelModule = new FidelModule(
                 reactContext,
