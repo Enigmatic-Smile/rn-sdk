@@ -28,7 +28,7 @@ public class FidelCardVerificationChoiceAdapter implements CardVerificationChoic
     @Override
     public ReadableMap adapt(@NonNull CardVerificationChoice cardVerificationChoice) {
         WritableMap map = writableMapFactory.create();
-        map.putString(CARD_VERIFICATION_CHOICE, getChoice(cardVerificationChoice));
+        map.putString(CARD_VERIFICATION_CHOICE, jsValue(cardVerificationChoice));
         return map;
     }
 
@@ -38,14 +38,14 @@ public class FidelCardVerificationChoiceAdapter implements CardVerificationChoic
         final Map<String, Object> constants = new HashMap<>();
         final Map<String, String> verificationChoicesMap = new HashMap<>();
         for (CardVerificationChoice choice : CardVerificationChoice.values()) {
-            String verificationChoiceKey = keyFor(choice);
-            verificationChoicesMap.put(verificationChoiceKey, choice.name());
+            String verificationChoiceKeyAndValue = jsValue(choice);
+            verificationChoicesMap.put(verificationChoiceKeyAndValue, verificationChoiceKeyAndValue);
         }
         constants.put(CARD_VERIFICATION_CHOICE, verificationChoicesMap);
         return constants;
     }
 
-    private String getChoice(@NonNull CardVerificationChoice cardVerificationChoice) {
+    private String jsValue(@NonNull CardVerificationChoice cardVerificationChoice) {
         switch (cardVerificationChoice) {
             case DELEGATED_TO_THIRD_PARTY:
                 return CARD_VERIFICATION_DELEGATED_TO_THIRD_PARTY;
@@ -53,13 +53,5 @@ public class FidelCardVerificationChoiceAdapter implements CardVerificationChoic
                 return CARD_VERIFICATION_ON_THE_SPOT;
         }
         return "notFound";
-    }
-
-    public @NonNull String keyFor(@NonNull CardVerificationChoice choice) {
-        switch (choice) {
-            case DELEGATED_TO_THIRD_PARTY: return CARD_VERIFICATION_DELEGATED_TO_THIRD_PARTY;
-            case ON_THE_SPOT: return CARD_VERIFICATION_ON_THE_SPOT;
-            default: return "notFound";
-        }
     }
 }
