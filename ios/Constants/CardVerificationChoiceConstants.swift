@@ -21,10 +21,11 @@ extension CardVerificationChoice: ConstantsProvider {
     public static var allCases: Set<CardVerificationChoice> = [CardVerificationChoice.onTheSpot, .delegatedToThirdParty]
     static var parentKeyName: String = String(describing: Self.self)
     
-    static func verificationChoice(from constantKey: String?) -> CardVerificationChoice {
-        if constantKey == "onTheSpot" {
-            return .onTheSpot
+    static func verificationChoice(from constantKey: String?) -> CardVerificationChoice? {
+        switch constantKey {
+        case "onTheSpot": return .onTheSpot
+        case "delegatedToThirdParty": return .delegatedToThirdParty
+        default: return nil
         }
-        return .delegatedToThirdParty
     }
 }
