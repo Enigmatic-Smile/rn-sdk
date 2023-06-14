@@ -84,13 +84,13 @@ public class FidelModuleTests {
     }
 
     @Test
-    public void test_WhenACardVerificationStartedListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
+    public void test_WhenACardVerificationStartedListenerHasBeenAdded_AddTheObserverToFidel() {
         sut.addListener("CardVerificationStarted");
         assertEquals(testOnCardVerificationStartedObserver, Fidel.onCardVerificationStarted);
     }
 
     @Test
-    public void test_WhenACardVerificationChoiceSelectedListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
+    public void test_WhenACardVerificationChoiceSelectedListenerHasBeenAdded_AddTheObserverToFidel() {
         sut.addListener("CardVerificationChoiceSelected");
         assertEquals(testOnCardVerificationChoiceSelectedObserver, Fidel.onCardVerificationChoiceSelected);
     }
