@@ -61,7 +61,7 @@ public class FidelPackage implements ReactPackage {
                 BridgeLibraryEvent.CARD_VERIFICATION_CHOICE);
         CardVerificationStartedObserver cardVerificationStartedObserver = new CardVerificationStartedObserver(
                 cardVerificationStartedHandler, WritableNativeMap::new);
-        FidelCardVerificationChoiceAdapter cardVerificationChoiceAdapter = new FidelCardVerificationChoiceAdapter(WritableNativeMap::new );
+        FidelCardVerificationChoiceAdapter cardVerificationChoiceAdapter = new FidelCardVerificationChoiceAdapter(WritableNativeMap::new);
         CardVerificationChoiceObserver cardVerificationChoiceObserver = new CardVerificationChoiceObserver(
                 cardVerificationChoiceHandler, cardVerificationChoiceAdapter);
 

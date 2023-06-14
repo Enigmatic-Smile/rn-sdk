@@ -38,6 +38,7 @@ public class FidelModuleTests {
     private final OnCardVerificationStartedObserver testOnCardVerificationStartedObserver = consentDetails -> {};
 
     private final OnCardVerificationChoiceSelectedObserver testOnCardVerificationChoiceSelectedObserver = cardVerificationChoice -> {};
+
     @Before
     public final void setUp() {
         Context context = ApplicationProvider.getApplicationContext();
@@ -86,6 +87,12 @@ public class FidelModuleTests {
     public void test_WhenACardVerificationStartedListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
         sut.addListener("CardVerificationStarted");
         assertEquals(testOnCardVerificationStartedObserver, Fidel.onCardVerificationStarted);
+    }
+
+    @Test
+    public void test_WhenACardVerificationChoiceSelectedListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
+        sut.addListener("CardVerificationChoiceSelected");
+        assertEquals(testOnCardVerificationChoiceSelectedObserver, Fidel.onCardVerificationChoiceSelected);
     }
 
     @Test

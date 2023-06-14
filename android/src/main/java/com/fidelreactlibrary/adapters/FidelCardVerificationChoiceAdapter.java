@@ -16,8 +16,8 @@ import java.util.Map;
 
 @OptIn(markerClass = FidelExperimental.class)
 public class FidelCardVerificationChoiceAdapter implements CardVerificationChoiceAdapter, ConstantsProvider {
-    private static final String CARD_VERIFICATION_ON_THE_SPOT = "onTheSpot";
-    private static final String CARD_VERIFICATION_DELEGATED_TO_THIRD_PARTY = "delegatedToThirdParty";
+    protected static final String CARD_VERIFICATION_ON_THE_SPOT = "onTheSpot";
+    protected static final String CARD_VERIFICATION_DELEGATED_TO_THIRD_PARTY = "delegatedToThirdParty";
     public static final String CARD_VERIFICATION_CHOICE = "CardVerificationChoice";
     private final ObjectFactory<WritableMap> writableMapFactory;
 

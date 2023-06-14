@@ -3,7 +3,6 @@ package com.fidelreactlibrary.adapters;
 import com.facebook.react.bridge.JavaOnlyArray;
 import com.facebook.react.bridge.ReadableArray;
 import com.fidelapi.entities.CardScheme;
-import com.fidelreactlibrary.adapters.FidelCardSchemesAdapter;
 
 import org.junit.Test;
 
