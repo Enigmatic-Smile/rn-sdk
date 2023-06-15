@@ -10,6 +10,7 @@ export default class Fidel {
   static ErrorType = NativeFidelBridge.ErrorType;
   static EnrollmentErrorType = NativeFidelBridge.EnrollmentErrorType;
   static VerificationErrorType = NativeFidelBridge.VerificationErrorType;
+  static CardVerificationChoice = NativeFidelBridge.CardVerificationChoice;
 
   static setup(params, callback) {
     if (this.eventSubscription != null) {
@@ -29,6 +30,23 @@ export default class Fidel {
           "CardVerificationStarted",
           (consentDetails) => {
             onCardVerificationStarted(consentDetails);
+          }
+        );
+    }
+    const { onCardVerificationChoiceSelected } = params;
+    if (
+      onCardVerificationChoiceSelected != null &&
+      onCardVerificationChoiceSelected != undefined &&
+      typeof onCardVerificationChoiceSelected === "function"
+    ) {
+      if (this.onCardVerificationChoiceSelectedEventSubscription != null) {
+        this.onCardVerificationChoiceSelectedEventSubscription.remove();
+      }
+      this.onCardVerificationChoiceSelectedEventSubscription =
+        Fidel.emitter.addListener(
+          "CardVerificationChoiceSelected",
+          (verificationChoice) => {
+            onCardVerificationChoiceSelected(verificationChoice);
           }
         );
     }
