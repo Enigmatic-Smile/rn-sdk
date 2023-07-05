@@ -1,6 +1,6 @@
 {
   "name": "fidel-react-native",
-  "version": "2.0.0-beta12",
+  "version": "2.0.0-beta13",
   "description": "Fidel's React Native bridge library for iOS and Android.",
   "main": "index.js",
   "nativePackage": true,
