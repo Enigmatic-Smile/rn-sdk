@@ -10,8 +10,8 @@ PODS:
     - React-Core (= 0.71.8)
     - React-jsi (= 0.71.8)
     - ReactCommon/turbomodule/core (= 0.71.8)
-  - Fidel (2.0.0-beta15)
-  - fidel-react-native (2.0.0-beta10):
+  - Fidel (2.0.0-beta17)
+  - fidel-react-native (2.0.0-beta11):
     - Fidel
     - React
   - Flipper (0.125.0):
@@ -580,7 +580,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Fidel:
-    :commit: 2c8466aaeee3f6096c4682f786557522c11dbcf1
+    :commit: 5c1a8a724f2d43708300e91f738b359050231e11
     :git: https://github.com/FidelLimited/fidel-ios
 
 SPEC CHECKSUMS:
@@ -589,8 +589,8 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f637f31eacba90d4fdeff3fa41608b8f361c173b
   FBReactNativeSpec: 0d9a4f4de7ab614c49e98c00aedfd3bfbda33d59
-  Fidel: d231f138660a29146330c504b78a7a81395f3b2a
-  fidel-react-native: 39883d840be58f9694b4556a2ae6bf608c4f0023
+  Fidel: 62a4048f74ef68112e5bfff96affc539269b69cd
+  fidel-react-native: f8930790f200f8c91f5d8b9365574cd1663e1c36
   Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 2dc99b02f658daf147069aad9dbd29d8feb06d30
