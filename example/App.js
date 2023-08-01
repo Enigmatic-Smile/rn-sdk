@@ -52,9 +52,7 @@ export default class App extends React.Component {
           allowedCountries: countries,
           defaultSelectedCountry: Fidel.Country.unitedStates,
           supportedCardSchemes: cardSchemes,
-          shouldAutoScanCard: false,
           metaData: { userId: 1234 },
-          enableCardScanner: true,
           thirdPartyVerificationChoice: false,
         },
         consentText: {
