@@ -14,8 +14,6 @@ public enum FidelSetupProperties {
         ALLOWED_COUNTRIES("allowedCountries"),
         DEFAULT_SELECTED_COUNTRY("defaultSelectedCountry"),
         SUPPORTED_CARD_SCHEMES("supportedCardSchemes"),
-        SHOULD_AUTO_SCAN("shouldAutoScanCard"),
-        ENABLE_CARD_SCANNER("enableCardScanner"),
         THIRD_PARTY_VERIFICATION_CHOICE("thirdPartyVerificationChoice"),
         META_DATA("metaData");
 

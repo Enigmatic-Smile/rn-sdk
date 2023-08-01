@@ -10,7 +10,7 @@ PODS:
     - React-Core (= 0.71.8)
     - React-jsi (= 0.71.8)
     - ReactCommon/turbomodule/core (= 0.71.8)
-  - Fidel (2.0.0-beta17)
+  - Fidel (2.0.0-beta20)
   - fidel-react-native (2.0.0-beta11):
     - Fidel
     - React
@@ -417,7 +417,7 @@ PODS:
     - React-jsi (= 0.71.8)
     - React-logger (= 0.71.8)
     - React-perflogger (= 0.71.8)
-  - SocketRocket (0.6.0)
+  - SocketRocket (0.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
     - Yoga (~> 1.14)
@@ -580,7 +580,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   Fidel:
-    :commit: 5c1a8a724f2d43708300e91f738b359050231e11
+    :commit: 137d9696497f4e79d8a2280410ba9c6b8b3ff488
     :git: https://github.com/FidelLimited/fidel-ios
 
 SPEC CHECKSUMS:
@@ -589,7 +589,7 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: f637f31eacba90d4fdeff3fa41608b8f361c173b
   FBReactNativeSpec: 0d9a4f4de7ab614c49e98c00aedfd3bfbda33d59
-  Fidel: 62a4048f74ef68112e5bfff96affc539269b69cd
+  Fidel: e00ff20c388ae4df3c0b0a63cd4d138241c6e9f1
   fidel-react-native: f8930790f200f8c91f5d8b9365574cd1663e1c36
   Flipper: 26fc4b7382499f1281eb8cb921e5c3ad6de91fe0
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
@@ -632,7 +632,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 43ffd976a25f6057a7cf95ea3648ba4e00287f89
   React-runtimeexecutor: 7c51ae9d4b3e9608a2366e39ccaa606aa551b9ed
   ReactCommon: 85c98ab0a509e70bf5ee5d9715cf68dbf495b84c
-  SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
 

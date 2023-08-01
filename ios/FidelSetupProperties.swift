@@ -19,8 +19,6 @@ enum FidelSetupProperties: String {
         case allowedCountries
         case defaultSelectedCountry
         case supportedCardSchemes
-        case shouldAutoScanCard
-        case enableCardScanner
         case thirdPartyVerificationChoice
         case metaData
     }
