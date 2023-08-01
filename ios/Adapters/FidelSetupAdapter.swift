@@ -59,12 +59,6 @@ class FidelSetupAdapter: NSObject {
            let supportedCardSchemeJSKeys = options[FidelSetupProperties.Options.supportedCardSchemes.rawValue] as? [String] {
             Fidel.supportedCardSchemes = CardScheme.cardSchemesSet(from: supportedCardSchemeJSKeys)
         }
-        if options.keys.contains(FidelSetupProperties.Options.shouldAutoScanCard.rawValue) {
-            Fidel.shouldAutoScanCard = options[FidelSetupProperties.Options.shouldAutoScanCard.rawValue] as? Bool ?? false
-        }
-        if options.keys.contains(FidelSetupProperties.Options.enableCardScanner.rawValue) {
-            Fidel.enableCardScanner = options[FidelSetupProperties.Options.enableCardScanner.rawValue] as? Bool ?? false
-        }
         if options.keys.contains(FidelSetupProperties.Options.thirdPartyVerificationChoice.rawValue) {
             Fidel.thirdPartyVerificationChoice = options[FidelSetupProperties.Options.thirdPartyVerificationChoice.rawValue] as? Bool ?? false
         }
