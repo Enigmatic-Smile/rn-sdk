@@ -63,14 +63,12 @@ public class FidelSetupAdapterTests {
         Fidel.allowedCountries = EnumSet.allOf(Country.class);
         Fidel.defaultSelectedCountry = Country.UNITED_KINGDOM;
         Fidel.supportedCardSchemes = EnumSet.allOf(CardScheme.class);
-        Fidel.shouldAutoScanCard = false;
         Fidel.metaData = null;
         Fidel.privacyPolicyUrl = null;
         Fidel.termsAndConditionsUrl = null;
         Fidel.programName = null;
         Fidel.deleteInstructions = null;
         Fidel.programType = ProgramType.TRANSACTION_SELECT;
-        Fidel.enableCardScanner = false;
         Fidel.thirdPartyVerificationChoice = false;
     }
 
@@ -81,7 +79,6 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.programId);
         assertNull(Fidel.companyName);
         assertNull(Fidel.bannerImage);
-        assertFalse(Fidel.shouldAutoScanCard);
         assertEquals(EnumSet.allOf(Country.class), Fidel.allowedCountries);
         assertEquals(Country.UNITED_KINGDOM, Fidel.defaultSelectedCountry);
         assertEquals(EnumSet.allOf(CardScheme.class), Fidel.supportedCardSchemes);
@@ -91,7 +88,6 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.programName);
         assertNull(Fidel.deleteInstructions);
         assertEquals(ProgramType.TRANSACTION_SELECT, Fidel.programType);
-        assertFalse(Fidel.enableCardScanner);
         assertFalse(Fidel.thirdPartyVerificationChoice);
     }
 
@@ -389,57 +385,6 @@ public class FidelSetupAdapterTests {
         sut.process(map);
 
         assertEquals(TEST_CARD_SCHEMES_SET, Fidel.supportedCardSchemes);
-    }
-
-    @Test
-    public void test_WhenDataHasNoOptionsKey_DoNotSetShouldAutoScanCardPropertyForFidel() {
-        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupProperties.OPTIONS);
-        Fidel.shouldAutoScanCard = true;
-        sut.process(map);
-        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupProperties.OPTIONS.jsName()));
-        assertTrue(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveShouldAutoScanCardKey_DoNotSetThisPropertyForFidel() {
-        ReadableMapStub map = ReadableMapStub.withoutOptionsKey(FidelSetupProperties.Options.SHOULD_AUTO_SCAN);
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-
-        Fidel.shouldAutoScanCard = true;
-        sut.process(map);
-
-        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupProperties.OPTIONS.jsName()));
-        assertTrue(optionsMap.keyNamesCheckedFor.contains(FidelSetupProperties.Options.SHOULD_AUTO_SCAN.jsName()));
-        assertFalse(optionsMap.keyNamesAskedValueFor.contains(FidelSetupProperties.Options.SHOULD_AUTO_SCAN.jsName()));
-        assertTrue(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_WhenShouldAutoScanCardPropertyIsFalse_ShouldBeSetToFalseForTheSDK() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-        optionsMap.boolToReturn = false;
-
-        sut.process(map);
-
-        assertFalse(Fidel.shouldAutoScanCard);
-    }
-
-    @Test
-    public void test_WhenShouldAutoScanCardPropertyIsTrue_ShouldBeSetToTrueForTheSDK() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-        optionsMap.boolToReturn = true;
-
-        sut.process(map);
-
-        assertTrue(Fidel.shouldAutoScanCard);
     }
 
     @Test
@@ -867,49 +812,6 @@ public class FidelSetupAdapterTests {
         assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupProperties.PROGRAM_TYPE.jsName()));
         assertEquals(testProgramTypeValue, programTypeAdapterStub.receivedProgramTypeString);
         assertEquals(ProgramType.TRANSACTION_STREAM, Fidel.programType);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveEnableCardScannerKey_DoNotSetThisPropertyForFidel() {
-        ReadableMapStub map = ReadableMapStub.withoutOptionsKey(FidelSetupProperties.Options.ENABLE_CARD_SCANNER);
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-
-        Fidel.enableCardScanner = true;
-        sut.process(map);
-
-        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupProperties.OPTIONS.jsName()));
-        assertTrue(optionsMap.keyNamesCheckedFor.contains(FidelSetupProperties.Options.ENABLE_CARD_SCANNER.jsName()));
-        assertFalse(
-                optionsMap.keyNamesAskedValueFor.contains(FidelSetupProperties.Options.ENABLE_CARD_SCANNER.jsName()));
-        assertTrue(Fidel.enableCardScanner);
-    }
-
-    @Test
-    public void test_WhenEnableCardScannerPropertyIsFalse_ShouldBeSetToFalseForTheSDK() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-        optionsMap.boolToReturn = false;
-
-        sut.process(map);
-
-        assertFalse(Fidel.enableCardScanner);
-    }
-
-    @Test
-    public void test_WhenEnableCardScannerPropertyIsTrue_ShouldBeSetToTrueForTheSDK() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-        optionsMap.boolToReturn = true;
-
-        sut.process(map);
-
-        assertTrue(Fidel.shouldAutoScanCard);
     }
 
     @Test
