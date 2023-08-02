@@ -52,9 +52,7 @@ export default class App extends React.Component {
           allowedCountries: countries,
           defaultSelectedCountry: Fidel.Country.unitedStates,
           supportedCardSchemes: cardSchemes,
-          shouldAutoScanCard: false,
-          metaData: { userId: 1234 },
-          enableCardScanner: true,
+          metaData: {userId: 1234},
           thirdPartyVerificationChoice: false,
         },
         consentText: {
@@ -194,7 +192,7 @@ export default class App extends React.Component {
         </Text>
         <View style={{height: 10}} />
         <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
-        <View style={{ height: 10 }} />
+        <View style={{height: 10}} />
         <Button
           onPress={this.onVerifyButtonPress}
           title="Verify card"
