@@ -1,0 +1,72 @@
+package com.fidelreactlibrary.events;
+
+import androidx.annotation.NonNull;
+
+import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.WritableMap;
+import com.fidelapi.entities.EnrollmentResult;
+import com.fidelapi.entities.FidelError;
+import com.fidelapi.entities.FidelResult;
+import com.fidelapi.entities.VerificationResult;
+import com.fidelapi.entities.abstraction.OnResultObserver;
+import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
+import com.fidelreactlibrary.adapters.abstraction.DataAdapter;
+import com.fidelreactlibrary.adapters.abstraction.DataProcessor;
+import com.fidelreactlibrary.adapters.abstraction.ObjectFactory;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public final class ResultsObserver implements OnResultObserver, ConstantsProvider {
+
+    private final DataAdapter<Object, WritableMap> resultAdapter;
+    private final DataProcessor<ReadableMap> resultHandler;
+    private final ObjectFactory<WritableMap> writableMapFactory;
+
+    private final String ENROLLMENT_RESULT_TYPE = "EnrollmentResult";
+    private final String ERROR_RESULT_TYPE = "Error";
+    private final String VERIFICATION_RESULT_TYPE = "VerificationResult";
+
+    public ResultsObserver(DataAdapter<Object, WritableMap> resultAdapter,
+                           DataProcessor<ReadableMap> resultHandler,
+                           ObjectFactory<WritableMap> writableMapFactory) {
+        this.resultAdapter = resultAdapter;
+        this.resultHandler = resultHandler;
+        this.writableMapFactory = writableMapFactory;
+    }
+
+    @Override
+    public void onResultAvailable(FidelResult fidelResult) {
+        WritableMap resultMap = writableMapFactory.create();
+        String RESULT_TYPE_KEY = "type";
+        if (fidelResult instanceof FidelResult.Enrollment) {
+            EnrollmentResult enrollmentResult = ((FidelResult.Enrollment) fidelResult).getEnrollmentResult();
+            WritableMap adaptedObject = resultAdapter.getAdaptedObjectFor(enrollmentResult);
+            resultMap.putString(RESULT_TYPE_KEY, ENROLLMENT_RESULT_TYPE);
+            resultMap.putMap("enrollmentResult", adaptedObject);
+        } else if (fidelResult instanceof FidelResult.Verification) {
+            VerificationResult verificationResult = ((FidelResult.Verification) fidelResult).getVerificationResult();
+            WritableMap adaptedObject = resultAdapter.getAdaptedObjectFor(verificationResult);
+            resultMap.putString(RESULT_TYPE_KEY, VERIFICATION_RESULT_TYPE);
+            resultMap.putMap("verificationResult", adaptedObject);
+        } else {
+            resultMap.putString(RESULT_TYPE_KEY, ERROR_RESULT_TYPE);
+            FidelError error = ((FidelResult.Error) fidelResult).getError();
+            WritableMap adaptedError = resultAdapter.getAdaptedObjectFor(error);
+            resultMap.putMap("error", adaptedError);
+        }
+        resultHandler.process(resultMap);
+    }
+
+    @NonNull
+    @Override
+    public Map<String, Object> getConstants() {
+        final Map<String, Object> constants = new HashMap<>();
+        final Map<String, String> resultTypesMap = new HashMap<>();
+        resultTypesMap.put(ENROLLMENT_RESULT_TYPE, ENROLLMENT_RESULT_TYPE);
+        resultTypesMap.put(ERROR_RESULT_TYPE, ERROR_RESULT_TYPE);
+        resultTypesMap.put(VERIFICATION_RESULT_TYPE, VERIFICATION_RESULT_TYPE);
+        constants.put("ResultType", resultTypesMap);
+        return constants;
+    }
+}

@@ -27,7 +27,7 @@ import java.io.IOException;
 public final class ImageFromReadableMapAdapter implements DataProcessor<ReadableMap> {
 
     public DataOutput<Bitmap> bitmapOutput;
-    private Context context;
+    private final Context context;
 
     public ImageFromReadableMapAdapter(Context context) {
         this.context = context;
@@ -35,6 +35,10 @@ public final class ImageFromReadableMapAdapter implements DataProcessor<Readable
 
     @Override
     public void process(ReadableMap data) {
+        if (data == null || !data.hasKey("uri")) {
+            bitmapOutput.output(null);
+            return;
+        }
         String imageURIString = data.getString("uri");
         Uri imageURI = Uri.parse(imageURIString);
         if (imageURI.getScheme() != null && (imageURI.getScheme().equals("http") ||
