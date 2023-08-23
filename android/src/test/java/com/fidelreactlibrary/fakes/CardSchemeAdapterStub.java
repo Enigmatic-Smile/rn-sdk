@@ -1,28 +1,39 @@
 package com.fidelreactlibrary.fakes;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.entities.CardScheme;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 
 import java.util.Map;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 public final class CardSchemeAdapterStub implements CardSchemesAdapter {
 
     public ReadableArray cardSchemesReceived;
-    public Set<Fidel.CardScheme> fakeAdaptedCardSchemesToReturn;
+    public Set<CardScheme> fakeAdaptedCardSchemesToReturn;
+    public boolean askedToAdaptCardSchemes = false;
+    public String jsValueToReturn;
 
+    @NonNull
     @Override
-    public Set<Fidel.CardScheme> cardSchemesWithReadableArray(ReadableArray cardSchemes) {
+    public Set<CardScheme> cardSchemesWithReadableArray(@Nullable ReadableArray cardSchemes) {
+        askedToAdaptCardSchemes = true;
         cardSchemesReceived = cardSchemes;
         return fakeAdaptedCardSchemesToReturn;
     }
 
-    @Nonnull
+    @NonNull
     @Override
     public Map<String, Object> getConstants() {
         return new ConstantsProviderStub("testKeyCardSchemeAdapter", 234).getConstants();
+    }
+
+    @NonNull
+    @Override
+    public String jsValue(@NonNull CardScheme cardScheme) {
+        return jsValueToReturn;
     }
 }

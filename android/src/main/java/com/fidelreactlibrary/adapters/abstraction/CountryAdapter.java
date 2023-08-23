@@ -1,9 +1,20 @@
 package com.fidelreactlibrary.adapters.abstraction;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.facebook.react.bridge.ReadableArray;
-import com.fidel.sdk.Fidel;
+import com.fidelapi.entities.Country;
+
+import java.util.Set;
 
 public interface CountryAdapter extends ConstantsProvider {
-    Fidel.Country countryWithInteger(int integer);
-    Fidel.Country[] parseAllowedCountries(ReadableArray inputArray);
+    @NonNull
+    Set<Country> parseAllowedCountries(@Nullable ReadableArray inputArray);
+
+    @Nullable
+    Country countryWithJSValue(String jsValue);
+
+    @NonNull
+    String jsCountryValue(@NonNull Country country);
 }

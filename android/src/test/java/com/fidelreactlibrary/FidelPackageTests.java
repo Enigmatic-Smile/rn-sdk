@@ -3,7 +3,6 @@ package com.fidelreactlibrary;
 import android.content.Context;
 
 import com.facebook.react.bridge.NativeModule;
-import com.fidel.sdk.Fidel;
 import com.fidelreactlibrary.fakes.ReactContextMock;
 
 import org.junit.Test;

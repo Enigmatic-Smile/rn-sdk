@@ -4,9 +4,6 @@
   "description": "Fidel's React Native bridge library for iOS and Android.",
   "main": "index.js",
   "nativePackage": true,
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "directories": {
     "example": "./example"
   },
