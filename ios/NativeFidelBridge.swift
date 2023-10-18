@@ -8,6 +8,7 @@
 import Foundation
 import React
 import Fidel
+import analytics
 
 @objc(NativeFidelBridge)
 class NativeFidelBridge: RCTEventEmitter {
@@ -43,6 +44,12 @@ class NativeFidelBridge: RCTEventEmitter {
         }
         let cardVerificationConfig = verificationConfigAdapter.adapt(parameters)
         Fidel.verifyCard(from: startViewController, cardVerificationConfiguration: cardVerificationConfig)
+    }
+    
+    @objc(identifyMetricsDataSource:version:)
+    func identifyMetricsDataSource(name: String, version: String) {
+        let reactNativeSdkDetails = SdkDetails(name: name, version: version)
+        Analytics().identifyMultiplatformDataSource(sdkDetails: reactNativeSdkDetails)
     }
 
     override func supportedEvents() -> [String]! {

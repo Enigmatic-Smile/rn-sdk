@@ -1,4 +1,5 @@
 import { NativeEventEmitter, NativeModules } from "react-native";
+import { version } from "./package.json";
 
 const { NativeFidelBridge } = NativeModules;
 
@@ -64,11 +65,17 @@ export default class Fidel {
   }
 
   static start() {
+    Fidel.identifyMetricsDataSource()
     NativeFidelBridge.start();
   }
 
   static verifyCard(params) {
+    Fidel.identifyMetricsDataSource()
     NativeFidelBridge.verifyCard(params);
+  }
+
+  static identifyMetricsDataSource() {
+    NativeFidelBridge.identifyMetricsDataSource("rn", version);
   }
 }
 
