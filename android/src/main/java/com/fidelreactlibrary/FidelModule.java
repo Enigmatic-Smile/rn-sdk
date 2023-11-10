@@ -10,6 +10,8 @@ import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
+import com.fidelapi.analytics.Analytics;
+import com.fidelapi.analytics.domain.SdkDetails;
 import com.fidelapi.entities.CardVerificationConfiguration;
 import com.fidelapi.entities.abstraction.OnCardVerificationChoiceSelectedObserver;
 import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
@@ -98,6 +100,13 @@ public class FidelModule extends ReactContextBaseJavaModule {
     }
   }
 
+  @ReactMethod
+  public void identifyMetricsDataSource(String name, String version) {
+    SdkDetails reactNativeSdkDetails = new SdkDetails(name, version);
+    Analytics analytics = new Analytics();
+    analytics.identifyMultiplatformDataSource(reactNativeSdkDetails);
+  }
+  
   @Nullable
   @Override
   public Map<String, Object> getConstants() {
