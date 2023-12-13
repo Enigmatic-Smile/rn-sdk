@@ -30,9 +30,7 @@ export default class App extends React.Component {
 
     //this is the default value for supported card schemes,
     //but you can remove the support for some of the card schemes if you want to
-    const cardSchemes = [
-      Fidel.CardScheme.visa,
-    ];
+    const cardSchemes = [Fidel.CardScheme.visa, Fidel.CardScheme.mastercard];
 
     const countries = [
       Fidel.Country.unitedKingdom,
