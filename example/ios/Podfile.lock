@@ -10,8 +10,8 @@ PODS:
     - React-Core (= 0.72.6)
     - React-jsi (= 0.72.6)
     - ReactCommon/turbomodule/core (= 0.72.6)
-  - Fidel (2.1.1)
-  - fidel-react-native (2.0.0):
+  - Fidel (2.1.2)
+  - fidel-react-native (2.1.0):
     - Fidel
     - React
   - Flipper (0.182.0):
@@ -667,8 +667,8 @@ SPEC CHECKSUMS:
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBLazyVector: 748c0ef74f2bf4b36cfcccf37916806940a64c32
   FBReactNativeSpec: 966f29e4e697de53a3b366355e8f57375c856ad9
-  Fidel: 312ddec3a82bbf0da18044759aca8537e0252a76
-  fidel-react-native: 0428d58da811e2eab791ffbfc936f7a0a195fddd
+  Fidel: e40909e3ef047c4d48510f8f92ea05f576a24b2c
+  fidel-react-native: 0ebe862b7bd92849e7159c8af915e6a75e80a5c8
   Flipper: 6edb735e6c3e332975d1b17956bcc584eccf5818
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 2dc99b02f658daf147069aad9dbd29d8feb06d30
@@ -720,4 +720,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 537a6cc1c841ac1dd9e4b1d7ce6b64b390a31001
 
-COCOAPODS: 1.13.0
+COCOAPODS: 1.14.3
