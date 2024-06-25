@@ -1,6 +1,6 @@
 {
   "name": "fidel-react-native",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Fidel's React Native bridge library for iOS and Android.",
   "main": "index.js",
   "nativePackage": true,
@@ -15,7 +15,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FidelLimited/rn-sdk.git"
+    "url": "git+https://github.com/Enigmatic-Smile/rn-sdk.git"
   },
   "keywords": [
     "react",
@@ -38,9 +38,9 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/FidelLimited/rn-sdk/issues"
+    "url": "https://github.com/Enigmatic-Smile/rn-sdk/issues"
   },
-  "homepage": "https://github.com/FidelLimited/rn-sdk#readme",
+  "homepage": "https://github.com/Enigmatic-Smile/rn-sdk#readme",
   "peerDependencies": {
     "react": "*",
     "react-native": "*"

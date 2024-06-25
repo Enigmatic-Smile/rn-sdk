@@ -10,7 +10,7 @@ PODS:
     - React-Core (= 0.72.6)
     - React-jsi (= 0.72.6)
     - ReactCommon/turbomodule/core (= 0.72.6)
-  - Fidel (2.1.2)
+  - Fidel (2.2.0)
   - fidel-react-native (2.1.0):
     - Fidel
     - React
