@@ -6,7 +6,7 @@ This SDK is a bridge between React Native and Fidel's native iOS and Android SDK
 
 ## Documentation
 
-Our website includes all the [React Native SDK documentation](https://fidelapi.com/docs/select/sdks/react-native/guide-v2).
+Our website includes all the [React Native SDK documentation](https://docs.fidelapi.com/docs/select/sdks/react-native/guide-v2).
 
 ## How to run the example application
 
