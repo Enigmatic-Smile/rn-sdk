@@ -19,14 +19,11 @@ import static org.junit.Assert.*;
 public class FidelCountryAdapterTests {
 
     private static final String COUNTRIES_KEY = "Country";
-
     private FidelCountryAdapter sut;
-
     @Before
     public final void setUp() {
         sut = new FidelCountryAdapter();
     }
-
     @After
     public final void tearDown() {
         sut = null;
@@ -51,107 +48,133 @@ public class FidelCountryAdapterTests {
         }
     }
 
-   @Test public void test_WhenAskedForCanadaCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForCanadaCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("canada", sut.jsCountryValue(Country.CANADA));
     }
 
-    @Test public void test_WhenAskedForIrelandCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForIrelandCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("ireland", sut.jsCountryValue(Country.IRELAND));
     }
 
-    @Test public void test_WhenAskedForJapanCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForJapanCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("japan", sut.jsCountryValue(Country.JAPAN));
     }
 
-    @Test public void test_WhenAskedForSwedenCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForSwedenCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("sweden", sut.jsCountryValue(Country.SWEDEN));
     }
 
-    @Test public void test_WhenAskedForUnitedArabEmiratesCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForUnitedArabEmiratesCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("unitedArabEmirates", sut.jsCountryValue(Country.UNITED_ARAB_EMIRATES));
     }
 
-    @Test public void test_WhenAskedForUnitedKingdomCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForUnitedKingdomCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("unitedKingdom", sut.jsCountryValue(Country.UNITED_KINGDOM));
     }
 
-    @Test public void test_WhenAskedForUnitedStatesCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForUnitedStatesCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("unitedStates", sut.jsCountryValue(Country.UNITED_STATES));
     }
 
-    @Test public void test_WhenAskedForNorwayCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForNorwayCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("norway", sut.jsCountryValue(Country.NORWAY));
     }
 
-    @Test public void test_WhenAskedForAustraliaCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForAustraliaCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("australia", sut.jsCountryValue(Country.AUSTRALIA));
     }
 
-    @Test public void test_WhenAskedForNewZealandCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForNewZealandCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("newZealand", sut.jsCountryValue(Country.NEW_ZEALAND));
     }
 
-    @Test public void test_WhenAskedForHongKongCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForHongKongCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("hongKong", sut.jsCountryValue(Country.HONG_KONG));
     }
 
-    @Test public void test_WhenAskedForPhilippinesCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForPhilippinesCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("philippines", sut.jsCountryValue(Country.PHILIPPINES));
     }
 
-    @Test public void test_WhenAskedForSingaporeCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForSingaporeCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("singapore", sut.jsCountryValue(Country.SINGAPORE));
     }
 
-    @Test public void test_WhenAskedForVietnamCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForVietnamCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("vietnam", sut.jsCountryValue(Country.VIETNAM));
     }
 
-    @Test public void test_WhenAskedForSwitzerlandCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForSwitzerlandCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("switzerland", sut.jsCountryValue(Country.SWITZERLAND));
     }
 
-    @Test public void test_WhenAskedForFinlandCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForFinlandCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("finland", sut.jsCountryValue(Country.FINLAND));
     }
 
-    @Test public void test_WhenAskedForDenmarkCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForDenmarkCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("denmark", sut.jsCountryValue(Country.DENMARK));
     }
 
-    @Test public void test_WhenAskedForBrazilCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForBrazilCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("brazil", sut.jsCountryValue(Country.BRAZIL));
     }
 
-    @Test public void test_WhenAskedForEgyptCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForEgyptCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("egypt", sut.jsCountryValue(Country.EGYPT));
     }
 
-    @Test public void test_WhenAskedForOmanCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForOmanCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("oman", sut.jsCountryValue(Country.OMAN));
     }
 
-    @Test public void test_WhenAskedForQatarCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForQatarCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("qatar", sut.jsCountryValue(Country.QATAR));
     }
 
-    @Test public void test_WhenAskedForBahrainCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForBahrainCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("bahrain", sut.jsCountryValue(Country.BAHRAIN));
     }
 
-    @Test public void test_WhenAskedForKuwaitCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForKuwaitCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("kuwait", sut.jsCountryValue(Country.KUWAIT));
     }
 
-    @Test public void test_WhenAskedForSaudiArabiaCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForSaudiArabiaCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("saudiArabia", sut.jsCountryValue(Country.SAUDI_ARABIA));
     }
 
-    @Test public void test_WhenAskedForJordanCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForJordanCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("jordan", sut.jsCountryValue(Country.JORDAN));
     }
 
-    @Test public void test_WhenAskedForSouthAfricaCountryValue_ItProvidesTheCorrectOne() {
+    @Test
+    public void test_WhenAskedForSouthAfricaCountryValue_ItProvidesTheCorrectOne() {
         assertEquals("southAfrica", sut.jsCountryValue(Country.SOUTH_AFRICA));
     }
 
@@ -235,7 +258,7 @@ public class FidelCountryAdapterTests {
         Set<Country> adaptedCountries = sut.parseAllowedCountries(countriesArrayValues);
 
         assertEquals(countriesArrayValues.size(), adaptedCountries.size());
-        assertEquals(expectedCountries, adaptedCountries);
+        assertEquals(adaptedCountries, expectedCountries);
     }
 
     @Test
