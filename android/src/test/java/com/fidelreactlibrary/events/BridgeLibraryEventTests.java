@@ -9,9 +9,4 @@ public class BridgeLibraryEventTests {
     public void test_ResultAvailableEventType_ShouldHaveCorrectEventName() {
         assertEquals("ResultAvailable", BridgeLibraryEvent.RESULT_AVAILABLE.getEventName());
     }
-
-    @Test
-    public void test_CardVerificationStartedEventType_ShouldHaveCorrectEventName() {
-        assertEquals("CardVerificationStarted", BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName());
-    }
 }

@@ -53,15 +53,4 @@ public class BridgeLibraryEventEmitterTests {
         assertEquals(reactContext.receivedErrorData, map);
         assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
     }
-
-    @Test
-    public void test_WhenReceivingWritableData_SendCorrectCardVerificationStartedEventUsingTheObtainedJSModule() {
-        sut = new BridgeLibraryEventEmitter(reactContext, BridgeLibraryEvent.CARD_VERIFICATION_STARTED);
-        WritableMap map = new JavaOnlyMap();
-        map.putString("testKey", "testValue");
-        sut.process(map);
-        assertEquals(reactContext.receivedErrorName, BridgeLibraryEvent.CARD_VERIFICATION_STARTED.getEventName());
-        assertEquals(reactContext.receivedErrorData, map);
-        assertEquals(reactContext.eventEmitterInvokedMethodName, "emit");
-    }
 }

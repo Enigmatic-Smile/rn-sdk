@@ -9,7 +9,6 @@ import com.facebook.react.bridge.ReadableArray;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReadableMapKeySetIterator;
 import com.facebook.react.bridge.ReadableType;
-import com.fidelreactlibrary.adapters.CardVerificationConfigurationProperties;
 import com.fidelreactlibrary.adapters.FidelSetupProperties;
 
 import java.util.ArrayList;
@@ -157,28 +156,6 @@ public class ReadableMapStub implements ReadableMap {
         consentTextMapStub.stringForKeyToReturn.remove(consentTextKey.jsName());
         consentTextMapStub.mapsForKeysToReturn.remove(consentTextKey.jsName());
         consentTextMapStub.readableArraysToReturn.remove(consentTextKey.jsName());
-        return mapStub;
-    }
-
-    public static ReadableMapStub cardConfigWithAllValidConfigKeys() {
-        ReadableMapStub mapStub = new ReadableMapStub();
-        String[] keyJsNames = Arrays.stream(CardVerificationConfigurationProperties.values())
-                .map(CardVerificationConfigurationProperties::jsName).toArray(String[]::new);
-        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
-        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationProperties.ID.jsName(), "123");
-        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationProperties.CONSENT_ID.jsName(), "456");
-        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationProperties.LAST_4_DIGITS.jsName(), "4567");
-        return mapStub;
-    }
-
-    public static ReadableMapStub cardConfigWithAllInValidConfigKeys() {
-        ReadableMapStub mapStub = new ReadableMapStub();
-        String[] keyJsNames = Arrays.stream(CardVerificationConfigurationProperties.values())
-                .map(CardVerificationConfigurationProperties::jsName).toArray(String[]::new);
-        mapStub.hasKeyStrings.addAll(Arrays.asList(keyJsNames));
-        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationProperties.ID.jsName(), null);
-        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationProperties.CONSENT_ID.jsName(), null);
-        mapStub.stringForKeyToReturn.put(CardVerificationConfigurationProperties.LAST_4_DIGITS.jsName(), null);
         return mapStub;
     }
 

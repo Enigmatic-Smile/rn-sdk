@@ -10,46 +10,10 @@ export default class Fidel {
   static ProgramType = NativeFidelBridge.ProgramType;
   static ErrorType = NativeFidelBridge.ErrorType;
   static EnrollmentErrorType = NativeFidelBridge.EnrollmentErrorType;
-  static VerificationErrorType = NativeFidelBridge.VerificationErrorType;
-  static CardVerificationChoice = NativeFidelBridge.CardVerificationChoice;
 
   static setup(params, callback) {
     if (this.eventSubscription != null) {
       this.eventSubscription.remove();
-    }
-    const { onCardVerificationStarted } = params;
-    if (
-      onCardVerificationStarted != null &&
-      onCardVerificationStarted != undefined &&
-      typeof onCardVerificationStarted === "function"
-    ) {
-      if (this.onCardVerificationStartedEventSubscription != null) {
-        this.onCardVerificationStartedEventSubscription.remove();
-      }
-      this.onCardVerificationStartedEventSubscription =
-        Fidel.emitter.addListener(
-          "CardVerificationStarted",
-          (consentDetails) => {
-            onCardVerificationStarted(consentDetails);
-          }
-        );
-    }
-    const { onCardVerificationChoiceSelected } = params;
-    if (
-      onCardVerificationChoiceSelected != null &&
-      onCardVerificationChoiceSelected != undefined &&
-      typeof onCardVerificationChoiceSelected === "function"
-    ) {
-      if (this.onCardVerificationChoiceSelectedEventSubscription != null) {
-        this.onCardVerificationChoiceSelectedEventSubscription.remove();
-      }
-      this.onCardVerificationChoiceSelectedEventSubscription =
-        Fidel.emitter.addListener(
-          "CardVerificationChoiceSelected",
-          (verificationChoice) => {
-            onCardVerificationChoiceSelected(verificationChoice);
-          }
-        );
     }
     if (
       callback != null &&
@@ -69,11 +33,6 @@ export default class Fidel {
     NativeFidelBridge.start();
   }
 
-  static verifyCard(params) {
-    Fidel.identifyMetricsDataSource()
-    NativeFidelBridge.verifyCard(params);
-  }
-
   static identifyMetricsDataSource() {
     NativeFidelBridge.identifyMetricsDataSource("rn", version);
   }
@@ -81,5 +40,3 @@ export default class Fidel {
 
 export const ENROLLMENT_RESULT = NativeFidelBridge.ResultType.EnrollmentResult;
 export const ERROR = NativeFidelBridge.ResultType.Error;
-export const VERIFICATION_RESULT =
-  NativeFidelBridge.ResultType.VerificationResult;

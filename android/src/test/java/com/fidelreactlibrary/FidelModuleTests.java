@@ -4,15 +4,12 @@ import android.content.Context;
 
 import com.facebook.react.bridge.ReadableMap;
 import com.fidelapi.Fidel;
-import com.fidelapi.entities.abstraction.OnCardVerificationChoiceSelectedObserver;
-import com.fidelapi.entities.abstraction.OnCardVerificationStartedObserver;
 import com.fidelapi.entities.abstraction.OnResultObserver;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.fakes.ConstantsProviderStub;
 import com.fidelreactlibrary.fakes.DataProcessorSpy;
 import com.fidelreactlibrary.fakes.ReactContextMock;
 import com.fidelreactlibrary.fakes.ReadableMapStub;
-import com.fidelreactlibrary.fakes.VerificationConfigurationAdapterStub;
 
 import org.junit.After;
 import org.junit.Before;
@@ -35,9 +32,6 @@ public class FidelModuleTests {
     private DataProcessorSpy<ReadableMap> setupAdapterSpy = new DataProcessorSpy<>();;
     private List<ConstantsProvider> constantsProviderListStub = new ArrayList<>();
     private final OnResultObserver testOnResultObserver = fidelResult -> {};
-    private final OnCardVerificationStartedObserver testOnCardVerificationStartedObserver = consentDetails -> {};
-
-    private final OnCardVerificationChoiceSelectedObserver testOnCardVerificationChoiceSelectedObserver = cardVerificationChoice -> {};
 
     @Before
     public final void setUp() {
@@ -46,10 +40,7 @@ public class FidelModuleTests {
         sut = new FidelModule(reactContext,
                 setupAdapterSpy,
                 testOnResultObserver,
-                testOnCardVerificationStartedObserver,
-                testOnCardVerificationChoiceSelectedObserver,
                 constantsProviderListStub,
-                new VerificationConfigurationAdapterStub()
         );
     }
 
@@ -81,18 +72,6 @@ public class FidelModuleTests {
     public void test_WhenAResultAvailableListenerHasBeenAdded_AddTheOnResultObserverToFidel() {
         sut.addListener("ResultAvailable");
         assertEquals(testOnResultObserver, Fidel.onResult);
-    }
-
-    @Test
-    public void test_WhenACardVerificationStartedListenerHasBeenAdded_AddTheObserverToFidel() {
-        sut.addListener("CardVerificationStarted");
-        assertEquals(testOnCardVerificationStartedObserver, Fidel.onCardVerificationStarted);
-    }
-
-    @Test
-    public void test_WhenACardVerificationChoiceSelectedListenerHasBeenAdded_AddTheObserverToFidel() {
-        sut.addListener("CardVerificationChoiceSelected");
-        assertEquals(testOnCardVerificationChoiceSelectedObserver, Fidel.onCardVerificationChoiceSelected);
     }
 
     @Test

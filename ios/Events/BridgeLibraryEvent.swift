@@ -9,6 +9,4 @@ import Foundation
 
 enum BridgeLibraryEvent: String, CaseIterable {
     case resultAvailable = "ResultAvailable"
-    case cardVerificationStarted = "CardVerificationStarted"
-    case cardVerificationChoiceSelected = "CardVerificationChoiceSelected"
 }

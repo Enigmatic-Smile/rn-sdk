@@ -9,17 +9,15 @@ import Foundation
 import Fidel
 
 class ExportedConstantsProvider: NSObject {
-    
+
     var constants: [AnyHashable: Any] {
         var constants = [String: [String: String]]()
         constants.merge(CardScheme.constantsToExport) { (current, _) in current }
         constants.merge(Country.constantsToExport) { (current, _) in current }
         constants.merge(ProgramType.constantsToExport) { (current, _) in current }
         constants.merge(EnrollmentError.constantsToExport) { (current, _) in current }
-        constants.merge(VerificationError.constantsToExport) { (current, _) in current }
         constants.merge(FidelErrorType.constantsToExport) { (current, _) in current }
         constants.merge(FidelResult.constantsToExport) { (current, _) in current }
-        constants.merge(CardVerificationChoice.constantsToExport) { (current, _) in current }
         return constants
     }
 }

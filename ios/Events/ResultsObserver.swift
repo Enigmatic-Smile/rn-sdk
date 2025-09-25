@@ -9,7 +9,7 @@ import Foundation
 import Fidel
 
 struct ResultsObserver: EventObserver {
-    
+
     func startObserving(_ onEvent: @escaping (NSDictionary) -> Void) {
         Fidel.onResult = { result in
             var resultDictionary = [String: Any?]()
@@ -17,9 +17,6 @@ struct ResultsObserver: EventObserver {
             case .enrollmentResult(let enrollmentResult):
                 resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.enrollmentResult.rawValue
                 resultDictionary[JSResultProperties.enrollmentResult.rawValue] = enrollmentResult.dictionary
-            case .verificationResult(let verificationResult):
-                resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.verificationResult.rawValue
-                resultDictionary[JSResultProperties.verificationResult.rawValue] = verificationResult.dictionary
             case .error(let fidelError):
                 resultDictionary[JSResultProperties.type.rawValue] = JSResultTypes.error.rawValue
                 resultDictionary[JSResultProperties.error.rawValue] = fidelError.dictionary
@@ -30,7 +27,7 @@ struct ResultsObserver: EventObserver {
             onEvent(resultNSDictionary)
         }
     }
-    
+
     func stopObserving() {
         Fidel.onResult = nil
     }

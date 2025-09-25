@@ -65,10 +65,6 @@ public final class FidelSetupAdapter implements DataProcessor<ReadableMap>, Data
                 Fidel.supportedCardSchemes = cardSchemesAdapter.cardSchemesWithReadableArray(
                         optionsMap.getArray(FidelSetupProperties.Options.SUPPORTED_CARD_SCHEMES.jsName()));
             }
-            if (optionsMap.hasKey(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName())) {
-                Fidel.thirdPartyVerificationChoice = optionsMap
-                        .getBoolean(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName());
-            }
             if (optionsMap.hasKey(FidelSetupProperties.Options.META_DATA.jsName())) {
                 ReadableMap metaDataMap = optionsMap.getMap(FidelSetupProperties.Options.META_DATA.jsName());
                 if (metaDataMap != null) {

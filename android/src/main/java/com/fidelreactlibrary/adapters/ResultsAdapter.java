@@ -8,7 +8,6 @@ import com.fidelapi.entities.CardScheme;
 import com.fidelapi.entities.Country;
 import com.fidelapi.entities.EnrollmentErrorType;
 import com.fidelapi.entities.FidelErrorType;
-import com.fidelapi.entities.VerificationErrorType;
 import com.fidelreactlibrary.adapters.abstraction.CardSchemesAdapter;
 import com.fidelreactlibrary.adapters.abstraction.ConstantsProvider;
 import com.fidelreactlibrary.adapters.abstraction.CountryAdapter;
@@ -132,8 +131,6 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
             return "sdkConfigurationError";
         } else if (errorType instanceof FidelErrorType.EnrollmentError) {
             return "enrollmentError";
-        } else if (errorType instanceof FidelErrorType.VerificationError) {
-            return "verificationError";
         }
         return "unknown";
     }
@@ -143,9 +140,6 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
         if (errorType instanceof FidelErrorType.EnrollmentError) {
             FidelErrorType.EnrollmentError enrollmentError = (FidelErrorType.EnrollmentError)errorType;
             return enrollmentErrorTypeJSValue(enrollmentError.type);
-        } else if (errorType instanceof FidelErrorType.VerificationError) {
-            FidelErrorType.VerificationError verificationError = (FidelErrorType.VerificationError)errorType;
-            return verificationErrorTypeJSValue(verificationError.type);
         }
         return null;
     }
@@ -160,46 +154,10 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
                 return "invalidSdkKey";
             case INEXISTENT_PROGRAM:
                 return "inexistentProgram";
-            case CARD_CONSENT_ISSUER_PROCESSING_CHARGE_ERROR:
-                return "cardConsentIssuerProcessingChargeError";
-            case CARD_CONSENT_DUPLICATE_TRANSACTION_ERROR:
-                return "cardConsentDuplicateTransactionError";
-            case CARD_CONSENT_INSUFFICIENT_FUNDS_ERROR:
-                return "cardConsentInsufficientFundsError";
-            case CARD_CONSENT_PROCESSING_CHARGE_ERROR:
-                return "cardConsentProcessingChargeError";
-            case CARD_CONSENT_INCORRECT_CARD_DETAILS_ERROR:
-                return "cardConsentIncorrectCardDetailsError";
-            case CARD_CONSENT_CARD_LIMIT_EXCEEDED:
-                return "cardConsentCardLimitExceeded";
-            case CARD_CONSENT_ERROR_GENERIC:
-                return "cardConsentErrorGeneric";
             case UNAUTHORIZED:
                 return "unauthorized";
             case UNEXPECTED:
                 return "unexpected";
-        }
-        return "unexpected";
-    }
-
-    private String verificationErrorTypeJSValue(VerificationErrorType enrollmentErrorType) {
-        switch (enrollmentErrorType) {
-            case UNEXPECTED:
-                return "unexpected";
-            case UNAUTHORIZED:
-                return "unauthorized";
-            case INCORRECT_AMOUNT:
-                return "incorrectAmount";
-            case MAXIMUM_ATTEMPTS_REACHED:
-                return "maximumAttemptsReached";
-            case CARD_ALREADY_VERIFIED:
-                return "cardAlreadyVerified";
-            case CARD_NOT_FOUND:
-                return "cardNotFound";
-            case VERIFICATION_NOT_FOUND:
-                return "verificationNotFound";
-            case GENERIC_ERROR:
-                return "genericError";
         }
         return "unexpected";
     }
@@ -213,7 +171,6 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.DeviceNotSecure.INSTANCE);
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.SdkConfigurationError.INSTANCE);
         putErrorTypeConstant(errorTypeConstants, new FidelErrorType.EnrollmentError(EnrollmentErrorType.CARD_ALREADY_EXISTS));
-        putErrorTypeConstant(errorTypeConstants, new FidelErrorType.VerificationError(VerificationErrorType.CARD_ALREADY_VERIFIED));
         errorConstants.put("ErrorType", errorTypeConstants);
 
         Map<String, String> enrollmentErrorTypeConstants = new HashMap<>();
@@ -221,27 +178,10 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.INEXISTENT_PROGRAM);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.INVALID_PROGRAM_ID);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.INVALID_SDK_KEY);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_ISSUER_PROCESSING_CHARGE_ERROR);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_DUPLICATE_TRANSACTION_ERROR);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_INSUFFICIENT_FUNDS_ERROR);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_PROCESSING_CHARGE_ERROR);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_INCORRECT_CARD_DETAILS_ERROR);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_CARD_LIMIT_EXCEEDED);
-        putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.CARD_CONSENT_ERROR_GENERIC);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.UNAUTHORIZED);
         putEnrollmentErrorTypeConstant(enrollmentErrorTypeConstants, EnrollmentErrorType.UNEXPECTED);
         errorConstants.put("EnrollmentErrorType", enrollmentErrorTypeConstants);
 
-        Map<String, String> verificationErrorTypeConstants = new HashMap<>();
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.GENERIC_ERROR);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.UNEXPECTED);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.CARD_ALREADY_VERIFIED);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.VERIFICATION_NOT_FOUND);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.MAXIMUM_ATTEMPTS_REACHED);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.INCORRECT_AMOUNT);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.UNAUTHORIZED);
-        putVerificationErrorTypeConstant(verificationErrorTypeConstants, VerificationErrorType.CARD_NOT_FOUND);
-        errorConstants.put("VerificationErrorType", verificationErrorTypeConstants);
         return errorConstants;
     }
 
@@ -252,11 +192,6 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
 
     private void putEnrollmentErrorTypeConstant(Map<String, String> map, EnrollmentErrorType errorType) {
         String errorTypeJSValue = enrollmentErrorTypeJSValue(errorType);
-        map.put(errorTypeJSValue, errorTypeJSValue);
-    }
-
-    private void putVerificationErrorTypeConstant(Map<String, String> map, VerificationErrorType errorType) {
-        String errorTypeJSValue = verificationErrorTypeJSValue(errorType);
         map.put(errorTypeJSValue, errorTypeJSValue);
     }
 
