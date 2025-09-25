@@ -14,7 +14,6 @@ public enum FidelSetupProperties {
         ALLOWED_COUNTRIES("allowedCountries"),
         DEFAULT_SELECTED_COUNTRY("defaultSelectedCountry"),
         SUPPORTED_CARD_SCHEMES("supportedCardSchemes"),
-        THIRD_PARTY_VERIFICATION_CHOICE("thirdPartyVerificationChoice"),
         META_DATA("metaData");
 
         private final @NonNull String jsName;

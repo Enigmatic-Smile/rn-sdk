@@ -26,14 +26,13 @@ extension FidelErrorType {
     var jsTypeValue: String {
         switch self {
         case .enrollmentError: return "enrollmentError"
-        case .verificationError: return "verificationError"
         case .userCanceled: return "userCanceled"
         case .sdkConfigurationError: return "sdkConfigurationError"
         case .deviceNotSecure: return "deviceNotSecure"
         @unknown default: return "unknown"
         }
     }
-    
+
     var jsErrorSubtype: String? {
         switch self {
         case let .enrollmentError(enrollmentError):
@@ -50,19 +49,6 @@ extension FidelErrorType {
             case .processingChargeError: return "processingChargeError"
             case .cardDetailsError: return "cardDetailsError"
             case .cardLimitExceededError: return "cardLimitExceededError"
-            @unknown default: return "unexpected"
-            }
-        case let .verificationError(verificationError):
-            switch verificationError {
-            case .cardAlreadyVerified: return "cardAlreadyVerified"
-            case .cardNotFound: return "cardNotFound"
-            case .verificationNotFound: return "verificationNotFound"
-            case .genericError: return "genericError"
-            case .maximumAttemptsReached: return "maximumAttemptsReached"
-            case .incorrectAmount, .incorrectAmountCode: return "incorrectAmount"
-            case .unauthorized: return "unauthorized"
-            case .unexpected: return "unexpected"
-            case .invalidSDKKey: return "invalidSdkKey"
             @unknown default: return "unexpected"
             }
         default: return nil

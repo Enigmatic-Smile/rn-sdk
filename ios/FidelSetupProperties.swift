@@ -13,16 +13,15 @@ enum FidelSetupProperties: String {
     case programType
     case options
     case consentText
-    
+
     enum Options: String {
         case bannerImage
         case allowedCountries
         case defaultSelectedCountry
         case supportedCardSchemes
-        case thirdPartyVerificationChoice
         case metaData
     }
-    
+
     enum ConsentText: String {
         case termsAndConditionsURL = "termsAndConditionsUrl"
         case privacyPolicyURL = "privacyPolicyUrl"

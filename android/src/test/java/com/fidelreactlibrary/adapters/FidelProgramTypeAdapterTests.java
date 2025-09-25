@@ -46,9 +46,4 @@ public class FidelProgramTypeAdapterTests {
     public void test_WhenReceivingToParseProgramTypeWithTransactionSelectValue_ShouldReturnTransactionSelectProgramType() {
         assertEquals(ProgramType.TRANSACTION_SELECT, sut.parseProgramType(ProgramType.TRANSACTION_SELECT.name()));
     }
-
-    @Test
-    public void test_WhenReceivingToParseProgramTypeWithTransactionStreamValue_ShouldReturnTransactionStreamProgramType() {
-        assertEquals(ProgramType.TRANSACTION_STREAM, sut.parseProgramType(ProgramType.TRANSACTION_STREAM.name()));
-    }
 }
