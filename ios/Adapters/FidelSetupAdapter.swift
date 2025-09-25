@@ -9,14 +9,14 @@ import Foundation
 import Fidel
 
 class FidelSetupAdapter: NSObject {
-    
+
     private let imageAdapter: FLRNImageFromRNAdapter
-    
+
     init(imageAdapter: FLRNImageFromRNAdapter) {
         self.imageAdapter = imageAdapter
         super.init()
     }
-    
+
     func setup(with parameters: NSDictionary) {
         guard let parameters = parameters as? [String: Any?] else {
             return
@@ -40,7 +40,7 @@ class FidelSetupAdapter: NSObject {
             setConsentTextValues(consentTextValues)
         }
     }
-    
+
     func setOptions(_ options: [String: Any?]) {
         if options.keys.contains(FidelSetupProperties.Options.bannerImage.rawValue),
            let rawImageObject = options[FidelSetupProperties.Options.bannerImage.rawValue] as? NSObject {
@@ -59,14 +59,11 @@ class FidelSetupAdapter: NSObject {
            let supportedCardSchemeJSKeys = options[FidelSetupProperties.Options.supportedCardSchemes.rawValue] as? [String] {
             Fidel.supportedCardSchemes = CardScheme.cardSchemesSet(from: supportedCardSchemeJSKeys)
         }
-        if options.keys.contains(FidelSetupProperties.Options.thirdPartyVerificationChoice.rawValue) {
-            Fidel.thirdPartyVerificationChoice = options[FidelSetupProperties.Options.thirdPartyVerificationChoice.rawValue] as? Bool ?? false
-        }
         if options.keys.contains(FidelSetupProperties.Options.metaData.rawValue) {
             Fidel.metaData = options[FidelSetupProperties.Options.metaData.rawValue] as? [String: Any]
         }
     }
-    
+
     private func setConsentTextValues(_ consentTextValues: [String: Any?]) {
         if consentTextValues.keys.contains(FidelSetupProperties.ConsentText.companyName.rawValue) {
             Fidel.companyName = consentTextValues[FidelSetupProperties.ConsentText.companyName.rawValue] as? String

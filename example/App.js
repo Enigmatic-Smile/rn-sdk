@@ -11,7 +11,6 @@ import {Button, StyleSheet, Text, View} from 'react-native';
 import Fidel, {
   ENROLLMENT_RESULT,
   ERROR,
-  VERIFICATION_RESULT,
 } from 'fidel-react-native';
 
 export default class App extends React.Component {
@@ -42,14 +41,13 @@ export default class App extends React.Component {
       {
         sdkKey: 'Your SDK Key',
         programId: 'Your program ID',
-        programType: Fidel.ProgramType.transactionStream,
+        programType: Fidel.ProgramType.transactionSelect,
         options: {
           bannerImage: resolvedImage,
           allowedCountries: countries,
           defaultSelectedCountry: Fidel.Country.unitedStates,
           supportedCardSchemes: cardSchemes,
           metaData: {userId: 1234},
-          thirdPartyVerificationChoice: false,
         },
         consentText: {
           companyName: '[Your Company Name]',
@@ -57,21 +55,6 @@ export default class App extends React.Component {
           privacyPolicyUrl: 'https://fidel.uk',
           programName: '[Your program name]',
           deleteInstructions: '[going to your account settings]',
-        },
-        onCardVerificationStarted: consentDetails => {
-          console.log(
-            'card verification started: ' + JSON.stringify(consentDetails),
-          );
-        },
-        onCardVerificationChoiceSelected: verificationChoice => {
-          switch (verificationChoice.CardVerificationChoice) {
-            case Fidel.CardVerificationChoice.onTheSpot:
-              console.log('card verification choice: on the spot');
-              break;
-            case Fidel.CardVerificationChoice.delegatedToThirdParty:
-              console.log('card verification choice: delegated to third party');
-              break;
-          }
         },
       },
       result => {
@@ -82,12 +65,6 @@ export default class App extends React.Component {
           case ERROR:
             this.handleError(result.error);
             break;
-          case VERIFICATION_RESULT:
-            console.log(
-              'card verification was successful 🎉: ' +
-                result.verificationResult.cardId,
-            );
-            break;
         }
       },
     );
@@ -95,14 +72,6 @@ export default class App extends React.Component {
 
   onButtonPress = () => {
     Fidel.start();
-  };
-
-  onVerifyButtonPress = () => {
-    Fidel.verifyCard({
-      id: 'Your card ID to verify',
-      consentId: 'Your consent ID to verify',
-      last4Digits: '1234', // (Optional) The last 4 digits of the card to verify (used only for display purposes)
-    });
   };
 
   handleError = error => {
@@ -121,9 +90,6 @@ export default class App extends React.Component {
         break;
       case Fidel.ErrorType.enrollmentError:
         this.handleEnrollmentError(error);
-        break;
-      case Fidel.ErrorType.verificationError:
-        this.handleVerificationError(error);
         break;
     }
   };
@@ -148,37 +114,6 @@ export default class App extends React.Component {
     }
   };
 
-  handleVerificationError = verificationError => {
-    switch (verificationError.subtype) {
-      case Fidel.VerificationErrorType.unauthorized:
-        console.log('You are not authorized to do card verification.');
-        break;
-      case Fidel.VerificationErrorType.incorrectAmount:
-        console.log('The card verification amount entered is not correct.');
-        break;
-      case Fidel.VerificationErrorType.maximumAttemptsReached:
-        console.log(
-          'You have reached the maximum attempts allowed to verify this card.',
-        );
-        break;
-      case Fidel.VerificationErrorType.cardAlreadyVerified:
-        console.log('This card was already verified.');
-        break;
-      case Fidel.VerificationErrorType.cardNotFound:
-        console.log('This card is not found.');
-        break;
-      case Fidel.VerificationErrorType.verificationNotFound:
-        console.log('Verification not found.');
-        break;
-      case Fidel.VerificationErrorType.genericError:
-        console.log('Generic error.');
-        break;
-      case Fidel.VerificationErrorType.unexpected:
-        console.log('Unexpected card verification error occurred.');
-        break;
-    }
-  };
-
   render() {
     return (
       <View style={styles.container}>
@@ -189,11 +124,6 @@ export default class App extends React.Component {
         <View style={{height: 10}} />
         <Button onPress={this.onButtonPress} title="Start" color="#3846ce" />
         <View style={{height: 10}} />
-        <Button
-          onPress={this.onVerifyButtonPress}
-          title="Verify card"
-          color="#3846ce"
-        />
       </View>
     );
   }

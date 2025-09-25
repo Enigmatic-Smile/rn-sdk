@@ -14,7 +14,6 @@ public class FidelProgramTypeAdapter implements ProgramTypeAdapter {
     public @NonNull String keyFor(@NonNull ProgramType programType) {
         switch (programType) {
             case TRANSACTION_SELECT: return "transactionSelect";
-            case TRANSACTION_STREAM: return "transactionStream";
             default: return "notFound";
         }
     }

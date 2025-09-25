@@ -69,7 +69,6 @@ public class FidelSetupAdapterTests {
         Fidel.programName = null;
         Fidel.deleteInstructions = null;
         Fidel.programType = ProgramType.TRANSACTION_SELECT;
-        Fidel.thirdPartyVerificationChoice = false;
     }
 
     @Test
@@ -88,7 +87,6 @@ public class FidelSetupAdapterTests {
         assertNull(Fidel.programName);
         assertNull(Fidel.deleteInstructions);
         assertEquals(ProgramType.TRANSACTION_SELECT, Fidel.programType);
-        assertFalse(Fidel.thirdPartyVerificationChoice);
     }
 
     @Test
@@ -783,80 +781,6 @@ public class FidelSetupAdapterTests {
         assertTrue(consentTextMap.keyNamesAskedValueFor
                 .contains(FidelSetupProperties.ConsentText.DELETE_INSTRUCTIONS.jsName()));
         assertEquals(expectedValue, Fidel.deleteInstructions);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveProgramTypeKey_ShouldNotSetTheProgramTypeForFidel() {
-        ReadableMapStub map = ReadableMapStub.withoutKey(FidelSetupProperties.PROGRAM_TYPE);
-
-        Fidel.programType = ProgramType.TRANSACTION_STREAM;
-        programTypeAdapterStub.programTypeToReturn = ProgramType.TRANSACTION_SELECT;
-        sut.process(map);
-
-        assertTrue(map.keyNamesCheckedFor.contains(FidelSetupProperties.PROGRAM_TYPE.jsName()));
-        assertFalse(map.keyNamesAskedValueFor.contains(FidelSetupProperties.PROGRAM_TYPE.jsName()));
-        assertNull(programTypeAdapterStub.receivedProgramTypeString);
-        assertEquals(ProgramType.TRANSACTION_STREAM, Fidel.programType);
-    }
-
-    @Test
-    public void test_IfDoesHaveProgramTypeKey_ShouldSetTheValueProvidedByTheProgramTypeAdapter() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        String testProgramTypeValue = "program type value";
-        map.stringForKeyToReturn.put(FidelSetupProperties.PROGRAM_TYPE.jsName(), testProgramTypeValue);
-
-        Fidel.programType = ProgramType.TRANSACTION_SELECT;
-        programTypeAdapterStub.programTypeToReturn = ProgramType.TRANSACTION_STREAM;
-        sut.process(map);
-
-        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupProperties.PROGRAM_TYPE.jsName()));
-        assertEquals(testProgramTypeValue, programTypeAdapterStub.receivedProgramTypeString);
-        assertEquals(ProgramType.TRANSACTION_STREAM, Fidel.programType);
-    }
-
-    @Test
-    public void test_WhenThirdPartyVerificationChoiceIsTrue_ShouldBeSetToTrueForTheSDK() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-        optionsMap.boolToReturn = true;
-
-        sut.process(map);
-
-        assertTrue(Fidel.thirdPartyVerificationChoice);
-    }
-
-    @Test
-    public void test_ThirdPartyVerificationChoiceIsFalse_ShouldBeSetToFalseForTheSDK() {
-        ReadableMapStub map = ReadableMapStub.mapWithAllValidSetupKeys();
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-        optionsMap.boolToReturn = false;
-
-        sut.process(map);
-
-        assertFalse(Fidel.thirdPartyVerificationChoice);
-    }
-
-    @Test
-    public void test_IfDoesNotHaveThirdPartyVerificationChoiceKey_DoNotSetThisPropertyForFidel() {
-        ReadableMapStub map = ReadableMapStub
-                .withoutOptionsKey(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE);
-        ReadableMapStub optionsMap = (ReadableMapStub) map.mapsForKeysToReturn
-                .get(FidelSetupProperties.OPTIONS.jsName());
-        assertNotNull(optionsMap);
-
-        Fidel.thirdPartyVerificationChoice = true;
-        sut.process(map);
-
-        assertTrue(map.keyNamesAskedValueFor.contains(FidelSetupProperties.OPTIONS.jsName()));
-        assertTrue(optionsMap.keyNamesCheckedFor
-                .contains(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName()));
-        assertFalse(optionsMap.keyNamesAskedValueFor
-                .contains(FidelSetupProperties.Options.THIRD_PARTY_VERIFICATION_CHOICE.jsName()));
-        assertTrue(Fidel.thirdPartyVerificationChoice);
     }
 
     // Exposed constants tests
