@@ -1,7 +1,7 @@
 package com.fidelreactlibrary.events;
 
 public enum BridgeLibraryEvent {
-    RESULT_AVAILABLE("ResultAvailable"),
+    RESULT_AVAILABLE("ResultAvailable");
 
     private final String eventName;
 
