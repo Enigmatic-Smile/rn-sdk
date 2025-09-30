@@ -8,9 +8,10 @@
 import Foundation
 import Fidel
 
+extension FidelErrorType: @retroactive Hashable {}
 extension FidelErrorType: ConstantsProvider {
 
-    static var allCases: Set<FidelErrorType> = [FidelErrorType.userCanceled, .enrollmentError(EnrollmentError.unexpected), .sdkConfigurationError]
+    static var allCases: Set<FidelErrorType> = [FidelErrorType.userCanceled, .enrollmentError(EnrollmentError.unexpected), .sdkConfigurationError, .genericError]
     static var parentKeyName: String = "ErrorType"
 
     var constantKey: String {
@@ -19,6 +20,7 @@ extension FidelErrorType: ConstantsProvider {
         case .sdkConfigurationError: return "sdkConfigurationError"
         case .userCanceled: return "userCanceled"
         case .deviceNotSecure: return "deviceNotSecure"
+        case .genericError: return "genericError"
         @unknown default: return "unexpected"
         }
     }
