@@ -8,6 +8,7 @@
 import Foundation
 import Fidel
 
+extension FidelResult: @retroactive Hashable {}
 extension FidelResult: ConstantsProvider {
     static var allCases: Set<FidelResult> = []
     static var parentKeyName: String = "ResultType"
