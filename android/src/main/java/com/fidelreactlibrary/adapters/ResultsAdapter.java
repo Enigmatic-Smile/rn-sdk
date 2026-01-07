@@ -170,7 +170,7 @@ public final class ResultsAdapter implements DataAdapter<Object, WritableMap>, C
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.UserCanceled.INSTANCE);
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.DeviceNotSecure.INSTANCE);
         putErrorTypeConstant(errorTypeConstants, FidelErrorType.SdkConfigurationError.INSTANCE);
-        putErrorTypeConstant(errorTypeConstants, new FidelErrorType.EnrollmentError(EnrollmentErrorType.CARD_ALREADY_EXISTS));
+        putErrorTypeConstant(errorTypeConstants, new FidelErrorType.EnrollmentError(EnrollmentErrorType.CARD_ALREADY_EXISTS, ""));
         errorConstants.put("ErrorType", errorTypeConstants);
 
         Map<String, String> enrollmentErrorTypeConstants = new HashMap<>();
