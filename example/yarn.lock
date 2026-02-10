@@ -3827,7 +3827,7 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fidel-react-native@3.0.6:
+fidel-react-native@3.0.7:
   version "3.0.6"
   resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.6.tgz#b863606a902b80ce7196abe9e48114ef875926d9"
   integrity sha512-M4Q0VhIroHq/ZiuMNNzcv9ZG+eO86p+NwEVwymWdLEkBOdEkOl//NqcFVy9CoapJGLqizhGPYJ6Nflm5VlHTuQ==
