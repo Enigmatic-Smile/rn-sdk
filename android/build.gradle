@@ -14,7 +14,7 @@ apply plugin: 'com.android.library'
 apply from: 'jacoco.gradle'
 
 android {
-    namespace 'com.fidel.fidel'
+    namespace 'com.fidelreactlibrary'
     compileSdkVersion 36
     buildToolsVersion "30.0.3"
 
