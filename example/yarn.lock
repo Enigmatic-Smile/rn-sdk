@@ -3828,9 +3828,9 @@ fb-watchman@^2.0.0:
     bser "2.1.1"
 
 fidel-react-native@3.0.7:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.6.tgz#b863606a902b80ce7196abe9e48114ef875926d9"
-  integrity sha512-M4Q0VhIroHq/ZiuMNNzcv9ZG+eO86p+NwEVwymWdLEkBOdEkOl//NqcFVy9CoapJGLqizhGPYJ6Nflm5VlHTuQ==
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.7.tgz#41245b5d72c0fa11fb0e6575c93e317fca2017d4"
+  integrity sha512-WAbj9ElY2w61TsAz/hf+ck5kwaSbnLpbfPQsZqQDdYFl2lh6GV5Ds0kAt8oEcLLFV8tH6J5zdvMsVq6KudoouQ==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -5227,9 +5227,9 @@ lodash.throttle@^4.1.1:
   integrity sha512-wIkUCfVKpVsWo3JSZlc+8MB5it+2AN5W8J7YVMST30UrvcQNZ1Okbj+rbVniijTWE6FGYy4XJq/rHkas8qJMLQ==
 
 lodash@^4.17.21:
-  version "4.17.21"
-  resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz"
-  integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
+  version "4.17.23"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.23.tgz#f113b0378386103be4f6893388c73d0bde7f2c5a"
+  integrity sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==
 
 log-symbols@^4.1.0:
   version "4.1.0"
