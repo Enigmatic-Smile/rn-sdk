@@ -2868,9 +2868,9 @@ bl@^4.1.0:
     readable-stream "^3.4.0"
 
 brace-expansion@^1.1.7:
-  version "1.1.11"
-  resolved "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz"
-  integrity sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.12.tgz#ab9b454466e5a8cc3a187beaad580412a9c5b843"
+  integrity sha512-9T9UjW3r0UW5c1Q7GTwllptXwhvYmEzFhzMfZ9H7FQWt+uZePjZPjBP/W1ZEyZ1twGWom5/56TF4lPcqjnDHcg==
   dependencies:
     balanced-match "^1.0.0"
     concat-map "0.0.1"
@@ -3828,9 +3828,9 @@ fb-watchman@^2.0.0:
     bser "2.1.1"
 
 fidel-react-native@3.0.7:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.6.tgz#b863606a902b80ce7196abe9e48114ef875926d9"
-  integrity sha512-M4Q0VhIroHq/ZiuMNNzcv9ZG+eO86p+NwEVwymWdLEkBOdEkOl//NqcFVy9CoapJGLqizhGPYJ6Nflm5VlHTuQ==
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.7.tgz#41245b5d72c0fa11fb0e6575c93e317fca2017d4"
+  integrity sha512-WAbj9ElY2w61TsAz/hf+ck5kwaSbnLpbfPQsZqQDdYFl2lh6GV5Ds0kAt8oEcLLFV8tH6J5zdvMsVq6KudoouQ==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
