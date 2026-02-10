@@ -3232,9 +3232,9 @@ cosmiconfig@^9.0.0:
     parse-json "^5.2.0"
 
 cross-spawn@^7.0.2, cross-spawn@^7.0.3:
-  version "7.0.3"
-  resolved "https://registry.npmjs.org/cross-spawn/-/cross-spawn-7.0.3.tgz"
-  integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
+  version "7.0.6"
+  resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.6.tgz#8a58fe78f00dcd70c370451759dfbfaf03e8ee9f"
+  integrity sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==
   dependencies:
     path-key "^3.1.0"
     shebang-command "^2.0.0"
@@ -3828,9 +3828,9 @@ fb-watchman@^2.0.0:
     bser "2.1.1"
 
 fidel-react-native@3.0.7:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.6.tgz#b863606a902b80ce7196abe9e48114ef875926d9"
-  integrity sha512-M4Q0VhIroHq/ZiuMNNzcv9ZG+eO86p+NwEVwymWdLEkBOdEkOl//NqcFVy9CoapJGLqizhGPYJ6Nflm5VlHTuQ==
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.7.tgz#41245b5d72c0fa11fb0e6575c93e317fca2017d4"
+  integrity sha512-WAbj9ElY2w61TsAz/hf+ck5kwaSbnLpbfPQsZqQDdYFl2lh6GV5Ds0kAt8oEcLLFV8tH6J5zdvMsVq6KudoouQ==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
