@@ -10,7 +10,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "fidel-react-native": "3.0.5",
+    "fidel-react-native": "3.0.6",
     "react": "18.2.0",
     "react-native": "0.75.0"
   },
