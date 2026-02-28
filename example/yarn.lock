@@ -3828,9 +3828,9 @@ fb-watchman@^2.0.0:
     bser "2.1.1"
 
 fidel-react-native@3.0.7:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.6.tgz#b863606a902b80ce7196abe9e48114ef875926d9"
-  integrity sha512-M4Q0VhIroHq/ZiuMNNzcv9ZG+eO86p+NwEVwymWdLEkBOdEkOl//NqcFVy9CoapJGLqizhGPYJ6Nflm5VlHTuQ==
+  version "3.0.7"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.7.tgz#41245b5d72c0fa11fb0e6575c93e317fca2017d4"
+  integrity sha512-WAbj9ElY2w61TsAz/hf+ck5kwaSbnLpbfPQsZqQDdYFl2lh6GV5Ds0kAt8oEcLLFV8tH6J5zdvMsVq6KudoouQ==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -5819,9 +5819,9 @@ mimic-fn@^2.1.0:
   integrity sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==
 
 minimatch@^3.0.2, minimatch@^3.0.4, minimatch@^3.0.5, minimatch@^3.1.1, minimatch@^3.1.2:
-  version "3.1.2"
-  resolved "https://registry.npmjs.org/minimatch/-/minimatch-3.1.2.tgz"
-  integrity sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-3.1.5.tgz#580c88f8d5445f2bd6aa8f3cadefa0de79fbd69e"
+  integrity sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==
   dependencies:
     brace-expansion "^1.1.7"
 
