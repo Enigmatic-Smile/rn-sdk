@@ -3,7 +3,7 @@ PODS:
   - DoubleConversion (1.1.6)
   - fast_float (6.1.4)
   - FBLazyVector (0.78.2)
-  - Fidel (3.0.1)
+  - Fidel (3.1.0)
   - fidel-react-native (3.0.7):
     - Fidel
     - React
@@ -1750,7 +1750,7 @@ SPEC CHECKSUMS:
   DoubleConversion: cb417026b2400c8f53ae97020b2be961b59470cb
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: e32d34492c519a2194ec9d7f5e7a79d11b73f91c
-  Fidel: 73e9692a2850c468943bce27ca2c70025fdbb576
+  Fidel: 67cae1dbd530656f58365d43afb7e189055bdd12
   fidel-react-native: 4522aa6ffc08daead297e0383a6b1c9c85e235b7
   fmt: a40bb5bd0294ea969aaaba240a927bd33d878cdd
   glog: eb93e2f488219332457c3c4eafd2738ddc7e80b8
