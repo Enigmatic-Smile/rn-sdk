@@ -3429,9 +3429,9 @@ fast-levenshtein@^2.0.6:
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
 
 fast-xml-parser@^4.4.1:
-  version "4.5.4"
-  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.5.4.tgz#64e52ddf1308001893bd225d5b1768840511c797"
-  integrity sha512-jE8ugADnYOBsu1uaoayVl1tVKAMNOXyjwvv2U6udEA2ORBhDooJDWoGxTkhd4Qn4yh59JVVt/pKXtjPwx9OguQ==
+  version "4.5.6"
+  resolved "https://registry.yarnpkg.com/fast-xml-parser/-/fast-xml-parser-4.5.6.tgz#4ff57d4aca13a2d11aa42ad460495cf00f32b655"
+  integrity sha512-Yd4vkROfJf8AuJrDIVMVmYfULKmIJszVsMv7Vo71aocsKgFxpdlpSHXSaInvyYfgw2PRuObQSW2GFpVMUjxu9A==
   dependencies:
     strnum "^1.0.5"
 
@@ -3449,10 +3449,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fidel-react-native@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.7.tgz#41245b5d72c0fa11fb0e6575c93e317fca2017d4"
-  integrity sha512-WAbj9ElY2w61TsAz/hf+ck5kwaSbnLpbfPQsZqQDdYFl2lh6GV5Ds0kAt8oEcLLFV8tH6J5zdvMsVq6KudoouQ==
+fidel-react-native@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.2.0.tgz#6114f466e430f432e3136f11a6995db3cde180d7"
+  integrity sha512-tEBE9b/f7EG6ixVGN8Yz91Kr76nSV4npTiBdfs+aRAdd6v37hWFn565LfQg5pNr6iuyTxc7T8sd+M4HSkkYxwA==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
