@@ -3449,10 +3449,10 @@ fb-watchman@^2.0.0:
   dependencies:
     bser "2.1.1"
 
-fidel-react-native@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.0.7.tgz#41245b5d72c0fa11fb0e6575c93e317fca2017d4"
-  integrity sha512-WAbj9ElY2w61TsAz/hf+ck5kwaSbnLpbfPQsZqQDdYFl2lh6GV5Ds0kAt8oEcLLFV8tH6J5zdvMsVq6KudoouQ==
+fidel-react-native@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/fidel-react-native/-/fidel-react-native-3.2.0.tgz#6114f466e430f432e3136f11a6995db3cde180d7"
+  integrity sha512-tEBE9b/f7EG6ixVGN8Yz91Kr76nSV4npTiBdfs+aRAdd6v37hWFn565LfQg5pNr6iuyTxc7T8sd+M4HSkkYxwA==
 
 file-entry-cache@^6.0.1:
   version "6.0.1"
@@ -5149,9 +5149,9 @@ node-exports-info@^1.6.0:
     semver "^6.3.1"
 
 node-forge@^1:
-  version "1.3.3"
-  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.3.3.tgz#0ad80f6333b3a0045e827ac20b7f735f93716751"
-  integrity sha512-rLvcdSyRCyouf6jcOIPe/BgwG/d7hKjzMKOas33/pHEr6gbq18IK9zV7DiPvzsz0oBJPme6qr6H6kGZuI9/DZg==
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/node-forge/-/node-forge-1.4.0.tgz#1c7b7d8bdc2d078739f58287d589d903a11b2fc2"
+  integrity sha512-LarFH0+6VfriEhqMMcLX2F7SwSXeWwnEAJEsYm5QKWchiVYVvJyV9v7UDvUv+w5HO23ZpQTXDv/GxdDdMyOuoQ==
 
 node-int64@^0.4.0:
   version "0.4.0"
